@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/solar_panel_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/solar_panel_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/solar_panel_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/solar_panel_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/solar_panel_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/solar_panel_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/solar_panel_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/solar_panel_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/solar_panel_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/solar_panel_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/solar_panel_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/solar_panel_east_active"
+    }
+  }
+}

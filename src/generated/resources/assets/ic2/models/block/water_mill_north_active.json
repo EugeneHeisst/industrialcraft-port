@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/water_mill_0",
+    "up": "ic2:block/water_mill_1",
+    "north": "ic2:block/water_mill_3",
+    "south": "ic2:block/water_mill_5",
+    "west": "ic2:block/water_mill_4",
+    "east": "ic2:block/water_mill_2",
+    "particle": "ic2:block/water_mill_3"
+  }
+}

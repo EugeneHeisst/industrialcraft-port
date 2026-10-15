@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:coffee_beans"
+    }
+  ],
+  "result": {
+    "id": "ic2:coffee_powder",
+    "count": 1
+  }
+}

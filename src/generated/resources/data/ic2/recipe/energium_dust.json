@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RDR",
+    "DRD",
+    "RDR"
+  ],
+  "key": {
+    "D": {
+      "tag": "c:dusts/diamond"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "ic2:energium_dust",
+    "count": 9
+  }
+}

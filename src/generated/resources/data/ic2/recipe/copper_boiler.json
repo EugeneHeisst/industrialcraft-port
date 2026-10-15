@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "C C",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:copper_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:copper_boiler",
+    "count": 1
+  }
+}

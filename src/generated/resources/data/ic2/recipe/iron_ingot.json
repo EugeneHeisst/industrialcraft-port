@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "M"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    }
+  },
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 8
+  }
+}

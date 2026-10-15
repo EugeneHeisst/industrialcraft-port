@@ -1,0 +1,50 @@
+[
+  {
+    "input": {
+      "item": "ic2:tin_casing",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:tin_can",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:storage_blocks/steel",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:steel_shaft",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:iron_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_shaft",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:fuel_rod",
+        "count": 1
+      }
+    ]
+  }
+]

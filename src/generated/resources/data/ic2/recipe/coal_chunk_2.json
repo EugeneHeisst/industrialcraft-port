@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "#O#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ic2:compressed_coal_ball"
+    },
+    "O": {
+      "item": "minecraft:bricks"
+    }
+  },
+  "result": {
+    "id": "ic2:coal_chunk",
+    "count": 1
+  }
+}

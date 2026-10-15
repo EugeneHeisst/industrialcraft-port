@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "T T",
+    " T "
+  ],
+  "key": {
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "result": {
+    "id": "minecraft:bucket",
+    "count": 1
+  }
+}

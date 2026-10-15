@@ -1,0 +1,770 @@
+[
+  {
+    "input": {
+      "tag": "c:ingots/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:lead_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ingots/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:copper_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_tin_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ingots/steel",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:biochaff",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:dirt",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "minecraft:leaves",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:coal",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:coal_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:stone",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:cobblestone",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/gold",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_gold_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:lapis_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:lapis_dust",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:glowstone",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:glowstone_dust",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_iron_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/obsidian",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_obsidian_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:gravel",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:flint",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:sugar_cane",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:blaze_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:blaze_powder",
+        "count": 5
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:iron_ingot",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:sandstone",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:sand",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:quartz_stairs",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:quartz",
+        "count": 6
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:pumpkin",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:lapis_lazuli",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:lapis_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_copper_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:potato",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_copper_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:melon",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:coal_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:coal_dust",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:white_wool",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:string",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_lead_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_iron_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:short_grass",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:plant_ball",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:wheat_seeds",
+      "count": 16
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:gems/diamond",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:diamond_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:poisonous_potato",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:grin_powder",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ingots/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:tin_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:weed",
+      "count": 32
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:clay",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:clay_dust",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:redstone_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:redstone",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:wheat",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "minecraft:saplings",
+      "count": 4
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:melon_seeds",
+      "count": 16
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ingots/bronze",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:bronze_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/silver",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_silver_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:ice",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:snowball",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_tin_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:gold_ingot",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:gold_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ingots/silver",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:silver_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_lead_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:quartz_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:quartz",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/gold",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_gold_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:spider_eye",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:grin_powder",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:coffee_beans",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:coffee_powder",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/bronze",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_bronze_dust",
+        "count": 8
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:energy_crystal",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:energium_dust",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:pumpkin_seeds",
+      "count": 16
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:obsidian",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:obsidian_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:bone",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:bone_meal",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:tin_can",
+      "count": 2
+    },
+    "output": [
+      {
+        "item": "ic2:tin_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:cobblestone",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:sand",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ores/uranium",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_uranium_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:carrot",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:cactus",
+      "count": 8
+    },
+    "output": [
+      {
+        "item": "ic2:biochaff",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/lapis",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_lapis_dust",
+        "count": 8
+      }
+    ]
+  }
+]

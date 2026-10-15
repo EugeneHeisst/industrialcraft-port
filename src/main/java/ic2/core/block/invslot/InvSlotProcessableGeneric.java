@@ -37,8 +37,10 @@ public class InvSlotProcessableGeneric extends InvSlotProcessable {
     public void consume() {
         ItemStack input = get();
         if (input.isEmpty() && !allowEmptyInput()) throw new IllegalStateException("consume from empty slot");
+        ItemStack remainder = input.hasCraftingRemainingItem() ? input.getCraftingRemainingItem() : ItemStack.EMPTY;
         if (getOutputFor(input, true, false) == null) throw new IllegalStateException("consume without a processing result");
-        if (!input.isEmpty() && input.getCount() <= 0) put(ItemStack.EMPTY);
+        if (input.getCount() <= 0) put(remainder);
+        else onChanged();
     }
 
     public void setRecipeManager(IMachineRecipeManager recipeManager) { this.recipeManager = recipeManager; }

@@ -1,0 +1,13 @@
+{
+  "values": [
+    "ic2:dense_copper_plate",
+    "ic2:dense_tin_plate",
+    "ic2:dense_bronze_plate",
+    "ic2:dense_gold_plate",
+    "ic2:dense_iron_plate",
+    "ic2:dense_refined_iron_plate",
+    "ic2:dense_lead_plate",
+    "ic2:dense_obsidian_plate",
+    "ic2:dense_lapis_plate"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/iron_furnace_0",
+    "up": "ic2:block/iron_furnace_1",
+    "north": "ic2:block/iron_furnace_2",
+    "south": "ic2:block/iron_furnace_2",
+    "west": "ic2:block/iron_furnace_3",
+    "east": "ic2:block/iron_furnace_2",
+    "particle": "ic2:block/iron_furnace_2"
+  }
+}

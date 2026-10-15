@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CgC",
+    "gCg",
+    "cGc"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:generator"
+    },
+    "C": {
+      "tag": "c:dusts/coal"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "c": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:solar_panel",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "ic2:small_lapis_dust"
+    }
+  },
+  "result": {
+    "id": "ic2:lapis_dust",
+    "count": 1
+  }
+}

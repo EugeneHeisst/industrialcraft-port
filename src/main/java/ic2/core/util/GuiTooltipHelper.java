@@ -36,6 +36,10 @@ public final class GuiTooltipHelper {
         if (x >= minX && x <= maxX && y >= minY && y <= maxY) drawTooltip(g, font, x, y, 0, 0, tooltip, true, 0);
     }
 
+    public static void drawTooltipArea(GuiGraphics g, Font font, int x, int y, String tooltip, int minX, int minY, int maxX, int maxY, int yoffset, int xoffset) {
+        if (x >= minX && x <= maxX && y >= minY && y <= maxY) drawTooltip(g, font, x, y, yoffset, xoffset, tooltip, true, 0);
+    }
+
     public static void drawTooltip(GuiGraphics g, Font font, int x, int y, int yoffset, int xoffset, String tooltip, boolean drawborder, int width) {
         if (width == 0) x -= font.width(tooltip) / 2;
         y -= 12;

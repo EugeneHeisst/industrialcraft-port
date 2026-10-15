@@ -78,10 +78,5 @@ public class BlockTileEntity extends BaseEntityBlock {
         if (level.getBlockEntity(pos) instanceof TileEntityBlock teb) teb.onNeighborUpdate(from);
     }
 
-    @Override protected boolean hasAnalogOutputSignal(BlockState state) { return true; }
-    @Override protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        return level.getBlockEntity(pos) instanceof TileEntityInventory inv ? net.minecraft.world.inventory.AbstractContainerMenu.getRedstoneSignalFromContainer(inv) : 0;
-    }
-
     public static ItemStack stackOf(BlockState state) { return new ItemStack(state.getBlock()); }
 }

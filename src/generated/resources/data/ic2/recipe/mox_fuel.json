@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "UUU",
+    "CCC",
+    "UUU"
+  ],
+  "key": {
+    "U": {
+      "item": "ic2:uranium_238"
+    },
+    "C": {
+      "item": "ic2:plutonium"
+    }
+  },
+  "result": {
+    "id": "ic2:mox_fuel",
+    "count": 1
+  }
+}

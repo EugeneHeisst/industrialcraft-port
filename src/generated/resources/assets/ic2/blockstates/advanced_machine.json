@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/advanced_machine_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/advanced_machine_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/advanced_machine_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/advanced_machine_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/advanced_machine_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/advanced_machine_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/advanced_machine_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/advanced_machine_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/advanced_machine_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/advanced_machine_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/advanced_machine_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/advanced_machine_east_active"
+    }
+  }
+}

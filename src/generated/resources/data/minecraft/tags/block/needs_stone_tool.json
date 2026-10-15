@@ -1,0 +1,11 @@
+{
+  "values": [
+    "ic2:tin_ore",
+    "ic2:lead_ore",
+    "ic2:tin_block",
+    "ic2:bronze_block",
+    "ic2:uranium_block",
+    "ic2:lead_block",
+    "ic2:refined_iron_block"
+  ]
+}

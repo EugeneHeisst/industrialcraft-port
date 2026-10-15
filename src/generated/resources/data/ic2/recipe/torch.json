@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "R",
+    "I"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:rods/wooden"
+    },
+    "R": {
+      "item": "ic2:resin"
+    }
+  },
+  "result": {
+    "id": "minecraft:torch",
+    "count": 4
+  }
+}

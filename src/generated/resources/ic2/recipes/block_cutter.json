@@ -1,0 +1,167 @@
+[
+  {
+    "input": {
+      "tag": "c:storage_blocks/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:lead_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 2
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:gold_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:gold_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 2
+    }
+  },
+  {
+    "input": {
+      "tag": "c:storage_blocks/bronze",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:bronze_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 2
+    }
+  },
+  {
+    "input": {
+      "tag": "c:storage_blocks/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:tin_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 2
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:obsidian",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:obsidian_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 8
+    }
+  },
+  {
+    "input": {
+      "tag": "c:storage_blocks/steel",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:refined_iron_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 8
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:iron_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 5
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:lapis_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:lapis_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 5
+    }
+  },
+  {
+    "input": {
+      "tag": "c:storage_blocks/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:copper_plate",
+        "count": 9
+      }
+    ],
+    "meta": {
+      "hardness": 2
+    }
+  },
+  {
+    "input": {
+      "tag": "minecraft:logs",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:oak_planks",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
+      "tag": "minecraft:planks",
+      "count": 2
+    },
+    "output": [
+      {
+        "item": "minecraft:stick",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  }
+]

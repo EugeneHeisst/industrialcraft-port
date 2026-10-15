@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "B"
+  ],
+  "key": {
+    "B": {
+      "item": "ic2:bronze_block"
+    }
+  },
+  "result": {
+    "id": "ic2:bronze_ingot",
+    "count": 9
+  }
+}

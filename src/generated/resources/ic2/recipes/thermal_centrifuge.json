@@ -1,0 +1,371 @@
+[
+  {
+    "input": {
+      "tag": "c:dusts/clay",
+      "count": 4
+    },
+    "output": [
+      {
+        "item": "ic2:silicon_dioxide_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 250
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/uranium",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_uranium_235",
+        "count": 1
+      },
+      {
+        "item": "ic2:uranium_238",
+        "count": 4
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 3000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/gold",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_silver_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:gold_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 2000
+    }
+  },
+  {
+    "input": {
+      "item": "ic2:rtg_pellet",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:plutonium",
+        "count": 3
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 54
+      }
+    ],
+    "meta": {
+      "heat": 5000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/gold",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_silver_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:gold_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 2000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/uranium",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_uranium_235",
+        "count": 2
+      },
+      {
+        "item": "ic2:uranium_238",
+        "count": 5
+      }
+    ],
+    "meta": {
+      "heat": 3000
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:cobblestone",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 100
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_gold_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 1500
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:lead_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 2000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_iron_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:tin_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 1000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_iron_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:tin_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 1000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_gold_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 1500
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:quartz",
+      "count": 2
+    },
+    "output": [
+      {
+        "item": "ic2:small_lithium_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 500
+    }
+  },
+  {
+    "input": {
+      "item": "ic2:slag",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_gold_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:coal_dust",
+        "count": 5
+      }
+    ],
+    "meta": {
+      "heat": 1500
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_copper_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:lead_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 2000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/silver",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_lead_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:silver_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 1000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_tin_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:copper_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 500
+    }
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/silver",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:silver_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:stone_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 2000
+    }
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_tin_dust",
+        "count": 1
+      },
+      {
+        "item": "ic2:copper_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 500
+    }
+  }
+]

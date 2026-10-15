@@ -1,0 +1,82 @@
+[
+  {
+    "input": {
+      "item": "minecraft:iron_ingot",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:refined_iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "ic2:slag",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:crushed_ores/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:refined_iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "ic2:slag",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:iron_ore",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:refined_iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "ic2:slag",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:purified_crushed_ores/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:refined_iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "ic2:slag",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:dusts/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:refined_iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "ic2:slag",
+        "count": 1
+      }
+    ]
+  }
+]

@@ -1,0 +1,93 @@
+{
+  "machines.macerator_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/macerator_op"
+      }
+    ]
+  },
+  "machines.extractor_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/extractor_op"
+      }
+    ]
+  },
+  "machines.compressor_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/compressor_op"
+      }
+    ]
+  },
+  "machines.recycler_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/recycler_op"
+      }
+    ]
+  },
+  "machines.interrupt_one": {
+    "sounds": [
+      {
+        "name": "ic2:machines/interrupt_one"
+      }
+    ]
+  },
+  "machines.electro_furnace_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/electro_furnace_loop"
+      }
+    ]
+  },
+  "machines.iron_furnace_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/iron_furnace_op"
+      }
+    ]
+  },
+  "generators.generator_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/generator_loop"
+      }
+    ]
+  },
+  "generators.geothermal_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/geothermal_loop"
+      }
+    ]
+  },
+  "generators.watermill_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/watermill_loop"
+      }
+    ]
+  },
+  "generators.windgen_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/windgen_loop"
+      }
+    ]
+  },
+  "tools.wrench": {
+    "sounds": [
+      {
+        "name": "ic2:tools/wrench"
+      }
+    ]
+  },
+  "tools.treetap": {
+    "sounds": [
+      {
+        "name": "ic2:tools/treetap"
+      }
+    ]
+  }
+}

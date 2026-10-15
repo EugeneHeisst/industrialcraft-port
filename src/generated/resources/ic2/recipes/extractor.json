@@ -1,0 +1,86 @@
+[
+  {
+    "input": {
+      "item": "minecraft:nether_bricks",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:nether_brick",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:gunpowder",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:sulfur_dust",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:snow_block",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:snowball",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:resin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:rubber",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:bricks",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:brick",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:clay",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:clay_ball",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "minecraft:wool",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:white_wool",
+        "count": 1
+      }
+    ]
+  }
+]

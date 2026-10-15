@@ -3,6 +3,7 @@ version = '0.1.0'
 group = 'dev.eugheist'
 base { archivesName = 'industrialcraft2-modern' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 neoForge {
     version = '21.1.256'

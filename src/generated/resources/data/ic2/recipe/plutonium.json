@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "UUU",
+    "UUU",
+    "UUU"
+  ],
+  "key": {
+    "U": {
+      "item": "ic2:small_plutonium"
+    }
+  },
+  "result": {
+    "id": "ic2:plutonium",
+    "count": 1
+  }
+}

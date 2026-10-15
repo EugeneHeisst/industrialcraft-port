@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:plutonium"
+    }
+  ],
+  "result": {
+    "id": "ic2:small_plutonium",
+    "count": 9
+  }
+}
