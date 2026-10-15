@@ -1,0 +1,24 @@
+plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.148' }
+version = '0.1.0'
+group = 'dev.eugheist'
+base { archivesName = 'industrialcraft2-modern' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+neoForge {
+    version = '21.1.256'
+    parchment { mappingsVersion = '2024.11.17'; minecraftVersion = '1.21.1' }
+    runs {
+        client { client(); gameDirectory = file('run'); programArguments.addAll '--width', '1280', '--height', '900' }
+        server { server(); gameDirectory = file('run-server'); programArgument '--nogui' }
+        audit {
+            client()
+            gameDirectory = file('run-audit')
+            programArguments.addAll '--width', '1280', '--height', '900', '--quickPlaySingleplayer', 'IC2Audit'
+            systemProperty 'ic2.audit', 'true'
+        }
+    }
+    mods { ic2 { sourceSet sourceSets.main } }
+}
+def jeiJar = '/home/eugheist/.local/share/PrismLauncher/instances/1.21.1/minecraft/mods/jei-1.21.1-neoforge-19.57.0.451.jar'
+dependencies { compileOnly files(jeiJar); if (providers.gradleProperty('withJei').getOrElse('false').toBoolean()) runtimeOnly files(jeiJar) }
+processResources { inputs.property 'version', version; filesMatching('META-INF/neoforge.mods.toml') { expand version: version } }
