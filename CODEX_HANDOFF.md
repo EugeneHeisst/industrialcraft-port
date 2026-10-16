@@ -134,3 +134,11 @@ Items `empty_mug` (itemMugEmpty), `cold_coffee` / `dark_coffee` / `coffee` (item
 Server audit **329 checks, 0 failed** (BoozeAudit). Hidden silent client: booze.png (tapped/untapped barrel, all beer ages, rum, coffee, mug icons) inspected. Artifacts in versions/0.1.13. Pushed to the private repo only.
 
 Next: boats, containment box / obscurator / upgrade kit, itemRecipePart@5, JEI; then ASP → EMT → Gravi Suit.
+
+## Claude batch 0.1.14 — boats
+
+Items `carbon_boat`, `rubber_boat`, `broken_rubber_boat`, `electric_boat` (itemBoat@0-3) and entities `ic2:carbon_boat` / `rubber_boat` / `electric_boat` (`ic2.core.item.boat`). The boats extend the modern `Boat` (its paddling/physics) and keep IC2's differences: crashing faster than the break speed (carbon 0.4, rubber 0.23, electric 0.5) destroys the boat — the rubber boat pops and tears (broken rubber boat) above 0.26, the others drop themselves. Crashes are detected where the boat is simulated: server for riderless boats, the steering client otherwise (sent as `ic2:boat_crash`, validated against the controlling passenger). Electric boat: fire immune, floats on lava (`canBoatInFluid`), pays 4 EU per tick from the rider's armour while going forward (synced `ACCELERATED`), then gets twice the paddle force up to 0.7 blocks/tick; without charge it crawls. Rendered with the 1.7.10 boat model and the original boat textures. NeoForge fake players cannot ride, so the server audit checks the payment directly and the client audit drives the real player.
+
+Server audit **341 checks, 0 failed** (BoatAudit: placing, broken boat not placeable, drops/pick, crash per kind/speed, lava/fire, EU payment, coasting, recipes incl. repair). Hidden silent client with the real player: electric boat 0.61 blocks/tick using armour EU, rubber boat driven into a wall pops (broken item), electric boat floats on lava unburnt; electric_boat.png / lava_boat.png inspected. Artifacts in versions/0.1.14. Pushed to the private repo only.
+
+Next: containment box / obscurator / upgrade kit, itemRecipePart@5, JEI; then ASP → EMT → Gravi Suit.

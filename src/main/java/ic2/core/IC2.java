@@ -180,6 +180,7 @@ public final class IC2 {
         r.playToServer(ContainerEventPayload.TYPE, ContainerEventPayload.CODEC, ContainerEventPayload::handle);
         r.playToClient(ic2.core.item.tool.ItemScanner.ScanResult.TYPE, ic2.core.item.tool.ItemScanner.ScanResult.CODEC, ic2.core.item.tool.ItemScanner.ScanResult::handle);
         r.playToClient(ic2.core.uu.UuSync.Values.TYPE, ic2.core.uu.UuSync.Values.CODEC, ic2.core.uu.UuSync.Values::handle);
+        r.playToServer(ic2.core.item.boat.EntityIC2Boat.CrashPayload.TYPE, ic2.core.item.boat.EntityIC2Boat.CrashPayload.CODEC, ic2.core.item.boat.EntityIC2Boat.CrashPayload::handle);
         r.playToServer(ic2.core.util.Keyboard.KeyStatePayload.TYPE, ic2.core.util.Keyboard.KeyStatePayload.CODEC, ic2.core.util.Keyboard.KeyStatePayload::handle);
     }
 }

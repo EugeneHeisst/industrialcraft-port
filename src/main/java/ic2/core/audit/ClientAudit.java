@@ -32,6 +32,8 @@ public final class ClientAudit {
     private static final boolean ENABLED = "client".equals(System.getProperty("ic2.audit"));
     private static int tick = -1;
     private static BlockPos origin;
+    private static int boatId, lavaBoatId;
+    private static double boatX;
     private static final List<BlockPos> guis = new ArrayList<>();
     private ClientAudit() {}
 
@@ -231,6 +233,45 @@ public final class ClientAudit {
             pl.teleportTo(l,p.getX()+1.5,p.getY()+0.8,p.getZ()-3,0,15);
         });
         if (tick == end + 262) shot(mc,"booze.png");
-        if (tick >= end + 267) mc.stop();
+        // boats with the real player: electric boost on water, rubber boat crash through the client crash packet, electric boat on lava
+        if (tick == end + 270) server.execute(() -> {
+            var l=server.overworld();var f=origin.offset(-40,0,-40);var pl=server.getPlayerList().getPlayers().get(0);
+            for(var pos:BlockPos.betweenClosed(f.offset(-2,-3,-3),f.offset(44,2,9)))l.setBlock(pos,pos.getY()<f.getY()-1||pos.getX()<f.getX()-1||pos.getX()>f.getX()+42?Blocks.STONE.defaultBlockState():Blocks.AIR.defaultBlockState(),3);
+            for(int x=0;x<=42;x++){for(int z=-1;z<=1;z++){l.setBlock(f.offset(x,-1,z),Blocks.WATER.defaultBlockState(),3);l.setBlock(f.offset(x,-1,z+6),Blocks.LAVA.defaultBlockState(),3);}l.setBlock(f.offset(x,-1,-2),Blocks.STONE.defaultBlockState(),3);l.setBlock(f.offset(x,-1,2),Blocks.STONE.defaultBlockState(),3);}
+            for(int z=-2;z<=2;z++)l.setBlock(f.offset(43,0,z),Blocks.STONE.defaultBlockState(),3);
+            var boat=ic2.core.ref.Ic2Entities.ELECTRIC_BOAT.get().create(l);boat.moveTo(f.getX()+1.5,f.getY()-0.4,f.getZ()+0.5,-90,0);l.addFreshEntity(boat);
+            var battery=Ic2Items.RE_BATTERY.get().getDefaultInstance();ic2.api.item.ElectricItem.manager.charge(battery,10000,Integer.MAX_VALUE,true,false);
+            pl.getInventory().clearContent();pl.setItemSlot(net.minecraft.world.entity.EquipmentSlot.FEET,battery);
+            pl.teleportTo(l,f.getX()+1.5,f.getY(),f.getZ()+0.5,-90,20);pl.startRiding(boat,true);
+            boatId=boat.getId();
+        });
+        if (tick >= end + 278 && tick < end + 318) mc.options.keyUp.setDown(true);
+        if (tick == end + 290) server.execute(() -> boatX=server.overworld().getEntity(boatId).getX());
+        if (tick == end + 310) server.execute(() -> {
+            var l=server.overworld();var boat=(ic2.core.item.boat.EntityIC2Boat)l.getEntity(boatId);var pl=server.getPlayerList().getPlayers().get(0);
+            double speed=(boat.getX()-boatX)/20;double eu=ic2.api.item.ElectricItem.manager.getCharge(pl.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET));
+            ic2.core.IC2.LOG.info("[client-audit] {} electric boat with charged armour: {} blocks/tick, armour EU {}", speed>0.45&&eu<10000?"PASS":"FAIL",speed,eu);
+        });
+        if (tick == end + 312) shot(mc,"electric_boat.png");
+        if (tick == end + 318) { mc.options.keyUp.setDown(false); server.execute(() -> {
+            var l=server.overworld();var f=origin.offset(-40,0,-40);var pl=server.getPlayerList().getPlayers().get(0);
+            pl.stopRiding();var old=l.getEntity(boatId);if(old!=null)old.discard();
+            var boat=ic2.core.ref.Ic2Entities.RUBBER_BOAT.get().create(l);boat.moveTo(f.getX()+28.5,f.getY()-0.4,f.getZ()+0.5,-90,0);l.addFreshEntity(boat);
+            pl.teleportTo(l,f.getX()+28.5,f.getY(),f.getZ()+0.5,-90,20);pl.startRiding(boat,true);boatId=boat.getId();
+            var lava=ic2.core.ref.Ic2Entities.ELECTRIC_BOAT.get().create(l);lava.moveTo(f.getX()+20.5,f.getY()-0.4,f.getZ()+6.5,-90,0);l.addFreshEntity(lava);lavaBoatId=lava.getId();
+        }); }
+        if (tick >= end + 325 && tick < end + 385) mc.options.keyUp.setDown(true);
+        if (tick == end + 385) { mc.options.keyUp.setDown(false); server.execute(() -> {
+            var l=server.overworld();var f=origin.offset(-40,0,-40);
+            var rubber=l.getEntity(boatId);
+            int broken=0;for(var e:l.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class,new net.minecraft.world.phys.AABB(f.offset(30,-2,-3)).inflate(16)))if(e.getItem().is(Ic2Items.BROKEN_RUBBER_BOAT.get())||e.getItem().is(Ic2Items.RUBBER_BOAT.get()))broken++;
+            var rider=server.getPlayerList().getPlayers().get(0);broken+=rider.getInventory().countItem(Ic2Items.BROKEN_RUBBER_BOAT.get())+rider.getInventory().countItem(Ic2Items.RUBBER_BOAT.get());
+            ic2.core.IC2.LOG.info("[client-audit] {} rubber boat driven into the wall pops: boat {} items {}", (rubber==null||!rubber.isAlive())&&broken==1?"PASS":"FAIL", rubber, broken);
+            var lava=l.getEntity(lavaBoatId);
+            ic2.core.IC2.LOG.info("[client-audit] {} electric boat floats on lava: {}", lava!=null&&lava.isAlive()&&lava.getY()>f.getY()-1.2&&!lava.isOnFire()?"PASS":"FAIL", lava==null?"gone":lava.getY()+" fire="+lava.isOnFire());
+            var pl=server.getPlayerList().getPlayers().get(0);pl.teleportTo(l,f.getX()+20.5,f.getY()+1.5,f.getZ()+3.5,0,35);
+        }); }
+        if (tick == end + 395) shot(mc,"lava_boat.png");
+        if (tick >= end + 400) mc.stop();
     }
 }

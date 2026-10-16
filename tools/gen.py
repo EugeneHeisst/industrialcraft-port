@@ -154,6 +154,13 @@ gen_item('cf_pack', 'itemArmorCFPack.png', 'itemArmorCFPack', ['itemArmorCFPack'
 gen_item('dynamite', 'itemDynamite.png', 'itemDynamite', ['itemDynamite'])
 gen_item('sticky_dynamite', 'itemDynamiteSticky.png', 'itemDynamiteSticky', ['itemDynamiteSticky'])
 gen_item('dynamite_remote', 'itemRemote.png', 'itemRemote', ['itemRemote'])
+# ---------- boats
+for iid, tex, lang, legacy in [('carbon_boat', 'boatCarbon.png', 'boatCarbon', ['itemBoat', 'itemBoat@0']), ('rubber_boat', 'boatRubber.png', 'boatRubber', ['itemBoat@1']),
+        ('broken_rubber_boat', 'boatRubberBroken.png', 'boatRubberBroken', ['itemBoat@2']), ('electric_boat', 'boatElectric.png', 'boatElectric', ['itemBoat@3'])]:
+    gen_item(iid, tex, lang, legacy)
+for f in ('boatCarbon.png', 'boatRubber.png', 'boatElectric.png'): copy(os.path.join(OTEX, 'models', f), os.path.join(A, 'textures/models', f.lower()))
+for code in out_lang:
+    for iid, lang in [('carbon_boat', 'boatCarbon'), ('rubber_boat', 'boatRubber'), ('electric_boat', 'boatElectric')]: out_lang[code]['entity.ic2.' + iid] = name(code, lang, iid)
 # ---------- mugs, coffee, booze barrel
 gen_item('empty_mug', 'itemMugEmpty.png', 'itemMugEmpty', ['itemMugEmpty'])
 for meta, iid in enumerate(['cold_coffee', 'dark_coffee', 'coffee']):

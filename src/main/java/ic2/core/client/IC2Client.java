@@ -68,6 +68,9 @@ public final class IC2Client {
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CROP.get(), CropRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.PERSONAL_CHEST.get(), RenderPersonalChest::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
+        event.registerEntityRenderer(ic2.core.ref.Ic2Entities.CARBON_BOAT.get(), ic2.core.item.boat.RenderIC2Boat::new);
+        event.registerEntityRenderer(ic2.core.ref.Ic2Entities.RUBBER_BOAT.get(), ic2.core.item.boat.RenderIC2Boat::new);
+        event.registerEntityRenderer(ic2.core.ref.Ic2Entities.ELECTRIC_BOAT.get(), ic2.core.item.boat.RenderIC2Boat::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.DYNAMITE.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CABLE.get(), RenderCableFoam::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.DETECTOR_CABLE.get(), RenderCableFoam::new);
