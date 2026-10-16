@@ -1,5 +1,5 @@
 plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.148' }
-version = '0.1.16'
+version = '0.1.17'
 group = 'dev.eugheist'
 base { archivesName = 'industrialcraft2-modern' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -17,6 +17,12 @@ neoForge {
             gameDirectory = file('run-audit')
             programArguments.addAll '--width', '1280', '--height', '900', '--quickPlaySingleplayer', 'IC2Audit'
             systemProperty 'ic2.audit', 'client'
+        }
+        mpclient {
+            client()
+            gameDirectory = file('run-mp')
+            programArguments.addAll '--width', '1280', '--height', '900', '--quickPlayMultiplayer', '127.0.0.1:25581', '--username', 'IC2Flyer'
+            systemProperty 'ic2.audit', 'mpclient'
         }
     }
     mods { ic2 { sourceSet sourceSets.main } }

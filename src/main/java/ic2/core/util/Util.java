@@ -54,4 +54,27 @@ public final class Util {
     public static net.minecraft.world.level.block.entity.BlockEntity loadedBlockEntity(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos) {
         return level != null && level.isLoaded(pos) ? level.getBlockEntity(pos) : null;
     }
+
+    private static java.lang.reflect.Field aboveGroundTickCount;
+    /** Multiplayer flight audit control phase: shows that the server kicks without the reset. */
+    public static boolean auditDisableAirReset;
+
+    /**
+     * Platform.resetPlayerInAirTime of the original: jetpack thrust is legal flight, so the server's floating kick counter
+     * ("Flying is not enabled on this server", allow-flight=false) is reset while it works.
+     */
+    public static void resetPlayerInAirTime(net.minecraft.world.entity.player.Player player) {
+        if (auditDisableAirReset || !(player instanceof net.minecraft.server.level.ServerPlayer sp) || sp.connection == null) return;
+        try {
+            if (aboveGroundTickCount == null) aboveGroundTickCount = net.neoforged.fml.util.ObfuscationReflectionHelper.findField(net.minecraft.server.network.ServerGamePacketListenerImpl.class, "aboveGroundTickCount");
+            aboveGroundTickCount.setInt(sp.connection, 0);
+        } catch (ReflectiveOperationException | RuntimeException e) { /* not on a vanilla connection */ }
+    }
+
+    public static int playerInAirTime(net.minecraft.server.level.ServerPlayer sp) {
+        try {
+            if (aboveGroundTickCount == null) aboveGroundTickCount = net.neoforged.fml.util.ObfuscationReflectionHelper.findField(net.minecraft.server.network.ServerGamePacketListenerImpl.class, "aboveGroundTickCount");
+            return aboveGroundTickCount.getInt(sp.connection);
+        } catch (ReflectiveOperationException | RuntimeException e) { return -1; }
+    }
 }

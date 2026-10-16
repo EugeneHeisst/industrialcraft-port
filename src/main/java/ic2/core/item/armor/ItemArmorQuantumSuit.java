@@ -136,6 +136,7 @@ public class ItemArmorQuantumSuit extends ItemArmorElectric {
         player.setDeltaMovement(m.x, my, m.z);
         if (!player.level().isClientSide) ElectricItem.manager.discharge(jetpack, hoverMode ? 10 : 8, Integer.MAX_VALUE, true, false, false);
         player.fallDistance = 0;
+        ic2.core.util.Util.resetPlayerInAirTime(player);
         return true;
     }
 }

@@ -16,6 +16,6 @@ public class ItemArmorJetpack extends ItemArmorFluidTank {
         float power=Math.min(1,amount/6000f);if(Keyboard.isForwardKeyDown(p))p.moveRelative(.02f,new Vec3(0,0,.4f*power*(hover?1:.15f)*2));
         int ceiling=p.level().getMaxBuildHeight();power*=Math.max(0,Math.min(1,(ceiling-p.getY())/25f));var movement=p.getDeltaMovement();double up=Math.min(movement.y+power*.2f,.6);
         if(hover){double max=Keyboard.isJumpKeyDown(p)?.2:p.isShiftKeyDown()?-.2:0;if(up>max)up=Math.max(max,movement.y);}
-        p.setDeltaMovement(movement.x,up,movement.z);if(!p.level().isClientSide&&!p.onGround())drain(s,hover?1:2,true);p.fallDistance=0;return true;
+        p.setDeltaMovement(movement.x,up,movement.z);if(!p.level().isClientSide&&!p.onGround())drain(s,hover?1:2,true);p.fallDistance=0;ic2.core.util.Util.resetPlayerInAirTime(p);return true;
     }
 }

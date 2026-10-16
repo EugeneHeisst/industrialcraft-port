@@ -160,3 +160,9 @@ Next: JEI integration, final IC2 compatibility pass; then ASP → EMT → Gravi 
 Server audit 355/355 unchanged. Hidden silent client with JEI: all eight pages open (macerator, thermal centrifuge, ore washing, rolling, solid canning, enrichment, scrap box, MFSU crafting) and were inspected. Artifacts in versions/0.1.16. Pushed to the private repo only.
 
 Next: IC2 final compatibility pass (API surface ASP/EMT/Gravi need), then ASP → EMT → Gravi Suit.
+
+## Claude batch 0.1.17 — multiplayer jetpack flight validated
+
+Ported `Platform.resetPlayerInAirTime` as `Util.resetPlayerInAirTime` (reflection on `ServerGamePacketListenerImpl.aboveGroundTickCount`); the fuel jetpack, electric jetpack and quantum chestplate call it while their thrust works. New `./mp-flight-audit.sh`: starts the dedicated dev server (`run-server`, allow-flight=false) with `-Dic2.audit=mpflight` and a hidden silent dev client (`runMpclient`, joins 127.0.0.1:25581 — "localhost" resolved to ::1 and timed out) holding jump. Result: 240 ticks of hover-mode climbing on a charged electric jetpack (20.7 blocks), floating counter never above 1, no kick; control phase with the reset disabled → "IC2Flyer was kicked for floating too long!" after 81 ticks and the client shows "Flying is not enabled on this server". This closes the multiplayer flight item from the Codex handoff. Logs in versions/0.1.17 (mp-server-audit.log, mp-client-audit.log). Server audit 355/355.
+
+Next: ASP → EMT → Gravi Suit.
