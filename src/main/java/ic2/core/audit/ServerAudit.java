@@ -34,6 +34,12 @@ public final class ServerAudit {
     private static int tick = -1;
     private static final List<String> results = new ArrayList<>();
     private static BlockPos base;
+    private static int minerPipes;
+    private static int shaft(ServerLevel level) {
+        int n = 0;
+        for (int y = 1; y <= 10; y++) { var s = level.getBlockState(base.offset(-6, -y, 10)); if (s.is(Ic2Blocks.MINING_PIPE.get()) || s.is(Ic2Blocks.MINING_PIPE_TIP.get())) n++; }
+        return n;
+    }
 
     private ServerAudit() {}
 
@@ -104,6 +110,20 @@ public final class ServerAudit {
         level.setBlock(ek, facing(Ic2Blocks.ELECTRIC_KINETIC_GENERATOR.get().defaultBlockState(), Direction.SOUTH), 3);
         level.setBlock(ek.south(), facing(Ic2Blocks.KINETIC_GENERATOR.get().defaultBlockState(), Direction.NORTH), 3);
         level.setBlock(base.offset(18, 2, 0), facing(Ic2Blocks.MASS_FABRICATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 9: miner (OD scanner, diamond drill) digging through air and stone to an iron ore, a lava pocket pumped by the pump beside it; pump on a water pool
+        BlockPos mp = base.offset(-6, 0, 10);
+        for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.setChunkForced((mp.getX() >> 4) + dx, (mp.getZ() >> 4) + dz, true);
+        for (BlockPos p : BlockPos.betweenClosed(mp.offset(-4, -10, -4), mp.offset(8, 1, 4))) level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
+        for (BlockPos p : BlockPos.betweenClosed(mp.offset(-4, -10, -4), mp.offset(4, -5, 4))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
+        level.setBlock(mp.offset(2, -5, 0), Blocks.IRON_ORE.defaultBlockState(), 3);
+        level.setBlock(mp.offset(0, -6, 0), Blocks.LAVA.defaultBlockState(), 3);
+        level.setBlock(mp, Ic2Blocks.MINER.get().defaultBlockState(), 3);
+        level.setBlock(mp.east(), facing(Ic2Blocks.PUMP.get().defaultBlockState(), Direction.NORTH), 3);
+        // water pool: stone basin with one source in front of a pump facing north
+        BlockPos wp = mp.offset(6, -1, -1);
+        for (BlockPos p : BlockPos.betweenClosed(wp.offset(-1, -1, -3), wp.offset(1, 0, -1))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
+        level.setBlock(wp.offset(0, 0, -1), Blocks.WATER.defaultBlockState(), 3);
+        level.setBlock(wp, facing(Ic2Blocks.PUMP.get().defaultBlockState(), Direction.NORTH), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -221,12 +241,40 @@ public final class ServerAudit {
             var fab = (ic2.core.block.machine.tileentity.TileEntityMatter)level.getBlockEntity(base.offset(18, 2, 0));
             fab.energy = 1000000;
             fab.amplifierSlot.put(new ItemStack(Ic2Items.get("scrap"), 2));
+            var miner = (ic2.core.block.machine.tileentity.TileEntityMiner)level.getBlockEntity(base.offset(-6, 0, 10));
+            miner.drillSlot.put(Ic2Items.DIAMOND_DRILL.get().getItemStack(Double.POSITIVE_INFINITY));
+            miner.scannerSlot.put(Ic2Items.OD_SCANNER.get().charged());
+            miner.pipeSlot.put(new ItemStack(Ic2Items.MINING_PIPE.get(), 32));
+            ((ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(base.offset(0, -1, 9))).containerSlot.put(new ItemStack(Ic2Items.EMPTY_CELL.get(), 4));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
             var mac = (TileEntityMacerator)level.getBlockEntity(base.east());
             var iron = (TileEntityIronFurnace)level.getBlockEntity(base.offset(8, 0, 0));
             IC2.LOG.info("[audit] t={} mac energy={} progress={} op={} in={} out={} | iron fuel={} progress={} in={} out={}", tick, mac.energy, mac.getProgress(), mac.operationLength, mac.inputSlot.get(), mac.outputSlot.get(), iron.fuel, iron.progress, iron.inputSlot.get(), iron.outputSlot.get());
+        }
+        if (tick > 5 && tick < 710) {
+            var miner = (ic2.core.block.machine.tileentity.TileEntityMiner)level.getBlockEntity(base.offset(-6, 0, 10));
+            miner.energy = 1000;
+            for (BlockPos pp : new BlockPos[]{base.offset(-5, 0, 10), base.offset(0, -1, 9)}) { var pump = (ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(pp); pump.energy = pump.maxEnergy; }
+            if (tick % 50 == 0) IC2.LOG.info("[audit] t={} miner progress={} pipe={} buffer0={} liquid={} | pump tank={}", tick, miner.progress, miner.pipeSlot.get(), miner.buffer.get(0), miner.canProvideLiquid, ((ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(base.offset(-5, 0, 10))).getTankAmount());
+        }
+        if (tick == 550) {
+            var miner = (ic2.core.block.machine.tileentity.TileEntityMiner)level.getBlockEntity(base.offset(-6, 0, 10));
+            int pipes = shaft(level), rawIron = 0;
+            for (int i = 0; i < miner.buffer.size(); i++) if (miner.buffer.get(i).is(Items.RAW_IRON)) rawIron += miner.buffer.get(i).getCount();
+            minerPipes = pipes;
+            check("miner digs shaft and mines scanned ore", pipes >= 7 && rawIron >= 1 && level.getBlockState(base.offset(-4, -5, 10)).isAir(), "pipes=" + pipes + " rawIron=" + rawIron);
+            var pump = (ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(base.offset(-5, 0, 10));
+            check("pump drains liquid the miner hit", pump.getFluidStackfromTank().getFluid() == net.minecraft.world.level.material.Fluids.LAVA && pump.getTankAmount() >= 1000 && !level.getBlockState(base.offset(-6, -6, 10)).is(Blocks.LAVA), pump.getTankAmount() + " " + pump.getFluidStackfromTank().getFluid());
+            miner.drillSlot.put(ItemStack.EMPTY);
+        }
+        if (tick == 700) {
+            var miner = (ic2.core.block.machine.tileentity.TileEntityMiner)level.getBlockEntity(base.offset(-6, 0, 10));
+            int pipes = shaft(level);
+            check("miner withdraws pipe without drill", pipes < minerPipes && miner.pipeSlot.get().is(Ic2Items.MINING_PIPE.get()), "before=" + minerPipes + " after=" + pipes + " slot=" + miner.pipeSlot.get());
+            var wpump = (ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(base.offset(0, -1, 9));
+            check("pump fills cells from water in front", wpump.outputSlot.get().is(Ic2Items.WATER_CELL.get()), "out=" + wpump.outputSlot.get() + " tank=" + wpump.getTankAmount());
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {

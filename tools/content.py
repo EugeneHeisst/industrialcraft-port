@@ -114,6 +114,8 @@ MACHINES = [
     ('water_kinetic_generator', 'blockKineticGenerator@4', 'kineticgenerator/blockWaterKineticGenerator.png', 'blockWaterKineticGenerator', 'GUIWaterKineticGenerator', 'machine'),
     ('electric_kinetic_generator', 'blockKineticGenerator@2', 'kineticgenerator/blockElectricKineticGenerator.png', 'blockElectricKineticGenerator', 'GUIElectricKineticGenerator', 'machine'),
     ('manual_kinetic_generator', 'blockKineticGenerator@3', 'kineticgenerator/blockManualKineticGenerator.png', 'blockManualKineticGenerator', None, 'machine'),
+    ('miner', 'blockMachine@7', 'machine/blockMiner.png', 'blockMiner', 'GUIMiner', 'machine'),
+    ('pump', 'blockMachine@8', 'machine/blockPump.png', 'blockPump', 'GUIPump', 'machine'),
     ('mass_fabricator', 'blockMachine@14', 'machine/blockMatter.png', 'blockMatter', 'GUIMatter', 'advanced_machine'),
     ('wind_mill', 'blockGenerator@4', 'generator/blockWindGenerator.png', 'blockWindGenerator', 'GUIWindGenerator', 'self'),
     ('batbox', 'blockElectric@0', 'wiring/blockBatBox.png', 'blockBatBox', 'GUIElectricBlock', 'self'),

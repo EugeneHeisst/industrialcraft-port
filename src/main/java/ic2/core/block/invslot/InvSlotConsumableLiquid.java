@@ -13,7 +13,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
 /** Fluid container slot (InvSlotConsumableLiquidByList): accepts containers of the listed fluids and empties them into a tank. */
 public class InvSlotConsumableLiquid extends InvSlotConsumable {
     private final Set<Fluid> fluids;
-    /** Fill mode: accepts empty containers that can take one of the fluids (the original OpType.Fill). */
+    /** Fill mode: accepts containers that can take one of the fluids, or any fluid when none are listed (the original OpType.Fill). */
     public boolean fillMode;
 
     public InvSlotConsumableLiquid(TileEntityInventory base, String name, Access access, int count, InvSide side, Fluid... fluids) {
@@ -32,6 +32,7 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
         if (fillMode) {
             var handler = stack.copyWithCount(1).getCapability(Capabilities.FluidHandler.ITEM);
             if (handler == null) return false;
+            if (fluids.isEmpty()) return handler.getTanks() > 0 && handler.getFluidInTank(0).getAmount() < handler.getTankCapacity(0);
             for (Fluid fl : fluids) if (handler.fill(new FluidStack(fl, Integer.MAX_VALUE), IFluidHandler.FluidAction.SIMULATE) > 0) return true;
             return false;
         }

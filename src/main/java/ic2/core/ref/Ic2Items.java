@@ -33,9 +33,13 @@ public final class Ic2Items {
         } catch (java.io.IOException e) { throw new RuntimeException(e); }
         var fluidBlocks = new java.util.HashSet<String>();
         for (var f : ic2.core.fluid.Ic2Fluids.ALL) fluidBlocks.add(f.name);
+        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); // the pipe item cannot be placed by hand, the tip has no item
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
+    public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
+    public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));
     public static final DeferredItem<ItemToolWrench> WRENCH = REGISTRY.register("wrench", () -> new ItemToolWrench(new Item.Properties().durability(160)));
     public static final DeferredItem<ic2.core.item.tool.ItemCraftingTool> FORGE_HAMMER = REGISTRY.register("forge_hammer", () -> new ic2.core.item.tool.ItemCraftingTool(new Item.Properties().durability(80)));
     public static final DeferredItem<ic2.core.item.tool.ItemToolCutter> CUTTER = REGISTRY.register("cutter", () -> new ic2.core.item.tool.ItemToolCutter(new Item.Properties().durability(60)));

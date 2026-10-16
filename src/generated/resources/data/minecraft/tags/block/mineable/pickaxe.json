@@ -39,6 +39,8 @@
     "ic2:water_kinetic_generator",
     "ic2:electric_kinetic_generator",
     "ic2:manual_kinetic_generator",
+    "ic2:miner",
+    "ic2:pump",
     "ic2:mass_fabricator",
     "ic2:wind_mill",
     "ic2:batbox",
@@ -48,6 +50,8 @@
     "ic2:lv_transformer",
     "ic2:mv_transformer",
     "ic2:hv_transformer",
-    "ic2:ev_transformer"
+    "ic2:ev_transformer",
+    "ic2:mining_pipe",
+    "ic2:mining_pipe_tip"
   ]
 }

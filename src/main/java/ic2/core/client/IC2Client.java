@@ -37,6 +37,7 @@ public final class IC2Client {
     @SubscribeEvent
     static void setup(FMLClientSetupEvent event) {
         AudioSource.factory = MachineSound::new;
+        ic2.core.item.tool.ItemScanner.ScanResult.clientHandler = (p, ctx) -> GuiToolScanner.open(p);
         event.enqueueWork(() -> {
             for (var item : Ic2Items.REGISTRY.getEntries()) {
                 if (item.get() instanceof BaseElectricItem electric)
@@ -98,6 +99,8 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Water m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Water(m, inv, title);
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Electric m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Electric(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMatter m) return new ic2.core.block.machine.gui.GuiMatter(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerMiner m) return new ic2.core.block.machine.gui.GuiMiner(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerPump m) return new ic2.core.block.machine.gui.GuiPump(m, inv, title);
         if (menu instanceof ContainerIronFurnace m) return new GuiIronFurnace(m, inv, title);
         if (menu instanceof ContainerGenerator m) return new GuiGenerator(m, inv, title);
         if (menu instanceof ic2.core.block.generator.container.ContainerGeoGenerator m) return new ic2.core.block.generator.gui.GuiGeoGenerator(m, inv, title);

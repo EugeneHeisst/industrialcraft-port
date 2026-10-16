@@ -129,6 +129,8 @@ gen_item('universal_fluid_cell', 'cell/itemFluidCell.png', 'itemFluidCell', ['it
 for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iron_rotor', 'itemironrotor', 'rotorIronmodel'), ('steel_rotor', 'itemsteelrotor', 'rotorSteelmodel'), ('carbon_rotor', 'itemwcarbonrotor', 'rotorCarbonmodel')]:
     gen_item(iid, 'rotors/' + leg + '.png', leg, [leg])
     copy(os.path.join(OTEX, 'items/rotors', model + '.png'), os.path.join(A, 'textures/item/rotor', iid.replace('_rotor', '').join(['rotor_', '_model']) + '.png'))
+gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
+gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
@@ -291,6 +293,21 @@ write(os.path.join(D, 'ic2/loot_table/blocks/rubber_leaves.json'), {'type': 'min
     {'type': 'minecraft:item', 'name': 'ic2:rubber_leaves', 'conditions': [shears]},
     {'type': 'minecraft:item', 'name': 'ic2:rubber_sapling', 'conditions': [{'condition': 'minecraft:survives_explosion'}, {'condition': 'minecraft:random_chance', 'chance': 1 / 35}]}]}]}]})
 write(os.path.join(D, 'ic2/loot_table/blocks/rubber_sapling.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:rubber_sapling'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+# mining pipe shaft (4/16 wide) and drill tip; both drop the pipe item, which cannot be placed by hand
+copy(os.path.join(OTEX, 'blocks/machine/blockMiningPipe.png'), os.path.join(A, 'textures/block/mining_pipe.png'))
+copy(os.path.join(OTEX, 'blocks/machine/blockMiningTip.png'), os.path.join(A, 'textures/block/mining_pipe_tip.png'))
+write(os.path.join(A, 'models/block/mining_pipe.json'), {'parent': 'minecraft:block/block', 'textures': {'particle': 'ic2:block/mining_pipe', 'side': 'ic2:block/mining_pipe'}, 'elements': [{'from': [6, 0, 6], 'to': [10, 16, 10],
+    'faces': {f: {'uv': [6, 0, 10, 16] if f not in ('up', 'down') else [6, 6, 10, 10], 'texture': '#side'} for f in FACES}}]})
+write(os.path.join(A, 'models/block/mining_pipe_tip.json'), {'parent': 'minecraft:block/cube_all', 'textures': {'all': 'ic2:block/mining_pipe_tip'}})
+for bid in ('mining_pipe', 'mining_pipe_tip'):
+    write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
+    write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:mining_pipe'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+    add_tag(BLOCK_TAGS, 'minecraft:mineable/pickaxe', 'ic2:' + bid)
+write(os.path.join(A, 'models/item/mining_pipe.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:block/mining_pipe'}})
+for code in out_lang:
+    out_lang[code]['block.ic2.mining_pipe'] = out_lang[code]['item.ic2.mining_pipe'] = name(code, 'blockMiningPipe', 'Mining Pipe')
+    out_lang[code]['block.ic2.mining_pipe_tip'] = name(code, 'blockMiningTip', 'Mining Pipe')
+LEGACY['blockMiningPipe'] = 'ic2:mining_pipe'
 for tag, e in [('minecraft:logs', 'ic2:rubber_wood'), ('minecraft:logs_that_burn', 'ic2:rubber_wood'), ('minecraft:mineable/axe', 'ic2:rubber_wood'), ('minecraft:leaves', 'ic2:rubber_leaves'),
                ('minecraft:mineable/hoe', 'ic2:rubber_leaves'), ('minecraft:saplings', 'ic2:rubber_sapling')]:
     add_tag(BLOCK_TAGS, tag, e)
@@ -318,7 +335,8 @@ for f in os.listdir(os.path.join(OTEX, 'gui')):
 SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_op': 'Machines/ExtractorOp', 'machines.compressor_op': 'Machines/CompressorOp',
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
-          'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap'}
+          'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
+          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner'}
 sounds_json = {}
 for key, src in SOUNDS.items():
     s = os.path.join(JAR, 'ic2/sounds', src + '.ogg')

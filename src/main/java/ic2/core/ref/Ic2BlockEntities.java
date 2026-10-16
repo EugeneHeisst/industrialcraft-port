@@ -40,6 +40,8 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric>> ELECTRIC_KINETIC_GENERATOR = reg("electric_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric::new, Ic2Blocks.ELECTRIC_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Manual>> MANUAL_KINETIC_GENERATOR = reg("manual_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Manual::new, Ic2Blocks.MANUAL_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<TileEntityMatter>> MASS_FABRICATOR = reg("mass_fabricator", TileEntityMatter::new, Ic2Blocks.MASS_FABRICATOR);
+    public static final Supplier<BlockEntityType<TileEntityMiner>> MINER = reg("miner", TileEntityMiner::new, Ic2Blocks.MINER);
+    public static final Supplier<BlockEntityType<TileEntityPump>> PUMP = reg("pump", TileEntityPump::new, Ic2Blocks.PUMP);
     public static final Supplier<BlockEntityType<TileEntityGenerator>> GENERATOR = reg("generator", TileEntityGenerator::new, Ic2Blocks.GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityGeoGenerator>> GEOTHERMAL_GENERATOR = reg("geothermal_generator", ic2.core.block.generator.tileentity.TileEntityGeoGenerator::new, Ic2Blocks.GEOTHERMAL_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityWaterGenerator>> WATER_MILL = reg("water_mill", ic2.core.block.generator.tileentity.TileEntityWaterGenerator::new, Ic2Blocks.WATER_MILL);

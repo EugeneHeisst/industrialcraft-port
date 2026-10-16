@@ -107,6 +107,12 @@ public final class ClientAudit {
             if ((tick - 150) % 20 == 15) shot(mc, "gui_" + net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(server.overworld().getBlockState(p).getBlock()).getPath() + ".png");
             if ((tick - 150) % 20 == 18) mc.player.closeContainer();
         }
-        if (tick >= 150 && g >= guis.size() + 1) mc.stop();
+        int end = 150 + guis.size() * 20;
+        if (tick == end + 2) mc.setScreen(new ic2.core.client.GuiToolScanner(new ic2.core.item.tool.ItemScanner.ScanResult(
+            List.of(new ItemStack(net.minecraft.world.item.Items.RAW_IRON), new ItemStack(net.minecraft.world.item.Items.COAL), new ItemStack(Ic2Blocks.URANIUM_ORE.get())), List.of(14, 9, 2)),
+            Component.translatable("ic2.itemScanner")));
+        if (tick == end + 10) shot(mc, "gui_od_scanner.png");
+        if (tick == end + 12) mc.setScreen(null);
+        if (tick >= end + 20) mc.stop();
     }
 }

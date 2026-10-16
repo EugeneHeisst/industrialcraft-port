@@ -143,6 +143,7 @@ public final class IC2 {
         r.playToClient(ContainerSyncPayload.TYPE, ContainerSyncPayload.CODEC, ContainerSyncPayload::handle);
         r.playToClient(TileEventPayload.TYPE, TileEventPayload.CODEC, TileEventPayload::handle);
         r.playToServer(ContainerEventPayload.TYPE, ContainerEventPayload.CODEC, ContainerEventPayload::handle);
+        r.playToClient(ic2.core.item.tool.ItemScanner.ScanResult.TYPE, ic2.core.item.tool.ItemScanner.ScanResult.CODEC, ic2.core.item.tool.ItemScanner.ScanResult::handle);
         r.playToServer(ic2.core.util.Keyboard.KeyStatePayload.TYPE, ic2.core.util.Keyboard.KeyStatePayload.CODEC, ic2.core.util.Keyboard.KeyStatePayload::handle);
     }
 }

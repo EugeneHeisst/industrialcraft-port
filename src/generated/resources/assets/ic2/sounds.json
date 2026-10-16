@@ -103,5 +103,26 @@
         "name": "ic2:tools/treetap"
       }
     ]
+  },
+  "machines.miner_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/miner_op"
+      }
+    ]
+  },
+  "machines.pump_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/pump_op"
+      }
+    ]
+  },
+  "tools.od_scanner": {
+    "sounds": [
+      {
+        "name": "ic2:tools/od_scanner"
+      }
+    ]
   }
 }
