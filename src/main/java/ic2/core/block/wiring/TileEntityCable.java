@@ -17,6 +17,8 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
     public boolean addedToEnergyNet;
     /** Construction foam on the cable: 0 none, 1 soft (hardens in light), 2 hard wall; foamColor is the wall dye index (7 light gray). */
     public byte foamed, foamColor = 7;
+    /** Obscurator look of the hardened foam's sides. */
+    public final ic2.core.block.Retexture retexture = new ic2.core.block.Retexture();
 
     public TileEntityCable(BlockPos pos, BlockState state) { super(Ic2BlockEntities.CABLE.get(), pos, state); }
     protected TileEntityCable(net.minecraft.world.level.block.entity.BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
@@ -53,10 +55,10 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
         if (next != state) level.setBlock(worldPosition, next, 3);
     }
 
-    @Override public void readFromNBT(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { super.readFromNBT(nbt, r); foamed = nbt.getByte("foamed"); foamColor = nbt.contains("foamColor") ? nbt.getByte("foamColor") : 7; }
-    @Override public void writeToNBT(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { super.writeToNBT(nbt, r); nbt.putByte("foamed", foamed); nbt.putByte("foamColor", foamColor); }
-    @Override protected void writeClientData(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { nbt.putByte("foamed", foamed); nbt.putByte("foamColor", foamColor); }
-    @Override protected void readClientData(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { foamed = nbt.getByte("foamed"); foamColor = nbt.getByte("foamColor"); if (level != null) level.getLightEngine().checkBlock(worldPosition); }
+    @Override public void readFromNBT(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { super.readFromNBT(nbt, r); foamed = nbt.getByte("foamed"); foamColor = nbt.contains("foamColor") ? nbt.getByte("foamColor") : 7; retexture.read(nbt, level); }
+    @Override public void writeToNBT(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { super.writeToNBT(nbt, r); nbt.putByte("foamed", foamed); nbt.putByte("foamColor", foamColor); retexture.write(nbt); }
+    @Override protected void writeClientData(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { nbt.putByte("foamed", foamed); nbt.putByte("foamColor", foamColor); retexture.write(nbt); }
+    @Override protected void readClientData(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { foamed = nbt.getByte("foamed"); foamColor = nbt.getByte("foamColor"); retexture.read(nbt, level); if (level != null) level.getLightEngine().checkBlock(worldPosition); }
 
     public boolean isFoamed() { return foamed != 0; }
 
@@ -65,7 +67,7 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
         if (foamed == newFoam) return false;
         if (level == null || level.isClientSide) return true;
         foamed = (byte)newFoam;
-        if (newFoam <= 1) foamColor = 7;
+        if (newFoam <= 1) { foamColor = 7; retexture.clear(); }
         if (newFoam == 1) level.scheduleTick(worldPosition, getBlockState().getBlock(), 500);
         setChanged();
         sendClientUpdate();
@@ -127,4 +129,20 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
     @Override public boolean wrenchCanSetFacing(Player player, Direction side) { return false; }
     @Override public boolean wrenchCanRemove(Player player) { return false; }
     @Override public float getWrenchDropRate() { return 0; }
+
+    /** The obscurator only works on hardened foam. */
+    public boolean retexture(net.minecraft.core.Direction side, net.minecraft.world.level.block.state.BlockState state, net.minecraft.core.Direction refSide) {
+        if (foamed != 2 || !retexture.set(side, state, refSide)) return false;
+        setChanged();
+        sendClientUpdate();
+        return true;
+    }
+
+    @net.neoforged.fml.common.EventBusSubscriber(modid = ic2.core.IC2.MODID)
+    static final class Retexturing {
+        @net.neoforged.bus.api.SubscribeEvent
+        static void retexture(ic2.api.event.RetextureEvent event) {
+            if (event.level.getBlockEntity(event.pos) instanceof TileEntityCable cable && cable.retexture(event.side, event.referencedState, event.referencedSide)) event.applied = true;
+        }
+    }
 }

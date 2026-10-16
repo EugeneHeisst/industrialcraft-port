@@ -154,6 +154,10 @@ gen_item('cf_pack', 'itemArmorCFPack.png', 'itemArmorCFPack', ['itemArmorCFPack'
 gen_item('dynamite', 'itemDynamite.png', 'itemDynamite', ['itemDynamite'])
 gen_item('sticky_dynamite', 'itemDynamiteSticky.png', 'itemDynamiteSticky', ['itemDynamiteSticky'])
 gen_item('dynamite_remote', 'itemRemote.png', 'itemRemote', ['itemRemote'])
+# ---------- containment box, obscurator, MFSU upgrade kit
+gen_item('containment_box', 'itemContainmentbox.png', 'itemContainmentbox', ['itemContainmentbox'])
+gen_item('obscurator', 'obscurator.png', 'obscurator', ['obscurator'])
+gen_item('mfsu_upgrade_kit', 'itemMFSUupgradekit.png', 'itemMFSUupgradekit', ['itemupgradekit', 'itemupgradekit@0'])
 # ---------- boats
 for iid, tex, lang, legacy in [('carbon_boat', 'boatCarbon.png', 'boatCarbon', ['itemBoat', 'itemBoat@0']), ('rubber_boat', 'boatRubber.png', 'boatRubber', ['itemBoat@1']),
         ('broken_rubber_boat', 'boatRubberBroken.png', 'boatRubberBroken', ['itemBoat@2']), ('electric_boat', 'boatElectric.png', 'boatElectric', ['itemBoat@3'])]:
@@ -683,6 +687,7 @@ write(os.path.join(RES, 'ic2/recipes/recycler_blacklist.json'), blacklist)
 def ingredient(alts):
     ret = []
     for a in alts.split('|'):
+        a = re.sub(r'(@\d+)\*$', r'\1', a.strip())
         shaped_blank = re.fullmatch(r'IC2:(itemTurningBlanks|itemTurningBlanksWood)@(\d+)', a.strip())
         if shaped_blank and int(shaped_blank[2]) != 0:
             packed = int(shaped_blank[2])

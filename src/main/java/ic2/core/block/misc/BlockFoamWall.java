@@ -15,10 +15,27 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 /** Hardened construction foam wall in the sixteen dye colours (dye index, 7 = light gray); painters recolour it, it drops nothing. */
 @EventBusSubscriber(modid = IC2.MODID)
-public class BlockFoamWall extends Block {
+public class BlockFoamWall extends Block implements net.minecraft.world.level.block.EntityBlock {
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
-    public BlockFoamWall(Properties p) { super(p); registerDefaultState(defaultBlockState().setValue(COLOR, 7)); }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(COLOR); }
+    /** Some side carries an obscurator texture: the block entity renderer then draws all six sides. */
+    public static final net.minecraft.world.level.block.state.properties.BooleanProperty RETEXTURED = net.minecraft.world.level.block.state.properties.BooleanProperty.create("retextured");
+    public BlockFoamWall(Properties p) { super(p); registerDefaultState(defaultBlockState().setValue(COLOR, 7).setValue(RETEXTURED, false)); }
+    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(COLOR, RETEXTURED); }
+    @Override public net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new TileEntityWall(pos, state); }
+    @Override protected net.minecraft.world.level.block.RenderShape getRenderShape(BlockState state) { return state.getValue(RETEXTURED) ? net.minecraft.world.level.block.RenderShape.ENTITYBLOCK_ANIMATED : net.minecraft.world.level.block.RenderShape.MODEL; }
+
+    @SubscribeEvent
+    static void retexture(ic2.api.event.RetextureEvent event) {
+        BlockState s = event.level.getBlockState(event.pos);
+        if (!s.is(Ic2Blocks.CONSTRUCTION_FOAM_WALL.get())) return;
+        TileEntityWall wall = event.level.getBlockEntity(event.pos) instanceof TileEntityWall w ? w : null;
+        if (wall == null) { wall = new TileEntityWall(event.pos, s); event.level.setBlockEntity(wall); } // walls placed before 0.1.15 have no block entity yet
+        if (!wall.retexture.set(event.side, event.referencedState, event.referencedSide)) return;
+        wall.setChanged();
+        if (!s.getValue(RETEXTURED)) event.level.setBlock(event.pos, s.setValue(RETEXTURED, true), 3);
+        else event.level.sendBlockUpdated(event.pos, s, s, 3);
+        event.applied = true;
+    }
     @Override public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) { return new ItemStack(Ic2Blocks.CONSTRUCTION_FOAM.get()); }
 
     @SubscribeEvent

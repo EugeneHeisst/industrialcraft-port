@@ -18,6 +18,7 @@ public class RenderCableFoam implements BlockEntityRenderer<TileEntityCable> {
     public void render(TileEntityCable te, float pt, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
         if (te.foamed == 0 || te.getLevel() == null) return;
         var state = te.foamed == 1 ? Ic2Blocks.CONSTRUCTION_FOAM.get().defaultBlockState() : Ic2Blocks.CONSTRUCTION_FOAM_WALL.get().defaultBlockState().setValue(BlockFoamWall.COLOR, te.foamColor & 15);
+        if (te.foamed == 2 && !te.retexture.isEmpty()) { RetextureRender.renderCube(te.retexture, state, te.getLevel(), te.getBlockPos(), pose, buffers); return; }
         int l = te.foamed == 2 ? LevelRenderer.getLightColor(te.getLevel(), te.getBlockPos().above()) : light;
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, pose, buffers, Math.max(l, light), overlay);
     }

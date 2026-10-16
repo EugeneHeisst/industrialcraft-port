@@ -142,3 +142,13 @@ Items `carbon_boat`, `rubber_boat`, `broken_rubber_boat`, `electric_boat` (itemB
 Server audit **341 checks, 0 failed** (BoatAudit: placing, broken boat not placeable, drops/pick, crash per kind/speed, lava/fire, EU payment, coasting, recipes incl. repair). Hidden silent client with the real player: electric boat 0.61 blocks/tick using armour EU, rubber boat driven into a wall pops (broken item), electric boat floats on lava unburnt; electric_boat.png / lava_boat.png inspected. Artifacts in versions/0.1.14. Pushed to the private repo only.
 
 Next: containment box / obscurator / upgrade kit, itemRecipePart@5, JEI; then ASP → EMT → Gravi Suit.
+
+## Claude batch 0.1.15 — obscurator, containment box, MFSU upgrade kit
+
+`obscurator` (100,000 EU, tier 2, 250 EU/t): sneak-click a full opaque model block to scan the clicked side (20,000 EU, kept as `referencedBlock` state + `referencedSide` in custom data, tooltip names it), click a side of hardened construction foam to give that side the look (5,000 EU) through the new API event `ic2.api.event.RetextureEvent`. Handlers: foam wall (now has a block entity `ic2:foam_wall` / `TileEntityWall` and a `retextured` state that hides its model so `RenderFoamWall` draws all sides) and hardened cable foam (`TileEntityCable.retexture`, cleared when the foam goes soft/away, drawn by `RenderCableFoam`). `ic2.core.block.Retexture` keeps six state/side pairs (NBT `retexture`); `RetextureRender` draws each side from the referenced model's face quads with block tints (grass etc.). Walls from older versions get their block entity on first retexture. No overlay on the obscurator icon (the original drew the scanned texture on it).
+
+`containment_box`: hand-held 12-slot inventory (GUIContainmentbox) accepting radioactive items only; items inside no longer irradiate the carrier. `mfsu_upgrade_kit` (itemupgradekit@0): on an MFE or MFE charge pad it becomes the MFSU version in place with energy, facing, redstone mode and items kept (nothing drops). The generator now strips `@<meta>*` wildcards, so both solid heat generator recipes exist; remaining gen warnings are only the blockHarz name and the BuildCraft UU value.
+
+Server audit **355 checks, 0 failed** (ObscuratorAudit). Hidden silent client: obscurator.png (log/grass(tinted)/brick sides on walls and a foamed cable, plain yellow wall) and gui_containment_box.png inspected. Artifacts in versions/0.1.15. Pushed to the private repo only.
+
+Next: JEI integration, final IC2 compatibility pass; then ASP → EMT → Gravi Suit.

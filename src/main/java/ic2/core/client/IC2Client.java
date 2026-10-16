@@ -67,6 +67,7 @@ public final class IC2Client {
     static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CROP.get(), CropRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.PERSONAL_CHEST.get(), RenderPersonalChest::new);
+        event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.FOAM_WALL.get(), RenderFoamWall::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.CARBON_BOAT.get(), ic2.core.item.boat.RenderIC2Boat::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.RUBBER_BOAT.get(), ic2.core.item.boat.RenderIC2Boat::new);
@@ -140,6 +141,7 @@ public final class IC2Client {
         if (menu instanceof ic2.core.crop.ContainerCrops.Harvester m) return new ic2.core.crop.GuiCrops.Harvester(m, inv, title);
         if (menu instanceof ic2.core.item.ItemCropAnalyzer.Container m) return new ic2.core.crop.GuiCrops.Analyzer(m, inv, title);
         if (menu instanceof ic2.core.item.ItemToolbox.Container m) return new ic2.core.item.GuiToolbox(m, inv, title);
+        if (menu instanceof ic2.core.item.ItemContainmentbox.Container m) return new ic2.core.item.GuiContainmentbox(m, inv, title);
         if (menu instanceof ic2.core.item.tool.ItemToolMeter.Container m) return new ic2.core.item.tool.GuiToolMeter(m, inv, title);
         if (menu instanceof ic2.core.block.wiring.ContainerChargepad m) return new ic2.core.block.wiring.GuiChargepad(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMagnetizer m) return new ic2.core.block.machine.gui.GuiMagnetizer(m, inv, title);

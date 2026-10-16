@@ -105,6 +105,7 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.personal.TileEntityTradeOMat>> TRADE_O_MAT = reg("trade_o_mat", ic2.core.block.personal.TileEntityTradeOMat::new, Ic2Blocks.TRADE_O_MAT);
     public static final Supplier<BlockEntityType<ic2.core.block.personal.TileEntityEnergyOMat>> ENERGY_O_MAT = reg("energy_o_mat", ic2.core.block.personal.TileEntityEnergyOMat::new, Ic2Blocks.ENERGY_O_MAT);
 
+    public static final Supplier<BlockEntityType<ic2.core.block.misc.TileEntityWall>> FOAM_WALL = REGISTRY.register("foam_wall", () -> BlockEntityType.Builder.of(ic2.core.block.misc.TileEntityWall::new, Ic2Blocks.CONSTRUCTION_FOAM_WALL.get()).build(null));
     public static final Supplier<BlockEntityType<ic2.core.block.misc.TileEntityBarrel>> BARREL = REGISTRY.register("barrel", () -> BlockEntityType.Builder.of(ic2.core.block.misc.TileEntityBarrel::new, Ic2Blocks.BARREL.get()).build(null));
 
     private static <T extends TileEntityBlock> Supplier<BlockEntityType<T>> reg(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> block) {

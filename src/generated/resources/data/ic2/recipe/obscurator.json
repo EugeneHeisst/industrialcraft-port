@@ -1,0 +1,27 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "rEr",
+    "CAC",
+    "rrr"
+  ],
+  "key": {
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "ic2:advanced_re_battery"
+    },
+    "C": {
+      "item": "ic2:insulated_gold_cable"
+    },
+    "A": {
+      "tag": "c:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:obscurator",
+    "count": 1
+  }
+}

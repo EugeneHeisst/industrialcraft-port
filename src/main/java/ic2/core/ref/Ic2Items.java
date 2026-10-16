@@ -37,6 +37,9 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), block.getId().getPath().equals("personal_chest") ? new Item.Properties().rarity(net.minecraft.world.item.Rarity.UNCOMMON) : new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.ItemContainmentbox> CONTAINMENT_BOX = REGISTRY.register("containment_box", () -> new ic2.core.item.ItemContainmentbox(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.tool.ItemObscurator> OBSCURATOR = REGISTRY.register("obscurator", () -> new ic2.core.item.tool.ItemObscurator(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemUpgradeKit> MFSU_UPGRADE_KIT = REGISTRY.register("mfsu_upgrade_kit", () -> new ic2.core.item.ItemUpgradeKit(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.boat.ItemIC2Boat> CARBON_BOAT = REGISTRY.register("carbon_boat", () -> new ic2.core.item.boat.ItemIC2Boat(new Item.Properties(), Ic2Entities.CARBON_BOAT));
     public static final DeferredItem<ic2.core.item.boat.ItemIC2Boat> RUBBER_BOAT = REGISTRY.register("rubber_boat", () -> new ic2.core.item.boat.ItemIC2Boat(new Item.Properties(), Ic2Entities.RUBBER_BOAT));
     public static final DeferredItem<ic2.core.item.boat.ItemIC2Boat> BROKEN_RUBBER_BOAT = REGISTRY.register("broken_rubber_boat", () -> new ic2.core.item.boat.ItemIC2Boat(new Item.Properties(), null));

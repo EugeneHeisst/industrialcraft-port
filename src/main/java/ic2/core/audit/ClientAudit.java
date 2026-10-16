@@ -272,6 +272,27 @@ public final class ClientAudit {
             var pl=server.getPlayerList().getPlayers().get(0);pl.teleportTo(l,f.getX()+20.5,f.getY()+1.5,f.getZ()+3.5,0,35);
         }); }
         if (tick == end + 395) shot(mc,"lava_boat.png");
-        if (tick >= end + 400) mc.stop();
+        if (tick == end + 400) server.execute(() -> {
+            // obscured foam: walls with log top / grass top (tinted) / bricks on their north side, one plain, a hardened cable with a brick side, one wall showing its east side
+            var l=server.overworld();var f=origin.offset(-20,0,-60);var pl=server.getPlayerList().getPlayers().get(0);
+            for(var pos:BlockPos.betweenClosed(f.offset(-3,-1,-4),f.offset(12,3,4)))l.setBlock(pos,pos.getY()<f.getY()?Blocks.STONE.defaultBlockState():Blocks.AIR.defaultBlockState(),3);
+            net.minecraft.world.level.block.state.BlockState[] refs={Blocks.OAK_LOG.defaultBlockState(),Blocks.GRASS_BLOCK.defaultBlockState(),Blocks.BRICKS.defaultBlockState(),null};
+            Direction[] sides={Direction.UP,Direction.UP,Direction.NORTH,null};
+            for(int n=0;n<4;n++){var w=f.east(n*2);l.setBlock(w,Ic2Blocks.CONSTRUCTION_FOAM_WALL.get().defaultBlockState().setValue(ic2.core.block.misc.BlockFoamWall.COLOR,n==3?11:7),3);
+                if(refs[n]!=null)net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new ic2.api.event.RetextureEvent(l,w,Direction.NORTH,refs[n],sides[n]));}
+            var c=f.east(8);l.setBlock(c,Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.insulated_copper).get().defaultBlockState(),3);var cable=(ic2.core.block.wiring.TileEntityCable)l.getBlockEntity(c);cable.changeFoam(2);
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new ic2.api.event.RetextureEvent(l,c,Direction.NORTH,Blocks.BRICKS.defaultBlockState(),Direction.NORTH));
+            var e=f.offset(10,0,0);l.setBlock(e,Ic2Blocks.CONSTRUCTION_FOAM_WALL.get().defaultBlockState(),3);
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new ic2.api.event.RetextureEvent(l,e,Direction.WEST,Blocks.GRASS_BLOCK.defaultBlockState(),Direction.NORTH));
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new ic2.api.event.RetextureEvent(l,e,Direction.NORTH,Blocks.OAK_PLANKS.defaultBlockState(),Direction.NORTH));
+            pl.getInventory().clearContent();pl.getInventory().selected=0;pl.getInventory().setItem(0,new ItemStack(Ic2Items.CONTAINMENT_BOX.get()));
+            pl.getInventory().setItem(1,Ic2Items.OBSCURATOR.get().charged());pl.getInventory().setItem(2,new ItemStack(Ic2Items.MFSU_UPGRADE_KIT.get()));
+            pl.teleportTo(l,f.getX()+5.5,f.getY()+0.8,f.getZ()-4,0,12);
+        });
+        if (tick == end + 412) shot(mc,"obscurator.png");
+        if (tick == end + 414) server.execute(() -> { var pl=server.getPlayerList().getPlayers().get(0); ic2.core.item.IHandHeldInventory.open(pl,net.minecraft.world.InteractionHand.MAIN_HAND,id->((ic2.core.item.ItemContainmentbox)Ic2Items.CONTAINMENT_BOX.get()).createContainer(id,pl.getInventory(),pl.getMainHandItem(),net.minecraft.world.InteractionHand.MAIN_HAND)); });
+        if (tick == end + 424) shot(mc,"gui_containment_box.png");
+        if (tick == end + 426) mc.player.closeContainer();
+        if (tick >= end + 430) mc.stop();
     }
 }
