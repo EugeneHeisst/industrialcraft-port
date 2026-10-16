@@ -38,6 +38,8 @@ public final class BoatAudit {
     }
 
     public static void run(ServerLevel l, BlockPos p, CropAudit.Check check) {
+        // in a normal world the stand can sit in a chunk that does not tick; entities there are invisible to getEntitiesOfClass
+        l.setChunkForced(p.getX() >> 4, p.getZ() >> 4, true);
         for (var pos : BlockPos.betweenClosed(p.offset(-3, -2, -2), p.offset(4, 3, 2))) l.setBlock(pos, Blocks.STONE.defaultBlockState(), 3);
         for (var pos : BlockPos.betweenClosed(p.offset(-2, -1, -1), p.offset(2, -1, 1))) l.setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
         for (var pos : BlockPos.betweenClosed(p.offset(-2, 0, -1), p.offset(2, 2, 1))) l.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
