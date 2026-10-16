@@ -153,5 +153,7 @@ public final class Ic2Blocks {
     public static final DeferredBlock<ic2.core.block.personal.BlockPersonal> TRADE_O_MAT = REGISTRY.register("trade_o_mat", () -> new ic2.core.block.personal.BlockPersonal(personal(), () -> Ic2BlockEntities.TRADE_O_MAT.get(), false));
     public static final DeferredBlock<ic2.core.block.personal.BlockPersonal> ENERGY_O_MAT = REGISTRY.register("energy_o_mat", () -> new ic2.core.block.personal.BlockPersonal(personal(), () -> Ic2BlockEntities.ENERGY_O_MAT.get(), false));
 
+    public static final DeferredBlock<ic2.core.block.misc.BlockBarrel> BARREL = REGISTRY.register("barrel", () -> new ic2.core.block.misc.BlockBarrel(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1).sound(SoundType.WOOD).ignitedByLava()));
+
     private Ic2Blocks() {}
 }

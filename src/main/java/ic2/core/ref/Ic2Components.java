@@ -21,6 +21,8 @@ public final class Ic2Components {
     /** Content of the universal fluid cell. */
     public static final Supplier<DataComponentType<net.neoforged.neoforge.fluids.SimpleFluidContent>> FLUID = REGISTRY.register("fluid", () -> DataComponentType.<net.neoforged.neoforge.fluids.SimpleFluidContent>builder().persistent(net.neoforged.neoforge.fluids.SimpleFluidContent.CODEC).networkSynchronized(net.neoforged.neoforge.fluids.SimpleFluidContent.STREAM_CODEC).build());
     /** Wear of reactor components (advDmg of the original ItemGradualInt). */
+    /** Packed booze value of the original's mug/barrel item damage (type, amount, solid/hops/time ratios or rum progress). */
+    public static final Supplier<DataComponentType<Integer>> BOOZE = REGISTRY.register("booze", () -> DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final Supplier<DataComponentType<Integer>> CUSTOM_DAMAGE = REGISTRY.register("custom_damage", () -> DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     private Ic2Components() {}
 }

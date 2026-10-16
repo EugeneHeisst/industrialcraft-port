@@ -1,0 +1,19 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:empty_mug"
+    },
+    {
+      "item": "ic2:coffee_powder"
+    },
+    {
+      "tag": "ic2:fluid_containers/water"
+    }
+  ],
+  "result": {
+    "id": "ic2:cold_coffee",
+    "count": 1
+  }
+}

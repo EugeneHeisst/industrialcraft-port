@@ -126,3 +126,11 @@ Also: the dynamite audit area chunks are now forced at audit start (in a reloade
 Server audit **312 checks, 0 failed** (PersonalAudit: ownership, guest refusal, sealed against hoppers, unbreakable/blast proof, wrench rules, persistence, trading through the owner's safe, foreign safe ignored, full-stack demand, stock, infinite mode/op only, owner/customer views, energy payment/acceptance/emission/charging, price buttons, upgrades, recipes). Hidden silent client: owner and customer GUIs of both o-mats, safe GUI, personal.png stand (closed safe, opening safe, both o-mats, item renders) inspected. Artifacts in versions/0.1.12. Pushed to the private repo only.
 
 Next: booze/coffee, boats, barrel, containment box / obscurator / upgrade kit, itemRecipePart@5, JEI; then ASP → EMT → Gravi Suit.
+
+## Claude batch 0.1.13 — booze barrel, mugs, coffee
+
+Items `empty_mug` (itemMugEmpty), `cold_coffee` / `dark_coffee` / `coffee` (itemMugCoffee@0/1/2), `booze_mug` (itemMugBooze) and `barrel` (itemBarrel); block `barrel` (no block item, `tap` = none/north/south/west/east, loot = scaffold + empty barrel). The packed booze value of the original item damage lives in the `ic2:booze` component (mug and barrel item), the booze model picks beer age / rum by the `ic2:booze` item property. Barrel on a wooden scaffold: water bucket/cells, wheat and hops brew beer (ages Brew → Youngster → Beer → Ale → Dragonblood at 24000·3^x ticks, x = 0,1,2,3,6; bad recipes spoil to Black Stuff), sugar cane ferments rum (timeNedForRum); aging stops while a treetap is fitted; a mug on the tapped side draws one litre; left click removes the tap (spilling a litre) or takes the filled barrel off; the barrel item keeps its brew. Effects follow ItemBooze/ItemMugCoffee with modern effect holders. Cold coffee smelts to dark coffee (0.1 xp). The original's unreachable solid-ratio-1 test is kept.
+
+Server audit **329 checks, 0 failed** (BoozeAudit). Hidden silent client: booze.png (tapped/untapped barrel, all beer ages, rum, coffee, mug icons) inspected. Artifacts in versions/0.1.13. Pushed to the private repo only.
+
+Next: boats, containment box / obscurator / upgrade kit, itemRecipePart@5, JEI; then ASP → EMT → Gravi Suit.

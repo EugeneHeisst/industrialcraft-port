@@ -33,10 +33,16 @@ public final class Ic2Items {
         } catch (java.io.IOException e) { throw new RuntimeException(e); }
         var fluidBlocks = new java.util.HashSet<String>();
         for (var f : ic2.core.fluid.Ic2Fluids.ALL) fluidBlocks.add(f.name);
-        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); fluidBlocks.add("resin_sheet"); fluidBlocks.add("foam_wall"); fluidBlocks.add("dynamite"); fluidBlocks.add("dynamite_remote"); fluidBlocks.add("reinforced_door"); // the pipe item cannot be placed by hand, the tip has no item
+        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); fluidBlocks.add("resin_sheet"); fluidBlocks.add("foam_wall"); fluidBlocks.add("dynamite"); fluidBlocks.add("dynamite_remote"); fluidBlocks.add("reinforced_door"); fluidBlocks.add("barrel"); // the pipe item cannot be placed by hand, the tip has no item
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), block.getId().getPath().equals("personal_chest") ? new Item.Properties().rarity(net.minecraft.world.item.Rarity.UNCOMMON) : new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.ItemMug> EMPTY_MUG = REGISTRY.register("empty_mug", () -> new ic2.core.item.ItemMug(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemMugCoffee> COLD_COFFEE = REGISTRY.register("cold_coffee", () -> new ic2.core.item.ItemMugCoffee(new Item.Properties(), 0));
+    public static final DeferredItem<ic2.core.item.ItemMugCoffee> DARK_COFFEE = REGISTRY.register("dark_coffee", () -> new ic2.core.item.ItemMugCoffee(new Item.Properties(), 1));
+    public static final DeferredItem<ic2.core.item.ItemMugCoffee> COFFEE = REGISTRY.register("coffee", () -> new ic2.core.item.ItemMugCoffee(new Item.Properties(), 2));
+    public static final DeferredItem<ic2.core.item.ItemBooze> BOOZE_MUG = REGISTRY.register("booze_mug", () -> new ic2.core.item.ItemBooze(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemBarrel> BARREL = REGISTRY.register("barrel", () -> new ic2.core.item.ItemBarrel(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_RE_BATTERY = REGISTRY.register("charging_re_battery", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),40000,128,1));
     public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_ADVANCED_BATTERY = REGISTRY.register("charging_advanced_battery", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),400000,1024,2));
     public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_ENERGY_CRYSTAL = REGISTRY.register("charging_energy_crystal", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),4000000,8192,3));

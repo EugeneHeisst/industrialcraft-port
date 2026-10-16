@@ -154,6 +154,22 @@ gen_item('cf_pack', 'itemArmorCFPack.png', 'itemArmorCFPack', ['itemArmorCFPack'
 gen_item('dynamite', 'itemDynamite.png', 'itemDynamite', ['itemDynamite'])
 gen_item('sticky_dynamite', 'itemDynamiteSticky.png', 'itemDynamiteSticky', ['itemDynamiteSticky'])
 gen_item('dynamite_remote', 'itemRemote.png', 'itemRemote', ['itemRemote'])
+# ---------- mugs, coffee, booze barrel
+gen_item('empty_mug', 'itemMugEmpty.png', 'itemMugEmpty', ['itemMugEmpty'])
+for meta, iid in enumerate(['cold_coffee', 'dark_coffee', 'coffee']):
+    gen_item(iid, f'itemMugCoffee_{meta}.png', f'itemMugCoffee_{meta}', [f'itemMugCoffee@{meta}'] + (['itemMugCoffee'] if meta == 0 else []))
+gen_item('barrel', 'itemBarrel.png', 'item.EmptyBoozeBarrel', ['itemBarrel'])
+LEGACY['itemMugBooze'] = 'ic2:booze_mug'
+BOOZE = ['beer.Brew', 'beer.Youngster', 'beer.Beer', 'beer.Ale', 'beer.Dragonblood', 'beer.Black Stuff', 'rum']
+booze_model = {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:item/booze/beer_brew'}, 'overrides': []}
+for n, tex in enumerate(BOOZE):
+    bname = tex.replace('beer.', 'beer_').replace(' ', '_').lower()
+    copy(os.path.join(OTEX, 'items', f'ic2.itemMugBooze.{tex}.png'), os.path.join(A, 'textures/item/booze', bname + '.png'))
+    write(os.path.join(A, 'models/item/booze', bname + '.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:item/booze/' + bname}})
+    booze_model['overrides'].append({'predicate': {'ic2:booze': n / 10}, 'model': 'ic2:item/booze/' + bname})
+write(os.path.join(A, 'models/item/booze_mug.json'), booze_model)
+for code in out_lang: out_lang[code]['item.ic2.booze_mug'] = 'Booze'
+write(os.path.join(D, 'ic2/recipe/dark_coffee_smelting.json'), {'type': 'minecraft:smelting', 'category': 'food', 'ingredient': {'item': 'ic2:cold_coffee'}, 'result': {'id': 'ic2:dark_coffee'}, 'experience': 0.1, 'cookingtime': 200})
 for bid, tex in (('dynamite', 'blockDynamite'), ('dynamite_remote', 'blockDynamiteRemote')):
     copy(os.path.join(OTEX, 'blocks', tex + '.png'), os.path.join(A, 'textures/block', bid + '.png'))
     write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/template_torch', 'render_type': 'minecraft:cutout', 'textures': {'torch': 'ic2:block/' + bid}})
@@ -249,6 +265,23 @@ write(os.path.join(A, 'models/block/chargepad_base.json'), {'parent': 'minecraft
     f: {'texture': '#' + f, **({'cullface': f} if f != 'up' else {}), **({'uv': [0, 0.8, 16, 16]} if f not in ('up', 'down') else {})} for f in FACES}}]})
 # Industrial TNT ignites when broken; it must never also return an intact charge.
 write(os.path.join(D, 'ic2/loot_table/blocks/industrial_tnt.json'), {'type': 'minecraft:block', 'pools': []})
+# booze barrel block: wooden barrel on a scaffold, the tap texture on the side holding a treetap
+img = Image.open(os.path.join(OTEX, 'blocks/blockBarrel.png')).convert('RGBA')
+for i in range(6):
+    path = os.path.join(A, 'textures/block/barrel', f'{i}.png'); os.makedirs(os.path.dirname(path), exist_ok=True); img.crop((i * 16, 0, i * 16 + 16, 16)).save(path)
+copy(os.path.join(OTEX, 'blocks/blockBarrel.tap.png'), os.path.join(A, 'textures/block/barrel/tap.png'))
+variants = {}
+for tap in ['none', 'north', 'south', 'west', 'east']:
+    tex = {FACES[side]: f'ic2:block/barrel/{SIDE_MAP[3][side]}' for side in range(6)}
+    if tap != 'none': tex[tap] = 'ic2:block/barrel/tap'
+    tex['particle'] = 'ic2:block/barrel/2'
+    write(os.path.join(A, 'models/block', f'barrel_{tap}.json'), {'parent': 'minecraft:block/cube', 'textures': tex})
+    variants[f'tap={tap}'] = {'model': f'ic2:block/barrel_{tap}'}
+write(os.path.join(A, 'blockstates/barrel.json'), {'variants': variants})
+for code in out_lang: out_lang[code]['block.ic2.barrel'] = name(code, 'item.LBoozeBarrel', 'Booze Barrel')
+add_tag(BLOCK_TAGS, 'minecraft:mineable/axe', 'ic2:barrel')
+# a barrel broken as a block leaves the scaffold and an empty barrel; left-clicking it takes the filled barrel off instead
+write(os.path.join(D, 'ic2/loot_table/blocks/barrel.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:scaffold'}]}, {'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:barrel'}]}]})
 
 # ---------- cables
 COLORS = ['black', 'red', 'green', 'brown', 'blue', 'purple', 'cyan', 'lightGray', 'gray', 'pink', 'lime', 'yellow', 'lightBlue', 'magenta', 'orange', 'white']

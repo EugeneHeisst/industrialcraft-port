@@ -1,0 +1,18 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "SS ",
+    "SSS",
+    "SS "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "id": "ic2:empty_mug",
+    "count": 1
+  }
+}

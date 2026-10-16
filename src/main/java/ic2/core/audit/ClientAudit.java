@@ -217,6 +217,20 @@ public final class ClientAudit {
         });
         if (tick == end + 212) mc.setScreen(null);
         if (tick == end + 240) shot(mc,"personal.png");
-        if (tick >= end + 245) mc.stop();
+        if (tick == end + 245) server.execute(() -> {
+            // booze: barrel with a tap on a scaffold, plain barrel; beer of every age, rum, coffee and mugs in the hotbar
+            var l=server.overworld();var p=origin.offset(58,0,-22);var pl=server.getPlayerList().getPlayers().get(0);
+            for(int n=0;n<2;n++){l.setBlock(p.east(n*2),Ic2Blocks.SCAFFOLD.get().defaultBlockState(),3);l.setBlock(p.east(n*2),Ic2Blocks.BARREL.get().defaultBlockState(),3);}
+            if(l.getBlockEntity(p) instanceof ic2.core.block.misc.TileEntityBarrel b){b.set(0);b.setTreetapSide(2);}
+            pl.getInventory().clearContent();
+            int[] beer={0,1,2,3,4,5};int slot=0;
+            for(int t:beer)pl.getInventory().setItem(slot++,ic2.core.item.ItemBooze.of(t<<13|3<<10|3<<7|1));
+            pl.getInventory().setItem(slot++,ic2.core.item.ItemBooze.of(100<<7|2));
+            pl.getInventory().setItem(slot++,new ItemStack(Ic2Items.COFFEE.get()));pl.getInventory().setItem(slot,new ItemStack(Ic2Items.BARREL.get()));
+            pl.getInventory().setItem(9,new ItemStack(Ic2Items.EMPTY_MUG.get()));pl.getInventory().setItem(10,new ItemStack(Ic2Items.COLD_COFFEE.get()));pl.getInventory().setItem(11,new ItemStack(Ic2Items.DARK_COFFEE.get()));
+            pl.teleportTo(l,p.getX()+1.5,p.getY()+0.8,p.getZ()-3,0,15);
+        });
+        if (tick == end + 262) shot(mc,"booze.png");
+        if (tick >= end + 267) mc.stop();
     }
 }

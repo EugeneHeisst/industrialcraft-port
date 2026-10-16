@@ -25,6 +25,10 @@ public class ItemTreetap extends Item {
     public InteractionResult useOn(UseOnContext ctx) {
         Level level = ctx.getLevel();
         BlockState state = level.getBlockState(ctx.getClickedPos());
+        if (state.is(Ic2Blocks.BARREL.get()) && level.getBlockEntity(ctx.getClickedPos()) instanceof ic2.core.block.misc.TileEntityBarrel barrel && ctx.getPlayer() != null) {
+            if (level.isClientSide) return InteractionResult.SUCCESS;
+            return barrel.useTreetapOn(ctx.getPlayer(), ctx.getItemInHand(), ctx.getClickedFace()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        }
         if (!state.is(Ic2Blocks.RUBBER_WOOD.get())) return InteractionResult.PASS;
         attemptExtract(ctx.getPlayer(), level, ctx.getClickedPos(), ctx.getClickedFace(), null);
         if (!level.isClientSide && ctx.getPlayer() != null) ctx.getItemInHand().hurtAndBreak(1, ctx.getPlayer(), LivingEntity.getSlotForHand(ctx.getHand()));

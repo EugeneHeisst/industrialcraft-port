@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "tap=none": {
+      "model": "ic2:block/barrel_none"
+    },
+    "tap=north": {
+      "model": "ic2:block/barrel_north"
+    },
+    "tap=south": {
+      "model": "ic2:block/barrel_south"
+    },
+    "tap=west": {
+      "model": "ic2:block/barrel_west"
+    },
+    "tap=east": {
+      "model": "ic2:block/barrel_east"
+    }
+  }
+}
