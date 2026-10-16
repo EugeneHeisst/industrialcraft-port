@@ -90,6 +90,11 @@ public final class ServerAudit {
             level.setBlock(p, mfe, 3);
             level.setBlock(p.above(), facing(((net.neoforged.neoforge.registries.DeferredBlock<?>)e[0]).get().defaultBlockState(), Direction.NORTH), 3);
         }
+        // 11: electric heat generator (10 coils, MFE below) -> blast furnace
+        BlockPos hb = base.offset(12, 2, 0);
+        level.setBlock(hb.below(), facing(Ic2Blocks.MFE.get().defaultBlockState(), Direction.UP), 3);
+        level.setBlock(hb, facing(Ic2Blocks.ELECTRIC_HEAT_GENERATOR.get().defaultBlockState(), Direction.EAST), 3);
+        level.setBlock(hb.east(), facing(Ic2Blocks.BLAST_FURNACE.get().defaultBlockState(), Direction.WEST), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -187,6 +192,12 @@ public final class ServerAudit {
             var cutter = (ic2.core.block.machine.tileentity.TileEntityBlockCutter)level.getBlockEntity(base.offset(8, 3, 0));
             cutter.cutterSlot.put(new ItemStack(Ic2Items.IRON_BLOCK_CUTTING_BLADE.get()));
             cutter.inputSlot.put(new ItemStack(Items.OAK_LOG, 1));
+            ((TileEntityElectricBlock)level.getBlockEntity(base.offset(12, 1, 0))).energy = 4000000;
+            var heatGen = (ic2.core.block.heatgenerator.TileEntityHeatGenerators.Electric)level.getBlockEntity(base.offset(12, 2, 0));
+            for (int c = 0; c < 10; c++) heatGen.CoilSlot.put(c, new ItemStack(Ic2Items.get("coil")));
+            var blast = (ic2.core.block.machine.tileentity.TileEntityBlastFurnace)level.getBlockEntity(base.offset(13, 2, 0));
+            blast.inputSlot.put(new ItemStack(Items.IRON_INGOT, 1));
+            blast.airSlot.put(new ItemStack(Ic2Items.AIR_CELL.get(), 4));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -231,6 +242,8 @@ public final class ServerAudit {
             check("thermal centrifuge heats", cent.heat > 0, "heat=" + cent.heat + "/" + cent.workheat + " out=" + cent.outputSlot);
             var cutter = (ic2.core.block.machine.tileentity.TileEntityBlockCutter)level.getBlockEntity(base.offset(8, 3, 0));
             check("block cutter works with blade", cutter.getProgress() > 0.5f && !cutter.isbladetoweak(), "progress=" + cutter.getProgress());
+            var blast = (ic2.core.block.machine.tileentity.TileEntityBlastFurnace)level.getBlockEntity(base.offset(13, 2, 0));
+            check("blast furnace heated by electric heat generator", blast.isHot() && blast.progress > 1 && blast.airOutputSlot.get().is(Ic2Items.EMPTY_CELL.get()), "heat=" + blast.heat + " progress=" + blast.progress + " air=" + blast.airOutputSlot.get());
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
         if (tick == 710) {

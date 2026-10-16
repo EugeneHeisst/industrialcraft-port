@@ -81,6 +81,9 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.machine.container.ContainerCentrifuge m) return new ic2.core.block.machine.gui.GuiMachines.Centrifuge(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerBlockCutter m) return new ic2.core.block.machine.gui.GuiMachines.BlockCutter(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerBlastFurnace m) return new ic2.core.block.machine.gui.GuiMachines.BlastFurnace(m, inv, title);
+        if (menu instanceof ic2.core.block.heatgenerator.ContainerHeatGenerators.Solid m) return new ic2.core.block.heatgenerator.GuiHeatGenerators.Solid(m, inv, title);
+        if (menu instanceof ic2.core.block.heatgenerator.ContainerHeatGenerators.RT m) return new ic2.core.block.heatgenerator.GuiHeatGenerators.RT(m, inv, title);
+        if (menu instanceof ic2.core.block.heatgenerator.ContainerHeatGenerators.Electric m) return new ic2.core.block.heatgenerator.GuiHeatGenerators.Electric(m, inv, title);
         if (menu instanceof ContainerIronFurnace m) return new GuiIronFurnace(m, inv, title);
         if (menu instanceof ContainerGenerator m) return new GuiGenerator(m, inv, title);
         if (menu instanceof ic2.core.block.generator.container.ContainerGeoGenerator m) return new ic2.core.block.generator.gui.GuiGeoGenerator(m, inv, title);

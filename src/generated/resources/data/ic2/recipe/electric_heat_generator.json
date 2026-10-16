@@ -1,0 +1,32 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "IBI",
+    "ICI",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:iron_casing"
+    },
+    "B": [
+      {
+        "item": "ic2:re_battery"
+      },
+      {
+        "item": "ic2:re_battery"
+      }
+    ],
+    "G": {
+      "item": "ic2:heat_conductor"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:electric_heat_generator",
+    "count": 1
+  }
+}

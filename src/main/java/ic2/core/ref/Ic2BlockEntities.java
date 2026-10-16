@@ -28,6 +28,9 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<TileEntityCentrifuge>> THERMAL_CENTRIFUGE = reg("thermal_centrifuge", TileEntityCentrifuge::new, Ic2Blocks.THERMAL_CENTRIFUGE);
     public static final Supplier<BlockEntityType<TileEntityBlockCutter>> BLOCK_CUTTER = reg("block_cutter", TileEntityBlockCutter::new, Ic2Blocks.BLOCK_CUTTER);
     public static final Supplier<BlockEntityType<TileEntityBlastFurnace>> BLAST_FURNACE = reg("blast_furnace", TileEntityBlastFurnace::new, Ic2Blocks.BLAST_FURNACE);
+    public static final Supplier<BlockEntityType<ic2.core.block.heatgenerator.TileEntityHeatGenerators.Solid>> SOLID_HEAT_GENERATOR = reg("solid_heat_generator", ic2.core.block.heatgenerator.TileEntityHeatGenerators.Solid::new, Ic2Blocks.SOLID_HEAT_GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.heatgenerator.TileEntityHeatGenerators.RT>> RT_HEAT_GENERATOR = reg("rt_heat_generator", ic2.core.block.heatgenerator.TileEntityHeatGenerators.RT::new, Ic2Blocks.RT_HEAT_GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.heatgenerator.TileEntityHeatGenerators.Electric>> ELECTRIC_HEAT_GENERATOR = reg("electric_heat_generator", ic2.core.block.heatgenerator.TileEntityHeatGenerators.Electric::new, Ic2Blocks.ELECTRIC_HEAT_GENERATOR);
     public static final Supplier<BlockEntityType<TileEntityGenerator>> GENERATOR = reg("generator", TileEntityGenerator::new, Ic2Blocks.GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityGeoGenerator>> GEOTHERMAL_GENERATOR = reg("geothermal_generator", ic2.core.block.generator.tileentity.TileEntityGeoGenerator::new, Ic2Blocks.GEOTHERMAL_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityWaterGenerator>> WATER_MILL = reg("water_mill", ic2.core.block.generator.tileentity.TileEntityWaterGenerator::new, Ic2Blocks.WATER_MILL);

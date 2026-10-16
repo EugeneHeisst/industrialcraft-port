@@ -33,12 +33,13 @@ public abstract class GuiIC2<T extends ContainerBase<?>> extends AbstractContain
     @Override
     protected void renderLabels(GuiGraphics g, int mouseX, int mouseY) {
         Component name = getName();
-        g.drawString(font, name, (imageWidth - font.width(name)) / 2, 6, 4210752, false);
+        g.drawString(font, name, (imageWidth - font.width(name)) / 2, titleY(), 4210752, false);
         if (menu.base instanceof IUpgradableBlock block) GuiTooltipHelper.drawUpgradeslotTooltip(g, font, mouseX - leftPos, mouseY - topPos, 0, 0, 12, 12, block, 25, 0);
         drawForeground(g, mouseX - leftPos, mouseY - topPos);
     }
 
     protected void drawForeground(GuiGraphics g, int mouseX, int mouseY) {}
+    protected int titleY() { return 6; }
 
     @Override
     protected void renderBg(GuiGraphics g, float partialTick, int mouseX, int mouseY) {

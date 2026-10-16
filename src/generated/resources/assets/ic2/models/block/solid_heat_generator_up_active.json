@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/solid_heat_generator_9",
+    "up": "ic2:block/solid_heat_generator_7",
+    "north": "ic2:block/solid_heat_generator_1",
+    "south": "ic2:block/solid_heat_generator_0",
+    "west": "ic2:block/solid_heat_generator_6",
+    "east": "ic2:block/solid_heat_generator_8",
+    "particle": "ic2:block/solid_heat_generator_1"
+  }
+}
