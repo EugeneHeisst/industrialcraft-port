@@ -93,7 +93,7 @@ public final class TileEntityKineticGenerators {
             if (s.getDamageValue() >= s.getMaxDamage()) rotorSlot.put(ItemStack.EMPTY);
         }
 
-        protected void setRotationSpeed(float speed) { if (rotationSpeed != speed) { rotationSpeed = speed; sendClientUpdate(); } }
+        public void setRotationSpeed(float speed) { if (rotationSpeed != speed) { rotationSpeed = speed; sendClientUpdate(); } }
 
         @Override public void setActive(boolean active) { if (active != getActive()) sendClientUpdate(); super.setActive(active); }
         @Override public void setChanged() { super.setChanged(); }

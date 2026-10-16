@@ -65,11 +65,13 @@ public final class ClientAudit {
             player.setHealth(player.getMaxHealth());
             int i = 0;
             for (var b : Ic2Blocks.REGISTRY.getEntries()) {
+                if (b.get() instanceof net.minecraft.world.level.block.LiquidBlock) continue;
                 BlockPos p = origin.offset(-9 + i % 19, i / 19 * 2, 0);
                 var state = b.get().defaultBlockState();
                 if (state.hasProperty(BlockTileEntity.FACING)) state = state.setValue(BlockTileEntity.FACING, Direction.NORTH).setValue(BlockTileEntity.ACTIVE, i % 2 == 0);
                 level.setBlock(p, state, 3);
                 if (level.getBlockEntity(p) instanceof IHasGui) guis.add(p);
+                if (level.getBlockEntity(p) instanceof ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Rotor rotorGen) { rotorGen.rotorSlot.put(new ItemStack(Ic2Items.CARBON_ROTOR.get())); rotorGen.setRotationSpeed(1); }
                 i++;
             }
             int ci = 0;
