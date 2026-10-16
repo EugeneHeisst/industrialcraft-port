@@ -770,6 +770,12 @@ for tag, entries in BLOCK_TAGS.items():
     write(os.path.join(D, ns, 'tags/block', path + '.json'), {'values': entries})
 write(os.path.join(D, 'ic2/tags/item/fluid_containers/water.json'), {'values': ['minecraft:water_bucket', 'ic2:water_cell']})
 write(os.path.join(D, 'ic2/tags/item/fluid_containers/lava.json'), {'values': ['minecraft:lava_bucket', 'ic2:lava_cell']})
+write(os.path.join(D, 'ic2/tags/item/fluid_containers/ic2coolant.json'), {'values': ['ic2:coolant_cell']})
+# The original recipes accept IC2's own nuclear items or any mod's OreDict equivalent; put IC2's items into those shared tags so the
+# OreDict branches resolve (and other mods' plutonium / U-235 nuggets keep working).
+write(os.path.join(D, 'c/tags/item/ingots/plutonium.json'), {'values': ['ic2:plutonium']})
+write(os.path.join(D, 'c/tags/item/nuggets/plutonium.json'), {'values': ['ic2:small_plutonium']})
+write(os.path.join(D, 'c/tags/item/nuggets/uranium235.json'), {'values': ['ic2:small_uranium_235']})
 write(os.path.join(D, 'ic2/tags/item/tools/forge_hammer.json'), {'values': ['ic2:forge_hammer']})
 write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:cutter']})
 for code in out_lang:
