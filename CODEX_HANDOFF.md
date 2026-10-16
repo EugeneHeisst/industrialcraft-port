@@ -176,3 +176,7 @@ Build passed. ASP 0.1.0 + IC2 0.1.18 dedicated server: 53/53 checks, real EU tra
 ## Claude 0.1.19 — per-stack tool energy cost API
 
 `ItemElectricTool.getEnergyCost(ItemStack)` (default operationEnergyCost); getDestroySpeed/mineBlock use it. For addons with per-stack modes (the Gravi advanced drill already has a matching method) and for the EMT TC-bore bridge, which should switch from the `operationEnergyCost` field to this method. Server 355/355. Archive versions/0.1.19. Gravi/EMT/ASP are still built against 0.1.18 — bump them in the compat batch.
+
+## 0.1.20 — ores in high terrain
+
+Each IC2 ore now also has a sparse upper layer (`<ore>_upper` placed features, triangular 64..320, same two-target configured feature): tin 10 veins, uranium 3, lead 4 per chunk, so mountains above sea level hold IC2 ore like vanilla iron/copper. Lower layer unchanged. `-Dic2.audit=worldgen` (`./gradlew runWorldgen`, fresh world, seed ic2audit) now reports 32-block bands across the whole height and checks the nearest mountain biome: all three ores found at y >= 64 (PASS), deepslate checks still PASS. Old test world kept as run-wg/world.before-upper-ores. Artifacts in versions/0.1.20.

@@ -4,7 +4,10 @@
   "features": [
     "ic2:tin_ore",
     "ic2:uranium_ore",
-    "ic2:lead_ore"
+    "ic2:lead_ore",
+    "ic2:tin_ore_upper",
+    "ic2:uranium_ore_upper",
+    "ic2:lead_ore_upper"
   ],
   "step": "underground_ores"
 }

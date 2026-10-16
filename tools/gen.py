@@ -559,9 +559,15 @@ for fid, mat, size, count, lo, hi in ORES:
                     {'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:deepslate_ore_replaceables'}, 'state': {'Name': f'ic2:deepslate_{mat}_ore'}}]}})
     write(os.path.join(WG, 'placed_feature', fid + '.json'), {'feature': 'ic2:' + fid, 'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
         {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}}, {'type': 'minecraft:biome'}]})
+# Mountains reach y=320 in 1.21, far above the original sea-level cap, so like vanilla iron/copper each ore also gets a sparse upper
+# layer (triangular 64..320, densest around 192) that only finds stone in high terrain.
+ORES_UPPER = [('tin_ore', 10, 64, 320), ('uranium_ore', 3, 64, 320), ('lead_ore', 4, 64, 320)]
+for fid, count, lo, hi in ORES_UPPER:
+    write(os.path.join(WG, 'placed_feature', fid + '_upper.json'), {'feature': 'ic2:' + fid, 'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
+        {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:trapezoid', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}}, {'type': 'minecraft:biome'}]})
 write(os.path.join(WG, 'configured_feature/rubber_tree.json'), {'type': 'ic2:rubber_tree', 'config': {}})
 write(os.path.join(WG, 'placed_feature/rubber_tree.json'), {'feature': 'ic2:rubber_tree', 'placement': [{'type': 'minecraft:biome'}]})
-write(os.path.join(D, 'ic2/neoforge/biome_modifier/ores.json'), {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld', 'features': ['ic2:' + o[0] for o in ORES], 'step': 'underground_ores'})
+write(os.path.join(D, 'ic2/neoforge/biome_modifier/ores.json'), {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld', 'features': ['ic2:' + o[0] for o in ORES] + ['ic2:' + o[0] + '_upper' for o in ORES_UPPER], 'step': 'underground_ores'})
 write(os.path.join(D, 'ic2/neoforge/biome_modifier/rubber_tree.json'), {'type': 'neoforge:add_features', 'biomes': '#ic2:rubber_tree_biomes', 'features': 'ic2:rubber_tree', 'step': 'vegetal_decoration'})
 write(os.path.join(D, 'ic2/tags/worldgen/biome/rubber_tree_biomes.json'), {'values': [{'id': '#c:is_swamp', 'required': False}, '#minecraft:is_forest', '#minecraft:is_jungle']})
 

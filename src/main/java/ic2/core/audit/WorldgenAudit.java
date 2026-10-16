@@ -37,12 +37,23 @@ public final class WorldgenAudit {
         for (Block[] pair : ores) {
             int stoneLow = count(level, spawn, 4, pair[0], -64, -1), stoneHigh = count(level, spawn, 4, pair[0], 0, 319);
             int deepLow = count(level, spawn, 4, pair[1], -64, -1), deepHigh = count(level, spawn, 4, pair[1], 0, 319);
-            int[] bands = new int[6];
-            for (int b = 0; b < 6; b++) bands[b] = count(level, spawn, 4, pair[0], -64 + b * 32, -64 + b * 32 + 31) + count(level, spawn, 4, pair[1], -64 + b * 32, -64 + b * 32 + 31);
-            IC2.LOG.info("[audit] {}: stone y<0={} y>=0={} | deepslate y<0={} y>=0={} | per chunk {} | bands(-64,-32,0,32,64,96..127)={}", pair[0].getDescriptionId(), stoneLow, stoneHigh, deepLow, deepHigh,
+            int[] bands = new int[12];
+            for (int b = 0; b < 12; b++) bands[b] = count(level, spawn, 4, pair[0], -64 + b * 32, -64 + b * 32 + 31) + count(level, spawn, 4, pair[1], -64 + b * 32, -64 + b * 32 + 31);
+            IC2.LOG.info("[audit] {}: stone y<0={} y>=0={} | deepslate y<0={} y>=0={} | per chunk {} | bands of 32 from y=-64={}", pair[0].getDescriptionId(), stoneLow, stoneHigh, deepLow, deepHigh,
                 (stoneLow + stoneHigh + deepLow + deepHigh) / (float)chunks, java.util.Arrays.toString(bands));
-            boolean ok = deepLow > 0 && deepHigh <= deepLow / 10 + 5 && stoneLow <= (stoneLow + deepLow) / 10 + 5 && stoneHigh + deepHigh > 0 && bands[5] == 0;
+            boolean ok = deepLow > 0 && deepHigh <= deepLow / 10 + 5 && stoneLow <= (stoneLow + deepLow) / 10 + 5 && stoneHigh + deepHigh > 0;
             IC2.LOG.info("[audit] {} {} deepslate variant below y=0", ok ? "PASS" : "FAIL", pair[0].getDescriptionId());
+        }
+        // upper layer: high terrain (y >= 64) in the nearest mountain biome must hold every IC2 ore
+        var peak = level.findClosestBiome3d(b -> b.is(BiomeTags.IS_MOUNTAIN), level.getSharedSpawnPos(), 6400, 32, 64);
+        if (peak == null) IC2.LOG.info("[audit] FAIL no mountain biome found");
+        else {
+            ChunkPos at = new ChunkPos(peak.getFirst());
+            for (Block[] pair : ores) {
+                int high = count(level, at, 4, pair[0], 64, 319), top = 0;
+                for (int y = 319; y >= 64 && top == 0; y--) if (count(level, at, 4, pair[0], y, y) > 0) top = y;
+                IC2.LOG.info("[audit] {} {} in mountains at {}: stone ore at y>=64 = {}, highest y = {}", high > 0 ? "PASS" : "FAIL", pair[0].getDescriptionId(), peak.getFirst(), high, top);
+            }
         }
         for (var tag : java.util.List.of(BiomeTags.IS_FOREST, net.neoforged.neoforge.common.Tags.Biomes.IS_SWAMP)) {
             var found = level.findClosestBiome3d(b -> b.is(tag), level.getSharedSpawnPos(), 6400, 32, 64);
