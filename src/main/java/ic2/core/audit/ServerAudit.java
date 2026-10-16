@@ -75,6 +75,12 @@ public final class ServerAudit {
         level.setBlock(d.east(), ins.setValue(ic2.core.block.wiring.BlockCable.COLOR, 2), 3);
         level.setBlock(d.east(2), ins.setValue(ic2.core.block.wiring.BlockCable.COLOR, 5), 3);
         level.setBlock(d.east(3), facing(Ic2Blocks.MACERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 8: geothermal (lava bucket), water mill in water, wind mill in open air
+        BlockPos g = base.offset(0, 0, -3);
+        level.setBlock(g, Ic2Blocks.GEOTHERMAL_GENERATOR.get().defaultBlockState(), 3);
+        level.setBlock(g.offset(3, 0, 0), Ic2Blocks.WATER_MILL.get().defaultBlockState(), 3);
+        for (Direction dir : Direction.Plane.HORIZONTAL) level.setBlock(g.offset(3, 0, 0).relative(dir), Blocks.WATER.defaultBlockState(), 3);
+        level.setBlock(g.offset(7, 20, 0), Ic2Blocks.WIND_MILL.get().defaultBlockState(), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -119,6 +125,7 @@ public final class ServerAudit {
             ((TileEntityMacerator)level.getBlockEntity(base.offset(3, 0, 6))).inputSlot.put(new ItemStack(Items.COBBLESTONE, 1));
             ((TileEntityGenerator)level.getBlockEntity(base.offset(6, 0, 3))).fuelSlot.put(new ItemStack(Items.COAL, 2));
             ((TileEntityMacerator)level.getBlockEntity(base.offset(9, 0, 3))).inputSlot.put(new ItemStack(Items.COBBLESTONE, 1));
+            ((ic2.core.block.generator.tileentity.TileEntityGeoGenerator)level.getBlockEntity(base.offset(0, 0, -3))).fluidSlot.put(new ItemStack(Items.LAVA_BUCKET));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -147,6 +154,12 @@ public final class ServerAudit {
             check("cable corner connections", cableState.getValue(net.minecraft.world.level.block.PipeBlock.WEST) && cableState.getValue(net.minecraft.world.level.block.PipeBlock.SOUTH) && !cableState.getValue(net.minecraft.world.level.block.PipeBlock.NORTH), cableState);
             var isolated = (TileEntityMacerator)level.getBlockEntity(base.offset(9, 0, 3));
             check("red/blue cables isolated", isolated.energy == 0 && isolated.outputSlot.get().isEmpty(), "energy=" + isolated.energy);
+            var geo = (ic2.core.block.generator.tileentity.TileEntityGeoGenerator)level.getBlockEntity(base.offset(0, 0, -3));
+            check("geothermal burns lava", geo.outputSlot.get().is(Items.BUCKET) && geo.storage > 0 && geo.getTankAmount() < 1000, "storage=" + geo.storage + " tank=" + geo.getTankAmount() + " out=" + geo.outputSlot.get());
+            var mill = (ic2.core.block.generator.tileentity.TileEntityWaterGenerator)level.getBlockEntity(base.offset(3, 0, -3));
+            check("water mill produces", mill.storage > 0 || mill.water > 0, "water=" + mill.water + " storage=" + mill.storage + " micro=" + mill.microStorage);
+            var wind = (ic2.core.block.generator.tileentity.TileEntityWindGenerator)level.getBlockEntity(base.offset(7, 20, -3));
+            check("wind mill produces", wind != null && wind.subproduction > 0, wind == null ? "broken" : "sub=" + wind.subproduction + " storage=" + wind.storage + " wind=" + ic2.core.WindSim.get(level).getWindAt(base.getY() + 20));
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
         if (tick == 710) {

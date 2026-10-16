@@ -63,6 +63,7 @@ public final class IC2 {
         EnergyNet.instance = enet;
         NeoForge.EVENT_BUS.register(enet);
         NeoForge.EVENT_BUS.register(new TickHandler());
+        NeoForge.EVENT_BUS.register(new WindSim.Ticker());
         ElectricItem.rawManager = new ElectricItemManager();
         ElectricItem.manager = new GatewayElectricItemManager();
         ItemInfo info = new ItemInfo();
@@ -90,8 +91,13 @@ public final class IC2 {
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
+        registerFluids(event);
         for (var type : Ic2BlockEntities.REGISTRY.getEntries())
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, side) -> be instanceof TileEntityInventory inv ? (side == null ? new net.neoforged.neoforge.items.wrapper.InvWrapper(inv) : new SidedInvWrapper(inv, side)) : null);
+    }
+
+    private static void registerFluids(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.GEOTHERMAL_GENERATOR.get(), (be, side) -> be);
     }
 
     private void registerPayloads(RegisterPayloadHandlersEvent event) {

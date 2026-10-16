@@ -75,6 +75,9 @@ public final class IC2Client {
         }
         if (menu instanceof ContainerIronFurnace m) return new GuiIronFurnace(m, inv, title);
         if (menu instanceof ContainerGenerator m) return new GuiGenerator(m, inv, title);
+        if (menu instanceof ic2.core.block.generator.container.ContainerGeoGenerator m) return new ic2.core.block.generator.gui.GuiGeoGenerator(m, inv, title);
+        if (menu instanceof ic2.core.block.generator.container.ContainerWaterGenerator m) return new ic2.core.block.generator.gui.GuiWaterGenerator(m, inv, title);
+        if (menu instanceof ic2.core.block.generator.container.ContainerWindGenerator m) return new ic2.core.block.generator.gui.GuiWindGenerator(m, inv, title);
         if (menu instanceof ContainerSolarGenerator m) return new GuiSolarGenerator(m, inv, title);
         if (menu instanceof ContainerElectricBlock m) return new GuiElectricBlock(m, inv, title);
         if (menu instanceof ContainerTransformer m) return new GuiTransformer(m, inv, title);

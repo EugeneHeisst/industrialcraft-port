@@ -23,6 +23,9 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<TileEntityCompressor>> COMPRESSOR = reg("compressor", TileEntityCompressor::new, Ic2Blocks.COMPRESSOR);
     public static final Supplier<BlockEntityType<TileEntityRecycler>> RECYCLER = reg("recycler", TileEntityRecycler::new, Ic2Blocks.RECYCLER);
     public static final Supplier<BlockEntityType<TileEntityGenerator>> GENERATOR = reg("generator", TileEntityGenerator::new, Ic2Blocks.GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityGeoGenerator>> GEOTHERMAL_GENERATOR = reg("geothermal_generator", ic2.core.block.generator.tileentity.TileEntityGeoGenerator::new, Ic2Blocks.GEOTHERMAL_GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityWaterGenerator>> WATER_MILL = reg("water_mill", ic2.core.block.generator.tileentity.TileEntityWaterGenerator::new, Ic2Blocks.WATER_MILL);
+    public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityWindGenerator>> WIND_MILL = reg("wind_mill", ic2.core.block.generator.tileentity.TileEntityWindGenerator::new, Ic2Blocks.WIND_MILL);
     public static final Supplier<BlockEntityType<TileEntitySolarGenerator>> SOLAR_PANEL = reg("solar_panel", TileEntitySolarGenerator::new, Ic2Blocks.SOLAR_PANEL);
     public static final Supplier<BlockEntityType<TileEntityElectricBlock.BatBox>> BATBOX = reg("batbox", TileEntityElectricBlock.BatBox::new, Ic2Blocks.BATBOX);
     public static final Supplier<BlockEntityType<TileEntityElectricBlock.CESU>> CESU = reg("cesu", TileEntityElectricBlock.CESU::new, Ic2Blocks.CESU);

@@ -42,6 +42,9 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> COMPRESSOR = machine("compressor", () -> Ic2BlockEntities.COMPRESSOR.get());
     public static final DeferredBlock<BlockTileEntity> RECYCLER = machine("recycler", () -> Ic2BlockEntities.RECYCLER.get());
     public static final DeferredBlock<BlockTileEntity> GENERATOR = generator("generator", () -> Ic2BlockEntities.GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> GEOTHERMAL_GENERATOR = generator("geothermal_generator", () -> Ic2BlockEntities.GEOTHERMAL_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> WATER_MILL = generator("water_mill", () -> Ic2BlockEntities.WATER_MILL.get());
+    public static final DeferredBlock<BlockTileEntity> WIND_MILL = generator("wind_mill", () -> Ic2BlockEntities.WIND_MILL.get());
     public static final DeferredBlock<BlockTileEntity> SOLAR_PANEL = generator("solar_panel", () -> Ic2BlockEntities.SOLAR_PANEL.get());
     public static final DeferredBlock<BlockElectric> BATBOX = electric("batbox", () -> Ic2BlockEntities.BATBOX.get());
     public static final DeferredBlock<BlockElectric> CESU = electric("cesu", () -> Ic2BlockEntities.CESU.get());
