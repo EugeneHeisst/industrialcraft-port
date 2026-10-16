@@ -166,3 +166,9 @@ Next: IC2 final compatibility pass (API surface ASP/EMT/Gravi need), then ASP �
 Ported `Platform.resetPlayerInAirTime` as `Util.resetPlayerInAirTime` (reflection on `ServerGamePacketListenerImpl.aboveGroundTickCount`); the fuel jetpack, electric jetpack and quantum chestplate call it while their thrust works. New `./mp-flight-audit.sh`: starts the dedicated dev server (`run-server`, allow-flight=false) with `-Dic2.audit=mpflight` and a hidden silent dev client (`runMpclient`, joins 127.0.0.1:25581 — "localhost" resolved to ::1 and timed out) holding jump. Result: 240 ticks of hover-mode climbing on a charged electric jetpack (20.7 blocks), floating counter never above 1, no kick; control phase with the reset disabled → "IC2Flyer was kicked for floating too long!" after 81 ticks and the client shows "Flying is not enabled on this server". This closes the multiplayer flight item from the Codex handoff. Logs in versions/0.1.17 (mp-server-audit.log, mp-client-audit.log). Server audit 355/355.
 
 Next: ASP → EMT → Gravi Suit.
+
+## Codex batch 0.1.18 — JEI startup deadlock found during ASP port
+
+JEI discovers plugins concurrently with mod construction. The eager IC2JeiPlugin.MACHINES initializer touched Ic2Blocks while IC2's own constructor initialized Ic2Fluids, deadlocking both class initializers (confirmed by /tmp/asp-client-threads.txt, archived under versions/0.1.18). Machine descriptors now initialize lazily when JEI registers categories, after mod construction. No recipe changes.
+
+Build passed. ASP 0.1.0 + IC2 0.1.18 dedicated server: 53/53 checks, real EU transfers. Hidden silent client with JEI loaded successfully three times after the fix; ASP molecular and IC2 macerator pages both opened. Latest client log and macerator screenshot in versions/0.1.18. Local commit only, no push/release/install. ASP now requires this version; continue from its CODEX_HANDOFF.md, then EMT → Gravi Suit.

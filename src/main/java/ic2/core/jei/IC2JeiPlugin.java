@@ -45,7 +45,9 @@ public class IC2JeiPlugin implements IModPlugin {
             new Machine("uu_amplifier", () -> Recipes.matterAmplifier, Ic2Blocks.MASS_FABRICATOR, Component.translatable("block.ic2.mass_fabricator"), "amplification", "ic2.jei.amplification"));
     }
 
-    private static final List<Machine> MACHINES = machines();
+    // JEI discovers plugins in parallel with mod constructors. Resolve block suppliers only after mod construction.
+    private static final class LazyMachines { static final List<Machine> ALL = machines(); }
+    private static List<Machine> registeredMachines() { return LazyMachines.ALL; }
 
     @Override public ResourceLocation getPluginUid() { return IC2.id("jei"); }
 
@@ -55,7 +57,7 @@ public class IC2JeiPlugin implements IModPlugin {
     /** Client audit: opens the JEI page of an IC2 category, or the recipes producing an item when id names an item. */
     public static boolean showForAudit(String id) {
         if (runtime == null) return false;
-        for (Machine m : MACHINES) if (m.id().equals(id)) { runtime.getRecipesGui().showTypes(List.of(m.type())); return true; }
+        for (Machine m : registeredMachines()) if (m.id().equals(id)) { runtime.getRecipesGui().showTypes(List.of(m.type())); return true; }
         for (var t : List.of(CannerCategory.TYPE, EnrichCategory.TYPE, ScrapboxCategory.TYPE)) if (t.getUid().getPath().equals(id)) { runtime.getRecipesGui().showTypes(List.of(t)); return true; }
         var item = net.minecraft.core.registries.BuiltInRegistries.ITEM.get(IC2.id(id));
         runtime.getRecipesGui().show(runtime.getJeiHelpers().getFocusFactory().createFocus(mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT, mezz.jei.api.constants.VanillaTypes.ITEM_STACK, new ItemStack(item)));
@@ -65,13 +67,13 @@ public class IC2JeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration reg) {
         var gui = reg.getJeiHelpers().getGuiHelper();
-        for (Machine m : MACHINES) reg.addRecipeCategories(new MachineCategory(gui, m));
+        for (Machine m : registeredMachines()) reg.addRecipeCategories(new MachineCategory(gui, m));
         reg.addRecipeCategories(new CannerCategory(gui), new EnrichCategory(gui), new ScrapboxCategory(gui));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration reg) {
-        for (Machine m : MACHINES) {
+        for (Machine m : registeredMachines()) {
             IMachineRecipeManager manager = m.manager().get();
             if (manager == null) continue;
             List<MachineCategory.Recipe> list = new ArrayList<>();
@@ -113,7 +115,7 @@ public class IC2JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
-        for (Machine m : MACHINES) reg.addRecipeCatalyst(m.block().get(), m.type());
+        for (Machine m : registeredMachines()) reg.addRecipeCatalyst(m.block().get(), m.type());
         reg.addRecipeCatalyst(Ic2Blocks.INDUCTION_FURNACE.get(), mezz.jei.api.constants.RecipeTypes.SMELTING);
         reg.addRecipeCatalyst(Ic2Blocks.ELECTRIC_FURNACE.get(), mezz.jei.api.constants.RecipeTypes.SMELTING);
         reg.addRecipeCatalyst(Ic2Blocks.IRON_FURNACE.get(), mezz.jei.api.constants.RecipeTypes.SMELTING, mezz.jei.api.constants.RecipeTypes.FUELING);
