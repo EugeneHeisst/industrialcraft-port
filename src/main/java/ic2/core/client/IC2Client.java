@@ -65,6 +65,7 @@ public final class IC2Client {
     static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CROP.get(), CropRenderer::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
+        event.registerEntityRenderer(ic2.core.ref.Ic2Entities.DYNAMITE.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CABLE.get(), RenderCableFoam::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.DETECTOR_CABLE.get(), RenderCableFoam::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.SPLITTER_CABLE.get(), RenderCableFoam::new);

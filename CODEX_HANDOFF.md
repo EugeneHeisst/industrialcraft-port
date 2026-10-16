@@ -103,6 +103,14 @@ Cable foam: `TileEntityCable.foamed/foamColor` persisted and synced; soft foam h
 
 Also fixed a cable colour bug from the original Claude port: COLOR is the dye index (1 red … 15 white, 0 plain), but the generator had mapped COLOR n to the texture of dye n−1, so painted cables showed the wrong colour.
 
-Server audit **275 checks, 0 failed** (FoamAudit: sprayer modes/amounts, collision, hardening, sand, painting, reinforced chain, cable foam full cycle incl. persistence and breaking, CF pack priority, recipes). Hidden silent client passed; foamed cable stand (soft, light gray, blue) inspected. Artifacts in versions/0.1.10. Local commit only; no push/release/deploy.
+Server audit **275 checks, 0 failed** (FoamAudit: sprayer modes/amounts, collision, hardening, sand, painting, reinforced chain, cable foam full cycle incl. persistence and breaking, CF pack priority, recipes). Hidden silent client passed; foamed cable stand (soft, light gray, blue) inspected. Artifacts in versions/0.1.10. Pushed to the private repo only; no release/install/deploy.
 
 Next: dynamite (PointExplosion, sticky, remote, dispenser), personal safe / trade-o-mat / energy-o-mat, booze/coffee, boats, containment box / obscurator / upgrade kit, JEI; then ASP → EMT → Gravi Suit.
+
+## Claude batch 0.1.11 — dynamite
+
+Added dynamite following IC2 1.7.10: `PointExplosion` (3×3×3 cube around the stick, breaks blocks with resistance < power×10, drops at the drop rate, 20 damage to entities within 2 blocks, posts the cancellable `ExplosionEvent`), `EntityDynamite` (100-tick fuse, sticky sticks attach and burn 4× faster, water defuses, fuse/sticky/stick state persisted), `BlockDynamite` blocks `dynamite` / `dynamite_remote` (standing or wall-hung torch-style models; breaking, redstone or the remote ignite with a 40-tick fuse, a nearby explosion with 5 ticks; losing all support sets it off, losing its own support removes it), items `dynamite` (places on a block, throws in the air), `sticky_dynamite` (throws), `dynamite_remote` (sneak-free click on a stick links/unlinks it and turns it into the remote variant; right click in the air sets off every linked stick). Both dynamite items are `ProjectileItem` with dispenser behaviour. Entity `ic2:dynamite` uses the thrown-item renderer.
+
+Server audit **286 checks, 0 failed** (DynamiteAudit: placing/wall-hanging, remote link/unlink/detonation, block and entity explosion effects with obsidian spared, redstone ignition, support loss, sticky fuse rate, recipes/dispenser). Hidden silent client passed; standing, remote and hovering thrown sticks inspected in cables.png. Artifacts in versions/0.1.11. Pushed to the private repo only.
+
+Next: personal safe / trade-o-mat / energy-o-mat, booze/coffee, boats, barrel, containment box / obscurator / upgrade kit, JEI; then ASP → EMT → Gravi Suit.

@@ -139,6 +139,13 @@
       }
     ]
   },
+  "tools.dynamite_remote": {
+    "sounds": [
+      {
+        "name": "ic2:tools/dynamite_remote"
+      }
+    ]
+  },
   "generators.nuclear_reactor.loop": {
     "sounds": [
       {

@@ -17,7 +17,8 @@ public final class Ic2Sounds {
         LASER = reg("tools.mining_laser.mining"), LASER_LOW_FOCUS = reg("tools.mining_laser.low_focus"), LASER_LONG_RANGE = reg("tools.mining_laser.long_range"),
         LASER_SCATTER = reg("tools.mining_laser.scatter"), LASER_EXPLOSIVE = reg("tools.mining_laser.explosive"),
         REACTOR_LOOP = reg("generators.nuclear_reactor.loop"), GEIGER_LOW = reg("generators.nuclear_reactor.geiger_low"), GEIGER_MED = reg("generators.nuclear_reactor.geiger_med"), GEIGER_HIGH = reg("generators.nuclear_reactor.geiger_high"),
-        TERRAFORMER_LOOP = reg("machines.terraformer_loop");
+        TERRAFORMER_LOOP = reg("machines.terraformer_loop"),
+        DYNAMITE_REMOTE = reg("tools.dynamite_remote");
     private static Supplier<SoundEvent> reg(String name) { return REGISTRY.register(name, () -> SoundEvent.createVariableRangeEvent(IC2.id(name))); }
     private Ic2Sounds() {}
 }

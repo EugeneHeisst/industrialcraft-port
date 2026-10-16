@@ -106,6 +106,14 @@ public final class ClientAudit {
                 level.setBlock(fp, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.insulated_copper).get().defaultBlockState(), 3);
                 if (level.getBlockEntity(fp) instanceof ic2.core.block.wiring.TileEntityCable fc) { fc.changeFoam(f == 0 ? 1 : 2); if (f == 2) fc.changeColor(4); }
             }
+            // dynamite between the foamed cables: standing, remote-linked, wall-hung, and a hovering thrown stick
+            level.setBlock(origin.offset(-1, 0, -7), Ic2Blocks.DYNAMITE.get().defaultBlockState(), 3);
+            level.setBlock(origin.offset(1, 0, -7), Ic2Blocks.DYNAMITE_REMOTE.get().defaultBlockState(), 3);
+            level.setBlock(origin.offset(3, 0, -6), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), 3);
+            level.setBlock(origin.offset(3, 0, -7), Ic2Blocks.DYNAMITE.get().defaultBlockState().setValue(ic2.core.block.explosive.BlockDynamite.FACING, net.minecraft.core.Direction.NORTH), 3);
+            var thrown = new ic2.core.block.explosive.EntityDynamite(level, origin.getX() + 0.5, origin.getY() + 1.6, origin.getZ() - 6.5, false);
+            thrown.fuse = 1000000; thrown.setNoGravity(true); thrown.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+            level.addFreshEntity(thrown);
             player.teleportTo(level, origin.getX() + .5, origin.getY() + 1, origin.getZ() - 11.5, 0, 10);
             player.getInventory().clearContent();
             int slot = 0;

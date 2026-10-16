@@ -1,0 +1,27 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "TLT",
+    " F "
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:insulated_copper_cable"
+    },
+    "F": {
+      "item": "ic2:frequency_transmitter"
+    },
+    "L": {
+      "tag": "c:dusts/lapis"
+    },
+    "T": {
+      "item": "ic2:tin_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:dynamite_remote",
+    "count": 1
+  }
+}

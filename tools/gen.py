@@ -151,6 +151,17 @@ for kind, leg in (('chilling', 'Chilling'), ('cultivation', 'Cultivation'), ('de
     gen_item(kind + '_terraformer_blueprint', 'itemTFBP' + leg + '.png', 'itemTFBP' + leg, ['itemTFBP' + leg])
 gen_item('foam_sprayer', 'itemFoamSprayer.png', 'itemFoamSprayer', ['itemFoamSprayer'])
 gen_item('cf_pack', 'itemArmorCFPack.png', 'itemArmorCFPack', ['itemArmorCFPack'])
+gen_item('dynamite', 'itemDynamite.png', 'itemDynamite', ['itemDynamite'])
+gen_item('sticky_dynamite', 'itemDynamiteSticky.png', 'itemDynamiteSticky', ['itemDynamiteSticky'])
+gen_item('dynamite_remote', 'itemRemote.png', 'itemRemote', ['itemRemote'])
+for bid, tex in (('dynamite', 'blockDynamite'), ('dynamite_remote', 'blockDynamiteRemote')):
+    copy(os.path.join(OTEX, 'blocks', tex + '.png'), os.path.join(A, 'textures/block', bid + '.png'))
+    write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/template_torch', 'render_type': 'minecraft:cutout', 'textures': {'torch': 'ic2:block/' + bid}})
+    write(os.path.join(A, 'models/block', bid + '_wall.json'), {'parent': 'minecraft:block/template_torch_wall', 'render_type': 'minecraft:cutout', 'textures': {'torch': 'ic2:block/' + bid}})
+    write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'facing=up': {'model': 'ic2:block/' + bid}, 'facing=east': {'model': f'ic2:block/{bid}_wall'},
+        'facing=south': {'model': f'ic2:block/{bid}_wall', 'y': 90}, 'facing=west': {'model': f'ic2:block/{bid}_wall', 'y': 180}, 'facing=north': {'model': f'ic2:block/{bid}_wall', 'y': 270}}})
+    for code in out_lang: out_lang[code]['block.ic2.' + bid] = name(code, 'itemDynamite', 'Dynamite')
+for code in out_lang: out_lang[code]['entity.ic2.dynamite'] = name(code, 'itemDynamite', 'Dynamite')
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -509,7 +520,7 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
-          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter', 'machines.terraformer_loop': 'Terraformers/TerraformerGenericloop', 'generators.nuclear_reactor.loop': 'Generators/NuclearReactor/NuclearReactorLoop', 'generators.nuclear_reactor.geiger_low': 'Generators/NuclearReactor/GeigerLowEU', 'generators.nuclear_reactor.geiger_med': 'Generators/NuclearReactor/GeigerMedEU', 'generators.nuclear_reactor.geiger_high': 'Generators/NuclearReactor/GeigerHighEU',
+          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter', 'machines.terraformer_loop': 'Terraformers/TerraformerGenericloop', 'tools.dynamite_remote': 'Tools/dynamiteomote', 'generators.nuclear_reactor.loop': 'Generators/NuclearReactor/NuclearReactorLoop', 'generators.nuclear_reactor.geiger_low': 'Generators/NuclearReactor/GeigerLowEU', 'generators.nuclear_reactor.geiger_med': 'Generators/NuclearReactor/GeigerMedEU', 'generators.nuclear_reactor.geiger_high': 'Generators/NuclearReactor/GeigerHighEU',
           'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
           'tools.mining_laser.mining': 'Tools/MiningLaser/MiningLaser', 'tools.mining_laser.low_focus': 'Tools/MiningLaser/MiningLaserLowFocus', 'tools.mining_laser.long_range': 'Tools/MiningLaser/MiningLaserLongRange',
           'tools.mining_laser.scatter': 'Tools/MiningLaser/MiningLaserScatter', 'tools.mining_laser.explosive': 'Tools/MiningLaser/MiningLaserExplosive'}

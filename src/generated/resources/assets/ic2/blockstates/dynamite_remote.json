@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "ic2:block/dynamite_remote"
+    },
+    "facing=east": {
+      "model": "ic2:block/dynamite_remote_wall"
+    },
+    "facing=south": {
+      "model": "ic2:block/dynamite_remote_wall",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "ic2:block/dynamite_remote_wall",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "ic2:block/dynamite_remote_wall",
+      "y": 270
+    }
+  }
+}

@@ -126,6 +126,8 @@ public final class IC2 {
             Recipes.matterAmplifier.addRecipe(new ic2.api.recipe.RecipeInputItemStack(new ItemStack(Ic2Items.SCRAP_BOX.get()), 1), amp45000);
             ic2.core.item.ItemScrapbox.init();
             ic2.core.block.machine.CannerRecipes.init();
+            net.minecraft.world.level.block.DispenserBlock.registerProjectileBehavior(Ic2Items.DYNAMITE.get());
+            net.minecraft.world.level.block.DispenserBlock.registerProjectileBehavior(Ic2Items.STICKY_DYNAMITE.get());
             for (var upgrade : new net.minecraft.world.item.Item[]{Ic2Items.OVERCLOCKER_UPGRADE.get(), Ic2Items.TRANSFORMER_UPGRADE.get(), Ic2Items.ENERGY_STORAGE_UPGRADE.get(),
                     Ic2Items.EJECTOR_UPGRADE.get(), Ic2Items.FLUID_EJECTOR_UPGRADE.get(), Ic2Items.REDSTONE_INVERTER_UPGRADE.get(), Ic2Items.PULLING_UPGRADE.get()})
                 UpgradeRegistry.register(new ItemStack(upgrade));
