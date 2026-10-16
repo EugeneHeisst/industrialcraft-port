@@ -89,7 +89,19 @@ public final class ClientAudit {
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityFluidRegulator r) { r.tank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER,7500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);r.outputmb=250;r.energy=5000; }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityCondenser c) { c.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.STEAM.get(),90000),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);c.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.DISTILLED_WATER.get(),500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntitySolarDistiller d) { d.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER,7500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);d.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.DISTILLED_WATER.get(),5000),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.personal.TileEntityTradeOMat t) { t.demandSlot.put(new ItemStack(net.minecraft.world.item.Items.EMERALD, 2)); t.offerSlot.put(new ItemStack(net.minecraft.world.item.Items.APPLE, 3)); t.totalTradeCount = 7; }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.personal.TileEntityEnergyOMat t) t.demandSlot.put(new ItemStack(net.minecraft.world.item.Items.REDSTONE));
                 i++;
+            }
+            // customer views: a trade-o-mat and an energy-o-mat owned by somebody else
+            var trader = new com.mojang.authlib.GameProfile(java.util.UUID.nameUUIDFromBytes("ic2trader".getBytes()), "Trader");
+            for (int k = 0; k < 2; k++) {
+                BlockPos p = origin.offset(-4 + k * 4, 0, 3);
+                level.setBlock(p, (k == 0 ? Ic2Blocks.TRADE_O_MAT : Ic2Blocks.ENERGY_O_MAT).get().defaultBlockState(), 3);
+                if (level.getBlockEntity(p) instanceof ic2.core.block.personal.IPersonalBlock pb) pb.permitsAccess(trader);
+                if (level.getBlockEntity(p) instanceof ic2.core.block.personal.TileEntityTradeOMat t) { t.demandSlot.put(new ItemStack(net.minecraft.world.item.Items.EMERALD, 2)); t.offerSlot.put(new ItemStack(net.minecraft.world.item.Items.APPLE, 3)); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.personal.TileEntityEnergyOMat t) { t.demandSlot.put(new ItemStack(net.minecraft.world.item.Items.REDSTONE)); t.paidFor = 2500; }
+                guis.add(p);
             }
             int ci = 0;
             for (var type : ic2.core.block.wiring.CableType.values()) {
@@ -133,9 +145,10 @@ public final class ClientAudit {
                 ServerPlayer player = server.getPlayerList().getPlayers().get(0);
                 player.teleportTo(server.overworld(), p.getX() + .5, p.getY(), p.getZ() - 2.5, 0, 30);
                 var be = server.overworld().getBlockEntity(p);
-                if (be instanceof IHasGui gui) player.openMenu(new SimpleMenuProvider((id, inv, pl) -> gui.getGuiContainer(id, inv), Component.empty()), buf -> buf.writeBlockPos(p));
+                if (be instanceof IHasGui gui) player.openMenu(new SimpleMenuProvider((id, inv, pl) -> gui.getGuiContainer(id, inv), Component.empty()), buf -> { buf.writeBlockPos(p); gui.writeGuiData(player, buf); });
             });
-            if ((tick - 150) % 20 == 15) shot(mc, "gui_" + net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(server.overworld().getBlockState(p).getBlock()).getPath() + ".png");
+            if ((tick - 150) % 20 == 15) shot(mc, "gui_" + net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(server.overworld().getBlockState(p).getBlock()).getPath()
+                + (mc.player.containerMenu instanceof ic2.core.block.personal.ContainerTradeOMat c && !c.open || mc.player.containerMenu instanceof ic2.core.block.personal.ContainerEnergyOMat e && !e.open ? "_customer" : "") + ".png");
             if ((tick - 150) % 20 == 18) mc.player.closeContainer();
         }
         int end = 150 + guis.size() * 20;
@@ -192,6 +205,18 @@ public final class ClientAudit {
             for(var item:new ic2.core.item.ItemBatteryChargeHotbar[]{Ic2Items.CHARGING_RE_BATTERY.get(),Ic2Items.CHARGING_ADVANCED_BATTERY.get(),Ic2Items.CHARGING_ENERGY_CRYSTAL.get(),Ic2Items.CHARGING_LAPOTRON_CRYSTAL.get()}){var filled=item.charged();item.setMode(filled,ic2.core.item.ItemBatteryChargeHotbar.Mode.DISABLED);pl.getInventory().setItem(i++,filled);pl.getInventory().setItem(i++,new ItemStack(item));}
         });
         if (tick == end + 205) shot(mc,"charging_batteries.png");
-        if (tick >= end + 210) mc.stop();
+        if (tick == end + 210) server.execute(() -> {
+            // personal stand: closed safe, safe in use (door swings open), trade-o-mat, energy-o-mat; safe item in hand and hotbar
+            var l=server.overworld();var p=origin.offset(58,0,-15);var pl=server.getPlayerList().getPlayers().get(0);
+            Block[] stand={Ic2Blocks.PERSONAL_CHEST.get(),Ic2Blocks.PERSONAL_CHEST.get(),Ic2Blocks.TRADE_O_MAT.get(),Ic2Blocks.ENERGY_O_MAT.get()};
+            for(int n=0;n<stand.length;n++)l.setBlock(p.east(n*2),stand[n].defaultBlockState().setValue(BlockTileEntity.FACING,Direction.NORTH),3);
+            l.blockEvent(p.east(2),Ic2Blocks.PERSONAL_CHEST.get(),1,1);
+            pl.getInventory().clearContent();pl.getInventory().selected=0;
+            pl.getInventory().setItem(0,new ItemStack(Ic2Blocks.PERSONAL_CHEST.get()));pl.getInventory().setItem(1,new ItemStack(Ic2Blocks.TRADE_O_MAT.get()));pl.getInventory().setItem(2,new ItemStack(Ic2Blocks.ENERGY_O_MAT.get()));
+            pl.teleportTo(l,p.getX()+3.5,p.getY()+0.8,p.getZ()-3.6,0,15);
+        });
+        if (tick == end + 212) mc.setScreen(null);
+        if (tick == end + 240) shot(mc,"personal.png");
+        if (tick >= end + 245) mc.stop();
     }
 }

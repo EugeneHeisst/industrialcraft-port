@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/trade_o_mat_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/trade_o_mat_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/trade_o_mat_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/trade_o_mat_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/trade_o_mat_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/trade_o_mat_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/trade_o_mat_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/trade_o_mat_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/trade_o_mat_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/trade_o_mat_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/trade_o_mat_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/trade_o_mat_east_active"
+    }
+  }
+}

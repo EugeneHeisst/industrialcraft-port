@@ -48,6 +48,18 @@ public abstract class GuiIC2<T extends ContainerBase<?>> extends AbstractContain
     }
 
     protected void drawForeground(GuiGraphics g, int mouseX, int mouseY) {}
+
+    /** Label scaled down when a translation is wider than the room the original GUI left for it. */
+    protected void drawFit(GuiGraphics g, Component text, int x, int y, int maxWidth, int color) {
+        int w = font.width(text);
+        if (w <= maxWidth) { g.drawString(font, text, x, y, color, false); return; }
+        float sc = (float)maxWidth / w;
+        g.pose().pushPose();
+        g.pose().translate(x, y + (1 - sc) * 4, 0);
+        g.pose().scale(sc, sc, 1);
+        g.drawString(font, text, 0, 0, color, false);
+        g.pose().popPose();
+    }
     protected int titleY() { return 6; }
 
     @Override

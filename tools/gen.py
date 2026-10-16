@@ -226,6 +226,10 @@ for b in content.BLOCKS:
         write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/cube', 'textures': dict(zip(FACES, names[:6])) | {'particle': names[2]}} if bid in ('industrial_tnt', 'nuke') else {'parent': 'minecraft:block/cube_all', 'textures': {'all': names[0]}})
         write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
         write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'ic2:block/' + bid})
+    elif b['kind'] == 'safe':
+        write(os.path.join(A, 'models/block', bid + '.json'), {'textures': {'particle': names[2]}})
+        write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
+        write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'minecraft:item/chest', 'textures': {'particle': names[2]}})
     else:
         variants = {}
         for facing in range(6):
@@ -521,7 +525,7 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
           'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter', 'machines.terraformer_loop': 'Terraformers/TerraformerGenericloop', 'tools.dynamite_remote': 'Tools/dynamiteomote', 'generators.nuclear_reactor.loop': 'Generators/NuclearReactor/NuclearReactorLoop', 'generators.nuclear_reactor.geiger_low': 'Generators/NuclearReactor/GeigerLowEU', 'generators.nuclear_reactor.geiger_med': 'Generators/NuclearReactor/GeigerMedEU', 'generators.nuclear_reactor.geiger_high': 'Generators/NuclearReactor/GeigerHighEU',
-          'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
+          'machines.o_mat': 'Machines/o-mat', 'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
           'tools.mining_laser.mining': 'Tools/MiningLaser/MiningLaser', 'tools.mining_laser.low_focus': 'Tools/MiningLaser/MiningLaserLowFocus', 'tools.mining_laser.long_range': 'Tools/MiningLaser/MiningLaserLongRange',
           'tools.mining_laser.scatter': 'Tools/MiningLaser/MiningLaserScatter', 'tools.mining_laser.explosive': 'Tools/MiningLaser/MiningLaserExplosive'}
 sounds_json = {}
@@ -716,7 +720,7 @@ write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:
 for code in out_lang:
     out_lang[code]['effect.ic2.radiation'] = name(code, 'potion.radiation', 'Radiation')
     out_lang[code]['entity.ic2.mining_laser'] = name(code, 'itemToolMiningLaser', 'Mining Laser')
-for f in ('laser.png', 'beam.png'): copy(os.path.join(OTEX, 'models', f), os.path.join(A, 'textures/models', f))
+for f in ('laser.png', 'beam.png', 'newsafe.png'): copy(os.path.join(OTEX, 'models', f), os.path.join(A, 'textures/models', f))
 # UU world scan values (1.7.10 names flattened to 1.21 ids)
 COLORS16 = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black']
 FLAT = {'log': ['oak_log', 'spruce_log', 'birch_log', 'jungle_log'], 'log2': ['acacia_log', 'dark_oak_log'], 'sapling': ['oak_sapling', 'spruce_sapling', 'birch_sapling', 'jungle_sapling', 'acacia_sapling', 'dark_oak_sapling'],

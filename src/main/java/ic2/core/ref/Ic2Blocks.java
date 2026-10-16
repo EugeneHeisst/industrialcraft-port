@@ -148,5 +148,10 @@ public final class Ic2Blocks {
     private static DeferredBlock<ic2.core.block.wiring.BlockChargepad> chargepad(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new ic2.core.block.wiring.BlockChargepad(metal(1.5f, 10).noOcclusion(), type)); }
     private static DeferredBlock<BlockElectric> electric(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockElectric(metal(1.5f, 10), type)); }
 
+    private static BlockBehaviour.Properties personal() { return BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(-1, 6000000).noLootTable().sound(SoundType.METAL).pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK); }
+    public static final DeferredBlock<ic2.core.block.personal.BlockPersonal> PERSONAL_CHEST = REGISTRY.register("personal_chest", () -> new ic2.core.block.personal.BlockPersonal(personal().noOcclusion(), () -> Ic2BlockEntities.PERSONAL_CHEST.get(), true));
+    public static final DeferredBlock<ic2.core.block.personal.BlockPersonal> TRADE_O_MAT = REGISTRY.register("trade_o_mat", () -> new ic2.core.block.personal.BlockPersonal(personal(), () -> Ic2BlockEntities.TRADE_O_MAT.get(), false));
+    public static final DeferredBlock<ic2.core.block.personal.BlockPersonal> ENERGY_O_MAT = REGISTRY.register("energy_o_mat", () -> new ic2.core.block.personal.BlockPersonal(personal(), () -> Ic2BlockEntities.ENERGY_O_MAT.get(), false));
+
     private Ic2Blocks() {}
 }

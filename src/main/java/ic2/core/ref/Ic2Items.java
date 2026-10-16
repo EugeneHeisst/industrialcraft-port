@@ -34,7 +34,7 @@ public final class Ic2Items {
         var fluidBlocks = new java.util.HashSet<String>();
         for (var f : ic2.core.fluid.Ic2Fluids.ALL) fluidBlocks.add(f.name);
         fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); fluidBlocks.add("resin_sheet"); fluidBlocks.add("foam_wall"); fluidBlocks.add("dynamite"); fluidBlocks.add("dynamite_remote"); fluidBlocks.add("reinforced_door"); // the pipe item cannot be placed by hand, the tip has no item
-        for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
+        for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), block.getId().getPath().equals("personal_chest") ? new Item.Properties().rarity(net.minecraft.world.item.Rarity.UNCOMMON) : new Item.Properties()));
     }
 
     public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_RE_BATTERY = REGISTRY.register("charging_re_battery", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),40000,128,1));

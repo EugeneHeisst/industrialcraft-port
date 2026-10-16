@@ -64,6 +64,7 @@ public final class IC2Client {
     @SubscribeEvent
     static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CROP.get(), CropRenderer::new);
+        event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.PERSONAL_CHEST.get(), RenderPersonalChest::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.DYNAMITE.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CABLE.get(), RenderCableFoam::new);
@@ -82,6 +83,9 @@ public final class IC2Client {
     }
 
     private static Screen screen(ContainerBase<?> menu, Inventory inv, Component title) {
+        if (menu instanceof ic2.core.block.personal.ContainerPersonalChest m) return new ic2.core.block.personal.GuiPersonalChest(m, inv, title);
+        if (menu instanceof ic2.core.block.personal.ContainerTradeOMat m) return new ic2.core.block.personal.GuiTradeOMat(m, inv, title);
+        if (menu instanceof ic2.core.block.personal.ContainerEnergyOMat m) return new ic2.core.block.personal.GuiEnergyOMat(m, inv, title);
         if (menu.getClass() == ContainerStandardMachine.class && menu instanceof ContainerStandardMachine<?> m) {
             Object base = m.base;
             if (base instanceof TileEntityMacerator) return new GuiStandardMachine(m, inv, title, "guimacerator", "ic2.Macerator.gui.name");

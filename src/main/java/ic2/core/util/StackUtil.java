@@ -71,4 +71,48 @@ public final class StackUtil {
         }
         return stack.getCount() - left;
     }
+
+    /**
+     * Inventories next to the block entity, personal blocks first. A personal block is only reachable from a personal block
+     * of the same owner (trade/energy-o-mat stock in the owner's safe), like the original getAdjacentInventories.
+     */
+    public static java.util.List<IItemHandler> getAdjacentInventories(BlockEntity source) {
+        java.util.List<IItemHandler> personal = new java.util.ArrayList<>(), other = new java.util.ArrayList<>();
+        for (Direction dir : Direction.values()) {
+            BlockEntity target = ic2.core.util.Util.loadedBlockEntity(source.getLevel(), source.getBlockPos().relative(dir));
+            if (target instanceof ic2.core.block.personal.IPersonalBlock pt) {
+                if (!(source instanceof ic2.core.block.personal.IPersonalBlock ps) || !pt.permitsAccess(ps.getOwner())) continue;
+                IItemHandler h = target instanceof ic2.core.block.personal.TileEntityPersonalChest chest ? chest.ownerAccess() : neighbor(source, dir);
+                if (h != null) personal.add(h);
+            } else {
+                IItemHandler h = neighbor(source, dir);
+                if (h != null) other.add(h);
+            }
+        }
+        personal.addAll(other);
+        return personal;
+    }
+
+    /** Puts the stack into the adjacent inventories; returns the transferred count. The stack itself is not changed. */
+    public static int distribute(BlockEntity source, ItemStack stack, boolean simulate) {
+        ItemStack rest = stack.copy();
+        for (IItemHandler inv : getAdjacentInventories(source)) {
+            if (rest.isEmpty()) break;
+            rest = ItemHandlerHelper.insertItemStacked(inv, rest, simulate);
+        }
+        return stack.getCount() - rest.getCount();
+    }
+
+    /** Takes up to the stack's size of exactly that item from the adjacent inventories; returns what was (or would be) taken. */
+    public static ItemStack fetch(BlockEntity source, ItemStack stack, boolean simulate) {
+        int needed = stack.getCount(), got = 0;
+        for (IItemHandler inv : getAdjacentInventories(source)) {
+            for (int i = 0; i < inv.getSlots() && got < needed; i++) {
+                if (!isStackEqualStrict(inv.getStackInSlot(i), stack)) continue;
+                got += inv.extractItem(i, needed - got, simulate).getCount();
+            }
+            if (got >= needed) break;
+        }
+        return got == 0 ? ItemStack.EMPTY : stack.copyWithCount(got);
+    }
 }

@@ -101,6 +101,10 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityLathe>> LATHE = reg("lathe", ic2.core.block.machine.tileentity.TileEntityLathe::new, Ic2Blocks.LATHE);
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityStirlingKineticGenerator>> STIRLING_KINETIC_GENERATOR = reg("stirling_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityStirlingKineticGenerator::new, Ic2Blocks.STIRLING_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntitySteamKineticGenerator>> STEAM_KINETIC_GENERATOR = reg("steam_kinetic_generator", ic2.core.block.kineticgenerator.TileEntitySteamKineticGenerator::new, Ic2Blocks.STEAM_KINETIC_GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.personal.TileEntityPersonalChest>> PERSONAL_CHEST = reg("personal_chest", ic2.core.block.personal.TileEntityPersonalChest::new, Ic2Blocks.PERSONAL_CHEST);
+    public static final Supplier<BlockEntityType<ic2.core.block.personal.TileEntityTradeOMat>> TRADE_O_MAT = reg("trade_o_mat", ic2.core.block.personal.TileEntityTradeOMat::new, Ic2Blocks.TRADE_O_MAT);
+    public static final Supplier<BlockEntityType<ic2.core.block.personal.TileEntityEnergyOMat>> ENERGY_O_MAT = reg("energy_o_mat", ic2.core.block.personal.TileEntityEnergyOMat::new, Ic2Blocks.ENERGY_O_MAT);
+
     private static <T extends TileEntityBlock> Supplier<BlockEntityType<T>> reg(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> block) {
         return REGISTRY.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
     }

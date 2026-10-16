@@ -14,7 +14,7 @@ public final class Ic2Menus {
     /** Every block entity GUI; the client builds the container from the block entity at the sent position. */
     public static final Supplier<MenuType<ContainerBase<?>>> TILE = REGISTRY.register("tile", () -> IMenuTypeExtension.create((id, inv, buf) -> {
         var be = inv.player.level().getBlockEntity(buf.readBlockPos());
-        if (be instanceof IHasGui gui) return gui.getGuiContainer(id, inv);
+        if (be instanceof IHasGui gui) return gui.getGuiContainer(id, inv, buf);
         throw new IllegalStateException("No IC2 GUI block entity at the sent position");
     }));
     /** Hand-held item GUIs (toolbox, EU meter, cropnalyzer...): the buffer carries the hand holding the item. */

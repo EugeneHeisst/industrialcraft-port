@@ -59,7 +59,7 @@ public class BlockTileEntity extends BaseEntityBlock {
         if (level.getBlockEntity(pos) instanceof TileEntityBlock teb && teb.onActivated(player)) return InteractionResult.sidedSuccess(level.isClientSide);
         if (!(level.getBlockEntity(pos) instanceof IHasGui gui)) return InteractionResult.PASS;
         if (!level.isClientSide && player instanceof ServerPlayer sp)
-            sp.openMenu(new SimpleMenuProvider((id, inv, p) -> gui.getGuiContainer(id, inv), getName()), buf -> buf.writeBlockPos(pos));
+            sp.openMenu(new SimpleMenuProvider((id, inv, p) -> gui.getGuiContainer(id, inv), getName()), buf -> { buf.writeBlockPos(pos); gui.writeGuiData(sp, buf); });
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 

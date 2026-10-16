@@ -137,7 +137,7 @@ public final class IC2 {
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         registerFluids(event);
         for (var type : Ic2BlockEntities.REGISTRY.getEntries())
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, side) -> be instanceof TileEntityInventory inv ? (side == null ? new net.neoforged.neoforge.items.wrapper.InvWrapper(inv) : new SidedInvWrapper(inv, side)) : null);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), (be, side) -> be instanceof TileEntityInventory inv ? (side == null ? be instanceof ic2.core.block.personal.IPersonalBlock ? null : new net.neoforged.neoforge.items.wrapper.InvWrapper(inv) : new SidedInvWrapper(inv, side)) : null);
     }
 
     private static void registerFluids(RegisterCapabilitiesEvent event) {

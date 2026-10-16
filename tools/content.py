@@ -88,6 +88,8 @@ block('basalt', ['blockBasalt'], 'cube', tex='blockBasalt.png', tags=['minecraft
 block('machine', ['blockMachine@0', 'blockMachine'], 'cube', tex='machine/blockMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockMachine')
 block('reactor_vessel', ['blockreactorvessel'], 'cube', tex='reactor/blockreactorvessel.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockreactorvessel')
 block('advanced_machine', ['blockMachine@12'], 'cube', tex='machine/blockAdvMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockAdvMachine')
+# personal safe: drawn by its block entity renderer (models/newsafe.png), the sheet only gives the particle
+block('personal_chest', ['blockPersonal@0', 'blockPersonal'], 'safe', tex='personal/blockPersonalChest.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockPersonalChest')
 
 # machines: id, legacy, texture sheet below textures/blocks, lang key, gui texture, drop when broken without wrench
 MACHINES = [
@@ -166,6 +168,8 @@ MACHINES = [
     ('chargepad_mfe', 'blockChargepad@2', 'wiring/blockChargepadMFE.png', 'blockChargepadMFE', 'GUIChargepadBlock', 'machine'),
     ('chargepad_mfsu', 'blockChargepad@3', 'wiring/blockChargepadMFSU.png', 'blockChargepadMFSU', 'GUIChargepadBlock', 'machine'),
     ('ev_transformer', 'blockElectric@6', 'wiring/blockTransformerEV.png', 'blockTransformerEV', 'GUITransfomer', 'machine'),
+    ('trade_o_mat', 'blockPersonal@1', 'personal/blockPersonalTrader.png', 'blockPersonalTrader', 'GUITradeOMatOpen', 'self'),
+    ('energy_o_mat', 'blockPersonal@2', 'personal/blockPersonalTraderEnergy.png', 'blockPersonalTraderEnergy', 'GUIEnergyOMatOpen', 'self'),
 ]
 for id, leg, tex, lang, gui, drop in MACHINES:
     block(id, [leg], 'machine', tex=tex, lang=lang, gui=gui, drop=drop, tags=['minecraft:mineable/pickaxe'])
