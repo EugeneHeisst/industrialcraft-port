@@ -116,6 +116,8 @@ MACHINES = [
     ('water_kinetic_generator', 'blockKineticGenerator@4', 'kineticgenerator/blockWaterKineticGenerator.png', 'blockWaterKineticGenerator', 'GUIWaterKineticGenerator', 'machine'),
     ('electric_kinetic_generator', 'blockKineticGenerator@2', 'kineticgenerator/blockElectricKineticGenerator.png', 'blockElectricKineticGenerator', 'GUIElectricKineticGenerator', 'machine'),
     ('manual_kinetic_generator', 'blockKineticGenerator@3', 'kineticgenerator/blockManualKineticGenerator.png', 'blockManualKineticGenerator', None, 'machine'),
+    ('steam_generator', 'blockMachine3', 'machine/blockSteamGenerator.png', 'blockSteamGenerator', 'GUISteamGenerator', 'machine'),
+    ('steam_kinetic_generator', 'blockKineticGenerator@1', 'kineticgenerator/blockSteamKineticGenerator.png', 'blockSteamKineticGenerator', 'GUISteamKineticGenerator', 'machine'),
     ('fluid_heat_generator', 'blockHeatGenerator@1', 'heatgenerator/blockFluidHeatGenerator.png', 'blockFluidHeatGenerator', 'GUIFluidHeatGenerator', 'machine'),
     ('liquid_heat_exchanger', 'blockMachine2@12', 'machine/blockLiquidHeatExchanger.png', 'blockLiquidHeatExchanger', 'GUIHeatSourceFluid', 'machine'),
     ('fermenter', 'blockMachine2@13', 'machine/blockFermenter.png', 'blockFermenter', 'GUIFermenter', 'machine'),

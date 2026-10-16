@@ -37,6 +37,7 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<Item> STEAM_TURBINE = REGISTRY.register("steam_turbine", () -> new Item(new Item.Properties().durability(86400).setNoRepair()));
     public static final DeferredItem<ic2.core.item.ItemFertilizer> FERTILIZER = REGISTRY.register("fertilizer", () -> new ic2.core.item.ItemFertilizer(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.ItemTerraWart> TERRA_WART = REGISTRY.register("terra_wart", () -> new ic2.core.item.ItemTerraWart(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.ItemCropSeed> CROP_SEED = REGISTRY.register("crop_seed", () -> new ic2.core.item.ItemCropSeed(new Item.Properties()));

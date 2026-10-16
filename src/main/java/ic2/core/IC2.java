@@ -141,6 +141,8 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STEAM_GENERATOR.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STEAM_KINETIC_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_HEAT_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.LIQUID_HEAT_EXCHANGER.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FERMENTER.get(), (be, side) -> be.port(side));

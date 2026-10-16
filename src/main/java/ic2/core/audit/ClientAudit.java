@@ -57,11 +57,15 @@ public final class ClientAudit {
             ServerPlayer player = server.getPlayerList().getPlayers().get(0);
             level.setDayTime(6000);
             level.setWeatherParameters(6000, 0, false, false);
-            origin = player.blockPosition().offset(0, 0, 4);
-            for (BlockPos p : BlockPos.betweenClosed(origin.offset(-12, 0, -2), origin.offset(12, 4, 3))) level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
+            origin = new BlockPos(player.getBlockX(), 120, player.getBlockZ() + 4);
+            for (BlockPos p : BlockPos.betweenClosed(origin.offset(-16, -1, -16), origin.offset(64, -1, 16))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
+            for (BlockPos p : BlockPos.betweenClosed(origin.offset(-12, 0, -2), origin.offset(12, 24, 3))) level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
             server.setDifficulty(net.minecraft.world.Difficulty.PEACEFUL, true);
             player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
             player.getAbilities().invulnerable = true;
+            player.getAbilities().mayfly = true;
+            player.getAbilities().flying = true;
+            player.onUpdateAbilities();
             player.setHealth(player.getMaxHealth());
             int i = 0;
             for (var b : Ic2Blocks.REGISTRY.getEntries()) {
@@ -72,6 +76,8 @@ public final class ClientAudit {
                 level.setBlock(p, state, 3);
                 if (level.getBlockEntity(p) instanceof IHasGui) guis.add(p);
                 if (level.getBlockEntity(p) instanceof ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Rotor rotorGen) { rotorGen.rotorSlot.put(new ItemStack(Ic2Items.CARBON_ROTOR.get())); rotorGen.setRotationSpeed(1); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntitySteamGenerator boiler) { boiler.waterTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.DISTILLED_WATER.get(),7500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);boiler.systemheat=100;boiler.pressurevalve=220; }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.kineticgenerator.TileEntitySteamKineticGenerator t) { t.turbineSlot.put(new ItemStack(Ic2Items.STEAM_TURBINE.get()));t.waterTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.DISTILLED_WATER.get(),250),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.heatgenerator.TileEntityFluidHeatGenerator h) { h.tank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.BIOGAS.get(),7500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityLiquidHeatExchanger h) { for(int n=0;n<10;n++)h.conductors.put(n,new ItemStack(Ic2Items.get("heat_conductor")));h.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.HOT_COOLANT.get(),1500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);h.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.COOLANT.get(),1000),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityFermenter f) { f.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.BIOMASS.get(),5000),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);f.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.BIOGAS.get(),500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);f.heatbuffer=4000;f.progress=250; }

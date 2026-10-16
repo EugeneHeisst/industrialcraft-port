@@ -107,6 +107,8 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.machine.container.ContainerUu.PatternStorage m) return new ic2.core.block.machine.gui.GuiUu.PatternStorage(m, inv, title);
         if (menu instanceof ic2.core.block.reactor.ContainerNuclearReactor m) return new ic2.core.block.reactor.GuiNuclearReactor(m, inv, title);
         if (menu instanceof ic2.core.block.reactor.ContainerReactorFluidPort m) return new ic2.core.block.reactor.GuiNuclearReactor.FluidPort(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerSteamMachines.Boiler m) return new ic2.core.block.machine.gui.GuiSteamMachines(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerSteamMachines.Turbine m) return new ic2.core.block.machine.gui.GuiSteamMachines(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerThermalFluids.Generator m) return new ic2.core.block.machine.gui.GuiThermalFluids(m, inv, title, "fluid_heat_generator", "guifluidheatgenerator");
         if (menu instanceof ic2.core.block.machine.container.ContainerThermalFluids.Exchanger m) return new ic2.core.block.machine.gui.GuiThermalFluids(m, inv, title, "liquid_heat_exchanger", "guiheatsourcefluid");
         if (menu instanceof ic2.core.block.machine.container.ContainerThermalFluids.Fermenter m) return new ic2.core.block.machine.gui.GuiThermalFluids(m, inv, title, "fermenter", "guifermenter");

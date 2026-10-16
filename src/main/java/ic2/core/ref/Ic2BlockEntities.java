@@ -94,6 +94,8 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.heatgenerator.TileEntityFluidHeatGenerator>> FLUID_HEAT_GENERATOR = reg("fluid_heat_generator", ic2.core.block.heatgenerator.TileEntityFluidHeatGenerator::new, Ic2Blocks.FLUID_HEAT_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityLiquidHeatExchanger>> LIQUID_HEAT_EXCHANGER = reg("liquid_heat_exchanger", ic2.core.block.machine.tileentity.TileEntityLiquidHeatExchanger::new, Ic2Blocks.LIQUID_HEAT_EXCHANGER);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityFermenter>> FERMENTER = reg("fermenter", ic2.core.block.machine.tileentity.TileEntityFermenter::new, Ic2Blocks.FERMENTER);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntitySteamGenerator>> STEAM_GENERATOR = reg("steam_generator", ic2.core.block.machine.tileentity.TileEntitySteamGenerator::new, Ic2Blocks.STEAM_GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntitySteamKineticGenerator>> STEAM_KINETIC_GENERATOR = reg("steam_kinetic_generator", ic2.core.block.kineticgenerator.TileEntitySteamKineticGenerator::new, Ic2Blocks.STEAM_KINETIC_GENERATOR);
     private static <T extends TileEntityBlock> Supplier<BlockEntityType<T>> reg(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> block) {
         return REGISTRY.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
     }

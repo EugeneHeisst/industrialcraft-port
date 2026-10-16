@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/steam_generator_0",
+    "up": "ic2:block/steam_generator_1",
+    "north": "ic2:block/steam_generator_5",
+    "south": "ic2:block/steam_generator_7",
+    "west": "ic2:block/steam_generator_6",
+    "east": "ic2:block/steam_generator_4",
+    "particle": "ic2:block/steam_generator_5"
+  }
+}

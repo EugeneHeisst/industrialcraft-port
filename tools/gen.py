@@ -501,6 +501,8 @@ write(os.path.join(A, 'sounds.json'), sounds_json)
 # ---------- crops
 exec(compile(open(os.path.join(ROOT, "tools/crops.py")).read(), "tools/crops.py", "exec"))
 
+gen_item('steam_turbine', 'itemSteamTurbine.png', 'itemSteamTurbine', ['itemSteamTurbine'])
+
 # ---------- recipes
 VANILLA = {'reeds': 'sugar_cane', 'snow_layer': 'snow', 'snow': 'snow_block', 'fence': 'oak_fence', 'trapdoor': 'oak_trapdoor', 'wooden_door': 'oak_door',
            'wooden_pressure_plate': 'oak_pressure_plate', 'tallgrass': 'short_grass', 'red_flower': 'poppy', 'yellow_flower': 'dandelion', 'waterlily': 'lily_pad',

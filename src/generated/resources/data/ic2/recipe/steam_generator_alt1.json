@@ -1,0 +1,27 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "C C",
+    "SMS",
+    "PPP"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:iron_casing"
+    },
+    "S": {
+      "item": "ic2:iron_shaft"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "P": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "ic2:steam_generator",
+    "count": 1
+  }
+}

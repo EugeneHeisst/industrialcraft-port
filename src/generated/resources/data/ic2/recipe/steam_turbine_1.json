@@ -1,0 +1,18 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "   ",
+    "AAA",
+    "   "
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:steam_turbine_blade"
+    }
+  },
+  "result": {
+    "id": "ic2:steam_turbine",
+    "count": 1
+  }
+}

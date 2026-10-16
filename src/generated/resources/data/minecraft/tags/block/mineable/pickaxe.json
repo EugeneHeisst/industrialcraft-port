@@ -40,6 +40,8 @@
     "ic2:water_kinetic_generator",
     "ic2:electric_kinetic_generator",
     "ic2:manual_kinetic_generator",
+    "ic2:steam_generator",
+    "ic2:steam_kinetic_generator",
     "ic2:fluid_heat_generator",
     "ic2:liquid_heat_exchanger",
     "ic2:fermenter",
