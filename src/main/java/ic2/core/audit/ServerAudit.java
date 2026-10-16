@@ -566,6 +566,8 @@ public final class ServerAudit {
             check("mass fabricator makes UU and eats scrap", fab.getTankAmount() >= 1 && fab.scrap > 0, "uu=" + fab.getTankAmount() + " scrap=" + fab.scrap + " slot=" + fab.amplifierSlot.get());
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
+        if (tick == 705) CropAudit.run(level, base.offset(32, 0, -32), ServerAudit::check);
+        if (tick == 706) LogisticsAudit.run(level, base.offset(32, 0, 32), ServerAudit::check);
         if (tick == 710) {
             IC2.LOG.info("[audit] DONE {} checks, {} failed", results.size(), results.stream().filter(s -> s.startsWith("FAIL")).count());
             server.halt(false);

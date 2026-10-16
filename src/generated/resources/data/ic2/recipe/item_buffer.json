@@ -1,0 +1,24 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "CMC",
+    "III"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "I": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:item_buffer",
+    "count": 1
+  }
+}

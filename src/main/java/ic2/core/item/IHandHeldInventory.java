@@ -14,6 +14,11 @@ public interface IHandHeldInventory {
     ContainerBase<?> createContainer(int id, Inventory inv, ItemStack stack, InteractionHand hand);
 
     static void open(ServerPlayer player, InteractionHand hand, java.util.function.Function<Integer, ContainerBase<?>> server) {
-        player.openMenu(new SimpleMenuProvider((id, inv, p) -> server.apply(id), Component.empty()), buf -> buf.writeVarInt(hand.ordinal()));
+        player.openMenu(new SimpleMenuProvider((id, inv, p) -> {
+            var menu = server.apply(id);
+            // The menu may initialize item identity/data; deliver the held stack before the open-screen payload.
+            player.inventoryMenu.broadcastChanges();
+            return menu;
+        }, Component.empty()), buf -> buf.writeVarInt(hand.ordinal()));
     }
 }

@@ -81,6 +81,12 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCableDetector>> DETECTOR_CABLE = REGISTRY.register("detector_cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCableDetector::new, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.detector).get()).build(null));
     public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCableSplitter>> SPLITTER_CABLE = REGISTRY.register("splitter_cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCableSplitter::new, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.splitter).get()).build(null));
 
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntitySortingMachine>> SORTING_MACHINE = reg("sorting_machine", ic2.core.block.machine.tileentity.TileEntitySortingMachine::new, Ic2Blocks.SORTING_MACHINE);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityItemBuffer>> ITEM_BUFFER = reg("item_buffer", ic2.core.block.machine.tileentity.TileEntityItemBuffer::new, Ic2Blocks.ITEM_BUFFER);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityCropmatron>> CROPMATRON = reg("cropmatron", ic2.core.block.machine.tileentity.TileEntityCropmatron::new, Ic2Blocks.CROPMATRON);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityCropHarvester>> CROP_HARVESTER = reg("crop_harvester", ic2.core.block.machine.tileentity.TileEntityCropHarvester::new, Ic2Blocks.CROP_HARVESTER);
+    public static final Supplier<BlockEntityType<ic2.core.crop.TileEntityCrop>> CROP = reg("crop", ic2.core.crop.TileEntityCrop::new, Ic2Blocks.CROP);
+
     private static <T extends TileEntityBlock> Supplier<BlockEntityType<T>> reg(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> block) {
         return REGISTRY.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
     }

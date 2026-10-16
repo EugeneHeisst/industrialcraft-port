@@ -21,6 +21,7 @@ public final class Ic2Blocks {
     private static BlockBehaviour.Properties deepslate(float hardness) { return BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).strength(hardness, 3).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE); }
     private static BlockBehaviour.Properties metal(float hardness, float resistance) { return BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(hardness, resistance).requiresCorrectToolForDrops().sound(SoundType.METAL); }
 
+    public static final DeferredBlock<ic2.core.crop.BlockCrop> CROP = REGISTRY.register("crop", () -> new ic2.core.crop.BlockCrop(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CROP).noOcclusion().pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)));
     public static final DeferredBlock<Block> TIN_ORE = REGISTRY.register("tin_ore", () -> new Block(stone(3, 5)));
     public static final DeferredBlock<Block> URANIUM_ORE = REGISTRY.register("uranium_ore", () -> new Block(stone(4, 6)));
     public static final DeferredBlock<Block> LEAD_ORE = REGISTRY.register("lead_ore", () -> new Block(stone(2, 4)));
@@ -76,6 +77,10 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> REACTOR_ACCESS_HATCH = REGISTRY.register("reactor_access_hatch", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_ACCESS_HATCH.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_REDSTONE_PORT = REGISTRY.register("reactor_redstone_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_REDSTONE_PORT.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_FLUID_PORT = REGISTRY.register("reactor_fluid_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_FLUID_PORT.get()));
+    public static final DeferredBlock<BlockTileEntity> SORTING_MACHINE = machine("sorting_machine", () -> Ic2BlockEntities.SORTING_MACHINE.get());
+    public static final DeferredBlock<BlockTileEntity> ITEM_BUFFER = machine("item_buffer", () -> Ic2BlockEntities.ITEM_BUFFER.get());
+    public static final DeferredBlock<BlockTileEntity> CROPMATRON = machine("cropmatron", () -> Ic2BlockEntities.CROPMATRON.get());
+    public static final DeferredBlock<BlockTileEntity> CROP_HARVESTER = machine("crop_harvester", () -> Ic2BlockEntities.CROP_HARVESTER.get());
     public static final DeferredBlock<BlockTileEntity> TERRAFORMER = machine("terraformer", () -> Ic2BlockEntities.TERRAFORMER.get());
     public static final DeferredBlock<BlockTileEntity> SCANNER = machine("scanner", () -> Ic2BlockEntities.SCANNER.get());
     public static final DeferredBlock<BlockTileEntity> REPLICATOR = machine("replicator", () -> Ic2BlockEntities.REPLICATOR.get());

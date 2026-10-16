@@ -1,0 +1,30 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "cBc",
+    "UMU",
+    "CCC"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "item": "ic2:crop"
+    },
+    "c": {
+      "tag": "c:circuits/basic"
+    },
+    "B": {
+      "item": "minecraft:chest"
+    },
+    "U": {
+      "item": "minecraft:shears"
+    }
+  },
+  "result": {
+    "id": "ic2:crop_harvester",
+    "count": 1
+  }
+}

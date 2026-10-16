@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/crop_harvester_0",
+    "up": "ic2:block/crop_harvester_6",
+    "north": "ic2:block/crop_harvester_7",
+    "south": "ic2:block/crop_harvester_9",
+    "west": "ic2:block/crop_harvester_8",
+    "east": "ic2:block/crop_harvester_10",
+    "particle": "ic2:block/crop_harvester_7"
+  }
+}

@@ -44,7 +44,9 @@ public final class IC2 {
         .icon(() -> new ItemStack(Ic2Items.get("electronic_circuit")))
         .displayItems((params, out) -> {
             for (var item : Ic2Items.REGISTRY.getEntries()) {
-                out.accept(item.get());
+                if (item.get() instanceof ic2.core.item.ItemCropSeed && ic2.api.crops.Crops.instance != null) {
+                    for (var crop : ic2.api.crops.Crops.instance.getCrops()) if(crop != ic2.api.crops.Crops.weed) out.accept(ic2.core.item.ItemCropSeed.create(crop,1,1,1,4));
+                } else out.accept(item.get());
                 if (item.get() instanceof ic2.core.item.BaseElectricItem electric) out.accept(electric.charged());
                 if (item.get() instanceof ic2.core.item.tool.ItemElectricTool tool) out.accept(tool.getItemStack(Double.POSITIVE_INFINITY));
                 if (item.get() instanceof ic2.core.item.armor.ItemArmorElectric armor) out.accept(armor.charged());
@@ -102,6 +104,7 @@ public final class IC2 {
 
     private void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ic2.core.crop.IC2Crops.init();
             MachineRecipeLoader.load("macerator", Recipes.macerator);
             MachineRecipeLoader.load("extractor", Recipes.extractor);
             MachineRecipeLoader.load("compressor", Recipes.compressor);
@@ -137,6 +140,7 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.CROPMATRON.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.PUMP.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.REPLICATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.NUCLEAR_REACTOR.get(), (be, side) -> be);

@@ -1,0 +1,16 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:scrap"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "result": {
+    "id": "ic2:fertilizer",
+    "count": 2
+  }
+}

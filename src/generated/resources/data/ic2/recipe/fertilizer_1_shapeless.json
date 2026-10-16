@@ -1,0 +1,19 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:scrap"
+    },
+    {
+      "item": "ic2:scrap"
+    },
+    {
+      "item": "ic2:fertilizer"
+    }
+  ],
+  "result": {
+    "id": "ic2:fertilizer",
+    "count": 2
+  }
+}

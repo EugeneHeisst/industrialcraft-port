@@ -1,0 +1,1847 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "cross": "false"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stick"
+      }
+    },
+    {
+      "when": {
+        "cross": "true"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stick.upgraded"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "aurelia",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/aurelia.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "blackthorn",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/blackthorn.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "brownmushroom",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/brownmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "carrots",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/carrots.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cocoa",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cocoa.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "coffee",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/coffee.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyazint",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyazint.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "cyprium",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/cyprium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "dandelion",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/dandelion.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "eatingplant",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/eatingplant.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "ferru",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/ferru.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "hops",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/hops.7"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "melon",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/melon.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "netherwart",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/netherwart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "plumbiscus",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/plumbiscus.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "potato",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/potato.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "pumpkin",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/pumpkin.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "redmushroom",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redmushroom.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "redwheat",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/redwheat.7"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "reed",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/reed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "rose",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/rose.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "shining",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/shining.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stagnium",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stagnium.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "stickreed",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/stickreed.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "terrawart",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/terrawart.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "tulip",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/tulip.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "venomilia",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/venomilia.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "weed",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/weed.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "1"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.1"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "2"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.2"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "3"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.3"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "4"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.4"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "5"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.5"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "6"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.6"
+      }
+    },
+    {
+      "when": {
+        "plant": "wheat",
+        "size": "7"
+      },
+      "apply": {
+        "model": "ic2:block/crop/wheat.7"
+      }
+    }
+  ]
+}

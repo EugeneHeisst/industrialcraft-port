@@ -105,6 +105,8 @@ slag
 scrap
 plant_ball
 biochaff
+fertilizer
+terra_wart
 coin
 grin_powder
 weed

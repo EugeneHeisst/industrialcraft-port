@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/cropmatron_0",
+    "up": "ic2:block/cropmatron_3",
+    "north": "ic2:block/cropmatron_7",
+    "south": "ic2:block/cropmatron_5",
+    "west": "ic2:block/cropmatron_4",
+    "east": "ic2:block/cropmatron_6",
+    "particle": "ic2:block/cropmatron_7"
+  }
+}

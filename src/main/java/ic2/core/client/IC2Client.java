@@ -63,6 +63,7 @@ public final class IC2Client {
 
     @SubscribeEvent
     static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CROP.get(), CropRenderer::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.WIND_KINETIC_GENERATOR.get(), KineticGeneratorRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.WATER_KINETIC_GENERATOR.get(), KineticGeneratorRenderer::new);
@@ -106,6 +107,11 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.machine.container.ContainerUu.PatternStorage m) return new ic2.core.block.machine.gui.GuiUu.PatternStorage(m, inv, title);
         if (menu instanceof ic2.core.block.reactor.ContainerNuclearReactor m) return new ic2.core.block.reactor.GuiNuclearReactor(m, inv, title);
         if (menu instanceof ic2.core.block.reactor.ContainerReactorFluidPort m) return new ic2.core.block.reactor.GuiNuclearReactor.FluidPort(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerLogistics.Sorter m) return new ic2.core.block.machine.gui.GuiLogistics.Sorter(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerLogistics.Buffer m) return new ic2.core.block.machine.gui.GuiLogistics.Buffer(m, inv, title);
+        if (menu instanceof ic2.core.crop.ContainerCrops.Matron m) return new ic2.core.crop.GuiCrops.Matron(m, inv, title);
+        if (menu instanceof ic2.core.crop.ContainerCrops.Harvester m) return new ic2.core.crop.GuiCrops.Harvester(m, inv, title);
+        if (menu instanceof ic2.core.item.ItemCropAnalyzer.Container m) return new ic2.core.crop.GuiCrops.Analyzer(m, inv, title);
         if (menu instanceof ic2.core.item.ItemToolbox.Container m) return new ic2.core.item.GuiToolbox(m, inv, title);
         if (menu instanceof ic2.core.item.tool.ItemToolMeter.Container m) return new ic2.core.item.tool.GuiToolMeter(m, inv, title);
         if (menu instanceof ic2.core.block.wiring.ContainerChargepad m) return new ic2.core.block.wiring.GuiChargepad(m, inv, title);

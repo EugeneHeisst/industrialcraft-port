@@ -28,7 +28,7 @@ public final class Ic2Items {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (!line.isEmpty()) SIMPLE.put(line, REGISTRY.registerSimpleItem(line));
+                if (!line.isEmpty() && !line.equals("terra_wart") && !line.equals("fertilizer")) SIMPLE.put(line, REGISTRY.registerSimpleItem(line));
             }
         } catch (java.io.IOException e) { throw new RuntimeException(e); }
         var fluidBlocks = new java.util.HashSet<String>();
@@ -37,6 +37,13 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.ItemFertilizer> FERTILIZER = REGISTRY.register("fertilizer", () -> new ic2.core.item.ItemFertilizer(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemTerraWart> TERRA_WART = REGISTRY.register("terra_wart", () -> new ic2.core.item.ItemTerraWart(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemCropSeed> CROP_SEED = REGISTRY.register("crop_seed", () -> new ic2.core.item.ItemCropSeed(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemCropAnalyzer> CROP_ANALYZER = REGISTRY.register("crop_analyzer", () -> new ic2.core.item.ItemCropAnalyzer(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<ic2.core.item.ItemWeedingTrowel> WEEDING_TROWEL = REGISTRY.register("weeding_trowel", () -> new ic2.core.item.ItemWeedingTrowel(new Item.Properties()));
+    public static final DeferredItem<Item> WEED_EX = REGISTRY.register("weed_ex", () -> new Item(new Item.Properties().durability(64)));
+    public static final DeferredItem<Item> HYDRATION_CELL = REGISTRY.register("hydration_cell", () -> new Item(new Item.Properties().durability(10000)));
     public static final DeferredItem<ic2.core.item.ItemTinCan> FILLED_TIN_CAN = REGISTRY.register("filled_tin_can", () -> new ic2.core.item.ItemTinCan(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.tool.ItemFrequencyTransmitter> FREQUENCY_TRANSMITTER = REGISTRY.register("frequency_transmitter", () -> new ic2.core.item.tool.ItemFrequencyTransmitter(new Item.Properties()));
     public static final DeferredItem<net.minecraft.world.item.DoubleHighBlockItem> REINFORCED_DOOR = REGISTRY.register("reinforced_door", () -> new net.minecraft.world.item.DoubleHighBlockItem(Ic2Blocks.REINFORCED_DOOR.get(), new Item.Properties().stacksTo(8)));

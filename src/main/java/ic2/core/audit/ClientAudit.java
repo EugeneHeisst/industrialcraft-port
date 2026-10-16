@@ -113,6 +113,30 @@ public final class ClientAudit {
             Component.translatable("ic2.itemScanner")));
         if (tick == end + 10) shot(mc, "gui_od_scanner.png");
         if (tick == end + 12) mc.setScreen(null);
-        if (tick >= end + 20) mc.stop();
+        if (tick == end + 14) server.execute(() -> {
+            var l=server.overworld();var pl=server.getPlayerList().getPlayers().get(0);var field=origin.offset(40,0,0);
+            for(var pos:BlockPos.betweenClosed(field.offset(-2,-1,-8),field.offset(15,4,8)))l.setBlock(pos,Blocks.AIR.defaultBlockState(),3);
+            int index=0;
+            for(var card:ic2.api.crops.Crops.instance.getCrops()) {
+                var pos=field.offset(index%10,0,index/10*2);
+                l.setBlock(pos.below(),Blocks.FARMLAND.defaultBlockState().setValue(net.minecraft.world.level.block.FarmBlock.MOISTURE,7),3);
+                l.setBlock(pos,Ic2Blocks.CROP.get().defaultBlockState(),3);
+                var c=(ic2.core.crop.TileEntityCrop)l.getBlockEntity(pos);c.setCrop(card);c.setSize((byte)card.maxSize());c.setHydrationStorage(200);c.setNutrientStorage(100);c.updateState();index++;
+            }
+            pl.getAbilities().mayfly=true;pl.getAbilities().flying=true;pl.onUpdateAbilities();
+            pl.teleportTo(l,field.getX()+4.5,field.getY()+3,field.getZ()-5.5,0,28);
+        });
+        if (tick == end + 60) shot(mc, "crops.png");
+        if (tick == end + 65) server.execute(() -> {
+            var pl=server.getPlayerList().getPlayers().get(0);
+            var tool=Ic2Items.CROP_ANALYZER.get().charged();pl.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,tool);
+            var seed=ic2.core.item.ItemCropSeed.create(ic2.core.crop.IC2Crops.cropWheat,12,17,9,4);
+            var stored=net.minecraft.core.NonNullList.withSize(3,ItemStack.EMPTY);stored.set(1,seed);
+            tool.set(net.minecraft.core.component.DataComponents.CONTAINER,net.minecraft.world.item.component.ItemContainerContents.fromItems(stored));
+            Ic2Items.CROP_ANALYZER.get().use(pl.level(),pl,net.minecraft.world.InteractionHand.MAIN_HAND);
+        });
+        if (tick == end + 85) shot(mc,"gui_crop_analyzer.png");
+        if (tick == end + 90) mc.player.closeContainer();
+        if (tick >= end + 100) mc.stop();
     }
 }

@@ -1,0 +1,17 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "result": {
+    "id": "ic2:crop",
+    "count": 2
+  }
+}
