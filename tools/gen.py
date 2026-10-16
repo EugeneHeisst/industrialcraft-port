@@ -147,6 +147,8 @@ for iid, leg in [('uranium_fuel_rod', 'reactorUraniumSimple'), ('dual_uranium_fu
         ('thick_neutron_reflector', 'reactorReflectorThick'), ('rsh_condensator', 'reactorCondensator'), ('lzh_condensator', 'reactorCondensatorLap')]:
     gen_item(iid, leg + '.png', leg, [leg, leg + '@1', leg + '@*'])
 gen_item('crystal_memory', 'resources/itemcrystalmemory.png', 'itemcrystalmemory', ['itemcrystalmemory'])
+for kind, leg in (('chilling', 'Chilling'), ('cultivation', 'Cultivation'), ('desertification', 'Desertification'), ('flatification', 'Flatification'), ('irrigation', 'Irrigation'), ('mushroom', 'Mushroom')):
+    gen_item(kind + '_terraformer_blueprint', 'itemTFBP' + leg + '.png', 'itemTFBP' + leg, ['itemTFBP' + leg])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -483,7 +485,7 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
-          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter', 'generators.nuclear_reactor.loop': 'Generators/NuclearReactor/NuclearReactorLoop', 'generators.nuclear_reactor.geiger_low': 'Generators/NuclearReactor/GeigerLowEU', 'generators.nuclear_reactor.geiger_med': 'Generators/NuclearReactor/GeigerMedEU', 'generators.nuclear_reactor.geiger_high': 'Generators/NuclearReactor/GeigerHighEU',
+          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter', 'machines.terraformer_loop': 'Terraformers/TerraformerGenericloop', 'generators.nuclear_reactor.loop': 'Generators/NuclearReactor/NuclearReactorLoop', 'generators.nuclear_reactor.geiger_low': 'Generators/NuclearReactor/GeigerLowEU', 'generators.nuclear_reactor.geiger_med': 'Generators/NuclearReactor/GeigerMedEU', 'generators.nuclear_reactor.geiger_high': 'Generators/NuclearReactor/GeigerHighEU',
           'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
           'tools.mining_laser.mining': 'Tools/MiningLaser/MiningLaser', 'tools.mining_laser.low_focus': 'Tools/MiningLaser/MiningLaserLowFocus', 'tools.mining_laser.long_range': 'Tools/MiningLaser/MiningLaserLongRange',
           'tools.mining_laser.scatter': 'Tools/MiningLaser/MiningLaserScatter', 'tools.mining_laser.explosive': 'Tools/MiningLaser/MiningLaserExplosive'}
@@ -601,7 +603,7 @@ def crafting_recipes(name, shaped):
         left, right = [s.strip() for s in line.split('=', 1)]
         res, _ = parse_stack(left, True)
         if res is None or res[0] != 'item': warnings.append(f'{name}: result {left}'); continue
-        for n, alt in enumerate(re.split(r',\s*(?=")', right) if shaped else [right]):
+        for n, alt in enumerate(re.split(r',\s*(?=")', right) if shaped else [a for a in re.split(r'\s*,\s*', right) if a.strip()]):
             count = 1
             m = re.search(r'@count:(\d+)', alt)
             if m: count = int(m.group(1)); alt = alt.replace(m.group(0), '')

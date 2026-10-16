@@ -1,0 +1,13 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:desertification_terraformer_blueprint"
+    }
+  ],
+  "result": {
+    "id": "ic2:terraformer_blueprint",
+    "count": 1
+  }
+}

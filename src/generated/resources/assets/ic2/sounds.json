@@ -132,6 +132,13 @@
       }
     ]
   },
+  "machines.terraformer_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/terraformer_loop"
+      }
+    ]
+  },
   "generators.nuclear_reactor.loop": {
     "sounds": [
       {

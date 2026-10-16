@@ -73,6 +73,8 @@ public final class Ic2Items {
     public static final DeferredItem<Item> RSH_CONDENSATOR = REGISTRY.register("rsh_condensator", () -> new ic2.core.item.reactor.ItemReactorCondensator(new Item.Properties(), 20000));
     public static final DeferredItem<Item> LZH_CONDENSATOR = REGISTRY.register("lzh_condensator", () -> new ic2.core.item.reactor.ItemReactorCondensator(new Item.Properties(), 100000));
     public static final DeferredItem<ic2.core.item.ItemCrystalMemory> CRYSTAL_MEMORY = REGISTRY.register("crystal_memory", () -> new ic2.core.item.ItemCrystalMemory(new Item.Properties()));
+    public static final java.util.Map<ic2.core.item.tfbp.ItemTFBP.Kind, DeferredItem<ic2.core.item.tfbp.ItemTFBP>> TFBPS = new java.util.EnumMap<>(ic2.core.item.tfbp.ItemTFBP.Kind.class);
+    static { for (var k : ic2.core.item.tfbp.ItemTFBP.Kind.values()) TFBPS.put(k, REGISTRY.register(k.name().toLowerCase() + "_terraformer_blueprint", () -> new ic2.core.item.tfbp.ItemTFBP(new Item.Properties(), k))); }
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

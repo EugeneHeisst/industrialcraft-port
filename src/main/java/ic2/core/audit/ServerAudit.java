@@ -164,6 +164,11 @@ public final class ServerAudit {
         level.setBlock(up, facing(Ic2Blocks.SCANNER.get().defaultBlockState(), Direction.NORTH), 3);
         level.setBlock(up.east(), facing(Ic2Blocks.PATTERN_STORAGE.get().defaultBlockState(), Direction.NORTH), 3);
         level.setBlock(up.east(2), facing(Ic2Blocks.REPLICATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 15: terraformer with a cultivation blueprint on a dirt field
+        BlockPos tf = base.offset(-40, 0, 40);
+        for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++) level.setChunkForced((tf.getX() >> 4) + dx, (tf.getZ() >> 4) + dz, true);
+        for (BlockPos p : BlockPos.betweenClosed(tf.offset(-10, -2, -10), tf.offset(10, 12, 10))) level.setBlock(p, p.getY() < tf.getY() ? Blocks.DIRT.defaultBlockState() : Blocks.AIR.defaultBlockState(), 3);
+        level.setBlock(tf, Ic2Blocks.TERRAFORMER.get().defaultBlockState(), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -501,6 +506,17 @@ public final class ServerAudit {
         if (tick == 300) {
             var repl = (ic2.core.block.machine.tileentity.TileEntityReplicator)level.getBlockEntity(base.offset(5, 0, 22));
             check("replicator builds the pattern from UU", repl.outputSlot.get().is(Items.IRON_INGOT) && repl.getTankAmount() < 1000, "out=" + repl.outputSlot.get() + " tank=" + repl.getTankAmount() + " mode=" + repl.mode + " uu=" + repl.patternUu);
+        }
+        if (tick == 6) {
+            var tfp = (ic2.core.block.machine.tileentity.TileEntityTerra)level.getBlockEntity(base.offset(-40, 0, 40));
+            tfp.tfbpSlot.put(new ItemStack(Ic2Items.TFBPS.get(ic2.core.item.tfbp.ItemTFBP.Kind.CULTIVATION).get()));
+        }
+        if (tick > 6 && tick < 200) ((ic2.core.block.machine.tileentity.TileEntityTerra)level.getBlockEntity(base.offset(-40, 0, 40))).energy = 100000;
+        if (tick == 200) {
+            BlockPos tf = base.offset(-40, 0, 40);
+            int grass = 0, plants = 0;
+            for (BlockPos p : BlockPos.betweenClosed(tf.offset(-10, -1, -10), tf.offset(10, -1, 10))) { if (level.getBlockState(p).is(Blocks.GRASS_BLOCK)) grass++; if (!level.getBlockState(p.above()).isAir()) plants++; }
+            check("terraformer cultivates dirt", grass > 10, "grass=" + grass + " plants=" + plants);
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {

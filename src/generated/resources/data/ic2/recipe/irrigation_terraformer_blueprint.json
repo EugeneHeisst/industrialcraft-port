@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    " W ",
+    "W#W",
+    " W "
+  ],
+  "key": {
+    "#": {
+      "item": "ic2:terraformer_blueprint"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result": {
+    "id": "ic2:irrigation_terraformer_blueprint",
+    "count": 1
+  }
+}

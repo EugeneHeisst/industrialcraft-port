@@ -1,0 +1,13 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:light_blue_painter"
+    }
+  ],
+  "result": {
+    "id": "ic2:painter",
+    "count": 1
+  }
+}

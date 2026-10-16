@@ -115,6 +115,7 @@ MACHINES = [
     ('water_kinetic_generator', 'blockKineticGenerator@4', 'kineticgenerator/blockWaterKineticGenerator.png', 'blockWaterKineticGenerator', 'GUIWaterKineticGenerator', 'machine'),
     ('electric_kinetic_generator', 'blockKineticGenerator@2', 'kineticgenerator/blockElectricKineticGenerator.png', 'blockElectricKineticGenerator', 'GUIElectricKineticGenerator', 'machine'),
     ('manual_kinetic_generator', 'blockKineticGenerator@3', 'kineticgenerator/blockManualKineticGenerator.png', 'blockManualKineticGenerator', None, 'machine'),
+    ('terraformer', 'blockMachine@15', 'machine/blockTerra.png', 'blockTerra', None, 'machine'),
     ('pattern_storage', 'blockMachine2@6', 'machine/blockPatternStorage.png', 'blockPatternStorage', 'GUIPatternStorage', 'advanced_machine'),
     ('scanner', 'blockMachine2@7', 'machine/blockScanner.png', 'blockScanner', 'GUIScanner', 'advanced_machine'),
     ('replicator', 'blockMachine2@8', 'machine/blockReplicator.png', 'blockReplicator', 'GUIReplicator', 'advanced_machine'),
