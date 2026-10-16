@@ -364,6 +364,7 @@ public final class ServerAudit {
             level.setBlock(tp.offset(-3, -1, 1), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
             var item = new net.minecraft.world.entity.item.ItemEntity(level, tp.getX() - 3 + 0.5, tp.getY() + 1.1, tp.getZ() + 1.5, new ItemStack(Items.COBBLESTONE, 64));
             item.setPickUpDelay(1000);
+            item.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
             level.addFreshEntity(item);
             teleItem = item.getUUID();
         }
