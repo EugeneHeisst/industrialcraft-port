@@ -1,0 +1,17 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:rubbers"
+    }
+  },
+  "result": {
+    "id": "ic2:rubber_sheet",
+    "count": 3
+  }
+}

@@ -13,5 +13,8 @@
   },
   {
     "item": "minecraft:snow_block"
+  },
+  {
+    "item": "ic2:scaffold"
   }
 ]

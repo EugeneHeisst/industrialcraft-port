@@ -11,6 +11,7 @@
     "ic2:detector_cable",
     "ic2:splitter_cable",
     "ic2:insulated_tin_cable",
+    "ic2:scaffold",
     "ic2:rubber_wood"
   ]
 }

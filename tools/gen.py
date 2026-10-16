@@ -309,6 +309,72 @@ for t in ('minecraft:fences', 'minecraft:mineable/pickaxe'): add_tag(BLOCK_TAGS,
 add_tag(ITEM_TAGS, 'minecraft:fences', 'ic2:iron_fence')
 for code in out_lang: out_lang[code]['block.ic2.iron_fence'] = name(code, 'blockFenceIron', 'Iron Fence')
 LEGACY['blockFenceIron'] = 'ic2:iron_fence'
+# scaffolds, rubber / resin sheets, reinforced glass and door
+def simple_state(bid, model): write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': model}}})
+def self_loot(bid, item=None, extra=None):
+    pool = {'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': item or 'ic2:' + bid}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}
+    if extra: pool['conditions'] = extra
+    write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [pool]})
+for bid, tex, lang, reinforced in (('scaffold', 'blockScaffold', 'blockScaffold', 5), ('iron_scaffold', 'blockIronScaffold', 'blockIronScaffold', 12)):
+    copy(os.path.join(OTEX, 'blocks', tex + '.png'), os.path.join(A, 'textures/block', bid + '.png'))
+    copy(os.path.join(OTEX, 'blocks', tex + '.reinforced.png'), os.path.join(A, 'textures/block', bid + '_reinforced.png'))
+    for suffix in ('', '_reinforced'):
+        write(os.path.join(A, 'models/block', bid + suffix + '.json'), {'parent': 'minecraft:block/cube_all', 'render_type': 'minecraft:cutout', 'textures': {'all': 'ic2:block/' + bid + suffix}})
+    write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {f'strength={s}': {'model': 'ic2:block/' + bid + ('_reinforced' if s == reinforced else '')} for s in range(13)}})
+    write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'ic2:block/' + bid})
+    self_loot(bid)
+    add_tag(BLOCK_TAGS, 'minecraft:mineable/' + ('pickaxe' if bid == 'iron_scaffold' else 'axe'), 'ic2:' + bid)
+    for code in out_lang: out_lang[code]['block.ic2.' + bid] = name(code, lang, bid)
+    LEGACY[lang] = 'ic2:' + bid
+copy(os.path.join(OTEX, 'blocks/blockRubber.png'), os.path.join(A, 'textures/block/rubber_sheet.png'))
+copy(os.path.join(OTEX, 'blocks/blockHarz.png'), os.path.join(A, 'textures/block/resin_sheet.png'))
+for bid in ('rubber_sheet', 'resin_sheet'):
+    write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/block', 'render_type': 'minecraft:cutout', 'textures': {'particle': 'ic2:block/' + bid, 't': 'ic2:block/' + bid},
+        'elements': [{'from': [0, 0, 0], 'to': [16, 2, 16], 'faces': {f: {'texture': '#t', 'uv': [0, 14, 16, 16] if f not in ('up', 'down') else [0, 0, 16, 16], **({'cullface': f} if f != 'up' else {})} for f in FACES}}]})
+    write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}} if bid == 'resin_sheet' else {'supported=false': {'model': 'ic2:block/' + bid}, 'supported=true': {'model': 'ic2:block/' + bid}}})
+write(os.path.join(A, 'models/item/rubber_sheet.json'), {'parent': 'ic2:block/rubber_sheet'})
+self_loot('rubber_sheet')
+write(os.path.join(D, 'ic2/loot_table/blocks/resin_sheet.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:resin'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}, {'condition': 'minecraft:random_chance', 'chance': 0.8}]}]})
+for code in out_lang:
+    out_lang[code]['block.ic2.rubber_sheet'] = name(code, 'blockRubber', 'Rubber Sheet')
+    out_lang[code]['block.ic2.resin_sheet'] = name(code, 'blockHarz', 'Resin')
+    out_lang[code]['block.ic2.reinforced_glass'] = name(code, 'blockAlloyGlass', 'Reinforced Glass')
+    out_lang[code]['block.ic2.reinforced_door'] = out_lang[code]['item.ic2.reinforced_door'] = name(code, 'itemDoorAlloy', 'Reinforced Door')
+LEGACY.update({'blockRubber': 'ic2:rubber_sheet', 'blockAlloyGlass': 'ic2:reinforced_glass', 'itemDoorAlloy': 'ic2:reinforced_door'})
+copy(os.path.join(OTEX, 'blocks/blockAlloyGlass.png'), os.path.join(A, 'textures/block/reinforced_glass.png'))
+write(os.path.join(A, 'models/block/reinforced_glass.json'), {'parent': 'minecraft:block/cube_all', 'render_type': 'minecraft:cutout', 'textures': {'all': 'ic2:block/reinforced_glass'}})
+simple_state('reinforced_glass', 'ic2:block/reinforced_glass')
+write(os.path.join(A, 'models/item/reinforced_glass.json'), {'parent': 'ic2:block/reinforced_glass'})
+self_loot('reinforced_glass', extra=[{'condition': 'minecraft:match_tool', 'predicate': {'predicates': {'minecraft:enchantments': [{'enchantments': 'minecraft:silk_touch', 'levels': {'min': 1}}]}}}])
+add_tag(BLOCK_TAGS, 'minecraft:mineable/pickaxe', 'ic2:reinforced_glass')
+add_tag(BLOCK_TAGS, 'minecraft:impermeable', 'ic2:reinforced_glass')
+add_tag(BLOCK_TAGS, 'c:glass_blocks', 'ic2:reinforced_glass')
+# reinforced door from the vanilla door templates
+copy(os.path.join(OTEX, 'blocks/blockDoorAlloy.top.png'), os.path.join(A, 'textures/block/reinforced_door_top.png'))
+copy(os.path.join(OTEX, 'blocks/blockDoorAlloy.bottom.png'), os.path.join(A, 'textures/block/reinforced_door_bottom.png'))
+copy(os.path.join(OTEX, 'items/itemDoorAlloy.png'), os.path.join(A, 'textures/item/reinforced_door.png'))
+write(os.path.join(A, 'models/item/reinforced_door.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:item/reinforced_door'}})
+door_variants = {}
+for part in ('bottom_left', 'bottom_left_open', 'bottom_right', 'bottom_right_open', 'top_left', 'top_left_open', 'top_right', 'top_right_open'):
+    write(os.path.join(A, 'models/block', 'reinforced_door_' + part + '.json'), {'parent': 'minecraft:block/door_' + part, 'render_type': 'minecraft:cutout', 'textures': {'bottom': 'ic2:block/reinforced_door_bottom', 'top': 'ic2:block/reinforced_door_top'}})
+ROT = {'east': 0, 'south': 90, 'west': 180, 'north': 270}
+for facing, rot in ROT.items():
+    for half in ('lower', 'upper'):
+        for hinge in ('left', 'right'):
+            for open_ in ('false', 'true'):
+                part = ('bottom' if half == 'lower' else 'top') + '_' + hinge
+                y = rot
+                if open_ == 'true':
+                    part += '_open'
+                    y = (rot + (90 if hinge == 'left' else 270)) % 360
+                v = {'model': 'ic2:block/reinforced_door_' + part}
+                if y: v['y'] = y
+                door_variants[f'facing={facing},half={half},hinge={hinge},open={open_}'] = v
+write(os.path.join(A, 'blockstates/reinforced_door.json'), {'variants': door_variants})
+write(os.path.join(D, 'ic2/loot_table/blocks/reinforced_door.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:reinforced_door',
+    'conditions': [{'condition': 'minecraft:block_state_property', 'block': 'ic2:reinforced_door', 'properties': {'half': 'lower'}}]}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+for t in ('minecraft:mineable/pickaxe', 'minecraft:doors'): add_tag(BLOCK_TAGS, t, 'ic2:reinforced_door')
+add_tag(ITEM_TAGS, 'minecraft:doors', 'ic2:reinforced_door')
 # mining pipe shaft (4/16 wide) and drill tip; both drop the pipe item, which cannot be placed by hand
 copy(os.path.join(OTEX, 'blocks/machine/blockMiningPipe.png'), os.path.join(A, 'textures/block/mining_pipe.png'))
 copy(os.path.join(OTEX, 'blocks/machine/blockMiningTip.png'), os.path.join(A, 'textures/block/mining_pipe_tip.png'))

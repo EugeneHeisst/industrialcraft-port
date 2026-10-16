@@ -63,6 +63,9 @@
     "ic2:chargepad_mfsu",
     "ic2:ev_transformer",
     "ic2:iron_fence",
+    "ic2:iron_scaffold",
+    "ic2:reinforced_glass",
+    "ic2:reinforced_door",
     "ic2:mining_pipe",
     "ic2:mining_pipe_tip"
   ]

@@ -33,12 +33,13 @@ public final class Ic2Items {
         } catch (java.io.IOException e) { throw new RuntimeException(e); }
         var fluidBlocks = new java.util.HashSet<String>();
         for (var f : ic2.core.fluid.Ic2Fluids.ALL) fluidBlocks.add(f.name);
-        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); // the pipe item cannot be placed by hand, the tip has no item
+        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); fluidBlocks.add("resin_sheet"); fluidBlocks.add("reinforced_door"); // the pipe item cannot be placed by hand, the tip has no item
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static final DeferredItem<ic2.core.item.ItemTinCan> FILLED_TIN_CAN = REGISTRY.register("filled_tin_can", () -> new ic2.core.item.ItemTinCan(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.tool.ItemFrequencyTransmitter> FREQUENCY_TRANSMITTER = REGISTRY.register("frequency_transmitter", () -> new ic2.core.item.tool.ItemFrequencyTransmitter(new Item.Properties()));
+    public static final DeferredItem<net.minecraft.world.item.DoubleHighBlockItem> REINFORCED_DOOR = REGISTRY.register("reinforced_door", () -> new net.minecraft.world.item.DoubleHighBlockItem(Ic2Blocks.REINFORCED_DOOR.get(), new Item.Properties().stacksTo(8)));
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

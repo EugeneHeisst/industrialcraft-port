@@ -1,0 +1,43 @@
+{
+  "variants": {
+    "strength=0": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=1": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=2": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=3": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=4": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=5": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=6": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=7": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=8": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=9": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=10": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=11": {
+      "model": "ic2:block/iron_scaffold"
+    },
+    "strength=12": {
+      "model": "ic2:block/iron_scaffold_reinforced"
+    }
+  }
+}

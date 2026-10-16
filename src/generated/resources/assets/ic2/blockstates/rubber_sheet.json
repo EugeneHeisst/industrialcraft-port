@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "supported=false": {
+      "model": "ic2:block/rubber_sheet"
+    },
+    "supported=true": {
+      "model": "ic2:block/rubber_sheet"
+    }
+  }
+}

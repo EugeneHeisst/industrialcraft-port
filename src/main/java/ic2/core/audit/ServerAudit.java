@@ -379,6 +379,27 @@ public final class ServerAudit {
             ItemStack bat = padPlayer.getInventory().items.get(0);
             check("charge pad charges player inventory", ElectricItem.manager.getCharge(bat) >= 10000, "charge=" + ElectricItem.manager.getCharge(bat) + " active=" + level.getBlockState(base.offset(-4, 0, 9)));
         }
+        if (tick == 30) {
+            BlockPos sp = base.offset(-6, 0, 10).offset(-4, 3, -4);
+            level.setBlock(sp.below(), Blocks.STONE.defaultBlockState(), 3);
+            var sc = Ic2Blocks.SCAFFOLD.get();
+            for (int i = 0; i < 4; i++) {
+                BlockPos p = sp.east(i);
+                int s = sc.getStrengthFrom(level, p);
+                if (s >= 0) level.setBlock(p, sc.defaultBlockState().setValue(ic2.core.block.misc.BlockScaffold.STRENGTH, s), 3);
+            }
+        }
+        if (tick == 40) {
+            BlockPos sp = base.offset(-6, 0, 10).offset(-4, 3, -4);
+            String got = "";
+            for (int i = 0; i < 4; i++) { var s = level.getBlockState(sp.east(i)); got += s.is(Ic2Blocks.SCAFFOLD.get()) ? s.getValue(ic2.core.block.misc.BlockScaffold.STRENGTH) + " " : "- "; }
+            check("scaffold strength falls off away from the pillar", got.equals("2 1 0 - "), got);
+            level.setBlock(sp.below(), Blocks.AIR.defaultBlockState(), 3);
+        }
+        if (tick == 50) {
+            BlockPos sp = base.offset(-6, 0, 10).offset(-4, 3, -4);
+            check("unsupported scaffold collapses", !level.getBlockState(sp).is(Ic2Blocks.SCAFFOLD.get()), level.getBlockState(sp));
+        }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {
             var mac = (TileEntityMacerator)level.getBlockEntity(base.east());
