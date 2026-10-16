@@ -17,11 +17,16 @@ public final class Ic2Blocks {
     public static final DeferredRegister.Blocks REGISTRY = DeferredRegister.createBlocks(IC2.MODID);
 
     private static BlockBehaviour.Properties stone(float hardness, float resistance) { return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(hardness, resistance).requiresCorrectToolForDrops().sound(SoundType.STONE); }
+    /** Deepslate ore variants: 1.5 harder than the stone ones like vanilla, same blast resistance as deepslate ores. */
+    private static BlockBehaviour.Properties deepslate(float hardness) { return BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).strength(hardness, 3).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE); }
     private static BlockBehaviour.Properties metal(float hardness, float resistance) { return BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(hardness, resistance).requiresCorrectToolForDrops().sound(SoundType.METAL); }
 
     public static final DeferredBlock<Block> TIN_ORE = REGISTRY.register("tin_ore", () -> new Block(stone(3, 5)));
     public static final DeferredBlock<Block> URANIUM_ORE = REGISTRY.register("uranium_ore", () -> new Block(stone(4, 6)));
     public static final DeferredBlock<Block> LEAD_ORE = REGISTRY.register("lead_ore", () -> new Block(stone(2, 4)));
+    public static final DeferredBlock<Block> DEEPSLATE_TIN_ORE = REGISTRY.register("deepslate_tin_ore", () -> new Block(deepslate(4.5f)));
+    public static final DeferredBlock<Block> DEEPSLATE_URANIUM_ORE = REGISTRY.register("deepslate_uranium_ore", () -> new Block(deepslate(5.5f)));
+    public static final DeferredBlock<Block> DEEPSLATE_LEAD_ORE = REGISTRY.register("deepslate_lead_ore", () -> new Block(deepslate(3.5f)));
     public static final DeferredBlock<Block> TIN_BLOCK = REGISTRY.register("tin_block", () -> new Block(metal(5, 10)));
     public static final DeferredBlock<Block> BRONZE_BLOCK = REGISTRY.register("bronze_block", () -> new Block(metal(5, 10)));
     public static final DeferredBlock<Block> URANIUM_BLOCK = REGISTRY.register("uranium_block", () -> new Block(metal(5, 10)));

@@ -12,6 +12,15 @@
         "state": {
           "Name": "ic2:tin_ore"
         }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        },
+        "state": {
+          "Name": "ic2:deepslate_tin_ore"
+        }
       }
     ]
   }

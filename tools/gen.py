@@ -404,12 +404,52 @@ for tag, e in [('minecraft:logs', 'ic2:rubber_wood'), ('minecraft:logs_that_burn
     add_tag(ITEM_TAGS, tag, e)
 LEGACY['OreDict:woodRubber'] = 'ic2:rubber_wood'
 
-# ---------- world generation (original sea level 63 -> base height 64)
+# ---------- deepslate ore variants: the IC2 ore pixels (difference to the 1.7.10 stone) laid over vanilla deepslate
+VAN = os.path.join(ROOT, 'related/vanilla')
+def vanilla(version, member, local):
+    path = os.path.join(VAN, local)
+    if not os.path.exists(path):  # taken from the local Prism Launcher library jars
+        import zipfile
+        jar = os.path.expanduser(f'~/.local/share/PrismLauncher/libraries/com/mojang/minecraft/{version}/minecraft-{version}-client.jar')
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with zipfile.ZipFile(jar) as z, open(path, 'wb') as f: f.write(z.read(member))
+    return Image.open(path).convert('RGBA')
+stone_old = vanilla('1.7.10', 'assets/minecraft/textures/blocks/stone.png', 'v1710/stone.png')
+deepslate = vanilla('1.21.1', 'assets/minecraft/textures/block/deepslate.png', 'v121/deepslate.png')
+DEEP = [('tin', 'blockOreTin', 'Tin', 'minecraft:needs_stone_tool', 'tin_ingot'), ('uranium', 'blockOreUran', 'Uranium', 'minecraft:needs_iron_tool', None),
+        ('lead', 'blockOreLead', 'Lead', 'minecraft:needs_stone_tool', 'lead_ingot')]
+for mat, leg, en, needs, ingot in DEEP:
+    bid = f'deepslate_{mat}_ore'
+    ore = Image.open(os.path.join(OTEX, 'blocks', leg + '.png')).convert('RGBA')
+    out = deepslate.copy()
+    for px in range(16):
+        for py in range(16):
+            if ore.getpixel((px, py)) != stone_old.getpixel((px, py)): out.putpixel((px, py), ore.getpixel((px, py)))
+    path = os.path.join(A, 'textures/block', bid + '.png'); os.makedirs(os.path.dirname(path), exist_ok=True); out.save(path)
+    write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/cube_all', 'textures': {'all': 'ic2:block/' + bid}})
+    write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
+    write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'ic2:block/' + bid})
+    write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:' + bid}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+    for t in (f'c:ores/{mat}', 'c:ores', 'c:ores_in_ground/deepslate', 'c:ore_rates/singular', 'minecraft:mineable/pickaxe', needs): add_tag(BLOCK_TAGS, t, 'ic2:' + bid)
+    for t in (f'c:ores/{mat}', 'c:ores', 'c:ores_in_ground/deepslate'): add_tag(ITEM_TAGS, t, 'ic2:' + bid)
+    for code in out_lang:
+        base_name = name(code, leg, en + ' Ore')
+        out_lang[code]['block.ic2.' + bid] = ('Глубинносланцевая ' + base_name[0].lower() + base_name[1:]) if code == 'ru_ru' else 'Deepslate ' + base_name
+    if ingot:  # the original smelts tin and lead ore (0.5 xp); blasting like vanilla ores
+        for variant in (mat + '_ore', bid):
+            write(os.path.join(D, 'ic2/recipe', f'{ingot}_from_smelting_{variant}.json'), {'type': 'minecraft:smelting', 'category': 'misc', 'group': ingot, 'ingredient': {'item': 'ic2:' + variant}, 'result': {'id': 'ic2:' + ingot}, 'experience': 0.5, 'cookingtime': 200})
+            write(os.path.join(D, 'ic2/recipe', f'{ingot}_from_blasting_{variant}.json'), {'type': 'minecraft:blasting', 'category': 'misc', 'group': ingot, 'ingredient': {'item': 'ic2:' + variant}, 'result': {'id': 'ic2:' + ingot}, 'experience': 0.5, 'cookingtime': 100})
+
+# ---------- world generation
+# The original spread ores over 0..sea level and scaled vein counts with that height. 1.21 ground below sea level is -64..63, twice
+# as tall: heights map linearly (old y -> 2 * old - 64) and counts double, so density per block stays the same. Stone is replaced by
+# the normal ore, deepslate by the deepslate variant, like vanilla ores.
 WG = os.path.join(D, 'ic2/worldgen')
-ORES = [('tin_ore', 'ic2:tin_ore', 6, 25, 0, 39), ('uranium_ore', 'ic2:uranium_ore', 3, 20, 0, 63), ('lead_ore', 'ic2:lead_ore', 4, 8, 0, 63)]
-for fid, block_id, size, count, lo, hi in ORES:
+ORES = [('tin_ore', 'tin', 6, 50, -64, 14), ('uranium_ore', 'uranium', 3, 40, -64, 62), ('lead_ore', 'lead', 4, 16, -64, 62)]
+for fid, mat, size, count, lo, hi in ORES:
     write(os.path.join(WG, 'configured_feature', fid + '.json'), {'type': 'minecraft:ore', 'config': {'size': size, 'discard_chance_on_air_exposure': 0,
-        'targets': [{'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}, 'state': {'Name': block_id}}]}})
+        'targets': [{'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}, 'state': {'Name': f'ic2:{mat}_ore'}},
+                    {'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:deepslate_ore_replaceables'}, 'state': {'Name': f'ic2:deepslate_{mat}_ore'}}]}})
     write(os.path.join(WG, 'placed_feature', fid + '.json'), {'feature': 'ic2:' + fid, 'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
         {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}}, {'type': 'minecraft:biome'}]})
 write(os.path.join(WG, 'configured_feature/rubber_tree.json'), {'type': 'ic2:rubber_tree', 'config': {}})

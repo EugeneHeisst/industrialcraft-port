@@ -75,9 +75,9 @@ def block(id, legacy, kind, **kw):
     BLOCKS.append(dict(id=id, legacy=legacy, kind=kind, **kw))
 
 # simple cubes: texture below textures/blocks
-block('tin_ore', ['blockOreTin'], 'cube', tex='blockOreTin.png', tags=['c:ores/tin', 'c:ores', 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang='blockOreTin', item_tags=['c:ores/tin', 'c:ores'])
-block('uranium_ore', ['blockOreUran'], 'cube', tex='blockOreUran.png', tags=['c:ores/uranium', 'c:ores', 'minecraft:mineable/pickaxe', 'minecraft:needs_iron_tool'], drop='self', lang='blockOreUran', item_tags=['c:ores/uranium', 'c:ores'])
-block('lead_ore', ['blockOreLead'], 'cube', tex='blockOreLead.png', tags=['c:ores/lead', 'c:ores', 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang='blockOreLead', item_tags=['c:ores/lead', 'c:ores'])
+block('tin_ore', ['blockOreTin'], 'cube', tex='blockOreTin.png', tags=['c:ores/tin', 'c:ores', 'c:ores_in_ground/stone', 'c:ore_rates/singular', 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang='blockOreTin', item_tags=['c:ores/tin', 'c:ores', 'c:ores_in_ground/stone'])
+block('uranium_ore', ['blockOreUran'], 'cube', tex='blockOreUran.png', tags=['c:ores/uranium', 'c:ores', 'c:ores_in_ground/stone', 'c:ore_rates/singular', 'minecraft:mineable/pickaxe', 'minecraft:needs_iron_tool'], drop='self', lang='blockOreUran', item_tags=['c:ores/uranium', 'c:ores', 'c:ores_in_ground/stone'])
+block('lead_ore', ['blockOreLead'], 'cube', tex='blockOreLead.png', tags=['c:ores/lead', 'c:ores', 'c:ores_in_ground/stone', 'c:ore_rates/singular', 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang='blockOreLead', item_tags=['c:ores/lead', 'c:ores', 'c:ores_in_ground/stone'])
 for meta, (name, l, tag) in enumerate([(None, 'Copper', 'copper'), ('tin_block', 'Tin', 'tin'), ('bronze_block', 'Bronze', 'bronze'), ('uranium_block', 'Uranium', 'uranium'), ('lead_block', 'Lead', 'lead'), ('refined_iron_block', 'AdvIron', 'refined_iron')]):
     if name: block(name, [f'blockMetal@{meta}'], 'cube', tex=f'blockMetal{l}.png', tags=['c:storage_blocks/' + tag, 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang=f'blockMetal{l}', item_tags=['c:storage_blocks/' + tag])
 block('reinforced_stone', ['blockAlloy'], 'cube', tex='blockAlloy.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockAlloy')
