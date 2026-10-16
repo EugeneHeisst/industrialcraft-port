@@ -125,7 +125,6 @@ tritium_cell
 steam_turbine_blade
 painter
 terraformer_blueprint
-crystal_memory
 uranium_235
 small_uranium_235
 uranium_238

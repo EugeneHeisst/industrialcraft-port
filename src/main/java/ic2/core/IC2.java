@@ -138,6 +138,7 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.PUMP.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.REPLICATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.NUCLEAR_REACTOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.REACTOR_CHAMBER.get(), (be, side) -> be.getReactor());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.REACTOR_FLUID_PORT.get(), (be, side) -> be.getReactor());
@@ -156,6 +157,7 @@ public final class IC2 {
         r.playToClient(TileEventPayload.TYPE, TileEventPayload.CODEC, TileEventPayload::handle);
         r.playToServer(ContainerEventPayload.TYPE, ContainerEventPayload.CODEC, ContainerEventPayload::handle);
         r.playToClient(ic2.core.item.tool.ItemScanner.ScanResult.TYPE, ic2.core.item.tool.ItemScanner.ScanResult.CODEC, ic2.core.item.tool.ItemScanner.ScanResult::handle);
+        r.playToClient(ic2.core.uu.UuSync.Values.TYPE, ic2.core.uu.UuSync.Values.CODEC, ic2.core.uu.UuSync.Values::handle);
         r.playToServer(ic2.core.util.Keyboard.KeyStatePayload.TYPE, ic2.core.util.Keyboard.KeyStatePayload.CODEC, ic2.core.util.Keyboard.KeyStatePayload::handle);
     }
 }

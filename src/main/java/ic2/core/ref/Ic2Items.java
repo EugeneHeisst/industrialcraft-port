@@ -72,6 +72,7 @@ public final class Ic2Items {
     public static final DeferredItem<Item> THICK_NEUTRON_REFLECTOR = REGISTRY.register("thick_neutron_reflector", () -> new ic2.core.item.reactor.ItemReactorReflector(new Item.Properties(), 40000));
     public static final DeferredItem<Item> RSH_CONDENSATOR = REGISTRY.register("rsh_condensator", () -> new ic2.core.item.reactor.ItemReactorCondensator(new Item.Properties(), 20000));
     public static final DeferredItem<Item> LZH_CONDENSATOR = REGISTRY.register("lzh_condensator", () -> new ic2.core.item.reactor.ItemReactorCondensator(new Item.Properties(), 100000));
+    public static final DeferredItem<ic2.core.item.ItemCrystalMemory> CRYSTAL_MEMORY = REGISTRY.register("crystal_memory", () -> new ic2.core.item.ItemCrystalMemory(new Item.Properties()));
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/pattern_storage_0",
+    "up": "ic2:block/pattern_storage_1",
+    "north": "ic2:block/pattern_storage_2",
+    "south": "ic2:block/pattern_storage_2",
+    "west": "ic2:block/pattern_storage_3",
+    "east": "ic2:block/pattern_storage_3",
+    "particle": "ic2:block/pattern_storage_2"
+  }
+}

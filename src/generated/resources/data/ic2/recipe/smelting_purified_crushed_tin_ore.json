@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "ic2:purified_crushed_tin_ore"
+  },
+  "result": {
+    "id": "ic2:tin_ingot"
+  },
+  "experience": 0,
+  "cookingtime": 200
+}

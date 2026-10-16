@@ -45,6 +45,9 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.reactor.TileEntityReactorPort.AccessHatch>> REACTOR_ACCESS_HATCH = reg("reactor_access_hatch", ic2.core.block.reactor.TileEntityReactorPort.AccessHatch::new, Ic2Blocks.REACTOR_ACCESS_HATCH);
     public static final Supplier<BlockEntityType<ic2.core.block.reactor.TileEntityReactorPort.RedstonePort>> REACTOR_REDSTONE_PORT = reg("reactor_redstone_port", ic2.core.block.reactor.TileEntityReactorPort.RedstonePort::new, Ic2Blocks.REACTOR_REDSTONE_PORT);
     public static final Supplier<BlockEntityType<ic2.core.block.reactor.TileEntityReactorPort.FluidPort>> REACTOR_FLUID_PORT = reg("reactor_fluid_port", ic2.core.block.reactor.TileEntityReactorPort.FluidPort::new, Ic2Blocks.REACTOR_FLUID_PORT);
+    public static final Supplier<BlockEntityType<TileEntityScanner>> SCANNER = reg("scanner", TileEntityScanner::new, Ic2Blocks.SCANNER);
+    public static final Supplier<BlockEntityType<TileEntityReplicator>> REPLICATOR = reg("replicator", TileEntityReplicator::new, Ic2Blocks.REPLICATOR);
+    public static final Supplier<BlockEntityType<TileEntityPatternStorage>> PATTERN_STORAGE = reg("pattern_storage", TileEntityPatternStorage::new, Ic2Blocks.PATTERN_STORAGE);
     public static final Supplier<BlockEntityType<TileEntityTeleporter>> TELEPORTER = reg("teleporter", TileEntityTeleporter::new, Ic2Blocks.TELEPORTER);
     public static final Supplier<BlockEntityType<TileEntityTesla>> TESLA_COIL = reg("tesla_coil", TileEntityTesla::new, Ic2Blocks.TESLA_COIL);
     public static final Supplier<BlockEntityType<TileEntityMagnetizer>> MAGNETIZER = reg("magnetizer", TileEntityMagnetizer::new, Ic2Blocks.MAGNETIZER);

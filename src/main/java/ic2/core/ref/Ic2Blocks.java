@@ -76,6 +76,9 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> REACTOR_ACCESS_HATCH = REGISTRY.register("reactor_access_hatch", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_ACCESS_HATCH.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_REDSTONE_PORT = REGISTRY.register("reactor_redstone_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_REDSTONE_PORT.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_FLUID_PORT = REGISTRY.register("reactor_fluid_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_FLUID_PORT.get()));
+    public static final DeferredBlock<BlockTileEntity> SCANNER = machine("scanner", () -> Ic2BlockEntities.SCANNER.get());
+    public static final DeferredBlock<BlockTileEntity> REPLICATOR = machine("replicator", () -> Ic2BlockEntities.REPLICATOR.get());
+    public static final DeferredBlock<BlockTileEntity> PATTERN_STORAGE = machine("pattern_storage", () -> Ic2BlockEntities.PATTERN_STORAGE.get());
     public static final DeferredBlock<BlockTileEntity> TELEPORTER = machine("teleporter", () -> Ic2BlockEntities.TELEPORTER.get());
     public static final DeferredBlock<BlockTileEntity> TESLA_COIL = machine("tesla_coil", () -> Ic2BlockEntities.TESLA_COIL.get());
     public static final DeferredBlock<BlockTileEntity> MAGNETIZER = machine("magnetizer", () -> Ic2BlockEntities.MAGNETIZER.get());

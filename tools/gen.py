@@ -146,6 +146,7 @@ for iid, leg in [('uranium_fuel_rod', 'reactorUraniumSimple'), ('dual_uranium_fu
         ('overclocked_heat_vent', 'reactorVentGold'), ('component_heat_vent', 'reactorVentSpread'), ('advanced_heat_vent', 'reactorVentDiamond'), ('neutron_reflector', 'reactorReflector'),
         ('thick_neutron_reflector', 'reactorReflectorThick'), ('rsh_condensator', 'reactorCondensator'), ('lzh_condensator', 'reactorCondensatorLap')]:
     gen_item(iid, leg + '.png', leg, [leg, leg + '@1', leg + '@*'])
+gen_item('crystal_memory', 'resources/itemcrystalmemory.png', 'itemcrystalmemory', ['itemcrystalmemory'])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -448,6 +449,15 @@ for mat, leg, en, needs, ingot in DEEP:
             write(os.path.join(D, 'ic2/recipe', f'{ingot}_from_smelting_{variant}.json'), {'type': 'minecraft:smelting', 'category': 'misc', 'group': ingot, 'ingredient': {'item': 'ic2:' + variant}, 'result': {'id': 'ic2:' + ingot}, 'experience': 0.5, 'cookingtime': 200})
             write(os.path.join(D, 'ic2/recipe', f'{ingot}_from_blasting_{variant}.json'), {'type': 'minecraft:blasting', 'category': 'misc', 'group': ingot, 'ingredient': {'item': 'ic2:' + variant}, 'result': {'id': 'ic2:' + ingot}, 'experience': 0.5, 'cookingtime': 100})
 
+# ---------- furnace recipes of IC2.java (dusts, crushed ores, resin, rubber wood, raw crystal memory)
+ING = {'iron': 'minecraft:iron_ingot', 'gold': 'minecraft:gold_ingot', 'copper': 'minecraft:copper_ingot', 'tin': 'ic2:tin_ingot', 'lead': 'ic2:lead_ingot', 'silver': 'ic2:silver_ingot'}
+SMELT = [('ic2:rubber_wood', 'minecraft:jungle_log', 0.1), ('ic2:bronze_dust', 'ic2:bronze_ingot', 0), ('ic2:hydrated_coal_dust', 'ic2:coal_dust', 0), ('ic2:resin', 'ic2:rubber', 0.3),
+         ('ic2:raw_crystal_memory', 'ic2:crystal_memory', 0)]
+for m, ing in ING.items():
+    SMELT += [(f'ic2:{m}_dust', ing, 0), (f'ic2:crushed_{m}_ore', ing, 0), (f'ic2:purified_crushed_{m}_ore', ing, 0)]
+for src, dst, xp in SMELT:
+    write(os.path.join(D, 'ic2/recipe', 'smelting_' + src.split(':')[1] + '.json'), {'type': 'minecraft:smelting', 'category': 'misc', 'ingredient': {'item': src}, 'result': {'id': dst}, 'experience': xp, 'cookingtime': 200})
+
 # ---------- world generation
 # The original spread ores over 0..sea level and scaled vein counts with that height. 1.21 ground below sea level is -64..63, twice
 # as tall: heights map linearly (old y -> 2 * old - 64) and counts double, so density per block stays the same. Stone is replaced by
@@ -648,6 +658,38 @@ for code in out_lang:
     out_lang[code]['effect.ic2.radiation'] = name(code, 'potion.radiation', 'Radiation')
     out_lang[code]['entity.ic2.mining_laser'] = name(code, 'itemToolMiningLaser', 'Mining Laser')
 for f in ('laser.png', 'beam.png'): copy(os.path.join(OTEX, 'models', f), os.path.join(A, 'textures/models', f))
+# UU world scan values (1.7.10 names flattened to 1.21 ids)
+COLORS16 = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black']
+FLAT = {'log': ['oak_log', 'spruce_log', 'birch_log', 'jungle_log'], 'log2': ['acacia_log', 'dark_oak_log'], 'sapling': ['oak_sapling', 'spruce_sapling', 'birch_sapling', 'jungle_sapling', 'acacia_sapling', 'dark_oak_sapling'],
+        'planks': ['oak_planks', 'spruce_planks', 'birch_planks', 'jungle_planks', 'acacia_planks', 'dark_oak_planks'], 'sand': ['sand', 'red_sand'], 'sandstone': ['sandstone', 'chiseled_sandstone', 'cut_sandstone'],
+        'stained_hardened_clay': [c + '_terracotta' for c in COLORS16], 'wool': [c + '_wool' for c in COLORS16], 'dye': [None, None, None, 'cocoa_beans', 'lapis_lazuli'],
+        'red_flower': ['poppy', 'blue_orchid', 'allium', 'azure_bluet', 'red_tulip', 'orange_tulip', 'white_tulip', 'pink_tulip', 'oxeye_daisy'], 'double_plant': ['sunflower', 'lilac', None, None, 'rose_bush', 'peony'],
+        'stone_slab': ['smooth_stone_slab', 'sandstone_slab']}
+RENAME = {'hardened_clay': 'terracotta', 'yellow_flower': 'dandelion', 'waterlily': 'lily_pad', 'reeds': 'sugar_cane', 'melon': 'melon_slice', 'stone_stairs': 'cobblestone_stairs',
+          'wooden_door': 'oak_door', 'wooden_pressure_plate': 'oak_pressure_plate', 'fence': 'oak_fence', 'record_11': 'music_disc_11'}
+uu = {}
+for line in open(os.path.join(JAR, 'assets/ic2/config/uu_scan_values.ini'), encoding='utf8'):
+    line = line.split(';')[0].strip()
+    if '=' not in line: continue
+    k, v = [x.strip() for x in line.split('=', 1)]
+    mod, rest = k.split(':', 1)
+    name_, meta = (rest.split('@') + ['0'])[:2]
+    meta = int(meta)
+    target = None
+    if mod == 'minecraft':
+        if name_ in FLAT: target = FLAT[name_][meta] if meta < len(FLAT[name_]) else None
+        elif name_.startswith('record_'): target = 'music_disc_' + name_[7:]
+        elif meta == 0: target = RENAME.get(name_, name_)
+        if target: target = 'minecraft:' + target
+    elif mod == 'IC2':
+        target = {'itemIngot': 'minecraft:copper_ingot', 'itemIngot@1': 'ic2:tin_ingot', 'blockOreCopper': 'minecraft:copper_ore'}.get(rest) or LEGACY.get(rest)
+    if target: uu[target] = min(float(v), uu.get(target, float('inf')))
+    else: warnings.append('uu value ' + k)
+uu['ic2:iridium_ore'] = min(uu.get('ic2:iridium_ore', 1e18), 12000.0)
+for t in list(uu):
+    if t in ('ic2:tin_ore', 'ic2:lead_ore', 'ic2:uranium_ore'): uu['ic2:deepslate_' + t[4:]] = uu[t]
+    if t == 'minecraft:copper_ore': uu['minecraft:deepslate_copper_ore'] = uu[t]
+write(os.path.join(RES, 'ic2/uu_scan_values.json'), uu)
 # damage types of the original IC2DamageSource (death messages keep their vanilla keys)
 for dt in ('electricity', 'radiation', 'nuke'):
     write(os.path.join(D, 'ic2/damage_type', dt + '.json'), {'message_id': dt, 'exhaustion': 0.1, 'scaling': 'when_caused_by_living_non_player'})

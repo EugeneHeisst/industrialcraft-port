@@ -35,6 +35,7 @@ public final class ServerAudit {
     private static final List<String> results = new ArrayList<>();
     private static BlockPos base;
     private static int minerPipes;
+    private static String dbgUu() { StringBuilder b = new StringBuilder(); for (String id : new String[]{"copper_dust", "tin_dust", "bronze_dust", "small_copper_dust", "crushed_copper_ore", "iridium_ore", "advanced_alloy", "mixed_metal_ingot", "refined_iron_ingot", "bronze_ingot", "tin_ingot", "iron_plate", "tin_plate", "bronze_plate", "forge_hammer", "electronic_circuit", "copper_cable", "insulated_copper_cable", "rubber", "resin", "machine", "advanced_circuit"}) b.append(' ').append(id).append('=').append(ic2.core.uu.UuGraph.get(new ItemStack(Ic2Items.get(id)))); b.append(" diamond=").append(ic2.core.uu.UuGraph.get(new ItemStack(Items.DIAMOND))); return b.toString(); }
     private static java.util.UUID teleItem, teslaPig;
     private static net.minecraft.server.level.ServerPlayer padPlayer;
     private static boolean containsItem(ic2.core.block.invslot.InvSlot slot, net.minecraft.world.item.Item item) { for (int i = 0; i < slot.size(); i++) if (slot.get(i).is(item)) return true; return false; }
@@ -157,6 +158,12 @@ public final class ServerAudit {
         for (int dx = -2; dx <= 2; dx++) for (int dz = -2; dz <= 2; dz++) level.setChunkForced((bp.getX() >> 4) + dx, (bp.getZ() >> 4) + dz, true);
         for (BlockPos p : BlockPos.betweenClosed(bp.offset(-3, -3, -3), bp.offset(3, 3, 3))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
         level.setBlock(bp, facing(Ic2Blocks.NUCLEAR_REACTOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 14: scanner -> pattern storage -> replicator
+        BlockPos up = base.offset(3, 0, 22);
+        for (BlockPos p : BlockPos.betweenClosed(up.offset(0, 0, 0), up.offset(2, 1, 0))) level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
+        level.setBlock(up, facing(Ic2Blocks.SCANNER.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(up.east(), facing(Ic2Blocks.PATTERN_STORAGE.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(up.east(2), facing(Ic2Blocks.REPLICATOR.get().defaultBlockState(), Direction.NORTH), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -313,6 +320,13 @@ public final class ServerAudit {
             reactor.reactorSlot.put(0, 0, new ItemStack(Ic2Items.URANIUM_FUEL_ROD.get()));
             reactor.reactorSlot.put(3, 2, new ItemStack(Ic2Items.HEAT_VENT.get()));
             reactor.reactorSlot.put(8, 5, new ItemStack(Ic2Items.HEAT_STORAGE.get()));
+            var scanner = (ic2.core.block.machine.tileentity.TileEntityScanner)level.getBlockEntity(base.offset(3, 0, 22));
+            scanner.inputSlot.put(new ItemStack(Items.IRON_INGOT));
+            scanner.progress = ic2.core.block.machine.tileentity.TileEntityScanner.DURATION - 20;
+            var repl = (ic2.core.block.machine.tileentity.TileEntityReplicator)level.getBlockEntity(base.offset(5, 0, 22));
+            repl.getFluidTank().fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.UU_MATTER.get(), 1000), net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
+            check("uu values propagate through recipes", ic2.core.uu.UuGraph.get(new ItemStack(Items.COBBLESTONE)) == 1 && ic2.core.uu.UuGraph.get(new ItemStack(Items.IRON_INGOT)) < 1000 && ic2.core.uu.UuGraph.get(new ItemStack(Ic2Items.get("iridium_plate"))) < Double.POSITIVE_INFINITY && ic2.core.uu.UuGraph.get(new ItemStack(Ic2Items.get("scrap"))) < 1000,
+                "cobble=" + ic2.core.uu.UuGraph.get(new ItemStack(Items.COBBLESTONE)) + " iron=" + ic2.core.uu.UuGraph.get(new ItemStack(Items.IRON_INGOT)) + " iridiumPlate=" + ic2.core.uu.UuGraph.get(new ItemStack(Ic2Items.get("iridium_plate"))) + " scrap=" + ic2.core.uu.UuGraph.get(new ItemStack(Ic2Items.get("scrap"))) + " n=" + ic2.core.uu.UuGraph.all().size() + dbgUu());
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -471,6 +485,22 @@ public final class ServerAudit {
             int air = 0;
             for (BlockPos p : BlockPos.betweenClosed(bp.offset(-3, -3, -3), bp.offset(3, 3, 3))) if (level.getBlockState(p).isAir()) air++;
             check("overheated reactor melts down", !level.getBlockState(bp).is(Ic2Blocks.NUCLEAR_REACTOR.get()) && air > 20, "air=" + air);
+        }
+        if (tick > 5 && tick < 710) {
+            ((ic2.core.block.machine.tileentity.TileEntityScanner)level.getBlockEntity(base.offset(3, 0, 22))).energy = 512000;
+            ((ic2.core.block.machine.tileentity.TileEntityReplicator)level.getBlockEntity(base.offset(5, 0, 22))).energy = 2000000;
+        }
+        if (tick == 60) {
+            var scanner = (ic2.core.block.machine.tileentity.TileEntityScanner)level.getBlockEntity(base.offset(3, 0, 22));
+            scanner.onNetworkEvent(1);
+            var storage = (ic2.core.block.machine.tileentity.TileEntityPatternStorage)level.getBlockEntity(base.offset(4, 0, 22));
+            check("scanner records pattern into storage", storage.getPatterns().size() == 1 && storage.getPatterns().get(0).is(Items.IRON_INGOT) && scanner.inputSlot.isEmpty(), "patterns=" + storage.getPatterns() + " state=" + scanner.state);
+            var repl = (ic2.core.block.machine.tileentity.TileEntityReplicator)level.getBlockEntity(base.offset(5, 0, 22));
+            repl.onNetworkEvent(4);
+        }
+        if (tick == 300) {
+            var repl = (ic2.core.block.machine.tileentity.TileEntityReplicator)level.getBlockEntity(base.offset(5, 0, 22));
+            check("replicator builds the pattern from UU", repl.outputSlot.get().is(Items.IRON_INGOT) && repl.getTankAmount() < 1000, "out=" + repl.outputSlot.get() + " tank=" + repl.getTankAmount() + " mode=" + repl.mode + " uu=" + repl.patternUu);
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {
