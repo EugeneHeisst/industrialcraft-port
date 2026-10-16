@@ -33,7 +33,16 @@ public abstract class GuiIC2<T extends ContainerBase<?>> extends AbstractContain
     @Override
     protected void renderLabels(GuiGraphics g, int mouseX, int mouseY) {
         Component name = getName();
-        g.drawString(font, name, (imageWidth - font.width(name)) / 2, titleY(), 4210752, false);
+        int w = font.width(name), max = imageWidth - 34;
+        if (w <= max) g.drawString(font, name, (imageWidth - w) / 2, titleY(), 4210752, false);
+        else { // long translations are scaled down to fit between the info button and the right edge
+            float sc = (float)max / w;
+            g.pose().pushPose();
+            g.pose().translate((imageWidth - max) / 2f, titleY() + (1 - sc) * 4, 0);
+            g.pose().scale(sc, sc, 1);
+            g.drawString(font, name, 0, 0, 4210752, false);
+            g.pose().popPose();
+        }
         if (menu.base instanceof IUpgradableBlock block) GuiTooltipHelper.drawUpgradeslotTooltip(g, font, mouseX - leftPos, mouseY - topPos, 0, 0, 12, 12, block, 25, 0);
         drawForeground(g, mouseX - leftPos, mouseY - topPos);
     }

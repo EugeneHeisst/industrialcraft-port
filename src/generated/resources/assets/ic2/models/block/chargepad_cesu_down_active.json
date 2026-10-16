@@ -1,0 +1,12 @@
+{
+  "parent": "ic2:block/chargepad_base",
+  "textures": {
+    "down": "ic2:block/chargepad_cesu_3",
+    "up": "ic2:block/chargepad_cesu_4",
+    "north": "ic2:block/chargepad_cesu_5",
+    "south": "ic2:block/chargepad_cesu_0",
+    "west": "ic2:block/chargepad_cesu_2",
+    "east": "ic2:block/chargepad_cesu_2",
+    "particle": "ic2:block/chargepad_cesu_5"
+  }
+}

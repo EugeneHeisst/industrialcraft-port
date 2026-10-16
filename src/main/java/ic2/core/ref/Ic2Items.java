@@ -38,6 +38,7 @@ public final class Ic2Items {
     }
 
     public static final DeferredItem<ic2.core.item.ItemTinCan> FILLED_TIN_CAN = REGISTRY.register("filled_tin_can", () -> new ic2.core.item.ItemTinCan(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.tool.ItemFrequencyTransmitter> FREQUENCY_TRANSMITTER = REGISTRY.register("frequency_transmitter", () -> new ic2.core.item.tool.ItemFrequencyTransmitter(new Item.Properties()));
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

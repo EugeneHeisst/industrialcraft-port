@@ -12,7 +12,8 @@ public final class Ic2Sounds {
         RECYCLER_OP = reg("machines.recycler_op"), INTERRUPT_ONE = reg("machines.interrupt_one"), ELECTRO_FURNACE_LOOP = reg("machines.electro_furnace_loop"),
         IRON_FURNACE_OP = reg("machines.iron_furnace_op"), GENERATOR_LOOP = reg("generators.generator_loop"), GEOTHERMAL_LOOP = reg("generators.geothermal_loop"),
         WATERMILL_LOOP = reg("generators.watermill_loop"), WINDGEN_LOOP = reg("generators.windgen_loop"), MASS_FAB_LOOP = reg("generators.mass_fab_loop"), MASS_FAB_SCRAP = reg("generators.mass_fab_scrap"), WRENCH = reg("tools.wrench"), TREETAP = reg("tools.treetap"),
-        MINER_OP = reg("machines.miner_op"), PUMP_OP = reg("machines.pump_op"), OD_SCANNER = reg("tools.od_scanner");
+        MINER_OP = reg("machines.miner_op"), PUMP_OP = reg("machines.pump_op"), OD_SCANNER = reg("tools.od_scanner"),
+        TELEPORTER_CHARGED = reg("machines.teleporter.charged_loop"), TELEPORTER_USE = reg("machines.teleporter.use");
     private static Supplier<SoundEvent> reg(String name) { return REGISTRY.register(name, () -> SoundEvent.createVariableRangeEvent(IC2.id(name))); }
     private Ic2Sounds() {}
 }

@@ -36,7 +36,7 @@ LANG = {'en_us': props('en_US.properties'), 'ru_ru': props('ru_RU.properties')}
 out_lang = {k: {} for k in LANG}
 for code, src in LANG.items():
     for k, v in src.items():
-        out_lang[code][k if k.startswith('itemGroup') else 'ic2.' + k] = v.replace('%d', '%s')
+        out_lang[code][k if k.startswith('itemGroup') or k.startswith('death.attack.') else 'ic2.' + k] = v.replace('%d', '%s')
 
 def name(code, key, fallback):
     v = LANG[code].get(key) or LANG['en_us'].get(key) or LANG[code].get('ic2.' + key) or LANG['en_us'].get('ic2.' + key)
@@ -130,6 +130,7 @@ for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iro
     gen_item(iid, 'rotors/' + leg + '.png', leg, [leg])
     copy(os.path.join(OTEX, 'items/rotors', model + '.png'), os.path.join(A, 'textures/item/rotor', iid.replace('_rotor', '').join(['rotor_', '_model']) + '.png'))
 gen_item('filled_tin_can', 'itemTinCanFilled.png', 'itemTinCanFilled', ['itemTinCanFilled'])
+gen_item('frequency_transmitter', 'itemFreq.png', 'itemFreq', ['itemFreq'])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -201,7 +202,7 @@ for b in content.BLOCKS:
                 tex = {FACES[side]: names[SIDE_MAP[facing][side] + 6 * active] for side in range(6)}
                 tex['particle'] = tex['north']
                 mname = f'{bid}_{FACES[facing]}' + ('_active' if active else '')
-                write(os.path.join(A, 'models/block', mname + '.json'), {'parent': 'minecraft:block/cube', 'textures': tex})
+                write(os.path.join(A, 'models/block', mname + '.json'), {'parent': 'ic2:block/chargepad_base' if bid.startswith('chargepad') else 'minecraft:block/cube', 'textures': tex})
                 variants[f'active={"true" if active else "false"},facing={FACES[facing]}'] = {'model': 'ic2:block/' + mname}
         write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': variants})
         write(os.path.join(A, 'models/item', bid + '.json'), {'parent': f'ic2:block/{bid}_south'})
@@ -209,6 +210,8 @@ for b in content.BLOCKS:
     drop_item = 'ic2:' + bid if drop == 'self' else 'ic2:' + drop
     write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': drop_item}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
 
+write(os.path.join(A, 'models/block/chargepad_base.json'), {'parent': 'minecraft:block/block', 'elements': [{'from': [0, 0, 0], 'to': [16, 15.2, 16], 'faces': {
+    f: {'texture': '#' + f, **({'cullface': f} if f != 'up' else {}), **({'uv': [0, 0.8, 16, 16]} if f not in ('up', 'down') else {})} for f in FACES}}]})
 # ---------- cables
 COLORS = ['black', 'red', 'green', 'brown', 'blue', 'purple', 'cyan', 'lightGray', 'gray', 'pink', 'lime', 'yellow', 'lightBlue', 'magenta', 'orange', 'white']
 CABLES = [('insulated_copper', 0, 'Cable', 6, True), ('copper', 1, 'CableO', 4, False), ('gold', 2, 'GoldCable', 3, False), ('insulated_gold', 3, 'GoldCableI', 6, True),
@@ -349,7 +352,8 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
-          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner'}
+          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner',
+          'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse'}
 sounds_json = {}
 for key, src in SOUNDS.items():
     s = os.path.join(JAR, 'ic2/sounds', src + '.ogg')
@@ -512,6 +516,10 @@ write(os.path.join(D, 'ic2/tags/item/fluid_containers/water.json'), {'values': [
 write(os.path.join(D, 'ic2/tags/item/fluid_containers/lava.json'), {'values': ['minecraft:lava_bucket', 'ic2:lava_cell']})
 write(os.path.join(D, 'ic2/tags/item/tools/forge_hammer.json'), {'values': ['ic2:forge_hammer']})
 write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:cutter']})
+# damage types of the original IC2DamageSource (death messages keep their vanilla keys)
+for dt in ('electricity', 'radiation', 'nuke'):
+    write(os.path.join(D, 'ic2/damage_type', dt + '.json'), {'message_id': dt, 'exhaustion': 0.1, 'scaling': 'when_caused_by_living_non_player'})
+write(os.path.join(D, 'minecraft/tags/damage_type/bypasses_armor.json'), {'values': ['ic2:radiation']})
 for code, entries in out_lang.items(): write(os.path.join(A, 'lang', code + '.json'), dict(sorted(entries.items())))
 with open(os.path.join(ROOT, 'build/gen-warnings.txt') if os.path.isdir(os.path.join(ROOT, 'build')) else '/dev/null', 'w') as f: f.write('\n'.join(warnings))
 print('warnings', len(warnings))

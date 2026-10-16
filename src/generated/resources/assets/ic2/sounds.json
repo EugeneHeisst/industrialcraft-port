@@ -124,5 +124,19 @@
         "name": "ic2:tools/od_scanner"
       }
     ]
+  },
+  "machines.teleporter.charged_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/teleporter/charged_loop"
+      }
+    ]
+  },
+  "machines.teleporter.use": {
+    "sounds": [
+      {
+        "name": "ic2:machines/teleporter/use"
+      }
+    ]
   }
 }

@@ -114,6 +114,8 @@ MACHINES = [
     ('water_kinetic_generator', 'blockKineticGenerator@4', 'kineticgenerator/blockWaterKineticGenerator.png', 'blockWaterKineticGenerator', 'GUIWaterKineticGenerator', 'machine'),
     ('electric_kinetic_generator', 'blockKineticGenerator@2', 'kineticgenerator/blockElectricKineticGenerator.png', 'blockElectricKineticGenerator', 'GUIElectricKineticGenerator', 'machine'),
     ('manual_kinetic_generator', 'blockKineticGenerator@3', 'kineticgenerator/blockManualKineticGenerator.png', 'blockManualKineticGenerator', None, 'machine'),
+    ('teleporter', 'blockMachine2@0', 'machine/blockTeleporter.png', 'blockTeleporter', None, 'advanced_machine'),
+    ('tesla_coil', 'blockMachine2@1', 'machine/blockTesla.png', 'blockTesla', None, 'machine'),
     ('magnetizer', 'blockMachine@9', 'machine/blockMagnetizer.png', 'blockMagnetizer', 'GUIMagnetizer', 'machine'),
     ('electrolyzer', 'blockMachine@10', 'machine/blockElectrolyzer.png', 'blockElectrolyzer', 'GUIElectrolyzer', 'machine'),
     ('canner', 'blockMachine@6', 'machine/blockCanner.png', 'blockCanner', 'GUICanner', 'machine'),
@@ -130,6 +132,10 @@ MACHINES = [
     ('lv_transformer', 'blockElectric@3', 'wiring/blockTransformerLV.png', 'blockTransformerLV', 'GUITransfomer', 'self'),
     ('mv_transformer', 'blockElectric@4', 'wiring/blockTransformerMV.png', 'blockTransformerMV', 'GUITransfomer', 'machine'),
     ('hv_transformer', 'blockElectric@5', 'wiring/blockTransformerHV.png', 'blockTransformerHV', 'GUITransfomer', 'machine'),
+    ('chargepad_batbox', 'blockChargepad@0', 'wiring/blockChargepadBatBox.png', 'blockChargepadBatBox', 'GUIChargepadBlock', 'self'),
+    ('chargepad_cesu', 'blockChargepad@1', 'wiring/blockChargepadCESU.png', 'blockChargepadCESU', 'GUIChargepadBlock', 'self'),
+    ('chargepad_mfe', 'blockChargepad@2', 'wiring/blockChargepadMFE.png', 'blockChargepadMFE', 'GUIChargepadBlock', 'machine'),
+    ('chargepad_mfsu', 'blockChargepad@3', 'wiring/blockChargepadMFSU.png', 'blockChargepadMFSU', 'GUIChargepadBlock', 'machine'),
     ('ev_transformer', 'blockElectric@6', 'wiring/blockTransformerEV.png', 'blockTransformerEV', 'GUITransfomer', 'machine'),
 ]
 for id, leg, tex, lang, gui, drop in MACHINES:

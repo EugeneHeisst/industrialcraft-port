@@ -59,6 +59,8 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> ELECTRIC_KINETIC_GENERATOR = generator("electric_kinetic_generator", () -> Ic2BlockEntities.ELECTRIC_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> MANUAL_KINETIC_GENERATOR = generator("manual_kinetic_generator", () -> Ic2BlockEntities.MANUAL_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> MASS_FABRICATOR = machine("mass_fabricator", () -> Ic2BlockEntities.MASS_FABRICATOR.get());
+    public static final DeferredBlock<BlockTileEntity> TELEPORTER = machine("teleporter", () -> Ic2BlockEntities.TELEPORTER.get());
+    public static final DeferredBlock<BlockTileEntity> TESLA_COIL = machine("tesla_coil", () -> Ic2BlockEntities.TESLA_COIL.get());
     public static final DeferredBlock<BlockTileEntity> MAGNETIZER = machine("magnetizer", () -> Ic2BlockEntities.MAGNETIZER.get());
     public static final DeferredBlock<BlockTileEntity> ELECTROLYZER = machine("electrolyzer", () -> Ic2BlockEntities.ELECTROLYZER.get());
     public static final DeferredBlock<ic2.core.block.misc.BlockPoleFence> IRON_FENCE = REGISTRY.register("iron_fence", () -> new ic2.core.block.misc.BlockPoleFence(metal(1.5f, 5).noOcclusion()));
@@ -83,6 +85,10 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockElectric> HV_TRANSFORMER = electric("hv_transformer", () -> Ic2BlockEntities.HV_TRANSFORMER.get());
     public static final DeferredBlock<BlockElectric> EV_TRANSFORMER = electric("ev_transformer", () -> Ic2BlockEntities.EV_TRANSFORMER.get());
 
+    public static final DeferredBlock<ic2.core.block.wiring.BlockChargepad> CHARGEPAD_BATBOX = chargepad("chargepad_batbox", () -> Ic2BlockEntities.CHARGEPAD_BATBOX.get());
+    public static final DeferredBlock<ic2.core.block.wiring.BlockChargepad> CHARGEPAD_CESU = chargepad("chargepad_cesu", () -> Ic2BlockEntities.CHARGEPAD_CESU.get());
+    public static final DeferredBlock<ic2.core.block.wiring.BlockChargepad> CHARGEPAD_MFE = chargepad("chargepad_mfe", () -> Ic2BlockEntities.CHARGEPAD_MFE.get());
+    public static final DeferredBlock<ic2.core.block.wiring.BlockChargepad> CHARGEPAD_MFSU = chargepad("chargepad_mfsu", () -> Ic2BlockEntities.CHARGEPAD_MFSU.get());
     public static final java.util.Map<ic2.core.block.wiring.CableType, DeferredBlock<ic2.core.block.wiring.BlockCable>> CABLES = new java.util.EnumMap<>(ic2.core.block.wiring.CableType.class);
     static {
         for (var type : ic2.core.block.wiring.CableType.values())
@@ -93,6 +99,7 @@ public final class Ic2Blocks {
 
     private static DeferredBlock<BlockTileEntity> machine(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockTileEntity(metal(2, 10), type)); }
     private static DeferredBlock<BlockTileEntity> generator(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockTileEntity(metal(3, 10), type)); }
+    private static DeferredBlock<ic2.core.block.wiring.BlockChargepad> chargepad(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new ic2.core.block.wiring.BlockChargepad(metal(1.5f, 10).noOcclusion(), type)); }
     private static DeferredBlock<BlockElectric> electric(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockElectric(metal(1.5f, 10), type)); }
 
     private Ic2Blocks() {}

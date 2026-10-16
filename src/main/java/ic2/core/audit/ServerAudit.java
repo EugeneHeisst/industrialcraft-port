@@ -35,6 +35,8 @@ public final class ServerAudit {
     private static final List<String> results = new ArrayList<>();
     private static BlockPos base;
     private static int minerPipes;
+    private static java.util.UUID teleItem, teslaPig;
+    private static net.minecraft.server.level.ServerPlayer padPlayer;
     private static boolean containsItem(ic2.core.block.invslot.InvSlot slot, net.minecraft.world.item.Item item) { for (int i = 0; i < slot.size(); i++) if (slot.get(i).is(item)) return true; return false; }
     private static int shaft(ServerLevel level) {
         int n = 0;
@@ -137,6 +139,13 @@ public final class ServerAudit {
         level.setBlock(mp.offset(0, 1, -3), facing(Ic2Blocks.MFSU.get().defaultBlockState(), Direction.UP), 3);
         level.setBlock(mp.offset(2, 0, -3), Ic2Blocks.ELECTROLYZER.get().defaultBlockState(), 3);
         level.setBlock(mp.offset(2, 1, -3), facing(Ic2Blocks.MFSU.get().defaultBlockState(), Direction.UP), 3);
+        // 12: teleporter pair fed by an MFSU, tesla coil with a pig, MFSU charge pad
+        level.setBlock(mp.offset(-3, 0, 1), Ic2Blocks.TELEPORTER.get().defaultBlockState(), 3);
+        level.setBlock(mp.offset(-4, 0, 1), facing(Ic2Blocks.MFSU.get().defaultBlockState(), Direction.WEST), 3);
+        level.setBlock(mp.offset(3, 0, 1), Ic2Blocks.TELEPORTER.get().defaultBlockState(), 3);
+        level.setBlock(mp.offset(-2, 0, -1), Ic2Blocks.TESLA_COIL.get().defaultBlockState(), 3);
+        level.setBlock(mp.offset(-2, -1, -1), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
+        level.setBlock(mp.offset(2, 0, -1), facing(Ic2Blocks.CHARGEPAD_MFSU.get().defaultBlockState(), Direction.WEST), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -276,6 +285,19 @@ public final class ServerAudit {
             ((TileEntityElectricBlock)level.getBlockEntity(base.offset(-6, 1, 7))).energy = 0.9 * ((TileEntityElectricBlock)level.getBlockEntity(base.offset(-6, 1, 7))).maxStorage;
             ((ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-6, 0, 7))).waterSlot.put(new ItemStack(Ic2Items.WATER_CELL.get(), 4));
             ((ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-4, 0, 7))).hydrogenSlot.put(new ItemStack(Ic2Items.get("electrolyzed_water_cell"), 2));
+            BlockPos tp = base.offset(-6, 0, 10);
+            ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(-4, 0, 1))).energy = 1000000;
+            var tpA = (ic2.core.block.machine.tileentity.TileEntityTeleporter)level.getBlockEntity(tp.offset(-3, 0, 1));
+            tpA.setTarget(tp.offset(3, 0, 1));
+            ((ic2.core.block.machine.tileentity.TileEntityTesla)level.getBlockEntity(tp.offset(-2, 0, -1))).energy = 10000;
+            var pig = net.minecraft.world.entity.EntityType.PIG.create(level);
+            pig.moveTo(tp.getX() - 2 + 0.5, tp.getY() + 1, tp.getZ() - 1 + 0.5);
+            pig.setNoAi(true);
+            level.addFreshEntity(pig);
+            teslaPig = pig.getUUID();
+            ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(2, 0, -1))).energy = 1000000;
+            padPlayer = net.neoforged.neoforge.common.util.FakePlayerFactory.get(level, new com.mojang.authlib.GameProfile(java.util.UUID.nameUUIDFromBytes("ic2audit".getBytes()), "ic2audit"));
+            padPlayer.getInventory().items.set(0, new ItemStack(Ic2Items.RE_BATTERY.get()));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -336,6 +358,26 @@ public final class ServerAudit {
             var e2 = (ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-4, 0, 7));
             var mfsu2 = (TileEntityElectricBlock)level.getBlockEntity(base.offset(-4, 1, 7));
             check("electrolyzer feeds an empty storage", e2.waterSlot.get().is(Ic2Items.WATER_CELL.get()) && mfsu2.energy > 20000, "w=" + e2.waterSlot.get() + " mfsu=" + mfsu2.energy);
+        }
+        if (tick == 20) {
+            BlockPos tp = base.offset(-6, 0, 10);
+            level.setBlock(tp.offset(-3, -1, 1), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
+            var item = new net.minecraft.world.entity.item.ItemEntity(level, tp.getX() - 3 + 0.5, tp.getY() + 1.1, tp.getZ() + 1.5, new ItemStack(Items.COBBLESTONE, 64));
+            item.setPickUpDelay(1000);
+            level.addFreshEntity(item);
+            teleItem = item.getUUID();
+        }
+        if (tick > 5 && tick < 710 && padPlayer != null) ((ic2.core.block.wiring.TileEntityChargepad)level.getBlockEntity(base.offset(-4, 0, 9))).playerStandsAt(padPlayer);
+        if (tick == 120) {
+            BlockPos tp = base.offset(-6, 0, 10);
+            var item = level.getEntity(teleItem);
+            check("teleporter moves item to linked teleporter", item != null && item.blockPosition().closerThan(tp.offset(3, 1, 1), 1.5), item == null ? "gone" : item.blockPosition() + " mfsu=" + ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(-4, 0, 1))).energy);
+            var pig = (net.minecraft.world.entity.LivingEntity)level.getEntity(teslaPig);
+            check("tesla coil shocks nearby mob", pig == null || pig.isDeadOrDying() || pig.getHealth() < pig.getMaxHealth(), pig == null ? "dead" : "hp=" + pig.getHealth());
+        }
+        if (tick == 700) {
+            ItemStack bat = padPlayer.getInventory().items.get(0);
+            check("charge pad charges player inventory", ElectricItem.manager.getCharge(bat) >= 10000, "charge=" + ElectricItem.manager.getCharge(bat) + " active=" + level.getBlockState(base.offset(-4, 0, 9)));
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {

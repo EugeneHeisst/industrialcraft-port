@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public abstract class TileEntityElectricBlock extends TileEntityInventory implements IEnergySink, IEnergySource, IHasGui, IEnergyStorage {
     public static final float energyRetainedInStorageBlockDrops = 0.8f;
     public static final byte redstoneModes = 7;
+    protected byte redstoneModeCount() { return redstoneModes; }
     public final int tier, output, maxStorage;
     public double energy;
     public boolean hasRedstone;
@@ -68,6 +69,11 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
         boolean needsInvUpdate = false;
         if (energy >= 1) { double sent = chargeSlot.charge(energy); energy -= sent; needsInvUpdate = sent > 0; }
         if (getDemandedEnergy() > 0 && !dischargeSlot.isEmpty()) { double gain = dischargeSlot.discharge(maxStorage - energy, false); energy += gain; needsInvUpdate = gain > 0; }
+        updateRedstone();
+        if (needsInvUpdate) setChanged();
+    }
+
+    protected void updateRedstone() {
         if (redstoneMode == 5 || redstoneMode == 6) hasRedstone = level.hasNeighborSignal(worldPosition);
         boolean shouldEmit = shouldEmitRedstone();
         if (shouldEmit != isEmittingRedstone) {
@@ -75,7 +81,6 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
             setActive(isEmittingRedstone);
             level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
         }
-        if (needsInvUpdate) setChanged();
     }
 
     @Override public boolean acceptsEnergyFrom(BlockEntity emitter, Direction direction) { return direction != getFacing(); }
@@ -119,7 +124,7 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
     /** GUI redstone button. */
     public void cycleRedstoneMode(Player player) {
         redstoneMode++;
-        if (redstoneMode >= redstoneModes) redstoneMode = 0;
+        if (redstoneMode >= redstoneModeCount()) redstoneMode = 0;
         player.displayClientMessage(getRedstoneMode(), false);
     }
 

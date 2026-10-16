@@ -40,6 +40,8 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric>> ELECTRIC_KINETIC_GENERATOR = reg("electric_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric::new, Ic2Blocks.ELECTRIC_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Manual>> MANUAL_KINETIC_GENERATOR = reg("manual_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Manual::new, Ic2Blocks.MANUAL_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<TileEntityMatter>> MASS_FABRICATOR = reg("mass_fabricator", TileEntityMatter::new, Ic2Blocks.MASS_FABRICATOR);
+    public static final Supplier<BlockEntityType<TileEntityTeleporter>> TELEPORTER = reg("teleporter", TileEntityTeleporter::new, Ic2Blocks.TELEPORTER);
+    public static final Supplier<BlockEntityType<TileEntityTesla>> TESLA_COIL = reg("tesla_coil", TileEntityTesla::new, Ic2Blocks.TESLA_COIL);
     public static final Supplier<BlockEntityType<TileEntityMagnetizer>> MAGNETIZER = reg("magnetizer", TileEntityMagnetizer::new, Ic2Blocks.MAGNETIZER);
     public static final Supplier<BlockEntityType<TileEntityElectrolyzer>> ELECTROLYZER = reg("electrolyzer", TileEntityElectrolyzer::new, Ic2Blocks.ELECTROLYZER);
     public static final Supplier<BlockEntityType<TileEntityCanner>> CANNER = reg("canner", TileEntityCanner::new, Ic2Blocks.CANNER);
@@ -61,6 +63,10 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<TileEntityTransformer.HV>> HV_TRANSFORMER = reg("hv_transformer", TileEntityTransformer.HV::new, Ic2Blocks.HV_TRANSFORMER);
     public static final Supplier<BlockEntityType<TileEntityTransformer.EV>> EV_TRANSFORMER = reg("ev_transformer", TileEntityTransformer.EV::new, Ic2Blocks.EV_TRANSFORMER);
 
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityChargepad.BatBox>> CHARGEPAD_BATBOX = reg("chargepad_batbox", ic2.core.block.wiring.TileEntityChargepad.BatBox::new, Ic2Blocks.CHARGEPAD_BATBOX);
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityChargepad.CESU>> CHARGEPAD_CESU = reg("chargepad_cesu", ic2.core.block.wiring.TileEntityChargepad.CESU::new, Ic2Blocks.CHARGEPAD_CESU);
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityChargepad.MFE>> CHARGEPAD_MFE = reg("chargepad_mfe", ic2.core.block.wiring.TileEntityChargepad.MFE::new, Ic2Blocks.CHARGEPAD_MFE);
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityChargepad.MFSU>> CHARGEPAD_MFSU = reg("chargepad_mfsu", ic2.core.block.wiring.TileEntityChargepad.MFSU::new, Ic2Blocks.CHARGEPAD_MFSU);
     public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCable>> CABLE = REGISTRY.register("cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCable::new,
         Ic2Blocks.CABLES.values().stream().map(d -> (Block)d.get()).filter(b -> ((ic2.core.block.wiring.BlockCable)b).type != ic2.core.block.wiring.CableType.detector && ((ic2.core.block.wiring.BlockCable)b).type != ic2.core.block.wiring.CableType.splitter).toArray(Block[]::new)).build(null));
     public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCableDetector>> DETECTOR_CABLE = REGISTRY.register("detector_cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCableDetector::new, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.detector).get()).build(null));

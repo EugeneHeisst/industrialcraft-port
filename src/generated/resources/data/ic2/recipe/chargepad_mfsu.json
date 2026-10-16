@@ -1,0 +1,26 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "CPC",
+    "RBR"
+  ],
+  "key": {
+    "B": {
+      "item": "ic2:mfsu"
+    },
+    "R": {
+      "tag": "c:rubbers"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "P": {
+      "item": "minecraft:stone_pressure_plate"
+    }
+  },
+  "result": {
+    "id": "ic2:chargepad_mfsu",
+    "count": 1
+  }
+}

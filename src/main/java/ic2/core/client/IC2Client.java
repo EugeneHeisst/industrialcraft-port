@@ -99,6 +99,7 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Water m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Water(m, inv, title);
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Electric m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Electric(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMatter m) return new ic2.core.block.machine.gui.GuiMatter(m, inv, title);
+        if (menu instanceof ic2.core.block.wiring.ContainerChargepad m) return new ic2.core.block.wiring.GuiChargepad(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMagnetizer m) return new ic2.core.block.machine.gui.GuiMagnetizer(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerElectrolyzer m) return new ic2.core.block.machine.gui.GuiMagnetizer.Electrolyzer(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerCanner m) return new ic2.core.block.machine.gui.GuiCanners.Canner(m, inv, title);
