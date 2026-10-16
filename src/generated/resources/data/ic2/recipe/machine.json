@@ -2,13 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "III",
-    "I I",
-    "III"
+    "TCT",
+    "TMT",
+    "TTT"
   ],
   "key": {
-    "I": {
-      "tag": "c:plates/iron"
+    "T": {
+      "item": "ic2:tin_casing"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
     }
   },
   "result": {

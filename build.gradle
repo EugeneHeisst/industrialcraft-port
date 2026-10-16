@@ -15,7 +15,7 @@ neoForge {
             client()
             gameDirectory = file('run-audit')
             programArguments.addAll '--width', '1280', '--height', '900', '--quickPlaySingleplayer', 'IC2Audit'
-            systemProperty 'ic2.audit', 'true'
+            systemProperty 'ic2.audit', 'client'
         }
     }
     mods { ic2 { sourceSet sourceSets.main } }
