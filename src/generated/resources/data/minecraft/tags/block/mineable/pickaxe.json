@@ -39,6 +39,11 @@
     "ic2:water_kinetic_generator",
     "ic2:electric_kinetic_generator",
     "ic2:manual_kinetic_generator",
+    "ic2:magnetizer",
+    "ic2:electrolyzer",
+    "ic2:canner",
+    "ic2:solid_canner",
+    "ic2:fluid_bottler",
     "ic2:miner",
     "ic2:pump",
     "ic2:mass_fabricator",
@@ -51,6 +56,7 @@
     "ic2:mv_transformer",
     "ic2:hv_transformer",
     "ic2:ev_transformer",
+    "ic2:iron_fence",
     "ic2:mining_pipe",
     "ic2:mining_pipe_tip"
   ]

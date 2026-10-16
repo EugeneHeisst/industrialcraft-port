@@ -129,6 +129,7 @@ gen_item('universal_fluid_cell', 'cell/itemFluidCell.png', 'itemFluidCell', ['it
 for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iron_rotor', 'itemironrotor', 'rotorIronmodel'), ('steel_rotor', 'itemsteelrotor', 'rotorSteelmodel'), ('carbon_rotor', 'itemwcarbonrotor', 'rotorCarbonmodel')]:
     gen_item(iid, 'rotors/' + leg + '.png', leg, [leg])
     copy(os.path.join(OTEX, 'items/rotors', model + '.png'), os.path.join(A, 'textures/item/rotor', iid.replace('_rotor', '').join(['rotor_', '_model']) + '.png'))
+gen_item('filled_tin_can', 'itemTinCanFilled.png', 'itemTinCanFilled', ['itemTinCanFilled'])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -293,6 +294,18 @@ write(os.path.join(D, 'ic2/loot_table/blocks/rubber_leaves.json'), {'type': 'min
     {'type': 'minecraft:item', 'name': 'ic2:rubber_leaves', 'conditions': [shears]},
     {'type': 'minecraft:item', 'name': 'ic2:rubber_sapling', 'conditions': [{'condition': 'minecraft:survives_explosion'}, {'condition': 'minecraft:random_chance', 'chance': 1 / 35}]}]}]}]})
 write(os.path.join(D, 'ic2/loot_table/blocks/rubber_sapling.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:rubber_sapling'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+# iron fence: vanilla fence models with the IC2 texture; the magnet level does not change the look
+copy(os.path.join(OTEX, 'blocks/blockFenceIron.png'), os.path.join(A, 'textures/block/iron_fence.png'))
+write(os.path.join(A, 'models/block/iron_fence_post.json'), {'parent': 'minecraft:block/fence_post', 'textures': {'texture': 'ic2:block/iron_fence'}})
+write(os.path.join(A, 'models/block/iron_fence_side.json'), {'parent': 'minecraft:block/fence_side', 'textures': {'texture': 'ic2:block/iron_fence'}})
+write(os.path.join(A, 'models/item/iron_fence.json'), {'parent': 'minecraft:block/fence_inventory', 'textures': {'texture': 'ic2:block/iron_fence'}})
+write(os.path.join(A, 'blockstates/iron_fence.json'), {'multipart': [{'apply': {'model': 'ic2:block/iron_fence_post'}}] + [
+    {'when': {d: 'true'}, 'apply': {'model': 'ic2:block/iron_fence_side', 'y': r, 'uvlock': True}} for d, r in (('north', 0), ('east', 90), ('south', 180), ('west', 270))]})
+write(os.path.join(D, 'ic2/loot_table/blocks/iron_fence.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:iron_fence'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+for t in ('minecraft:fences', 'minecraft:mineable/pickaxe'): add_tag(BLOCK_TAGS, t, 'ic2:iron_fence')
+add_tag(ITEM_TAGS, 'minecraft:fences', 'ic2:iron_fence')
+for code in out_lang: out_lang[code]['block.ic2.iron_fence'] = name(code, 'blockFenceIron', 'Iron Fence')
+LEGACY['blockFenceIron'] = 'ic2:iron_fence'
 # mining pipe shaft (4/16 wide) and drill tip; both drop the pipe item, which cannot be placed by hand
 copy(os.path.join(OTEX, 'blocks/machine/blockMiningPipe.png'), os.path.join(A, 'textures/block/mining_pipe.png'))
 copy(os.path.join(OTEX, 'blocks/machine/blockMiningTip.png'), os.path.join(A, 'textures/block/mining_pipe_tip.png'))

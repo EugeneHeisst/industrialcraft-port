@@ -112,6 +112,8 @@ coffee_beans
 coffee_powder
 hops
 tin_can
+electrolyzed_water_cell
+cf_powder
 fuel_rod
 tritium_cell
 steam_turbine_blade

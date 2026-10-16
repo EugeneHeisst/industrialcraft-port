@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/fluid_bottler_6",
+    "up": "ic2:block/fluid_bottler_4",
+    "north": "ic2:block/fluid_bottler_1",
+    "south": "ic2:block/fluid_bottler_0",
+    "west": "ic2:block/fluid_bottler_7",
+    "east": "ic2:block/fluid_bottler_5",
+    "particle": "ic2:block/fluid_bottler_1"
+  }
+}

@@ -37,6 +37,7 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.ItemTinCan> FILLED_TIN_CAN = REGISTRY.register("filled_tin_can", () -> new ic2.core.item.ItemTinCan(new Item.Properties()));
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));
@@ -124,6 +125,7 @@ public final class Ic2Items {
     private static DeferredItem<ItemUpgradeModule> upgrade(String name, ItemUpgradeModule.Type type) { return REGISTRY.register(name, () -> new ItemUpgradeModule(new Item.Properties(), type)); }
 
     /** Item of a simple or block id of this mod. */
+    public static boolean has(String id) { return SIMPLE.containsKey(id) || BuiltInRegistries.ITEM.containsKey(IC2.id(id)); }
     public static Item get(String id) { var d = SIMPLE.get(id); return d != null ? d.get() : BuiltInRegistries.ITEM.get(IC2.id(id)); }
 
     private Ic2Items() {}

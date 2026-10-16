@@ -40,6 +40,11 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric>> ELECTRIC_KINETIC_GENERATOR = reg("electric_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric::new, Ic2Blocks.ELECTRIC_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Manual>> MANUAL_KINETIC_GENERATOR = reg("manual_kinetic_generator", ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Manual::new, Ic2Blocks.MANUAL_KINETIC_GENERATOR);
     public static final Supplier<BlockEntityType<TileEntityMatter>> MASS_FABRICATOR = reg("mass_fabricator", TileEntityMatter::new, Ic2Blocks.MASS_FABRICATOR);
+    public static final Supplier<BlockEntityType<TileEntityMagnetizer>> MAGNETIZER = reg("magnetizer", TileEntityMagnetizer::new, Ic2Blocks.MAGNETIZER);
+    public static final Supplier<BlockEntityType<TileEntityElectrolyzer>> ELECTROLYZER = reg("electrolyzer", TileEntityElectrolyzer::new, Ic2Blocks.ELECTROLYZER);
+    public static final Supplier<BlockEntityType<TileEntityCanner>> CANNER = reg("canner", TileEntityCanner::new, Ic2Blocks.CANNER);
+    public static final Supplier<BlockEntityType<TileEntitySolidCanner>> SOLID_CANNER = reg("solid_canner", TileEntitySolidCanner::new, Ic2Blocks.SOLID_CANNER);
+    public static final Supplier<BlockEntityType<TileEntityFluidBottler>> FLUID_BOTTLER = reg("fluid_bottler", TileEntityFluidBottler::new, Ic2Blocks.FLUID_BOTTLER);
     public static final Supplier<BlockEntityType<TileEntityMiner>> MINER = reg("miner", TileEntityMiner::new, Ic2Blocks.MINER);
     public static final Supplier<BlockEntityType<TileEntityPump>> PUMP = reg("pump", TileEntityPump::new, Ic2Blocks.PUMP);
     public static final Supplier<BlockEntityType<TileEntityGenerator>> GENERATOR = reg("generator", TileEntityGenerator::new, Ic2Blocks.GENERATOR);

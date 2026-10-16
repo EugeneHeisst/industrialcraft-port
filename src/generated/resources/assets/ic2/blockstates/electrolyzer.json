@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/electrolyzer_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/electrolyzer_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/electrolyzer_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/electrolyzer_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/electrolyzer_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/electrolyzer_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/electrolyzer_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/electrolyzer_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/electrolyzer_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/electrolyzer_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/electrolyzer_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/electrolyzer_east_active"
+    }
+  }
+}

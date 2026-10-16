@@ -44,7 +44,7 @@ public abstract class ContainerBase<T> extends AbstractContainerMenu {
         for (int col = 0; col < 9; col++) addSlot(new Slot(inventory, col, xStart + col * 18, height - 24));
     }
 
-    protected void sync(DoubleSupplier getter, DoubleConsumer setter) { getters.add(getter); setters.add(setter); }
+    public void sync(DoubleSupplier getter, DoubleConsumer setter) { getters.add(getter); setters.add(setter); }
 
     @Override
     public void broadcastChanges() {

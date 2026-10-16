@@ -35,6 +35,7 @@ public final class ServerAudit {
     private static final List<String> results = new ArrayList<>();
     private static BlockPos base;
     private static int minerPipes;
+    private static boolean containsItem(ic2.core.block.invslot.InvSlot slot, net.minecraft.world.item.Item item) { for (int i = 0; i < slot.size(); i++) if (slot.get(i).is(item)) return true; return false; }
     private static int shaft(ServerLevel level) {
         int n = 0;
         for (int y = 1; y <= 10; y++) { var s = level.getBlockState(base.offset(-6, -y, 10)); if (s.is(Ic2Blocks.MINING_PIPE.get()) || s.is(Ic2Blocks.MINING_PIPE_TIP.get())) n++; }
@@ -124,6 +125,18 @@ public final class ServerAudit {
         for (BlockPos p : BlockPos.betweenClosed(wp.offset(-1, -1, -3), wp.offset(1, 0, -1))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
         level.setBlock(wp.offset(0, 0, -1), Blocks.WATER.defaultBlockState(), 3);
         level.setBlock(wp, facing(Ic2Blocks.PUMP.get().defaultBlockState(), Direction.NORTH), 3);
+        // 10: canning machines and bottling plant
+        level.setBlock(mp.offset(-3, 0, 3), facing(Ic2Blocks.SOLID_CANNER.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(mp.offset(-1, 0, 3), facing(Ic2Blocks.CANNER.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(mp.offset(1, 0, 3), facing(Ic2Blocks.CANNER.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(mp.offset(3, 0, 3), facing(Ic2Blocks.FLUID_BOTTLER.get().defaultBlockState(), Direction.NORTH), 3);
+        // 11: magnetizer charging an iron fence pole; electrolyzers on a full and an empty MFSU
+        level.setBlock(mp.offset(-3, 0, -3), facing(Ic2Blocks.MAGNETIZER.get().defaultBlockState(), Direction.EAST), 3);
+        for (int y = 0; y <= 3; y++) level.setBlock(mp.offset(-2, y, -3), Ic2Blocks.IRON_FENCE.get().defaultBlockState(), 3);
+        level.setBlock(mp.offset(0, 0, -3), Ic2Blocks.ELECTROLYZER.get().defaultBlockState(), 3);
+        level.setBlock(mp.offset(0, 1, -3), facing(Ic2Blocks.MFSU.get().defaultBlockState(), Direction.UP), 3);
+        level.setBlock(mp.offset(2, 0, -3), Ic2Blocks.ELECTROLYZER.get().defaultBlockState(), 3);
+        level.setBlock(mp.offset(2, 1, -3), facing(Ic2Blocks.MFSU.get().defaultBlockState(), Direction.UP), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -246,6 +259,23 @@ public final class ServerAudit {
             miner.scannerSlot.put(Ic2Items.OD_SCANNER.get().charged());
             miner.pipeSlot.put(new ItemStack(Ic2Items.MINING_PIPE.get(), 32));
             ((ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(base.offset(0, -1, 9))).containerSlot.put(new ItemStack(Ic2Items.EMPTY_CELL.get(), 4));
+            BlockPos cm = base.offset(-6, 0, 10);
+            var solid = (ic2.core.block.machine.tileentity.TileEntitySolidCanner)level.getBlockEntity(cm.offset(-3, 0, 3));
+            solid.canInputSlot.put(new ItemStack(Ic2Items.get("tin_can"), 4));
+            solid.inputSlot.put(new ItemStack(Items.POTATO, 2));
+            var drainer = (ic2.core.block.machine.tileentity.TileEntityCanner)level.getBlockEntity(cm.offset(-1, 0, 3));
+            drainer.onNetworkEvent(0);
+            drainer.canInputSlot.put(new ItemStack(Ic2Items.WATER_CELL.get(), 2));
+            var enricher = (ic2.core.block.machine.tileentity.TileEntityCanner)level.getBlockEntity(cm.offset(1, 0, 3));
+            for (int i = 0; i < 3; i++) enricher.onNetworkEvent(0);
+            enricher.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER, 2000), net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
+            enricher.inputSlot.put(new ItemStack(Ic2Items.get("biochaff"), 1));
+            var bottler = (ic2.core.block.machine.tileentity.TileEntityFluidBottler)level.getBlockEntity(cm.offset(3, 0, 3));
+            bottler.drainInputSlot.put(new ItemStack(Items.WATER_BUCKET));
+            bottler.fillInputSlot.put(new ItemStack(Ic2Items.EMPTY_CELL.get(), 1));
+            ((TileEntityElectricBlock)level.getBlockEntity(base.offset(-6, 1, 7))).energy = 0.9 * ((TileEntityElectricBlock)level.getBlockEntity(base.offset(-6, 1, 7))).maxStorage;
+            ((ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-6, 0, 7))).waterSlot.put(new ItemStack(Ic2Items.WATER_CELL.get(), 4));
+            ((ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-4, 0, 7))).hydrogenSlot.put(new ItemStack(Ic2Items.get("electrolyzed_water_cell"), 2));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -275,6 +305,37 @@ public final class ServerAudit {
             check("miner withdraws pipe without drill", pipes < minerPipes && miner.pipeSlot.get().is(Ic2Items.MINING_PIPE.get()), "before=" + minerPipes + " after=" + pipes + " slot=" + miner.pipeSlot.get());
             var wpump = (ic2.core.block.machine.tileentity.TileEntityPump)level.getBlockEntity(base.offset(0, -1, 9));
             check("pump fills cells from water in front", wpump.outputSlot.get().is(Ic2Items.WATER_CELL.get()), "out=" + wpump.outputSlot.get() + " tank=" + wpump.getTankAmount());
+        }
+        if (tick > 5 && tick < 710) for (int dx = -3; dx <= 3; dx += 2) {
+            var m = (ic2.core.block.machine.tileentity.TileEntityStandardMachine)level.getBlockEntity(base.offset(-6 + dx, 0, 13));
+            m.energy = m.maxEnergy;
+        }
+        if (tick == 400) {
+            var bottler = (ic2.core.block.machine.tileentity.TileEntityFluidBottler)level.getBlockEntity(base.offset(-3, 0, 13));
+            check("bottler empties bucket into tank", bottler.outputSlot.get().is(Items.BUCKET) && bottler.getTankAmount() == 1000, "out=" + bottler.outputSlot.get() + " tank=" + bottler.getTankAmount());
+            bottler.outputSlot.put(ItemStack.EMPTY);
+        }
+        if (tick == 700) {
+            BlockPos cm = base.offset(-6, 0, 10);
+            var solid = (ic2.core.block.machine.tileentity.TileEntitySolidCanner)level.getBlockEntity(cm.offset(-3, 0, 3));
+            check("solid canner cans potatoes", solid.outputSlot.get().is(Ic2Items.FILLED_TIN_CAN.get()) && solid.outputSlot.get().getCount() == 2 && solid.canInputSlot.get().getCount() == 2, "out=" + solid.outputSlot.get() + " cans=" + solid.canInputSlot.get());
+            var drainer = (ic2.core.block.machine.tileentity.TileEntityCanner)level.getBlockEntity(cm.offset(-1, 0, 3));
+            check("canner drains cells into tank", drainer.outputTank.getFluidAmount() == 2000 && drainer.outputSlot.get().is(Ic2Items.EMPTY_CELL.get()), "tank=" + drainer.outputTank.getFluid().getAmount() + " out=" + drainer.outputSlot.get());
+            var enricher = (ic2.core.block.machine.tileentity.TileEntityCanner)level.getBlockEntity(cm.offset(1, 0, 3));
+            check("canner enriches water with biochaff", enricher.outputTank.getFluid().getFluid() == ic2.core.fluid.Ic2Fluids.BIOMASS.get() && enricher.outputTank.getFluidAmount() == 1000 && enricher.inputTank.getFluidAmount() == 1000, "in=" + enricher.inputTank.getFluidAmount() + " out=" + enricher.outputTank.getFluidAmount() + " " + enricher.outputTank.getFluid().getFluid());
+            var bottler = (ic2.core.block.machine.tileentity.TileEntityFluidBottler)level.getBlockEntity(cm.offset(3, 0, 3));
+            check("bottler fills cell from its tank", bottler.outputSlot.get().is(Ic2Items.WATER_CELL.get()), "out=" + bottler.outputSlot.get() + " tank=" + bottler.getTankAmount());
+        }
+        if (tick > 5 && tick < 710) { var mag = (ic2.core.block.machine.tileentity.TileEntityMagnetizer)level.getBlockEntity(base.offset(-9, 0, 7)); mag.energy = mag.maxEnergy; }
+        if (tick == 700) {
+            int charged = 0;
+            for (int y = 0; y <= 3; y++) { var s = level.getBlockState(base.offset(-8, y, 7)); if (s.is(Ic2Blocks.IRON_FENCE.get()) && s.getValue(ic2.core.block.misc.BlockPoleFence.MAGNET) == 15) charged++; }
+            check("magnetizer charges iron fence pole", charged == 4, "charged=" + charged);
+            var e1 = (ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-6, 0, 7));
+            check("electrolyzer stores surplus energy in cells", e1.hydrogenSlot.get().is(Ic2Items.get("electrolyzed_water_cell")) && e1.hydrogenSlot.get().getCount() >= 2, "h=" + e1.hydrogenSlot.get() + " w=" + e1.waterSlot.get() + " buf=" + e1.energy + " mfsu=" + ((TileEntityElectricBlock)level.getBlockEntity(base.offset(-6, 1, 7))).energy + " active=" + e1.getActive() + " mfe=" + e1.mfe);
+            var e2 = (ic2.core.block.machine.tileentity.TileEntityElectrolyzer)level.getBlockEntity(base.offset(-4, 0, 7));
+            var mfsu2 = (TileEntityElectricBlock)level.getBlockEntity(base.offset(-4, 1, 7));
+            check("electrolyzer feeds an empty storage", e2.waterSlot.get().is(Ic2Items.WATER_CELL.get()) && mfsu2.energy > 20000, "w=" + e2.waterSlot.get() + " mfsu=" + mfsu2.energy);
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {

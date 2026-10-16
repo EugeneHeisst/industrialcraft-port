@@ -8,7 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 /** IC2 armor piece; onArmorTick runs every player tick on both sides while worn (ArmorEvents). */
-public class ItemArmorIC2 extends ArmorItem {
+public class ItemArmorIC2 extends ArmorItem implements ic2.api.item.IMetalArmor {
+    @Override public boolean isMetalArmor(ItemStack stack, net.minecraft.world.entity.player.Player player) { return true; }
     public ItemArmorIC2(Holder<ArmorMaterial> material, Type type, Properties properties) { super(material, type, properties); }
     public void onArmorTick(Level level, Player player, ItemStack stack) {}
     /** 0 helmet, 1 chest, 2 legs, 3 boots like armorType of the original. */

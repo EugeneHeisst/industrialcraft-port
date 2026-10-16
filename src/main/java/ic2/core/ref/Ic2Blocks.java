@@ -59,6 +59,12 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> ELECTRIC_KINETIC_GENERATOR = generator("electric_kinetic_generator", () -> Ic2BlockEntities.ELECTRIC_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> MANUAL_KINETIC_GENERATOR = generator("manual_kinetic_generator", () -> Ic2BlockEntities.MANUAL_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> MASS_FABRICATOR = machine("mass_fabricator", () -> Ic2BlockEntities.MASS_FABRICATOR.get());
+    public static final DeferredBlock<BlockTileEntity> MAGNETIZER = machine("magnetizer", () -> Ic2BlockEntities.MAGNETIZER.get());
+    public static final DeferredBlock<BlockTileEntity> ELECTROLYZER = machine("electrolyzer", () -> Ic2BlockEntities.ELECTROLYZER.get());
+    public static final DeferredBlock<ic2.core.block.misc.BlockPoleFence> IRON_FENCE = REGISTRY.register("iron_fence", () -> new ic2.core.block.misc.BlockPoleFence(metal(1.5f, 5).noOcclusion()));
+    public static final DeferredBlock<BlockTileEntity> CANNER = machine("canner", () -> Ic2BlockEntities.CANNER.get());
+    public static final DeferredBlock<BlockTileEntity> SOLID_CANNER = machine("solid_canner", () -> Ic2BlockEntities.SOLID_CANNER.get());
+    public static final DeferredBlock<BlockTileEntity> FLUID_BOTTLER = machine("fluid_bottler", () -> Ic2BlockEntities.FLUID_BOTTLER.get());
     public static final DeferredBlock<BlockTileEntity> MINER = machine("miner", () -> Ic2BlockEntities.MINER.get());
     public static final DeferredBlock<BlockTileEntity> PUMP = machine("pump", () -> Ic2BlockEntities.PUMP.get());
     public static final DeferredBlock<ic2.core.block.machine.block.BlockMiningPipe> MINING_PIPE = REGISTRY.register("mining_pipe", () -> new ic2.core.block.machine.block.BlockMiningPipe(metal(6, 10).noOcclusion(), false));
