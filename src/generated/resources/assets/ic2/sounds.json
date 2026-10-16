@@ -138,5 +138,40 @@
         "name": "ic2:machines/teleporter/use"
       }
     ]
+  },
+  "tools.mining_laser.mining": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/mining"
+      }
+    ]
+  },
+  "tools.mining_laser.low_focus": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/low_focus"
+      }
+    ]
+  },
+  "tools.mining_laser.long_range": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/long_range"
+      }
+    ]
+  },
+  "tools.mining_laser.scatter": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/scatter"
+      }
+    ]
+  },
+  "tools.mining_laser.explosive": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/explosive"
+      }
+    ]
   }
 }

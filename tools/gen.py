@@ -131,6 +131,7 @@ for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iro
     copy(os.path.join(OTEX, 'items/rotors', model + '.png'), os.path.join(A, 'textures/item/rotor', iid.replace('_rotor', '').join(['rotor_', '_model']) + '.png'))
 gen_item('filled_tin_can', 'itemTinCanFilled.png', 'itemTinCanFilled', ['itemTinCanFilled'])
 gen_item('frequency_transmitter', 'itemFreq.png', 'itemFreq', ['itemFreq'])
+gen_item('mining_laser', 'itemToolMiningLaser.png', 'itemToolMiningLaser', ['itemToolMiningLaser'])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -419,7 +420,9 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
           'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner',
-          'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse'}
+          'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
+          'tools.mining_laser.mining': 'Tools/MiningLaser/MiningLaser', 'tools.mining_laser.low_focus': 'Tools/MiningLaser/MiningLaserLowFocus', 'tools.mining_laser.long_range': 'Tools/MiningLaser/MiningLaserLongRange',
+          'tools.mining_laser.scatter': 'Tools/MiningLaser/MiningLaserScatter', 'tools.mining_laser.explosive': 'Tools/MiningLaser/MiningLaserExplosive'}
 sounds_json = {}
 for key, src in SOUNDS.items():
     s = os.path.join(JAR, 'ic2/sounds', src + '.ogg')
@@ -582,6 +585,10 @@ write(os.path.join(D, 'ic2/tags/item/fluid_containers/water.json'), {'values': [
 write(os.path.join(D, 'ic2/tags/item/fluid_containers/lava.json'), {'values': ['minecraft:lava_bucket', 'ic2:lava_cell']})
 write(os.path.join(D, 'ic2/tags/item/tools/forge_hammer.json'), {'values': ['ic2:forge_hammer']})
 write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:cutter']})
+for code in out_lang:
+    out_lang[code]['effect.ic2.radiation'] = name(code, 'potion.radiation', 'Radiation')
+    out_lang[code]['entity.ic2.mining_laser'] = name(code, 'itemToolMiningLaser', 'Mining Laser')
+for f in ('laser.png', 'beam.png'): copy(os.path.join(OTEX, 'models', f), os.path.join(A, 'textures/models', f))
 # damage types of the original IC2DamageSource (death messages keep their vanilla keys)
 for dt in ('electricity', 'radiation', 'nuke'):
     write(os.path.join(D, 'ic2/damage_type', dt + '.json'), {'message_id': dt, 'exhaustion': 0.1, 'scaling': 'when_caused_by_living_non_player'})

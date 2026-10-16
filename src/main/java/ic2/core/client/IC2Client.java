@@ -63,6 +63,7 @@ public final class IC2Client {
 
     @SubscribeEvent
     static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.WIND_KINETIC_GENERATOR.get(), KineticGeneratorRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.WATER_KINETIC_GENERATOR.get(), KineticGeneratorRenderer::new);
     }

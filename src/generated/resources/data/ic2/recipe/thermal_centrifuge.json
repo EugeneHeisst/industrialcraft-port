@@ -1,0 +1,30 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "CMC",
+    "RAR",
+    "RER"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:coil"
+    },
+    "R": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "M": {
+      "item": "ic2:mining_laser"
+    },
+    "E": {
+      "item": "ic2:electric_motor"
+    }
+  },
+  "result": {
+    "id": "ic2:thermal_centrifuge",
+    "count": 1
+  }
+}

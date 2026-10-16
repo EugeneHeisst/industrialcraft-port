@@ -400,6 +400,25 @@ public final class ServerAudit {
             BlockPos sp = base.offset(-6, 0, 10).offset(-4, 3, -4);
             check("unsupported scaffold collapses", !level.getBlockState(sp).is(Ic2Blocks.SCAFFOLD.get()), level.getBlockState(sp));
         }
+        if (tick == 60) {
+            BlockPos lp = base.offset(-6, 0, 10).offset(-4, 6, -4);
+            for (int i = 2; i <= 6; i++) level.setBlock(lp.east(i), Blocks.STONE.defaultBlockState(), 3);
+            for (BlockPos p : BlockPos.betweenClosed(lp.offset(2, 2, -1), lp.offset(6, 4, 1))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
+            padPlayer.moveTo(lp.getX() + 0.5, lp.getY() - 1.52, lp.getZ() + 0.5, -90, 0);
+            var laser = Ic2Items.MINING_LASER.get();
+            ItemStack ls = laser.getItemStack(Double.POSITIVE_INFINITY);
+            laser.shoot(level, padPlayer, ls, Float.POSITIVE_INFINITY, 5, Integer.MAX_VALUE, false, false, -90, 0, lp.getY() + 0.5);
+            padPlayer.moveTo(lp.getX() + 0.5, lp.getY() + 1.48, lp.getZ() + 0.5, -90, 0);
+            laser.shoot(level, padPlayer, ls, Float.POSITIVE_INFINITY, 12, Integer.MAX_VALUE, true, false, -90, 0, lp.getY() + 3.5);
+        }
+        if (tick == 90) {
+            BlockPos lp = base.offset(-6, 0, 10).offset(-4, 6, -4);
+            int mined = 0, blasted = 0;
+            for (int i = 2; i <= 6; i++) if (level.getBlockState(lp.east(i)).isAir()) mined++;
+            for (BlockPos p : BlockPos.betweenClosed(lp.offset(2, 2, -1), lp.offset(6, 4, 1))) if (level.getBlockState(p).isAir()) blasted++;
+            check("mining laser bores through stone", mined >= 4, "mined=" + mined);
+            check("explosive laser blasts with ExplosionIC2", blasted >= 5, "blasted=" + blasted);
+        }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {
             var mac = (TileEntityMacerator)level.getBlockEntity(base.east());
