@@ -428,7 +428,7 @@ def crafting_recipes(name, shaped):
                 if not ok: continue
                 used = set(''.join(pattern)) - {' '}
                 if not used <= set(keys): warnings.append(f'{name}: {left} missing keys'); continue
-                obj = {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'pattern': pattern, 'key': {k: v for k, v in keys.items() if k in used}, 'result': {'id': res[1], 'count': count}}
+                obj = {'type': 'ic2:shaped', 'category': 'misc', 'pattern': pattern, 'key': {k: v for k, v in keys.items() if k in used}, 'result': {'id': res[1], 'count': count}}
             else:
                 ings, ok = [], True
                 for tok in alt.split():
@@ -436,7 +436,7 @@ def crafting_recipes(name, shaped):
                     if ing is None: ok = False; warnings.append(f'{name}: {left} ing {tok}'); break
                     ings.append(ing)
                 if not ok: continue
-                obj = {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': ings, 'result': {'id': res[1], 'count': count}}
+                obj = {'type': 'ic2:shapeless', 'category': 'misc', 'ingredients': ings, 'result': {'id': res[1], 'count': count}}
             write(os.path.join(D, 'ic2/recipe', rid + '.json'), obj)
             crafting += 1
 

@@ -66,6 +66,7 @@ public final class IC2 {
         Ic2BlockEntities.REGISTRY.register(modBus);
         Ic2Menus.REGISTRY.register(modBus);
         Ic2Features.REGISTRY.register(modBus);
+        ic2.core.recipe.AdvRecipes.SERIALIZERS.register(modBus);
         TABS.register(modBus);
         EnergyNetGlobal enet = new EnergyNetGlobal();
         EnergyNet.instance = enet;

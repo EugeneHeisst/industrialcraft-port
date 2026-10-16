@@ -135,6 +135,17 @@ public final class ServerAudit {
         var ddrill = Ic2Items.DIAMOND_DRILL.get().getItemStack(Double.POSITIVE_INFINITY);
         check("diamond drill", ddrill.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 16 && ddrill.isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState()), "");
         var empty = new ItemStack(Ic2Items.MINING_DRILL.get());
+        var lapRecipe = level.getRecipeManager().byKey(ic2.core.IC2.id("lapotron_crystal")).orElse(null);
+        if (lapRecipe == null) check("lapotron recipe present", false, "");
+        else {
+            var crystal = Ic2Items.ENERGY_CRYSTAL.get().charged();
+            ItemStack lapis = new ItemStack(Ic2Items.get("lapis_dust")), circuit = new ItemStack(Ic2Items.get("advanced_circuit"));
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, java.util.List.of(lapis, circuit, lapis, lapis, crystal, lapis, lapis, circuit, lapis));
+            var r = (net.minecraft.world.item.crafting.CraftingRecipe)lapRecipe.value();
+            boolean matches = r.matches(input, level);
+            var out = r.assemble(input, level.registryAccess());
+            check("crafting keeps charge (energy crystal -> lapotron)", matches && out.is(Ic2Items.LAPOTRON_CRYSTAL.get()) && ElectricItem.manager.getCharge(out) == 1000000, "matches=" + matches + " charge=" + ElectricItem.manager.getCharge(out));
+        }
         check("empty drill is slow", empty.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 1, "");
         tick = 0;
     }

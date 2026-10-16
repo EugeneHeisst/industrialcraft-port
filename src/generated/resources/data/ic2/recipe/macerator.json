@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "ic2:shaped",
   "category": "misc",
   "pattern": [
     "FFF",
