@@ -56,6 +56,7 @@ public class BlockTileEntity extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (player.isShiftKeyDown()) return InteractionResult.PASS;
+        if (level.getBlockEntity(pos) instanceof TileEntityBlock teb && teb.onActivated(player)) return InteractionResult.sidedSuccess(level.isClientSide);
         if (!(level.getBlockEntity(pos) instanceof IHasGui gui)) return InteractionResult.PASS;
         if (!level.isClientSide && player instanceof ServerPlayer sp)
             sp.openMenu(new SimpleMenuProvider((id, inv, p) -> gui.getGuiContainer(id, inv), getName()), buf -> buf.writeBlockPos(pos));

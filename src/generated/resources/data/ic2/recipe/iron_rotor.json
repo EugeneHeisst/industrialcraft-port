@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:iron_rotor_blade"
+    },
+    "B": {
+      "item": "ic2:iron_shaft"
+    }
+  },
+  "result": {
+    "id": "ic2:iron_rotor",
+    "count": 1
+  }
+}

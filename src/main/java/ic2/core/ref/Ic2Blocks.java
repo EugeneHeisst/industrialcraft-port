@@ -50,6 +50,14 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> SOLID_HEAT_GENERATOR = generator("solid_heat_generator", () -> Ic2BlockEntities.SOLID_HEAT_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> RT_HEAT_GENERATOR = generator("rt_heat_generator", () -> Ic2BlockEntities.RT_HEAT_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> ELECTRIC_HEAT_GENERATOR = generator("electric_heat_generator", () -> Ic2BlockEntities.ELECTRIC_HEAT_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> RT_GENERATOR = generator("rt_generator", () -> Ic2BlockEntities.RT_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> SEMIFLUID_GENERATOR = generator("semifluid_generator", () -> Ic2BlockEntities.SEMIFLUID_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> STIRLING_GENERATOR = generator("stirling_generator", () -> Ic2BlockEntities.STIRLING_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> KINETIC_GENERATOR = generator("kinetic_generator", () -> Ic2BlockEntities.KINETIC_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> WIND_KINETIC_GENERATOR = generator("wind_kinetic_generator", () -> Ic2BlockEntities.WIND_KINETIC_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> WATER_KINETIC_GENERATOR = generator("water_kinetic_generator", () -> Ic2BlockEntities.WATER_KINETIC_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> ELECTRIC_KINETIC_GENERATOR = generator("electric_kinetic_generator", () -> Ic2BlockEntities.ELECTRIC_KINETIC_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> MANUAL_KINETIC_GENERATOR = generator("manual_kinetic_generator", () -> Ic2BlockEntities.MANUAL_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> GENERATOR = generator("generator", () -> Ic2BlockEntities.GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> GEOTHERMAL_GENERATOR = generator("geothermal_generator", () -> Ic2BlockEntities.GEOTHERMAL_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> WATER_MILL = generator("water_mill", () -> Ic2BlockEntities.WATER_MILL.get());

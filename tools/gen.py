@@ -126,6 +126,9 @@ for fid, tex, lang, cell, legacy in FLUIDS:
     else:
         gen_item(fid + '_cell', 'cell/itemCellWater.png', lang, [])
 gen_item('universal_fluid_cell', 'cell/itemFluidCell.png', 'itemFluidCell', ['itemFluidCell'])
+for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iron_rotor', 'itemironrotor', 'rotorIronmodel'), ('steel_rotor', 'itemsteelrotor', 'rotorSteelmodel'), ('carbon_rotor', 'itemwcarbonrotor', 'rotorCarbonmodel')]:
+    gen_item(iid, 'rotors/' + leg + '.png', leg, [leg])
+    copy(os.path.join(OTEX, 'items/rotors', model + '.png'), os.path.join(A, 'textures/item/rotor', iid.replace('_rotor', '').join(['rotor_', '_model']) + '.png'))
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])

@@ -78,6 +78,9 @@ public abstract class TileEntityBlock extends BlockEntity implements IWrenchable
     @Override public float getWrenchDropRate() { return 1; }
     @Override public ItemStack getWrenchDrop(Player player) { return new ItemStack(getBlockState().getBlock()); }
 
+    /** Right click without a GUI interaction; return true to consume it. */
+    public boolean onActivated(Player player) { return false; }
+
     /** Called before the block is broken (not when only the state changes). */
     public void onBlockBreak() {}
     public void onNeighborUpdate(BlockPos from) {}

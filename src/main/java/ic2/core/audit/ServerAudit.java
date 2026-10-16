@@ -95,6 +95,14 @@ public final class ServerAudit {
         level.setBlock(hb.below(), facing(Ic2Blocks.MFE.get().defaultBlockState(), Direction.UP), 3);
         level.setBlock(hb, facing(Ic2Blocks.ELECTRIC_HEAT_GENERATOR.get().defaultBlockState(), Direction.EAST), 3);
         level.setBlock(hb.east(), facing(Ic2Blocks.BLAST_FURNACE.get().defaultBlockState(), Direction.WEST), 3);
+        // 12: wind kinetic generator (iron rotor) high up -> kinetic generator behind it; MFE -> electric kinetic -> kinetic generator
+        BlockPos wk = base.offset(4, 30, 0);
+        level.setBlock(wk, facing(Ic2Blocks.WIND_KINETIC_GENERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(wk.south(), facing(Ic2Blocks.KINETIC_GENERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        BlockPos ek = base.offset(16, 2, 0);
+        level.setBlock(ek.below(), facing(Ic2Blocks.MFE.get().defaultBlockState(), Direction.UP), 3);
+        level.setBlock(ek, facing(Ic2Blocks.ELECTRIC_KINETIC_GENERATOR.get().defaultBlockState(), Direction.SOUTH), 3);
+        level.setBlock(ek.south(), facing(Ic2Blocks.KINETIC_GENERATOR.get().defaultBlockState(), Direction.NORTH), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -205,6 +213,10 @@ public final class ServerAudit {
             var blast = (ic2.core.block.machine.tileentity.TileEntityBlastFurnace)level.getBlockEntity(base.offset(13, 2, 0));
             blast.inputSlot.put(new ItemStack(Items.IRON_INGOT, 1));
             blast.airSlot.put(new ItemStack(Ic2Items.AIR_CELL.get(), 4));
+            ((ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Wind)level.getBlockEntity(base.offset(4, 30, 0))).rotorSlot.put(new ItemStack(Ic2Items.IRON_ROTOR.get()));
+            ((TileEntityElectricBlock)level.getBlockEntity(base.offset(16, 1, 0))).energy = 4000000;
+            var ekg = (ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric)level.getBlockEntity(base.offset(16, 2, 0));
+            for (int c = 0; c < 10; c++) ekg.slotMotor.put(c, new ItemStack(Ic2Items.get("electric_motor")));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -251,6 +263,11 @@ public final class ServerAudit {
             check("block cutter works with blade", cutter.getProgress() > 0.5f && !cutter.isbladetoweak(), "progress=" + cutter.getProgress());
             var blast = (ic2.core.block.machine.tileentity.TileEntityBlastFurnace)level.getBlockEntity(base.offset(13, 2, 0));
             check("blast furnace heated by electric heat generator", blast.isHot() && blast.progress > 1 && blast.airOutputSlot.get().is(Ic2Items.EMPTY_CELL.get()), "heat=" + blast.heat + " progress=" + blast.progress + " air=" + blast.airOutputSlot.get());
+            var windKg = (ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Wind)level.getBlockEntity(base.offset(4, 30, 0));
+            var kg1 = (ic2.core.block.generator.tileentity.TileEntityGenerators2.Kinetic)level.getBlockEntity(base.offset(4, 30, 1));
+            check("wind rotor -> kinetic generator", kg1.EUstorage > 0, "wind=" + windKg.windStrength + " ku=" + windKg.getKuOutput() + " eu=" + kg1.EUstorage + " rotorDamage=" + windKg.rotorSlot.get().getDamageValue());
+            var kg2 = (ic2.core.block.generator.tileentity.TileEntityGenerators2.Kinetic)level.getBlockEntity(base.offset(16, 2, 1));
+            check("electric motor -> kinetic generator", kg2.EUstorage > 0, "eu=" + kg2.EUstorage);
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
         if (tick == 710) {

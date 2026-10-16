@@ -125,6 +125,7 @@ public final class IC2 {
     private static void registerFluids(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.GEOTHERMAL_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), Ic2Items.EMPTY_CELL.get(), Ic2Items.WATER_CELL.get(), Ic2Items.LAVA_CELL.get());
         for (var cell : Ic2Items.FLUID_CELLS.values()) event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), cell.get());
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> ic2.core.item.resources.ItemFluidCell.handler(stack), Ic2Items.UNIVERSAL_FLUID_CELL.get());

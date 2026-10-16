@@ -65,6 +65,10 @@ public final class Ic2Items {
     public static final DeferredItem<ItemUpgradeModule> REDSTONE_INVERTER_UPGRADE = upgrade("redstone_inverter_upgrade", ItemUpgradeModule.Type.RedstoneInverter);
     public static final DeferredItem<ItemUpgradeModule> PULLING_UPGRADE = upgrade("pulling_upgrade", ItemUpgradeModule.Type.Pulling);
 
+    public static final DeferredItem<ic2.core.item.resources.ItemWindRotor> WOOD_ROTOR = REGISTRY.register("wood_rotor", () -> new ic2.core.item.resources.ItemWindRotor(new Item.Properties(), 5, 10800, 0.25f, 10, 60, IC2.id("textures/item/rotor/rotor_wood_model.png"), false));
+    public static final DeferredItem<ic2.core.item.resources.ItemWindRotor> IRON_ROTOR = REGISTRY.register("iron_rotor", () -> new ic2.core.item.resources.ItemWindRotor(new Item.Properties(), 7, 86400, 0.5f, 14, 75, IC2.id("textures/item/rotor/rotor_iron_model.png"), true));
+    public static final DeferredItem<ic2.core.item.resources.ItemWindRotor> STEEL_ROTOR = REGISTRY.register("steel_rotor", () -> new ic2.core.item.resources.ItemWindRotor(new Item.Properties(), 9, 172800, 0.75f, 17, 90, IC2.id("textures/item/rotor/rotor_steel_model.png"), true));
+    public static final DeferredItem<ic2.core.item.resources.ItemWindRotor> CARBON_ROTOR = REGISTRY.register("carbon_rotor", () -> new ic2.core.item.resources.ItemWindRotor(new Item.Properties(), 11, 604800, 1.0f, 20, 110, IC2.id("textures/item/rotor/rotor_carbon_model.png"), true));
     // electric tools
     public static final DeferredItem<ic2.core.item.tool.ItemDrill> MINING_DRILL = REGISTRY.register("mining_drill", () -> new ic2.core.item.tool.ItemDrill(new Item.Properties(), 50, ic2.core.item.tool.ItemElectricTool.HarvestLevel.Iron, 30000, 100, 1, 8, false));
     public static final DeferredItem<ic2.core.item.tool.ItemDrill> DIAMOND_DRILL = REGISTRY.register("diamond_drill", () -> new ic2.core.item.tool.ItemDrill(new Item.Properties(), 80, ic2.core.item.tool.ItemElectricTool.HarvestLevel.Diamond, 30000, 100, 1, 16, false));
