@@ -147,6 +147,8 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STEAM_KINETIC_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STIRLING_KINETIC_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> Ic2Items.FUEL_JETPACK.get().handler(stack), Ic2Items.FUEL_JETPACK.get());
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> Ic2Items.CF_PACK.get().handler(stack), Ic2Items.CF_PACK.get());
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> Ic2Items.FOAM_SPRAYER.get().handler(stack), Ic2Items.FOAM_SPRAYER.get());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_HEAT_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.LIQUID_HEAT_EXCHANGER.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FERMENTER.get(), (be, side) -> be.port(side));

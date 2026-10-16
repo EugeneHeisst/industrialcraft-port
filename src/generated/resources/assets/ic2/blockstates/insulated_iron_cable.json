@@ -991,68 +991,6 @@
       "apply": {
         "model": "ic2:block/cable/insulated_iron_cable_15_up"
       }
-    },
-    {
-      "when": {
-        "color": "16"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_core"
-      }
-    },
-    {
-      "when": {
-        "color": "16",
-        "north": "true"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_north"
-      }
-    },
-    {
-      "when": {
-        "color": "16",
-        "south": "true"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_south"
-      }
-    },
-    {
-      "when": {
-        "color": "16",
-        "west": "true"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_west"
-      }
-    },
-    {
-      "when": {
-        "color": "16",
-        "east": "true"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_east"
-      }
-    },
-    {
-      "when": {
-        "color": "16",
-        "down": "true"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_down"
-      }
-    },
-    {
-      "when": {
-        "color": "16",
-        "up": "true"
-      },
-      "apply": {
-        "model": "ic2:block/cable/insulated_iron_cable_16_up"
-      }
     }
   ]
 }

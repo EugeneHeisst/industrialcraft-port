@@ -100,6 +100,9 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> SCANNER = machine("scanner", () -> Ic2BlockEntities.SCANNER.get());
     public static final DeferredBlock<BlockTileEntity> REPLICATOR = machine("replicator", () -> Ic2BlockEntities.REPLICATOR.get());
     public static final DeferredBlock<BlockTileEntity> PATTERN_STORAGE = machine("pattern_storage", () -> Ic2BlockEntities.PATTERN_STORAGE.get());
+    public static final DeferredBlock<ic2.core.block.misc.BlockFoam> CONSTRUCTION_FOAM = REGISTRY.register("foam", () -> new ic2.core.block.misc.BlockFoam(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(0.01f, 10).sound(SoundType.WOOL).noOcclusion().isValidSpawn((s, l, p, e) -> false).noLootTable(), false));
+    public static final DeferredBlock<ic2.core.block.misc.BlockFoam> REINFORCED_CONSTRUCTION_FOAM = REGISTRY.register("reinforced_foam", () -> new ic2.core.block.misc.BlockFoam(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(0.01f, 10).sound(SoundType.WOOL).noOcclusion().isValidSpawn((s, l, p, e) -> false), true));
+    public static final DeferredBlock<ic2.core.block.misc.BlockFoamWall> CONSTRUCTION_FOAM_WALL = REGISTRY.register("foam_wall", () -> new ic2.core.block.misc.BlockFoamWall(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3, 30).sound(SoundType.STONE).noLootTable()));
     public static final DeferredBlock<BlockTileEntity> TELEPORTER = machine("teleporter", () -> Ic2BlockEntities.TELEPORTER.get());
     public static final DeferredBlock<BlockTileEntity> TESLA_COIL = machine("tesla_coil", () -> Ic2BlockEntities.TESLA_COIL.get());
     public static final DeferredBlock<BlockTileEntity> MAGNETIZER = machine("magnetizer", () -> Ic2BlockEntities.MAGNETIZER.get());
@@ -133,7 +136,7 @@ public final class Ic2Blocks {
     public static final java.util.Map<ic2.core.block.wiring.CableType, DeferredBlock<ic2.core.block.wiring.BlockCable>> CABLES = new java.util.EnumMap<>(ic2.core.block.wiring.CableType.class);
     static {
         for (var type : ic2.core.block.wiring.CableType.values())
-            CABLES.put(type, REGISTRY.register(type.id(), () -> new ic2.core.block.wiring.BlockCable(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(0.2f, 6).sound(SoundType.WOOL).noOcclusion(), type)));
+            CABLES.put(type, REGISTRY.register(type.id(), () -> new ic2.core.block.wiring.BlockCable(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(0.2f, 6).sound(SoundType.WOOL).noOcclusion().dynamicShape(), type)));
     }
 
     static { ic2.core.fluid.Ic2Fluids.ALL.size(); }

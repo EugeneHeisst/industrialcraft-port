@@ -33,7 +33,7 @@ public final class Ic2Items {
         } catch (java.io.IOException e) { throw new RuntimeException(e); }
         var fluidBlocks = new java.util.HashSet<String>();
         for (var f : ic2.core.fluid.Ic2Fluids.ALL) fluidBlocks.add(f.name);
-        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); fluidBlocks.add("resin_sheet"); fluidBlocks.add("reinforced_door"); // the pipe item cannot be placed by hand, the tip has no item
+        fluidBlocks.add("mining_pipe"); fluidBlocks.add("mining_pipe_tip"); fluidBlocks.add("resin_sheet"); fluidBlocks.add("foam_wall"); fluidBlocks.add("reinforced_door"); // the pipe item cannot be placed by hand, the tip has no item
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
@@ -91,6 +91,8 @@ public final class Ic2Items {
     public static final DeferredItem<ic2.core.item.ItemCrystalMemory> CRYSTAL_MEMORY = REGISTRY.register("crystal_memory", () -> new ic2.core.item.ItemCrystalMemory(new Item.Properties()));
     public static final java.util.Map<ic2.core.item.tfbp.ItemTFBP.Kind, DeferredItem<ic2.core.item.tfbp.ItemTFBP>> TFBPS = new java.util.EnumMap<>(ic2.core.item.tfbp.ItemTFBP.Kind.class);
     static { for (var k : ic2.core.item.tfbp.ItemTFBP.Kind.values()) TFBPS.put(k, REGISTRY.register(k.name().toLowerCase() + "_terraformer_blueprint", () -> new ic2.core.item.tfbp.ItemTFBP(new Item.Properties(), k))); }
+    public static final DeferredItem<ic2.core.item.tool.ItemSprayer> FOAM_SPRAYER = REGISTRY.register("foam_sprayer", () -> new ic2.core.item.tool.ItemSprayer(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.armor.ItemArmorFluidTank> CF_PACK = REGISTRY.register("cf_pack", () -> new ic2.core.item.armor.ItemArmorFluidTank(Ic2ArmorMaterials.BATPACK, new Item.Properties(), ic2.core.fluid.Ic2Fluids.CONSTRUCTION_FOAM::get, 80000));
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

@@ -100,6 +100,12 @@ public final class ClientAudit {
                 level.setBlock(cp.offset(0, 1, 0), cs, 3);
                 ci++;
             }
+            // foamed cables in front of the camera: soft foam, hardened light gray wall, hardened blue wall
+            for (int f = 0; f < 3; f++) {
+                BlockPos fp = origin.offset(-2 + f * 2, 0, -7);
+                level.setBlock(fp, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.insulated_copper).get().defaultBlockState(), 3);
+                if (level.getBlockEntity(fp) instanceof ic2.core.block.wiring.TileEntityCable fc) { fc.changeFoam(f == 0 ? 1 : 2); if (f == 2) fc.changeColor(4); }
+            }
             player.teleportTo(level, origin.getX() + .5, origin.getY() + 1, origin.getZ() - 11.5, 0, 10);
             player.getInventory().clearContent();
             int slot = 0;

@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "C  ",
+    " C ",
+    " FC"
+  ],
+  "key": {
+    "F": {
+      "item": "ic2:universal_fluid_cell"
+    },
+    "C": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:foam_sprayer",
+    "count": 1
+  }
+}

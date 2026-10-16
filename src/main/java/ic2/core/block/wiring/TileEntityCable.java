@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class TileEntityCable extends TileEntityBlock implements IEnergyConductor {
     public boolean addedToEnergyNet;
+    /** Construction foam on the cable: 0 none, 1 soft (hardens in light), 2 hard wall; foamColor is the wall dye index (7 light gray). */
+    public byte foamed, foamColor = 7;
 
     public TileEntityCable(BlockPos pos, BlockState state) { super(Ic2BlockEntities.CABLE.get(), pos, state); }
     protected TileEntityCable(net.minecraft.world.level.block.entity.BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
@@ -51,8 +53,42 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
         if (next != state) level.setBlock(worldPosition, next, 3);
     }
 
-    /** Painter: recolours insulation and reconnects. */
+    @Override public void readFromNBT(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { super.readFromNBT(nbt, r); foamed = nbt.getByte("foamed"); foamColor = nbt.contains("foamColor") ? nbt.getByte("foamColor") : 7; }
+    @Override public void writeToNBT(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { super.writeToNBT(nbt, r); nbt.putByte("foamed", foamed); nbt.putByte("foamColor", foamColor); }
+    @Override protected void writeClientData(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { nbt.putByte("foamed", foamed); nbt.putByte("foamColor", foamColor); }
+    @Override protected void readClientData(net.minecraft.nbt.CompoundTag nbt, net.minecraft.core.HolderLookup.Provider r) { foamed = nbt.getByte("foamed"); foamColor = nbt.getByte("foamColor"); if (level != null) level.getLightEngine().checkBlock(worldPosition); }
+
+    public boolean isFoamed() { return foamed != 0; }
+
+    /** Applies (1), hardens (2) or removes (0) construction foam; soft foam hardens through scheduled block ticks. */
+    public boolean changeFoam(int newFoam) {
+        if (foamed == newFoam) return false;
+        if (level == null || level.isClientSide) return true;
+        foamed = (byte)newFoam;
+        if (newFoam <= 1) foamColor = 7;
+        if (newFoam == 1) level.scheduleTick(worldPosition, getBlockState().getBlock(), 500);
+        setChanged();
+        sendClientUpdate();
+        level.getLightEngine().checkBlock(worldPosition);
+        level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+        return true;
+    }
+
+    /** Scheduled tick of soft foam: original 1/500 per tick chance gated by light * 6 >= rand(1000). */
+    public void foamTick() {
+        if (foamed != 1) return;
+        if (level.getMaxLocalRawBrightness(worldPosition) * 6 >= level.random.nextInt(1000)) changeFoam(2);
+        else level.scheduleTick(worldPosition, getBlockState().getBlock(), 500);
+    }
+
+    /** Painter: recolours insulation (or the hardened foam wall) and reconnects. */
     public boolean changeColor(int newColor) {
+        if (foamed == 2) {
+            if (foamColor == newColor) return false;
+            if (!level.isClientSide) { foamColor = (byte)newColor; setChanged(); sendClientUpdate(); }
+            return true;
+        }
+        if (foamed == 1) return false;
         if (!getCableType().colorable || getColor() == newColor) return false;
         if (level.isClientSide) return true;
         if (addedToEnergyNet) EnergyNet.instance.removeTile(this);

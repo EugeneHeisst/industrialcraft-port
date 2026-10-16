@@ -149,6 +149,8 @@ for iid, leg in [('uranium_fuel_rod', 'reactorUraniumSimple'), ('dual_uranium_fu
 gen_item('crystal_memory', 'resources/itemcrystalmemory.png', 'itemcrystalmemory', ['itemcrystalmemory'])
 for kind, leg in (('chilling', 'Chilling'), ('cultivation', 'Cultivation'), ('desertification', 'Desertification'), ('flatification', 'Flatification'), ('irrigation', 'Irrigation'), ('mushroom', 'Mushroom')):
     gen_item(kind + '_terraformer_blueprint', 'itemTFBP' + leg + '.png', 'itemTFBP' + leg, ['itemTFBP' + leg])
+gen_item('foam_sprayer', 'itemFoamSprayer.png', 'itemFoamSprayer', ['itemFoamSprayer'])
+gen_item('cf_pack', 'itemArmorCFPack.png', 'itemArmorCFPack', ['itemArmorCFPack'])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -248,7 +250,8 @@ for name_, meta, tex, th, colorable in CABLES:
     add_tag(BLOCK_TAGS, 'minecraft:mineable/axe', 'ic2:' + cid)
     copy(os.path.join(OTEX, 'items', 'item' + tex + '.png'), os.path.join(A, 'textures/item', cid + '.png'))
     write(os.path.join(A, 'models/item', cid + '.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:item/' + cid}})
-    variants = [('', 0)] + ([('.' + c, i + 1) for i, c in enumerate(COLORS)] if colorable else [])
+    # TileEntityCable.color of the original is the dye index (1 red .. 15 white); 0 is the plain (black) insulation
+    variants = [('', 0)] + ([('.' + c, i) for i, c in enumerate(COLORS) if i > 0] if colorable else [])
     sp, e = (16 - th) / 2, (16 + th) / 2
     multipart = []
     for suffix, color in variants:
@@ -396,6 +399,24 @@ write(os.path.join(D, 'ic2/loot_table/blocks/reinforced_door.json'), {'type': 'm
     'conditions': [{'condition': 'minecraft:block_state_property', 'block': 'ic2:reinforced_door', 'properties': {'half': 'lower'}}]}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
 for t in ('minecraft:mineable/pickaxe', 'minecraft:doors'): add_tag(BLOCK_TAGS, t, 'ic2:reinforced_door')
 add_tag(ITEM_TAGS, 'minecraft:doors', 'ic2:reinforced_door')
+# construction foam, reinforced foam and the sixteen foam wall colours
+for bid, tex, lang, drop in (('foam', 'blockFoam', 'blockFoam', None), ('reinforced_foam', 'blockReinforcedFoam', 'blockReinforcedFoam', 'ic2:iron_scaffold')):
+    copy(os.path.join(OTEX, 'blocks/cf', tex + '.png'), os.path.join(A, 'textures/block', bid + '.png'))
+    write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/cube_all', 'textures': {'all': 'ic2:block/' + bid}})
+    write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
+    write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'ic2:block/' + bid})
+    if drop: write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': drop}]}]})
+    for code in out_lang: out_lang[code]['block.ic2.' + bid] = name(code, lang, bid)
+    LEGACY[lang] = 'ic2:' + bid
+wall_variants = {}
+for i, c in enumerate(COLORS):
+    copy(os.path.join(OTEX, 'blocks/cf', f'blockWall.{c}.png'), os.path.join(A, 'textures/block/foam_wall', f'{i}.png'))
+    write(os.path.join(A, 'models/block/foam_wall', f'{i}.json'), {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'ic2:block/foam_wall/{i}'}})
+    wall_variants[f'color={i}'] = {'model': f'ic2:block/foam_wall/{i}'}
+write(os.path.join(A, 'blockstates/foam_wall.json'), {'variants': wall_variants})
+for code in out_lang: out_lang[code]['block.ic2.foam_wall'] = name(code, 'blockFoam', 'Construction Foam')
+add_tag(BLOCK_TAGS, 'minecraft:mineable/pickaxe', 'ic2:foam_wall')
+LEGACY['blockWall'] = 'ic2:foam_wall'
 # mining pipe shaft (4/16 wide) and drill tip; both drop the pipe item, which cannot be placed by hand
 copy(os.path.join(OTEX, 'blocks/machine/blockMiningPipe.png'), os.path.join(A, 'textures/block/mining_pipe.png'))
 copy(os.path.join(OTEX, 'blocks/machine/blockMiningTip.png'), os.path.join(A, 'textures/block/mining_pipe_tip.png'))

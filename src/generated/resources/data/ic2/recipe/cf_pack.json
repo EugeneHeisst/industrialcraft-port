@@ -1,0 +1,27 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "SCS",
+    "FTF",
+    "F F"
+  ],
+  "key": {
+    "T": {
+      "item": "ic2:iron_casing"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "F": {
+      "item": "ic2:universal_fluid_cell"
+    },
+    "S": {
+      "item": "ic2:foam_sprayer"
+    }
+  },
+  "result": {
+    "id": "ic2:cf_pack",
+    "count": 1
+  }
+}
