@@ -1,0 +1,24 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    " G ",
+    "cCc",
+    "c c"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "c": {
+      "item": "ic2:insulated_copper_cable"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:eu_meter",
+    "count": 1
+  }
+}

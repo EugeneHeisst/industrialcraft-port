@@ -1,0 +1,20 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "ICI",
+    "III"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "I": {
+      "item": "ic2:bronze_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:tool_box",
+    "count": 1
+  }
+}

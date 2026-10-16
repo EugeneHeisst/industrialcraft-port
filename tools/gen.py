@@ -132,6 +132,12 @@ for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iro
 gen_item('filled_tin_can', 'itemTinCanFilled.png', 'itemTinCanFilled', ['itemTinCanFilled'])
 gen_item('frequency_transmitter', 'itemFreq.png', 'itemFreq', ['itemFreq'])
 gen_item('mining_laser', 'itemToolMiningLaser.png', 'itemToolMiningLaser', ['itemToolMiningLaser'])
+gen_item('tool_box', 'itemToolbox.png', 'itemToolbox', ['itemToolbox'])
+gen_item('eu_meter', 'itemToolMEter.png', 'itemToolMEter', ['itemToolMEter'])
+gen_item('wind_meter', 'windmeter.png', 'windmeter', ['windmeter'])
+for dye, leg in (('black', 'Black'), ('red', 'Red'), ('green', 'Green'), ('brown', 'Brown'), ('blue', 'Blue'), ('purple', 'Purple'), ('cyan', 'Cyan'), ('light_gray', 'LightGrey'),
+                 ('gray', 'DarkGrey'), ('pink', 'Pink'), ('lime', 'Lime'), ('yellow', 'Yellow'), ('light_blue', 'Cloud'), ('magenta', 'Magenta'), ('orange', 'Orange'), ('white', 'White')):
+    gen_item(dye + '_painter', 'itemToolPainter' + leg + '.png', 'itemToolPainter' + leg, ['itemToolPainter' + leg])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -419,7 +425,7 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
-          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner',
+          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter',
           'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
           'tools.mining_laser.mining': 'Tools/MiningLaser/MiningLaser', 'tools.mining_laser.low_focus': 'Tools/MiningLaser/MiningLaserLowFocus', 'tools.mining_laser.long_range': 'Tools/MiningLaser/MiningLaserLongRange',
           'tools.mining_laser.scatter': 'Tools/MiningLaser/MiningLaserScatter', 'tools.mining_laser.explosive': 'Tools/MiningLaser/MiningLaserExplosive'}

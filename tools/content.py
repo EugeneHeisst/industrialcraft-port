@@ -156,7 +156,7 @@ def oredict_tag(name):
     if name in special: return special[name]
     for prefix, folder in [('crushedPurified', 'purified_crushed_ores'), ('crushed', 'crushed_ores'), ('dustSmall', 'small_dusts'), ('dustTiny', 'tiny_dusts'),
                            ('plateDense', 'dense_plates'), ('ingot', 'ingots'), ('ore', 'ores'), ('dust', 'dusts'), ('plate', 'plates'), ('gem', 'gems'),
-                           ('block', 'storage_blocks'), ('nugget', 'nuggets'), ('itemCasing', 'item_casings'), ('casing', 'item_casings')]:
+                           ('block', 'storage_blocks'), ('nugget', 'nuggets'), ('dye', 'dyes'), ('itemCasing', 'item_casings'), ('casing', 'item_casings')]:
         if name.startswith(prefix) and len(name) > len(prefix) and name[len(prefix)].isupper():
             mat = name[len(prefix):]
             mat = re.sub(r'(?<!^)(?=[A-Z])', '_', mat).lower()

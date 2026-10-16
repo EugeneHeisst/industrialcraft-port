@@ -41,6 +41,11 @@ public final class Ic2Items {
     public static final DeferredItem<ic2.core.item.tool.ItemFrequencyTransmitter> FREQUENCY_TRANSMITTER = REGISTRY.register("frequency_transmitter", () -> new ic2.core.item.tool.ItemFrequencyTransmitter(new Item.Properties()));
     public static final DeferredItem<net.minecraft.world.item.DoubleHighBlockItem> REINFORCED_DOOR = REGISTRY.register("reinforced_door", () -> new net.minecraft.world.item.DoubleHighBlockItem(Ic2Blocks.REINFORCED_DOOR.get(), new Item.Properties().stacksTo(8)));
     public static final DeferredItem<ic2.core.item.tool.ItemToolMiningLaser> MINING_LASER = REGISTRY.register("mining_laser", () -> new ic2.core.item.tool.ItemToolMiningLaser(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.ItemToolbox> TOOL_BOX = REGISTRY.register("tool_box", () -> new ic2.core.item.ItemToolbox(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.tool.ItemToolMeter> EU_METER = REGISTRY.register("eu_meter", () -> new ic2.core.item.tool.ItemToolMeter(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.tool.ItemWindmeter> WIND_METER = REGISTRY.register("wind_meter", () -> new ic2.core.item.tool.ItemWindmeter(new Item.Properties()));
+    public static final java.util.Map<net.minecraft.world.item.DyeColor, DeferredItem<ic2.core.item.tool.ItemToolPainter>> PAINTERS = new java.util.EnumMap<>(net.minecraft.world.item.DyeColor.class);
+    static { for (var c : net.minecraft.world.item.DyeColor.values()) PAINTERS.put(c, REGISTRY.register(c.getName() + "_painter", () -> new ic2.core.item.tool.ItemToolPainter(new Item.Properties(), c))); }
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

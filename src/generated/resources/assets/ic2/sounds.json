@@ -125,6 +125,13 @@
       }
     ]
   },
+  "tools.painter": {
+    "sounds": [
+      {
+        "name": "ic2:tools/painter"
+      }
+    ]
+  },
   "machines.teleporter.charged_loop": {
     "sounds": [
       {

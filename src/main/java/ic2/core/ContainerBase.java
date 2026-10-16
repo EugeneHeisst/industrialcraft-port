@@ -30,8 +30,10 @@ public abstract class ContainerBase<T> extends AbstractContainerMenu {
     private final List<DoubleConsumer> setters = new ArrayList<>();
     private double[] lastSent;
 
-    protected ContainerBase(int containerId, Inventory inventory, T base) {
-        super(Ic2Menus.TILE.get(), containerId);
+    protected ContainerBase(int containerId, Inventory inventory, T base) { this(Ic2Menus.TILE.get(), containerId, inventory, base); }
+
+    protected ContainerBase(net.minecraft.world.inventory.MenuType<?> type, int containerId, Inventory inventory, T base) {
+        super(type, containerId);
         this.base = base;
         this.player = inventory.player;
     }

@@ -72,6 +72,7 @@ public final class IC2Client {
     @SuppressWarnings({"unchecked", "rawtypes"})
     static void screens(RegisterMenuScreensEvent event) {
         event.register(Ic2Menus.TILE.get(), (net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor)(menu, inv, title) -> screen((ContainerBase<?>)menu, (Inventory)inv, (Component)title));
+        event.register(Ic2Menus.HANDHELD.get(), (net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor)(menu, inv, title) -> screen((ContainerBase<?>)menu, (Inventory)inv, (Component)title));
     }
 
     private static Screen screen(ContainerBase<?> menu, Inventory inv, Component title) {
@@ -100,6 +101,8 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Water m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Water(m, inv, title);
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Electric m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Electric(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMatter m) return new ic2.core.block.machine.gui.GuiMatter(m, inv, title);
+        if (menu instanceof ic2.core.item.ItemToolbox.Container m) return new ic2.core.item.GuiToolbox(m, inv, title);
+        if (menu instanceof ic2.core.item.tool.ItemToolMeter.Container m) return new ic2.core.item.tool.GuiToolMeter(m, inv, title);
         if (menu instanceof ic2.core.block.wiring.ContainerChargepad m) return new ic2.core.block.wiring.GuiChargepad(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMagnetizer m) return new ic2.core.block.machine.gui.GuiMagnetizer(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerElectrolyzer m) return new ic2.core.block.machine.gui.GuiMagnetizer.Electrolyzer(m, inv, title);

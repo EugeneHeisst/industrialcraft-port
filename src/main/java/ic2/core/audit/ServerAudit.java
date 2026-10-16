@@ -297,7 +297,7 @@ public final class ServerAudit {
             teslaPig = pig.getUUID();
             ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(2, 0, -1))).energy = 1000000;
             padPlayer = net.neoforged.neoforge.common.util.FakePlayerFactory.get(level, new com.mojang.authlib.GameProfile(java.util.UUID.nameUUIDFromBytes("ic2audit".getBytes()), "ic2audit"));
-            padPlayer.getInventory().items.set(0, new ItemStack(Ic2Items.RE_BATTERY.get()));
+            padPlayer.getInventory().items.set(5, new ItemStack(Ic2Items.RE_BATTERY.get()));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -371,12 +371,12 @@ public final class ServerAudit {
         if (tick == 120) {
             BlockPos tp = base.offset(-6, 0, 10);
             var item = level.getEntity(teleItem);
-            check("teleporter moves item to linked teleporter", item != null && item.blockPosition().closerThan(tp.offset(3, 1, 1), 1.5), item == null ? "gone" : item.blockPosition() + " mfsu=" + ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(-4, 0, 1))).energy);
+            check("teleporter moves item to linked teleporter", item != null && item.blockPosition().closerThan(tp.offset(3, 1, 1), 1.5), item == null ? "gone" : item.blockPosition() + " B=" + level.getBlockState(tp.offset(3, 0, 1)) + " below=" + level.getBlockState(tp.offset(3, -1, 1)) + " mfsu=" + ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(-4, 0, 1))).energy);
             var pig = (net.minecraft.world.entity.LivingEntity)level.getEntity(teslaPig);
             check("tesla coil shocks nearby mob", pig == null || pig.isDeadOrDying() || pig.getHealth() < pig.getMaxHealth(), pig == null ? "dead" : "hp=" + pig.getHealth());
         }
         if (tick == 700) {
-            ItemStack bat = padPlayer.getInventory().items.get(0);
+            ItemStack bat = padPlayer.getInventory().items.get(5);
             check("charge pad charges player inventory", ElectricItem.manager.getCharge(bat) >= 10000, "charge=" + ElectricItem.manager.getCharge(bat) + " active=" + level.getBlockState(base.offset(-4, 0, 9)));
         }
         if (tick == 30) {
@@ -400,7 +400,7 @@ public final class ServerAudit {
             BlockPos sp = base.offset(-6, 0, 10).offset(-4, 3, -4);
             check("unsupported scaffold collapses", !level.getBlockState(sp).is(Ic2Blocks.SCAFFOLD.get()), level.getBlockState(sp));
         }
-        if (tick == 60) {
+        if (tick == 130) {
             BlockPos lp = base.offset(-6, 0, 10).offset(-4, 6, -4);
             for (int i = 2; i <= 6; i++) level.setBlock(lp.east(i), Blocks.STONE.defaultBlockState(), 3);
             for (BlockPos p : BlockPos.betweenClosed(lp.offset(2, 2, -1), lp.offset(6, 4, 1))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
@@ -411,13 +411,32 @@ public final class ServerAudit {
             padPlayer.moveTo(lp.getX() + 0.5, lp.getY() + 1.48, lp.getZ() + 0.5, -90, 0);
             laser.shoot(level, padPlayer, ls, Float.POSITIVE_INFINITY, 12, Integer.MAX_VALUE, true, false, -90, 0, lp.getY() + 3.5);
         }
-        if (tick == 90) {
+        if (tick == 160) {
             BlockPos lp = base.offset(-6, 0, 10).offset(-4, 6, -4);
             int mined = 0, blasted = 0;
             for (int i = 2; i <= 6; i++) if (level.getBlockState(lp.east(i)).isAir()) mined++;
             for (BlockPos p : BlockPos.betweenClosed(lp.offset(2, 2, -1), lp.offset(6, 4, 1))) if (level.getBlockState(p).isAir()) blasted++;
             check("mining laser bores through stone", mined >= 4, "mined=" + mined);
             check("explosive laser blasts with ExplosionIC2", blasted >= 5, "blasted=" + blasted);
+        }
+        if (tick == 100) {
+            BlockPos pp = base.offset(-6, 0, 10).offset(-4, 9, 4);
+            level.setBlock(pp, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.insulated_copper).get().defaultBlockState(), 3);
+            level.setBlock(pp.east(), Blocks.WHITE_WOOL.defaultBlockState(), 3);
+            ItemStack painter = new ItemStack(Ic2Items.PAINTERS.get(net.minecraft.world.item.DyeColor.RED).get());
+            padPlayer.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, painter);
+            for (BlockPos t : new BlockPos[]{pp, pp.east()})
+                painter.getItem().onItemUseFirst(painter, new net.minecraft.world.item.context.UseOnContext(level, padPlayer, net.minecraft.world.InteractionHand.MAIN_HAND, painter, new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(t), Direction.UP, t, false)));
+            check("painter colours cables and wool", level.getBlockState(pp).getValue(ic2.core.block.wiring.BlockCable.COLOR) == 1 && level.getBlockState(pp.east()).is(Blocks.RED_WOOL) && painter.getDamageValue() == 2,
+                level.getBlockState(pp).getValue(ic2.core.block.wiring.BlockCable.COLOR) + " " + level.getBlockState(pp.east()) + " dmg=" + painter.getDamageValue());
+            ItemStack box = new ItemStack(Ic2Items.TOOL_BOX.get());
+            padPlayer.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, box);
+            var inv = new ic2.core.item.HandHeldInventory(padPlayer, net.minecraft.world.InteractionHand.MAIN_HAND, 9);
+            inv.setItem(3, new ItemStack(Ic2Items.WRENCH.get()));
+            inv.setChanged();
+            var again = new ic2.core.item.HandHeldInventory(padPlayer, net.minecraft.world.InteractionHand.MAIN_HAND, 9);
+            check("tool box keeps its contents", again.getItem(3).is(Ic2Items.WRENCH.get()) && ic2.core.item.ItemToolbox.isBoxable(new ItemStack(Ic2Items.MINING_DRILL.get())) && !ic2.core.item.ItemToolbox.isBoxable(new ItemStack(Items.DIRT)), again.getItem(3));
+            padPlayer.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {

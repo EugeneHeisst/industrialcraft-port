@@ -1,0 +1,16 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:painter"
+    },
+    {
+      "tag": "c:dyes/brown"
+    }
+  ],
+  "result": {
+    "id": "ic2:brown_painter",
+    "count": 1
+  }
+}

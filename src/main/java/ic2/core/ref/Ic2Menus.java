@@ -17,5 +17,12 @@ public final class Ic2Menus {
         if (be instanceof IHasGui gui) return gui.getGuiContainer(id, inv);
         throw new IllegalStateException("No IC2 GUI block entity at the sent position");
     }));
+    /** Hand-held item GUIs (toolbox, EU meter, cropnalyzer...): the buffer carries the hand holding the item. */
+    public static final Supplier<MenuType<ContainerBase<?>>> HANDHELD = REGISTRY.register("handheld", () -> IMenuTypeExtension.create((id, inv, buf) -> {
+        var hand = net.minecraft.world.InteractionHand.values()[buf.readVarInt()];
+        var stack = inv.player.getItemInHand(hand);
+        if (stack.getItem() instanceof ic2.core.item.IHandHeldInventory h) return h.createContainer(id, inv, stack, hand);
+        throw new IllegalStateException("No IC2 hand-held GUI item in hand");
+    }));
     private Ic2Menus() {}
 }

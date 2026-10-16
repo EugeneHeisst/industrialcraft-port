@@ -1,0 +1,58 @@
+{
+  "type": "ic2:shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:black_painter"
+    },
+    {
+      "item": "ic2:red_painter"
+    },
+    {
+      "item": "ic2:green_painter"
+    },
+    {
+      "item": "ic2:brown_painter"
+    },
+    {
+      "item": "ic2:blue_painter"
+    },
+    {
+      "item": "ic2:purple_painter"
+    },
+    {
+      "item": "ic2:cyan_painter"
+    },
+    {
+      "item": "ic2:light_gray_painter"
+    },
+    {
+      "item": "ic2:gray_painter"
+    },
+    {
+      "item": "ic2:pink_painter"
+    },
+    {
+      "item": "ic2:lime_painter"
+    },
+    {
+      "item": "ic2:yellow_painter"
+    },
+    {
+      "item": "ic2:light_blue_painter"
+    },
+    {
+      "item": "ic2:magenta_painter"
+    },
+    {
+      "item": "ic2:orange_painter"
+    },
+    {
+      "item": "ic2:white_painter"
+    }
+  ],
+  "result": {
+    "id": "ic2:painter",
+    "count": 1
+  }
+}
