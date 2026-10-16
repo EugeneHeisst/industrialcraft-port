@@ -11,8 +11,9 @@ import net.neoforged.neoforge.fluids.FluidStack;
 public abstract class ContainerFluidMachines<T extends TileEntityInventory & FluidMachine> extends ContainerBase<T>{
     public final FluidStack[] fluids;
     private final int[] ids;
-    protected ContainerFluidMachines(int id,Inventory inv,T b){
-        super(id,inv,b);addPlayerInventorySlots(inv,184);fluids=new FluidStack[b.getTanks()];ids=new int[fluids.length];java.util.Arrays.fill(fluids,FluidStack.EMPTY);
+    protected ContainerFluidMachines(int id,Inventory inv,T b){this(id,inv,b,184);}
+    protected ContainerFluidMachines(int id,Inventory inv,T b,int height){
+        super(id,inv,b);addPlayerInventorySlots(inv,height);fluids=new FluidStack[b.getTanks()];ids=new int[fluids.length];java.util.Arrays.fill(fluids,FluidStack.EMPTY);
         for(int i=0;i<fluids.length;i++){final int n=i;
             sync(()->BuiltInRegistries.FLUID.getId(b.getFluidInTank(n).getFluid()),v->ids[n]=(int)v);
             sync(()->b.getFluidInTank(n).getAmount(),v->fluids[n]=(int)v<=0?FluidStack.EMPTY:new FluidStack(BuiltInRegistries.FLUID.byId(ids[n]),(int)v));

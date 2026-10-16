@@ -1,0 +1,24 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "ICI",
+    "CGC",
+    "ICI"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:heat_conductor"
+    },
+    "C": {
+      "item": "ic2:universal_fluid_cell"
+    },
+    "I": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:fluid_heat_generator",
+    "count": 1
+  }
+}

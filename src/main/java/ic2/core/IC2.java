@@ -105,6 +105,7 @@ public final class IC2 {
     private void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ic2.core.crop.IC2Crops.init();
+            ic2.core.fluid.HeatRecipes.init();
             MachineRecipeLoader.load("macerator", Recipes.macerator);
             MachineRecipeLoader.load("extractor", Recipes.extractor);
             MachineRecipeLoader.load("compressor", Recipes.compressor);
@@ -140,6 +141,9 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_HEAT_GENERATOR.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.LIQUID_HEAT_EXCHANGER.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FERMENTER.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_DISTRIBUTOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_REGULATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.CONDENSER.get(), (be, side) -> be.port(side));

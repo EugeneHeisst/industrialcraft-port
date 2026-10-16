@@ -24,7 +24,7 @@ The user asked Codex to continue while the PC Claude session was at its five-hou
 
 ## Where to continue
 
-Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: steam generator, fermenter, liquid heat exchanger, fluid heat generator, steam/stirling kinetic generators, lathe/turning blanks, advanced miner, CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
+Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: steam generator, steam/stirling kinetic generators, lathe/turning blanks, advanced miner, CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
 
 ASP and EMT remain project skeletons, Gravi Suit not started. Keep original user's order and cross-mod requirements from shared `memory/ic2_port.md`. Gravi reference jar is in the upload path recorded there. All test clients must remain hidden and silent. Never restart or kill the user's long-running production server; identify own JVMs by `/proc/<pid>/cwd`.
 
@@ -35,3 +35,9 @@ User asked Codex to keep working. Added fluid distributor (fair distribution / c
 Server audit: **113 checks, 0 failed**. Hidden silent client completed with no errors; four new GUI screenshots inspected. Build/JAR and validation logs archived under `versions/0.1.2/`. This batch is also local-only, no push/release or production deployment.
 
 Testing gotcha: do not compile new sources while a dev client/server is running from `build/classes/java/main`. Incremental compilation can temporarily remove inner classes and produce misleading runtime ClassNotFoundException. Run audits sequentially after compilation settles.
+
+## Follow-up batch 0.1.3 — 2026-10-16
+
+Added fluid heat generator, liquid heat exchanger and fermenter with original fluid/balance defaults, recipes and interfaces. Ported API `ILiquidAcceptManager`, `IFluidHeatManager`, `ILiquidHeatExchangerManager` and the mutable recipe maps; supports original fluid string aliases and modern namespaced IDs for addons. Fluid generator prepays a 20-tick burn batch and persists remaining fuel work. Exchanger has ten conductors (10 hU/t each), lava→pahoehoe lava and hot coolant→coolant at 20 hU/mB; refuses full/mismatched output without consuming input. Fermenter consumes 8,000 hU + 10 mB biomass for 200 mB biogas and produces fertilizer every 500 mB biomass; preserves work if fertilizer/gas output is blocked. All tanks/slots/partial work persist.
+
+Server audit: **129 checks, 0 failed**, including a complete 500 mB biomass → 10,000 mB biogas + fertilizer run driven by the real fluid heat generator, heat/fuel accounting, idle behavior, returned coolant, full-output handling, addon API and recipes. Hidden silent client covers new GUIs with populated tanks; JAR/logs/screens archived under `versions/0.1.3/`. Still no GitHub push/release or production deployment. Steam boiler/kinetic generators are still outstanding.

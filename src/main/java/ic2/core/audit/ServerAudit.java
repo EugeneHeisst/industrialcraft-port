@@ -569,6 +569,7 @@ public final class ServerAudit {
         if (tick == 705) CropAudit.run(level, base.offset(32, 0, -32), ServerAudit::check);
         if (tick == 706) LogisticsAudit.run(level, base.offset(32, 0, 32), ServerAudit::check);
         if (tick == 707) FluidMachinesAudit.run(level, base.offset(-32, 0, -32), ServerAudit::check);
+        if (tick == 708) ThermalFluidsAudit.run(level, base.offset(0, 0, -32), ServerAudit::check);
         if (tick == 710) {
             IC2.LOG.info("[audit] DONE {} checks, {} failed", results.size(), results.stream().filter(s -> s.startsWith("FAIL")).count());
             server.halt(false);

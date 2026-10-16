@@ -77,6 +77,9 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> REACTOR_ACCESS_HATCH = REGISTRY.register("reactor_access_hatch", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_ACCESS_HATCH.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_REDSTONE_PORT = REGISTRY.register("reactor_redstone_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_REDSTONE_PORT.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_FLUID_PORT = REGISTRY.register("reactor_fluid_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_FLUID_PORT.get()));
+    public static final DeferredBlock<BlockTileEntity> FLUID_HEAT_GENERATOR = machine("fluid_heat_generator", () -> Ic2BlockEntities.FLUID_HEAT_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> LIQUID_HEAT_EXCHANGER = machine("liquid_heat_exchanger", () -> Ic2BlockEntities.LIQUID_HEAT_EXCHANGER.get());
+    public static final DeferredBlock<BlockTileEntity> FERMENTER = machine("fermenter", () -> Ic2BlockEntities.FERMENTER.get());
     public static final DeferredBlock<BlockTileEntity> FLUID_DISTRIBUTOR = machine("fluid_distributor", () -> Ic2BlockEntities.FLUID_DISTRIBUTOR.get());
     public static final DeferredBlock<BlockTileEntity> FLUID_REGULATOR = machine("fluid_regulator", () -> Ic2BlockEntities.FLUID_REGULATOR.get());
     public static final DeferredBlock<BlockTileEntity> CONDENSER = machine("condenser", () -> Ic2BlockEntities.CONDENSER.get());

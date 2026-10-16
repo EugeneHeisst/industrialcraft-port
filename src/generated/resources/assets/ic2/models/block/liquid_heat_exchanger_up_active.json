@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/liquid_heat_exchanger_4",
+    "up": "ic2:block/liquid_heat_exchanger_6",
+    "north": "ic2:block/liquid_heat_exchanger_1",
+    "south": "ic2:block/liquid_heat_exchanger_0",
+    "west": "ic2:block/liquid_heat_exchanger_5",
+    "east": "ic2:block/liquid_heat_exchanger_7",
+    "particle": "ic2:block/liquid_heat_exchanger_1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/fluid_heat_generator_0",
+    "up": "ic2:block/fluid_heat_generator_1",
+    "north": "ic2:block/fluid_heat_generator_3",
+    "south": "ic2:block/fluid_heat_generator_4",
+    "west": "ic2:block/fluid_heat_generator_2",
+    "east": "ic2:block/fluid_heat_generator_2",
+    "particle": "ic2:block/fluid_heat_generator_3"
+  }
+}
