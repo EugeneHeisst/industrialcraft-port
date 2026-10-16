@@ -152,3 +152,11 @@ Next: containment box / obscurator / upgrade kit, itemRecipePart@5, JEI; then AS
 Server audit **355 checks, 0 failed** (ObscuratorAudit). Hidden silent client: obscurator.png (log/grass(tinted)/brick sides on walls and a foamed cable, plain yellow wall) and gui_containment_box.png inspected. Artifacts in versions/0.1.15. Pushed to the private repo only.
 
 Next: JEI integration, final IC2 compatibility pass; then ASP → EMT → Gravi Suit.
+
+## Claude batch 0.1.16 — JEI
+
+`ic2.core.jei.IC2JeiPlugin` (JEI stays compileOnly; run the client audit with `./audit-client.sh -PwithJei=true` to include it). Pages for every IMachineRecipeManager (macerator, extractor, compressor, thermal centrifuge with heat, ore washing with water, block cutter with hardness, blast furnace, the three metal former modes, UU amplifier with amplification), solid canning, canner fluid enrichment (fluid ingredients), and scrap box drops with chances; catalysts include the iron/electric/induction furnaces for smelting. IC2 crafting recipes (`ic2:shaped/shapeless`) already show under crafting. Labels `ic2.jei.*` in en/ru.
+
+Server audit 355/355 unchanged. Hidden silent client with JEI: all eight pages open (macerator, thermal centrifuge, ore washing, rolling, solid canning, enrichment, scrap box, MFSU crafting) and were inspected. Artifacts in versions/0.1.16. Pushed to the private repo only.
+
+Next: IC2 final compatibility pass (API surface ASP/EMT/Gravi need), then ASP → EMT → Gravi Suit.

@@ -293,6 +293,15 @@ public final class ClientAudit {
         if (tick == end + 414) server.execute(() -> { var pl=server.getPlayerList().getPlayers().get(0); ic2.core.item.IHandHeldInventory.open(pl,net.minecraft.world.InteractionHand.MAIN_HAND,id->((ic2.core.item.ItemContainmentbox)Ic2Items.CONTAINMENT_BOX.get()).createContainer(id,pl.getInventory(),pl.getMainHandItem(),net.minecraft.world.InteractionHand.MAIN_HAND)); });
         if (tick == end + 424) shot(mc,"gui_containment_box.png");
         if (tick == end + 426) mc.player.closeContainer();
-        if (tick >= end + 430) mc.stop();
+        // JEI pages when the audit runs with JEI (./audit-client.sh -PwithJei=true)
+        String[] jeiPages = {"macerator", "thermal_centrifuge", "ore_washing", "metal_former_rolling", "solid_canning", "fluid_enrichment", "scrap_box", "mfsu"};
+        boolean jei = net.neoforged.fml.ModList.get().isLoaded("jei");
+        int jp = (tick - end - 432) / 12;
+        if (jei && tick >= end + 432 && jp < jeiPages.length) {
+            if ((tick - end - 432) % 12 == 0) ic2.core.IC2.LOG.info("[client-audit] {} JEI page {}", ic2.core.jei.IC2JeiPlugin.showForAudit(jeiPages[jp]) ? "PASS" : "FAIL", jeiPages[jp]);
+            if ((tick - end - 432) % 12 == 10) shot(mc, "jei_" + jeiPages[jp] + ".png");
+            if ((tick - end - 432) % 12 == 11) mc.setScreen(null);
+        }
+        if (tick >= end + (jei ? 432 + jeiPages.length * 12 + 2 : 430)) mc.stop();
     }
 }

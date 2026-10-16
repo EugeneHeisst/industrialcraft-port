@@ -154,6 +154,10 @@ gen_item('cf_pack', 'itemArmorCFPack.png', 'itemArmorCFPack', ['itemArmorCFPack'
 gen_item('dynamite', 'itemDynamite.png', 'itemDynamite', ['itemDynamite'])
 gen_item('sticky_dynamite', 'itemDynamiteSticky.png', 'itemDynamiteSticky', ['itemDynamiteSticky'])
 gen_item('dynamite_remote', 'itemRemote.png', 'itemRemote', ['itemRemote'])
+# ---------- JEI page labels
+JEI_LABELS = {'ic2.jei.heat': ('Heat: %s hU', 'Нагрев: %s hU'), 'ic2.jei.water': ('Water: %s mB', 'Вода: %s mB'), 'ic2.jei.hardness': ('Hardness: %s', 'Твёрдость: %s'), 'ic2.jei.amplification': ('Amplification: %s', 'Усиление: %s')}
+for code in out_lang:
+    for k, (en, ru) in JEI_LABELS.items(): out_lang[code][k] = ru if code == 'ru_ru' else en
 # ---------- containment box, obscurator, MFSU upgrade kit
 gen_item('containment_box', 'itemContainmentbox.png', 'itemContainmentbox', ['itemContainmentbox'])
 gen_item('obscurator', 'obscurator.png', 'obscurator', ['obscurator'])
