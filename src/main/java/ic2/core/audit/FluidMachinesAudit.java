@@ -1,0 +1,66 @@
+package ic2.core.audit;
+import ic2.core.block.machine.tileentity.*;
+import ic2.core.block.machine.container.ContainerFluidMachines;
+import ic2.core.fluid.*;
+import ic2.core.ref.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+public final class FluidMachinesAudit {
+    public static void run(ServerLevel l,BlockPos p,CropAudit.Check check){
+        for(var pos:BlockPos.betweenClosed(p.offset(-2,-1,-2),p.offset(14,3,3)))l.setBlock(pos,Blocks.AIR.defaultBlockState(),3);
+        l.setDayTime(6000);l.setWeatherParameters(6000,0,false,false);l.updateSkyBrightness();
+        l.setBlock(p,Ic2Blocks.FLUID_DISTRIBUTOR.get().defaultBlockState(),3);
+        for(var d:new Direction[]{Direction.NORTH,Direction.EAST,Direction.WEST})l.setBlock(p.relative(d),Ic2Blocks.CROPMATRON.get().defaultBlockState(),3);
+        var dist=(TileEntityFluidDistributor)l.getBlockEntity(p);
+        var east=(TileEntityCropmatron)l.getBlockEntity(p.east());var west=(TileEntityCropmatron)l.getBlockEntity(p.west());var north=(TileEntityCropmatron)l.getBlockEntity(p.north());
+        var front=l.getCapability(Capabilities.FluidHandler.BLOCK,p,Direction.NORTH);var back=l.getCapability(Capabilities.FluidHandler.BLOCK,p,Direction.SOUTH);
+        check.test("distributor input side and simulated fill",front.fill(new FluidStack(Fluids.WATER,1000),FluidAction.SIMULATE)==1000&&dist.tank.isEmpty()&&back.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE)==0,"stored="+dist.tank.getFluidAmount());
+        front.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE);int moved=dist.distribute();
+        check.test("distributor fair split and conserved volume",moved==1000&&dist.tank.isEmpty()&&east.fluidTank.getFluidAmount()==500&&west.fluidTank.getFluidAmount()==500&&north.fluidTank.isEmpty(),"east="+east.fluidTank.getFluidAmount()+" west="+west.fluidTank.getFluidAmount());
+        dist.setActive(true);boolean blocked=front.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE)==0;
+        back.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE);dist.distribute();
+        check.test("distributor concentrate reverses ports",blocked&&north.fluidTank.getFluidAmount()==1000&&east.fluidTank.getFluidAmount()==500,north.fluidTank.getFluid());
+        check.test("distributor cannot drain through capability",front.drain(1000,FluidAction.EXECUTE).isEmpty(),"output is automatic");
+        var rp=p.east(4);l.setBlock(rp,Ic2Blocks.FLUID_REGULATOR.get().defaultBlockState(),3);l.setBlock(rp.north(),Ic2Blocks.CROPMATRON.get().defaultBlockState(),3);
+        var reg=(TileEntityFluidRegulator)l.getBlockEntity(rp);var target=(TileEntityCropmatron)l.getBlockEntity(rp.north());
+        reg.outputmb=100;reg.energy=20;reg.tank.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE);target.fluidTank.fill(new FluidStack(Fluids.WATER,1993),FluidAction.EXECUTE);
+        boolean worked=reg.work();
+        check.test("regulator partial destination keeps remainder",worked&&reg.energy==10&&reg.tank.getFluidAmount()==993&&target.fluidTank.getFluidAmount()==2000,"source="+reg.tank.getFluidAmount()+" EU="+reg.energy);
+        check.test("regulator blocked output costs no EU",!reg.work()&&reg.energy==10&&reg.tank.getFluidAmount()==993,reg.energy);
+        target.fluidTank.drain(2000,FluidAction.EXECUTE);reg.energy=9;
+        check.test("regulator needs ten EU",!reg.work()&&reg.tank.getFluidAmount()==993,reg.energy);
+        reg.event(Integer.MAX_VALUE);reg.event(1001);var copy=(TileEntityFluidRegulator)BlockEntity.loadStatic(rp,reg.getBlockState(),reg.saveWithFullMetadata(l.registryAccess()),l.registryAccess());
+        check.test("regulator limits mode and persistence",reg.outputmb==1000&&copy.outputmb==1000&&copy.mode==1&&copy.tank.getFluidAmount()==993,"rate="+copy.outputmb+" mode="+copy.mode);
+        check.test("regulator rejects front input",reg.port(Direction.NORTH).fill(new FluidStack(Fluids.WATER,1),FluidAction.EXECUTE)==0&&reg.port(Direction.SOUTH).fill(new FluidStack(Fluids.WATER,1),FluidAction.EXECUTE)==1,"sided input");
+        var cp=p.east(7);l.setBlock(cp,Ic2Blocks.CONDENSER.get().defaultBlockState(),3);var c=(TileEntityCondenser)l.getBlockEntity(cp);
+        check.test("condenser accepts only steam",c.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE)==0&&c.fill(new FluidStack(Ic2Fluids.STEAM.get(),10000),FluidAction.EXECUTE)==10000,"steam only");
+        for(int i=0;i<101;i++)c.work();
+        check.test("condenser passive full batch at empty input",c.inputTank.isEmpty()&&c.progress==0&&c.outputTank.getFluidAmount()==100&&c.energy==0,"water="+c.outputTank.getFluidAmount());
+        c.fill(new FluidStack(Ic2Fluids.SUPERHEATED_STEAM.get(),1000),FluidAction.EXECUTE);for(int i=0;i<4;i++)c.vents.put(i,new ItemStack(Ic2Items.HEAT_VENT.get()));c.energy=8;c.work();
+        check.test("condenser vents speed up with EU",c.progress==400&&c.energy==0&&c.inputTank.getFluidAmount()==600,"progress="+c.progress);
+        check.test("condenser vents stop without EU",!c.work()&&c.progress==400,c.energy);
+        c.progress=10000;c.outputTank.fill(new FluidStack(Ic2Fluids.DISTILLED_WATER.get(),900),FluidAction.EXECUTE);
+        check.test("condenser full output retains work",!c.work()&&c.progress==10000,c.outputTank.getFluidAmount());
+        c.drain(1000,FluidAction.EXECUTE);c.work();check.test("condenser completed work resumes",c.outputTank.getFluidAmount()==100&&c.progress==0,c.outputTank.getFluid());
+        var sp=p.east(10);l.setBlock(sp,Ic2Blocks.SOLAR_DISTILLER.get().defaultBlockState(),3);var solar=(TileEntitySolarDistiller)l.getBlockEntity(sp);solar.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE);
+        solar.onLoaded();for(int i=0;i<solar.getTickRate();i++)solar.tick();
+        check.test("solar distiller day water conversion",solar.inputTank.getFluidAmount()==999&&solar.outputTank.getFluidAmount()==1,"tickrate="+solar.getTickRate()+" input="+solar.inputTank.getFluidAmount()+" output="+solar.outputTank.getFluidAmount()+" sun="+solar.isSunVisible());
+        l.setBlock(sp.above(),Blocks.STONE.defaultBlockState(),3);check.test("solar distiller blocked sky stops",!solar.distill()&&solar.outputTank.getFluidAmount()==1,solar.isSunVisible());l.setBlock(sp.above(),Blocks.AIR.defaultBlockState(),3);
+        l.setDayTime(18000);l.updateSkyBrightness();check.test("solar distiller night stops",!solar.distill()&&solar.outputTank.getFluidAmount()==1,solar.isSunVisible());l.setDayTime(6000);l.updateSkyBrightness();
+        solar.inputSlot.put(new ItemStack(Items.WATER_BUCKET));solar.tick();check.test("solar distiller empties water bucket",solar.emptySlot.get().is(Items.BUCKET)&&solar.inputTank.getFluidAmount()==1999,solar.emptySlot.get());
+        solar.outputTank.fill(new FluidStack(Ic2Fluids.DISTILLED_WATER.get(),999),FluidAction.EXECUTE);solar.containerSlot.put(new ItemStack(Ic2Items.UNIVERSAL_FLUID_CELL.get()));solar.tick();
+        check.test("solar distiller fills distilled water cell",!solar.outputSlot.get().isEmpty()&&InvFluidAmount(solar.outputSlot.get())==1000,solar.outputSlot.get());
+        var scopy=(TileEntitySolarDistiller)BlockEntity.loadStatic(sp,solar.getBlockState(),solar.saveWithFullMetadata(l.registryAccess()),l.registryAccess());
+        check.test("solar distiller tank and inventory persistence",scopy.inputTank.getFluidAmount()==1999&&ItemStack.isSameItemSameComponents(scopy.outputSlot.get(),solar.outputSlot.get()),scopy.outputSlot.get());
+        boolean recipes=true;for(var item:new net.minecraft.world.item.Item[]{Ic2Blocks.FLUID_DISTRIBUTOR.get().asItem(),Ic2Blocks.FLUID_REGULATOR.get().asItem(),Ic2Blocks.CONDENSER.get().asItem(),Ic2Blocks.SOLAR_DISTILLER.get().asItem()})recipes&=l.getRecipeManager().getRecipes().stream().anyMatch(r->r.value().getResultItem(l.registryAccess()).is(item));
+        check.test("four fluid machine recipes",recipes,"legacy recipes converted");
+    }
+    private static int InvFluidAmount(ItemStack s){return ic2.core.block.invslot.InvSlotConsumableLiquid.contained(s).getAmount();}
+}

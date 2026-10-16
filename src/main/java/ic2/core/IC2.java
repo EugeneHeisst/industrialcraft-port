@@ -140,6 +140,10 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_DISTRIBUTOR.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_REGULATOR.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.CONDENSER.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SOLAR_DISTILLER.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.CROPMATRON.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.PUMP.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.REPLICATOR.get(), (be, side) -> be);

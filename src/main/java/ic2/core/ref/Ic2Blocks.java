@@ -77,6 +77,10 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> REACTOR_ACCESS_HATCH = REGISTRY.register("reactor_access_hatch", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_ACCESS_HATCH.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_REDSTONE_PORT = REGISTRY.register("reactor_redstone_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_REDSTONE_PORT.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_FLUID_PORT = REGISTRY.register("reactor_fluid_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_FLUID_PORT.get()));
+    public static final DeferredBlock<BlockTileEntity> FLUID_DISTRIBUTOR = machine("fluid_distributor", () -> Ic2BlockEntities.FLUID_DISTRIBUTOR.get());
+    public static final DeferredBlock<BlockTileEntity> FLUID_REGULATOR = machine("fluid_regulator", () -> Ic2BlockEntities.FLUID_REGULATOR.get());
+    public static final DeferredBlock<BlockTileEntity> CONDENSER = machine("condenser", () -> Ic2BlockEntities.CONDENSER.get());
+    public static final DeferredBlock<BlockTileEntity> SOLAR_DISTILLER = machine("solar_distiller", () -> Ic2BlockEntities.SOLAR_DISTILLER.get());
     public static final DeferredBlock<BlockTileEntity> SORTING_MACHINE = machine("sorting_machine", () -> Ic2BlockEntities.SORTING_MACHINE.get());
     public static final DeferredBlock<BlockTileEntity> ITEM_BUFFER = machine("item_buffer", () -> Ic2BlockEntities.ITEM_BUFFER.get());
     public static final DeferredBlock<BlockTileEntity> CROPMATRON = machine("cropmatron", () -> Ic2BlockEntities.CROPMATRON.get());

@@ -24,6 +24,14 @@ The user asked Codex to continue while the PC Claude session was at its five-hou
 
 ## Where to continue
 
-Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: fluid distributor/regulator, condenser, steam generator, solar distiller, fermenter, liquid heat exchanger, fluid heat generator, steam/stirling kinetic generators, lathe/turning blanks, advanced miner, CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
+Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: steam generator, fermenter, liquid heat exchanger, fluid heat generator, steam/stirling kinetic generators, lathe/turning blanks, advanced miner, CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
 
 ASP and EMT remain project skeletons, Gravi Suit not started. Keep original user's order and cross-mod requirements from shared `memory/ic2_port.md`. Gravi reference jar is in the upload path recorded there. All test clients must remain hidden and silent. Never restart or kill the user's long-running production server; identify own JVMs by `/proc/<pid>/cwd`.
+
+## Follow-up batch 0.1.2 — 2026-10-16 13:10 UTC
+
+User asked Codex to keep working. Added fluid distributor (fair distribution / concentration, sided input reversal), electric fluid regulator (0–1000 mB/tick or second, 10 EU per successful transfer), condenser (100:1 steam to distilled water, passive 100 mB/tick or four vents, 2 EU/vent), and solar distiller (biome-temperature-dependent 36/72/144-tick rate, rain/night/roof checks). Added original textures, GUIs, legacy recipes, container slots, capabilities and persistence. Shared helper `FluidMachine` handles sided ports and transactional fluid/container transfers. Condenser completes its last batch even with empty input and preserves pending work when the output is full; fluid transfer refunds any destination remainder. Solar checks the chunk's skylight-source column directly, avoiding stale light propagation in freshly loaded chunks.
+
+Server audit: **113 checks, 0 failed**. Hidden silent client completed with no errors; four new GUI screenshots inspected. Build/JAR and validation logs archived under `versions/0.1.2/`. This batch is also local-only, no push/release or production deployment.
+
+Testing gotcha: do not compile new sources while a dev client/server is running from `build/classes/java/main`. Incremental compilation can temporarily remove inner classes and produce misleading runtime ClassNotFoundException. Run audits sequentially after compilation settles.

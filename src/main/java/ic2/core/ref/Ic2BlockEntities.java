@@ -87,6 +87,10 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityCropHarvester>> CROP_HARVESTER = reg("crop_harvester", ic2.core.block.machine.tileentity.TileEntityCropHarvester::new, Ic2Blocks.CROP_HARVESTER);
     public static final Supplier<BlockEntityType<ic2.core.crop.TileEntityCrop>> CROP = reg("crop", ic2.core.crop.TileEntityCrop::new, Ic2Blocks.CROP);
 
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityFluidDistributor>> FLUID_DISTRIBUTOR = reg("fluid_distributor", ic2.core.block.machine.tileentity.TileEntityFluidDistributor::new, Ic2Blocks.FLUID_DISTRIBUTOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityFluidRegulator>> FLUID_REGULATOR = reg("fluid_regulator", ic2.core.block.machine.tileentity.TileEntityFluidRegulator::new, Ic2Blocks.FLUID_REGULATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityCondenser>> CONDENSER = reg("condenser", ic2.core.block.machine.tileentity.TileEntityCondenser::new, Ic2Blocks.CONDENSER);
+    public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntitySolarDistiller>> SOLAR_DISTILLER = reg("solar_distiller", ic2.core.block.machine.tileentity.TileEntitySolarDistiller::new, Ic2Blocks.SOLAR_DISTILLER);
     private static <T extends TileEntityBlock> Supplier<BlockEntityType<T>> reg(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> block) {
         return REGISTRY.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
     }

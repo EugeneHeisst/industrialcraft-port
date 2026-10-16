@@ -107,6 +107,10 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.machine.container.ContainerUu.PatternStorage m) return new ic2.core.block.machine.gui.GuiUu.PatternStorage(m, inv, title);
         if (menu instanceof ic2.core.block.reactor.ContainerNuclearReactor m) return new ic2.core.block.reactor.GuiNuclearReactor(m, inv, title);
         if (menu instanceof ic2.core.block.reactor.ContainerReactorFluidPort m) return new ic2.core.block.reactor.GuiNuclearReactor.FluidPort(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerFluidMachines.Distributor m) return new ic2.core.block.machine.gui.GuiFluidMachines(m, inv, title, "fluid_distributor", "guifluiddistributor");
+        if (menu instanceof ic2.core.block.machine.container.ContainerFluidMachines.Regulator m) return new ic2.core.block.machine.gui.GuiFluidMachines(m, inv, title, "fluid_regulator", "guifluidregulator");
+        if (menu instanceof ic2.core.block.machine.container.ContainerFluidMachines.Condenser m) return new ic2.core.block.machine.gui.GuiFluidMachines(m, inv, title, "condenser", "guicondenser");
+        if (menu instanceof ic2.core.block.machine.container.ContainerFluidMachines.Solar m) return new ic2.core.block.machine.gui.GuiFluidMachines(m, inv, title, "solar_distiller", "guisolardestiller");
         if (menu instanceof ic2.core.block.machine.container.ContainerLogistics.Sorter m) return new ic2.core.block.machine.gui.GuiLogistics.Sorter(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerLogistics.Buffer m) return new ic2.core.block.machine.gui.GuiLogistics.Buffer(m, inv, title);
         if (menu instanceof ic2.core.crop.ContainerCrops.Matron m) return new ic2.core.crop.GuiCrops.Matron(m, inv, title);

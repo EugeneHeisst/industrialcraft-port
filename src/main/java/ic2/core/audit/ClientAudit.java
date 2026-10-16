@@ -72,6 +72,10 @@ public final class ClientAudit {
                 level.setBlock(p, state, 3);
                 if (level.getBlockEntity(p) instanceof IHasGui) guis.add(p);
                 if (level.getBlockEntity(p) instanceof ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Rotor rotorGen) { rotorGen.rotorSlot.put(new ItemStack(Ic2Items.CARBON_ROTOR.get())); rotorGen.setRotationSpeed(1); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityFluidDistributor d) { d.tank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER,750),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);d.setActive(true); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityFluidRegulator r) { r.tank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER,7500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);r.outputmb=250;r.energy=5000; }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityCondenser c) { c.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.STEAM.get(),90000),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);c.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.DISTILLED_WATER.get(),500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntitySolarDistiller d) { d.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER,7500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);d.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.DISTILLED_WATER.get(),5000),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE); }
                 i++;
             }
             int ci = 0;
