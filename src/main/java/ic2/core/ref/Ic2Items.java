@@ -37,6 +37,10 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_RE_BATTERY = REGISTRY.register("charging_re_battery", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),40000,128,1));
+    public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_ADVANCED_BATTERY = REGISTRY.register("charging_advanced_battery", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),400000,1024,2));
+    public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_ENERGY_CRYSTAL = REGISTRY.register("charging_energy_crystal", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),4000000,8192,3));
+    public static final DeferredItem<ic2.core.item.ItemBatteryChargeHotbar> CHARGING_LAPOTRON_CRYSTAL = REGISTRY.register("charging_lapotron_crystal", () -> new ic2.core.item.ItemBatteryChargeHotbar(new Item.Properties(),40000000,32768,4));
     public static final DeferredItem<ic2.core.item.armor.ItemArmorJetpack> FUEL_JETPACK = REGISTRY.register("fuel_jetpack", () -> new ic2.core.item.armor.ItemArmorJetpack(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.resources.ItemLatheDefault> IRON_TURNING_BLANK = REGISTRY.register("iron_turning_blank", () -> new ic2.core.item.resources.ItemLatheDefault(new Item.Properties(), ic2.core.item.resources.ItemLatheDefault.LatheMaterial.IRON));
     public static final DeferredItem<ic2.core.item.resources.ItemLatheDefault> WOOD_TURNING_BLANK = REGISTRY.register("wood_turning_blank", () -> new ic2.core.item.resources.ItemLatheDefault(new Item.Properties(), ic2.core.item.resources.ItemLatheDefault.LatheMaterial.WOOD));

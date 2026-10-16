@@ -155,7 +155,7 @@ gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])
-for iid, leg in [('re_battery', 'itemBatRE'), ('advanced_re_battery', 'itemAdvBat'), ('energy_crystal', 'itemBatCrystal'), ('lapotron_crystal', 'itemBatLamaCrystal')]:
+for iid, leg in [('re_battery', 'itemBatRE'), ('advanced_re_battery', 'itemAdvBat'), ('energy_crystal', 'itemBatCrystal'), ('lapotron_crystal', 'itemBatLamaCrystal'), ('charging_re_battery', 'itemBatChargeRE'), ('charging_advanced_battery', 'itemBatChargeAdv'), ('charging_energy_crystal', 'itemBatChargeCrystal'), ('charging_lapotron_crystal', 'itemBatChargeLamaCrystal')]:
     LEGACY[leg] = 'ic2:' + iid
     overrides = []
     for i in range(5):

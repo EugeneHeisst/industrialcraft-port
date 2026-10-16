@@ -1,0 +1,26 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "CBC",
+    "B B",
+    "CBC"
+  ],
+  "key": {
+    "B": [
+      {
+        "item": "ic2:re_battery"
+      },
+      {
+        "item": "ic2:re_battery"
+      }
+    ],
+    "C": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:charging_re_battery",
+    "count": 1
+  }
+}

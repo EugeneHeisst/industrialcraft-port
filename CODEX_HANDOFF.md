@@ -24,7 +24,7 @@ The user asked Codex to continue while the PC Claude session was at its five-hou
 
 ## Where to continue
 
-Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: CF sprayer/pack/foam, dynamite/remote, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
+Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: CF sprayer/pack/foam, dynamite/remote, personal safe/trade-o-mat/energy-o-mat, booze/coffee, boats, containment box/obscurator/upgrade kit, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
 
 ASP and EMT remain project skeletons, Gravi Suit not started. Keep original user's order and cross-mod requirements from shared `memory/ic2_port.md`. Gravi reference jar is in the upload path recorded there. All test clients must remain hidden and silent. Never restart or kill the user's long-running production server; identify own JVMs by `/proc/<pid>/cwd`.
 
@@ -79,3 +79,18 @@ Server audit **218 checks, 0 failed**, including original formula cases, config 
 Added luminator (2 EU buffer, 1 EU/4 ticks, light 15, supporting cable input only, wrench toggles redstone polarity, support-loss removal), six mounting directions and original narrow/full-cover shapes and textures. Added fuel jetpack (30,000 mB biogas, 2 mB/t flight / 1 hover, low-fuel thrust reduction below 20%, modern world-height ceiling, persisted hover mode) and reusable fluid armor tank component/capability. Actual bottler refuels it. Restored electric jetpack's original 8 EU flight / 7 EU hover costs and no ground consumption. Luminator legacy aliases restore scanner/nightvision recipes. Fixed missed external FluidHandler registration for Stirling from 0.1.5, tested both fill and output drain through actual capabilities.
 
 Server audit **244 checks, 0 failed** including real BatBox→glass cable→luminator energy network, lamp polarity/light/persistence/support, fluid capacity/simulation/persistence, flight/hover/low-fuel/ceiling/key mode, electric consumption, real bottler and Stirling ports. Hidden silent client passed; populated lamp stand and worn/filled jetpack inspected. JAR/logs/screens versions/0.1.8. No publication/deployment. Next: four automatic charging batteries.
+
+
+## Follow-up batch 0.1.9 — final takeover handoff
+
+Added four automatic hotbar charging batteries: RE 40,000 EU / 128 per cycle / tier1; advanced 400,000 / 1,024 / tier2; energy crystal 4,000,000 / 8,192 / tier3; lapotron 40,000,000 / 32,768 / tier4. Every ten ticks, one shared transfer budget across nine hotbar slots, tier/target charge limits enforced, charging batteries excluded as targets. Three persistent right-click modes ENABLED/DISABLED/NOT_IN_HAND; toolbox permits only disabled batteries. Original five-step charge icons, names and all four recipes retained, crafting inherits EU through existing AdvRecipes.
+
+Server audit **259 checks, 0 failed**: shared budget/EU conservation, selected-slot exclusion, target tiers, battery-to-battery exclusion, hotbar boundary, partial final charge, all mode transitions and save data, automatic ten-tick schedule, all capacities/rates/recipes. Hidden silent client and build pass; full/empty battery models inspected. Artifacts in versions/0.1.9.
+
+## Authoritative resume point
+
+Codex finished nine local batches 0.1.1–0.1.9 after Claude's 7087926, all on main. The latest version is 0.1.9, 259 server checks, hidden silent client/build passed. **No GitHub push/release, Prism install or production-server changes.** Shared memory and this real Claude session received handoff prompts throughout. Use the latest section and the remaining list above; earlier "Next" lines are historical.
+
+Continue remaining IC2 content, then ASP → EMT → Gravi Suit and cross-mod validation. First useful next batch is CF system: sprayer, 80,000 mB pack (reuse ItemArmorFluidTank), foam/reinforced foam and hardening/colored walls, cable foam state/rendering. Dynamite requires the original PointExplosion behavior, placed/remote/sticky variants and dispenser integration; it is NOT implemented by the ITNT/nuke batch. Other missing recipes are listed in build/gen-warnings.txt; that file is not an exhaustive content inventory. Containment box, obscurator and upgrade kit remain unimplemented. ASP/EMT are still skeletons; Gravi Suit is not started.
+
+Final multiplayer flight validation remains necessary for both jetpacks: the current thrust/consumption audits use a fake player and do not test vanilla's >80-tick floating kick on a default allow-flight=false server. Inspect/reset the connection's floating counter through an appropriate modern hook/accessor if needed (old IC2 resetPlayerInAirTime did this). Do not claim full multiplayer validation from the current flight unit checks. Full-mod completeness and addon compatibility are not yet established.

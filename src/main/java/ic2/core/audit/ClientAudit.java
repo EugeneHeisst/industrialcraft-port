@@ -173,6 +173,11 @@ public final class ClientAudit {
         if (tick == end + 170) shot(mc,"luminators.png");
         if (tick == end + 175) mc.setScreen(new InventoryScreen(mc.player));
         if (tick == end + 185) shot(mc,"fuel_jetpack.png");
-        if (tick >= end + 190) mc.stop();
+        if (tick == end + 190) server.execute(() -> {
+            var pl=server.getPlayerList().getPlayers().get(0);pl.getInventory().clearContent();int i=0;
+            for(var item:new ic2.core.item.ItemBatteryChargeHotbar[]{Ic2Items.CHARGING_RE_BATTERY.get(),Ic2Items.CHARGING_ADVANCED_BATTERY.get(),Ic2Items.CHARGING_ENERGY_CRYSTAL.get(),Ic2Items.CHARGING_LAPOTRON_CRYSTAL.get()}){var filled=item.charged();item.setMode(filled,ic2.core.item.ItemBatteryChargeHotbar.Mode.DISABLED);pl.getInventory().setItem(i++,filled);pl.getInventory().setItem(i++,new ItemStack(item));}
+        });
+        if (tick == end + 205) shot(mc,"charging_batteries.png");
+        if (tick >= end + 210) mc.stop();
     }
 }

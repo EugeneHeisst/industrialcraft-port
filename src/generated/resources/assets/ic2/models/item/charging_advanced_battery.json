@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ic2:item/charging_advanced_battery_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "ic2:charge_level": 0.24
+      },
+      "model": "ic2:item/charging_advanced_battery_1"
+    },
+    {
+      "predicate": {
+        "ic2:charge_level": 0.49
+      },
+      "model": "ic2:item/charging_advanced_battery_2"
+    },
+    {
+      "predicate": {
+        "ic2:charge_level": 0.74
+      },
+      "model": "ic2:item/charging_advanced_battery_3"
+    },
+    {
+      "predicate": {
+        "ic2:charge_level": 0.99
+      },
+      "model": "ic2:item/charging_advanced_battery_4"
+    }
+  ]
+}
