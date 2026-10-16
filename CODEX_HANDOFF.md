@@ -24,7 +24,7 @@ The user asked Codex to continue while the PC Claude session was at its five-hou
 
 ## Where to continue
 
-Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: CF sprayer/pack/foam, fuel jetpack, dynamite/remote, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
+Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: CF sprayer/pack/foam, dynamite/remote, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
 
 ASP and EMT remain project skeletons, Gravi Suit not started. Keep original user's order and cross-mod requirements from shared `memory/ic2_port.md`. Gravi reference jar is in the upload path recorded there. All test clients must remain hidden and silent. Never restart or kill the user's long-running production server; identify own JVMs by `/proc/<pid>/cwd`.
 
@@ -72,3 +72,10 @@ Server audit **192 checks, 0 failed**, including real loot/energy accounting, fi
 Added industrial TNT (60-tick fuse, power 5.5, 90% normal blast drops, redstone/fire/projectile/manual/chain ignition) and nuclear bomb with original eight mirrored outer charge slots + inner fuel GUI. All uranium/plutonium variants use original enrichment thresholds/formulas and radiation multipliers; original default power cap 60 and enableNuke are NeoForge SERVER config values. Nuke normal fuse is 300 ticks; chains use shortened fuse, wrench defuses active nuke without returning fuel. Charge is captured and cleared before removing casing, avoiding content drops/duplication. Primed entity uses modern TNT synchronization/render/motion and persists power/drop/radiation/owner/fuse (including 300 ticks), fixing original byte fuse/save loss. Nuke supports redstone and modern flint/fire-charge ignition. Correct six-face original textures are retained. ITNT loot is empty because breaking it ignites it; no intact duplicate charge.
 
 Server audit **218 checks, 0 failed**, including original formula cases, config disable/cap, mirrored-slot shift-click accounting, ignition, persistence, defuse, redstone/chain, cancelled nuke ExplosionEvent, real small ITNT blast and mob radiation/hazmat. Hidden silent client passed; nuke GUI and both primed models inspected. JAR/logs/screens versions/0.1.7. No push/release/deploy. Next: luminator and fuel jetpack.
+
+
+## Follow-up batch 0.1.8 — 2026-10-16
+
+Added luminator (2 EU buffer, 1 EU/4 ticks, light 15, supporting cable input only, wrench toggles redstone polarity, support-loss removal), six mounting directions and original narrow/full-cover shapes and textures. Added fuel jetpack (30,000 mB biogas, 2 mB/t flight / 1 hover, low-fuel thrust reduction below 20%, modern world-height ceiling, persisted hover mode) and reusable fluid armor tank component/capability. Actual bottler refuels it. Restored electric jetpack's original 8 EU flight / 7 EU hover costs and no ground consumption. Luminator legacy aliases restore scanner/nightvision recipes. Fixed missed external FluidHandler registration for Stirling from 0.1.5, tested both fill and output drain through actual capabilities.
+
+Server audit **244 checks, 0 failed** including real BatBox→glass cable→luminator energy network, lamp polarity/light/persistence/support, fluid capacity/simulation/persistence, flight/hover/low-fuel/ceiling/key mode, electric consumption, real bottler and Stirling ports. Hidden silent client passed; populated lamp stand and worn/filled jetpack inspected. JAR/logs/screens versions/0.1.8. No publication/deployment. Next: four automatic charging batteries.

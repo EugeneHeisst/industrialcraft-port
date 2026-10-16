@@ -1,0 +1,76 @@
+{
+  "variants": {
+    "facing=down,active=false,full_cover=false": {
+      "model": "ic2:block/luminator_down_false_false"
+    },
+    "facing=down,active=false,full_cover=true": {
+      "model": "ic2:block/luminator_down_false_true"
+    },
+    "facing=down,active=true,full_cover=false": {
+      "model": "ic2:block/luminator_down_true_false"
+    },
+    "facing=down,active=true,full_cover=true": {
+      "model": "ic2:block/luminator_down_true_true"
+    },
+    "facing=up,active=false,full_cover=false": {
+      "model": "ic2:block/luminator_up_false_false"
+    },
+    "facing=up,active=false,full_cover=true": {
+      "model": "ic2:block/luminator_up_false_true"
+    },
+    "facing=up,active=true,full_cover=false": {
+      "model": "ic2:block/luminator_up_true_false"
+    },
+    "facing=up,active=true,full_cover=true": {
+      "model": "ic2:block/luminator_up_true_true"
+    },
+    "facing=north,active=false,full_cover=false": {
+      "model": "ic2:block/luminator_north_false_false"
+    },
+    "facing=north,active=false,full_cover=true": {
+      "model": "ic2:block/luminator_north_false_true"
+    },
+    "facing=north,active=true,full_cover=false": {
+      "model": "ic2:block/luminator_north_true_false"
+    },
+    "facing=north,active=true,full_cover=true": {
+      "model": "ic2:block/luminator_north_true_true"
+    },
+    "facing=south,active=false,full_cover=false": {
+      "model": "ic2:block/luminator_south_false_false"
+    },
+    "facing=south,active=false,full_cover=true": {
+      "model": "ic2:block/luminator_south_false_true"
+    },
+    "facing=south,active=true,full_cover=false": {
+      "model": "ic2:block/luminator_south_true_false"
+    },
+    "facing=south,active=true,full_cover=true": {
+      "model": "ic2:block/luminator_south_true_true"
+    },
+    "facing=west,active=false,full_cover=false": {
+      "model": "ic2:block/luminator_west_false_false"
+    },
+    "facing=west,active=false,full_cover=true": {
+      "model": "ic2:block/luminator_west_false_true"
+    },
+    "facing=west,active=true,full_cover=false": {
+      "model": "ic2:block/luminator_west_true_false"
+    },
+    "facing=west,active=true,full_cover=true": {
+      "model": "ic2:block/luminator_west_true_true"
+    },
+    "facing=east,active=false,full_cover=false": {
+      "model": "ic2:block/luminator_east_false_false"
+    },
+    "facing=east,active=false,full_cover=true": {
+      "model": "ic2:block/luminator_east_false_true"
+    },
+    "facing=east,active=true,full_cover=false": {
+      "model": "ic2:block/luminator_east_true_false"
+    },
+    "facing=east,active=true,full_cover=true": {
+      "model": "ic2:block/luminator_east_true_true"
+    }
+  }
+}

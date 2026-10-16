@@ -95,6 +95,7 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityLiquidHeatExchanger>> LIQUID_HEAT_EXCHANGER = reg("liquid_heat_exchanger", ic2.core.block.machine.tileentity.TileEntityLiquidHeatExchanger::new, Ic2Blocks.LIQUID_HEAT_EXCHANGER);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityFermenter>> FERMENTER = reg("fermenter", ic2.core.block.machine.tileentity.TileEntityFermenter::new, Ic2Blocks.FERMENTER);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntitySteamGenerator>> STEAM_GENERATOR = reg("steam_generator", ic2.core.block.machine.tileentity.TileEntitySteamGenerator::new, Ic2Blocks.STEAM_GENERATOR);
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityLuminator>> LUMINATOR = reg("luminator", ic2.core.block.wiring.TileEntityLuminator::new, Ic2Blocks.LUMINATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityNuke>> NUKE = reg("nuke", ic2.core.block.machine.tileentity.TileEntityNuke::new, Ic2Blocks.NUKE);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityAdvMiner>> ADV_MINER = reg("adv_miner", ic2.core.block.machine.tileentity.TileEntityAdvMiner::new, Ic2Blocks.ADV_MINER);
     public static final Supplier<BlockEntityType<ic2.core.block.machine.tileentity.TileEntityLathe>> LATHE = reg("lathe", ic2.core.block.machine.tileentity.TileEntityLathe::new, Ic2Blocks.LATHE);

@@ -69,7 +69,7 @@ public final class ClientAudit {
             player.setHealth(player.getMaxHealth());
             int i = 0;
             for (var b : Ic2Blocks.REGISTRY.getEntries()) {
-                if (b.get() instanceof net.minecraft.world.level.block.LiquidBlock) continue;
+                if (b.get() instanceof net.minecraft.world.level.block.LiquidBlock || b.get() instanceof ic2.core.block.wiring.BlockLuminator) continue;
                 BlockPos p = origin.offset(-9 + i % 19, i / 19 * 2, 0);
                 var state = b.get().defaultBlockState();
                 if (state.hasProperty(BlockTileEntity.FACING)) state = state.setValue(BlockTileEntity.FACING, Direction.NORTH).setValue(BlockTileEntity.ACTIVE, i % 2 == 0);
@@ -161,6 +161,18 @@ public final class ClientAudit {
             pl.teleportTo(l,p.getX()+1,p.getY()+1,p.getZ()-4,0,12);
         });
         if (tick == end + 130) shot(mc,"primed_explosives.png");
-        if (tick >= end + 140) mc.stop();
+        if (tick == end + 135) server.execute(() -> {
+            var l=server.overworld();var p=origin.offset(48,1,-15);var pl=server.getPlayerList().getPlayers().get(0);
+            for(int n=0;n<3;n++){
+                var q=p.east(n*2);l.setBlock(q.south(),Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.glass_fibre).get().defaultBlockState(),3);
+                l.setBlock(q.south(2),Ic2Blocks.BATBOX.get().defaultBlockState().setValue(BlockTileEntity.FACING,Direction.NORTH),3);((ic2.core.block.wiring.TileEntityElectricBlock)l.getBlockEntity(q.south(2))).energy=10000;
+                l.setBlock(q,Ic2Blocks.LUMINATOR.get().defaultBlockState().setValue(ic2.core.block.wiring.BlockLuminator.FULL_COVER,true),3);
+            }
+            pl.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST,Ic2Items.FUEL_JETPACK.get().filled());pl.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,Ic2Items.FUEL_JETPACK.get().filled());pl.teleportTo(l,p.getX()+2,p.getY(),p.getZ()-5,0,0);
+        });
+        if (tick == end + 170) shot(mc,"luminators.png");
+        if (tick == end + 175) mc.setScreen(new InventoryScreen(mc.player));
+        if (tick == end + 185) shot(mc,"fuel_jetpack.png");
+        if (tick >= end + 190) mc.stop();
     }
 }

@@ -52,7 +52,7 @@ public class ItemArmorJetpackElectric extends ItemArmorElectric {
             if (my > maxHoverY) { my = maxHoverY; if (prev > my) my = prev; }
         }
         player.setDeltaMovement(m.x, my, m.z);
-        if (!player.level().isClientSide) ElectricItem.manager.discharge(jetpack, hoverMode ? 1 : 2, Integer.MAX_VALUE, true, false, false);
+        if (!player.level().isClientSide && !player.onGround()) ElectricItem.manager.discharge(jetpack, hoverMode ? 7 : 8, Integer.MAX_VALUE, true, false, false);
         player.fallDistance = 0;
         return true;
     }

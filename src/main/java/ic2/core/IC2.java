@@ -47,6 +47,7 @@ public final class IC2 {
                 if (item.get() instanceof ic2.core.item.ItemCropSeed && ic2.api.crops.Crops.instance != null) {
                     for (var crop : ic2.api.crops.Crops.instance.getCrops()) if(crop != ic2.api.crops.Crops.weed) out.accept(ic2.core.item.ItemCropSeed.create(crop,1,1,1,4));
                 } else out.accept(item.get());
+                if (item.get() instanceof ic2.core.item.armor.ItemArmorFluidTank tank) out.accept(tank.filled());
                 if (item.get() instanceof ic2.core.item.BaseElectricItem electric) out.accept(electric.charged());
                 if (item.get() instanceof ic2.core.item.tool.ItemElectricTool tool) out.accept(tool.getItemStack(Double.POSITIVE_INFINITY));
                 if (item.get() instanceof ic2.core.item.armor.ItemArmorElectric armor) out.accept(armor.charged());
@@ -144,6 +145,8 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STEAM_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STEAM_KINETIC_GENERATOR.get(), (be, side) -> be.port(side));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.STIRLING_KINETIC_GENERATOR.get(), (be, side) -> be.port(side));
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> Ic2Items.FUEL_JETPACK.get().handler(stack), Ic2Items.FUEL_JETPACK.get());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FLUID_HEAT_GENERATOR.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.LIQUID_HEAT_EXCHANGER.get(), (be, side) -> be.port(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.FERMENTER.get(), (be, side) -> be.port(side));

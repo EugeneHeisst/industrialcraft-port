@@ -37,6 +37,7 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.armor.ItemArmorJetpack> FUEL_JETPACK = REGISTRY.register("fuel_jetpack", () -> new ic2.core.item.armor.ItemArmorJetpack(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.resources.ItemLatheDefault> IRON_TURNING_BLANK = REGISTRY.register("iron_turning_blank", () -> new ic2.core.item.resources.ItemLatheDefault(new Item.Properties(), ic2.core.item.resources.ItemLatheDefault.LatheMaterial.IRON));
     public static final DeferredItem<ic2.core.item.resources.ItemLatheDefault> WOOD_TURNING_BLANK = REGISTRY.register("wood_turning_blank", () -> new ic2.core.item.resources.ItemLatheDefault(new Item.Properties(), ic2.core.item.resources.ItemLatheDefault.LatheMaterial.WOOD));
     public static final DeferredItem<ic2.core.item.tool.ItemLathingTool> LATHING_TOOL = REGISTRY.register("lathing_tool", () -> new ic2.core.item.tool.ItemLathingTool(new Item.Properties()));

@@ -1,0 +1,33 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "XbX",
+    "LGL",
+    "RCR"
+  ],
+  "key": {
+    "X": {
+      "item": "ic2:advanced_heat_exchanger"
+    },
+    "b": {
+      "item": "ic2:advanced_re_battery"
+    },
+    "L": {
+      "item": "ic2:luminator"
+    },
+    "G": {
+      "item": "ic2:reinforced_glass"
+    },
+    "R": {
+      "tag": "c:rubbers"
+    },
+    "C": {
+      "tag": "c:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:nightvision_goggles",
+    "count": 1
+  }
+}
