@@ -172,3 +172,7 @@ Next: ASP → EMT → Gravi Suit.
 JEI discovers plugins concurrently with mod construction. The eager IC2JeiPlugin.MACHINES initializer touched Ic2Blocks while IC2's own constructor initialized Ic2Fluids, deadlocking both class initializers (confirmed by /tmp/asp-client-threads.txt, archived under versions/0.1.18). Machine descriptors now initialize lazily when JEI registers categories, after mod construction. No recipe changes.
 
 Build passed. ASP 0.1.0 + IC2 0.1.18 dedicated server: 53/53 checks, real EU transfers. Hidden silent client with JEI loaded successfully three times after the fix; ASP molecular and IC2 macerator pages both opened. Latest client log and macerator screenshot in versions/0.1.18. Local commit only, no push/release/install. ASP now requires this version; continue from its CODEX_HANDOFF.md, then EMT → Gravi Suit.
+
+## Claude 0.1.19 — per-stack tool energy cost API
+
+`ItemElectricTool.getEnergyCost(ItemStack)` (default operationEnergyCost); getDestroySpeed/mineBlock use it. For addons with per-stack modes (the Gravi advanced drill already has a matching method) and for the EMT TC-bore bridge, which should switch from the `operationEnergyCost` field to this method. Server 355/355. Archive versions/0.1.19. Gravi/EMT/ASP are still built against 0.1.18 — bump them in the compat batch.

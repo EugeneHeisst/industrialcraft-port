@@ -68,9 +68,12 @@ public abstract class ItemElectricTool extends Item implements IElectricItem {
         return false;
     }
 
+    /** EU per operation for this stack; addons with per-stack modes (Gravi advanced drill) override it, the TC bore reads it. */
+    public double getEnergyCost(ItemStack stack) { return operationEnergyCost; }
+
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        if (!ElectricItem.manager.canUse(stack, operationEnergyCost)) return 1;
+        if (!ElectricItem.manager.canUse(stack, getEnergyCost(stack))) return 1;
         return isEffectiveOn(state) ? efficiencyOnProperMaterial : 1;
     }
 
@@ -88,8 +91,8 @@ public abstract class ItemElectricTool extends Item implements IElectricItem {
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entity) {
         if (state.getDestroySpeed(level, pos) != 0) {
-            if (entity != null) ElectricItem.manager.use(stack, operationEnergyCost, entity);
-            else ElectricItem.manager.discharge(stack, operationEnergyCost, tier, true, false, false);
+            if (entity != null) ElectricItem.manager.use(stack, getEnergyCost(stack), entity);
+            else ElectricItem.manager.discharge(stack, getEnergyCost(stack), tier, true, false, false);
         }
         return true;
     }
