@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "BAB",
+    "EWE"
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:machine"
+    },
+    "E": {
+      "item": "ic2:electric_motor"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "W": {
+      "tag": "c:circuits/basic"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "ic2:ore_washing_plant",
+    "count": 1
+  }
+}

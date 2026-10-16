@@ -81,6 +81,15 @@ public final class ServerAudit {
         level.setBlock(g.offset(3, 0, 0), Ic2Blocks.WATER_MILL.get().defaultBlockState(), 3);
         for (Direction dir : Direction.Plane.HORIZONTAL) level.setBlock(g.offset(3, 0, 0).relative(dir), Blocks.WATER.defaultBlockState(), 3);
         level.setBlock(g.offset(7, 20, 0), Ic2Blocks.WIND_MILL.get().defaultBlockState(), 3);
+        // 9: machines powered by charged MFEs facing them
+        BlockPos m = base.offset(0, 2, 0);
+        var mfe = facing(Ic2Blocks.MFE.get().defaultBlockState(), Direction.UP);
+        Object[][] machines = {{Ic2Blocks.INDUCTION_FURNACE, 0}, {Ic2Blocks.METAL_FORMER, 2}, {Ic2Blocks.ORE_WASHING_PLANT, 4}, {Ic2Blocks.THERMAL_CENTRIFUGE, 6}, {Ic2Blocks.BLOCK_CUTTER, 8}};
+        for (Object[] e : machines) {
+            BlockPos p = m.offset((int)e[1], 0, 0);
+            level.setBlock(p, mfe, 3);
+            level.setBlock(p.above(), facing(((net.neoforged.neoforge.registries.DeferredBlock<?>)e[0]).get().defaultBlockState(), Direction.NORTH), 3);
+        }
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -126,6 +135,21 @@ public final class ServerAudit {
             ((TileEntityGenerator)level.getBlockEntity(base.offset(6, 0, 3))).fuelSlot.put(new ItemStack(Items.COAL, 2));
             ((TileEntityMacerator)level.getBlockEntity(base.offset(9, 0, 3))).inputSlot.put(new ItemStack(Items.COBBLESTONE, 1));
             ((ic2.core.block.generator.tileentity.TileEntityGeoGenerator)level.getBlockEntity(base.offset(0, 0, -3))).fluidSlot.put(new ItemStack(Items.LAVA_BUCKET));
+            for (int dx = 0; dx <= 8; dx += 2) ((TileEntityElectricBlock)level.getBlockEntity(base.offset(dx, 2, 0))).energy = 4000000;
+            var ind = (ic2.core.block.machine.tileentity.TileEntityInduction)level.getBlockEntity(base.offset(0, 3, 0));
+            ind.inputSlotA.put(new ItemStack(Items.RAW_IRON, 4));
+            ind.inputSlotB.put(new ItemStack(Items.COBBLESTONE, 4));
+            var former = (ic2.core.block.machine.tileentity.TileEntityMetalFormer)level.getBlockEntity(base.offset(2, 3, 0));
+            former.setMode(1);
+            former.inputSlot.put(new ItemStack(Items.IRON_INGOT, 2));
+            var washer = (ic2.core.block.machine.tileentity.TileEntityOreWashing)level.getBlockEntity(base.offset(4, 3, 0));
+            washer.fluidSlot.put(new ItemStack(Items.WATER_BUCKET));
+            washer.inputSlot.put(new ItemStack(Ic2Items.get("crushed_iron_ore"), 1));
+            var cent = (ic2.core.block.machine.tileentity.TileEntityCentrifuge)level.getBlockEntity(base.offset(6, 3, 0));
+            cent.inputSlot.put(new ItemStack(Ic2Items.get("purified_crushed_iron_ore"), 1));
+            var cutter = (ic2.core.block.machine.tileentity.TileEntityBlockCutter)level.getBlockEntity(base.offset(8, 3, 0));
+            cutter.cutterSlot.put(new ItemStack(Ic2Items.IRON_BLOCK_CUTTING_BLADE.get()));
+            cutter.inputSlot.put(new ItemStack(Items.OAK_LOG, 1));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -160,6 +184,16 @@ public final class ServerAudit {
             check("water mill produces", mill.storage > 0 || mill.water > 0, "water=" + mill.water + " storage=" + mill.storage + " micro=" + mill.microStorage);
             var wind = (ic2.core.block.generator.tileentity.TileEntityWindGenerator)level.getBlockEntity(base.offset(7, 20, -3));
             check("wind mill produces", wind != null && wind.subproduction > 0, wind == null ? "broken" : "sub=" + wind.subproduction + " storage=" + wind.storage + " wind=" + ic2.core.WindSim.get(level).getWindAt(base.getY() + 20));
+            var ind = (ic2.core.block.machine.tileentity.TileEntityInduction)level.getBlockEntity(base.offset(0, 3, 0));
+            check("induction furnace", ind.outputSlotA.get().is(Items.IRON_INGOT) && ind.outputSlotB.get().is(Items.STONE), ind.outputSlotA.get() + " " + ind.outputSlotB.get() + " heat=" + ind.heat);
+            var former = (ic2.core.block.machine.tileentity.TileEntityMetalFormer)level.getBlockEntity(base.offset(2, 3, 0));
+            check("metal former rolling", former.outputSlot.get().is(Ic2Items.get("iron_plate")), former.outputSlot.get());
+            var washer = (ic2.core.block.machine.tileentity.TileEntityOreWashing)level.getBlockEntity(base.offset(4, 3, 0));
+            check("ore washing plant", washer.outputSlot.get(0).is(Ic2Items.get("purified_crushed_iron_ore")) && washer.cellSlot.get().is(Items.BUCKET), washer.outputSlot + " water=" + washer.getTankAmount());
+            var cent = (ic2.core.block.machine.tileentity.TileEntityCentrifuge)level.getBlockEntity(base.offset(6, 3, 0));
+            check("thermal centrifuge heats", cent.heat > 0, "heat=" + cent.heat + "/" + cent.workheat + " out=" + cent.outputSlot);
+            var cutter = (ic2.core.block.machine.tileentity.TileEntityBlockCutter)level.getBlockEntity(base.offset(8, 3, 0));
+            check("block cutter works with blade", cutter.getProgress() > 0.5f && !cutter.isbladetoweak(), "progress=" + cutter.getProgress());
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
         if (tick == 710) {

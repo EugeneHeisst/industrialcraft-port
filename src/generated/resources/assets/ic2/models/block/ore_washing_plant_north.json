@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/ore_washing_plant_0",
+    "up": "ic2:block/ore_washing_plant_1",
+    "north": "ic2:block/ore_washing_plant_3",
+    "south": "ic2:block/ore_washing_plant_5",
+    "west": "ic2:block/ore_washing_plant_4",
+    "east": "ic2:block/ore_washing_plant_2",
+    "particle": "ic2:block/ore_washing_plant_3"
+  }
+}

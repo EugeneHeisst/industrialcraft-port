@@ -73,6 +73,12 @@ def gen_item(iid, tex, lang, legacy=()):
 
 pass
 gen_item('wrench', 'itemToolWrench.png', 'itemToolWrench', ['itemToolWrench'])
+for iid, tex, lang, legacy in [('empty_cell', 'cell/itemCellEmpty.png', 'itemCellEmpty', ['itemCellEmpty', 'itemCellEmpty@0']), ('water_cell', 'cell/itemCellWater.png', 'itemCellWater', ['itemCellEmpty@1', 'itemCellWater']),
+        ('lava_cell', 'cell/itemCellLava.png', 'itemCellLava', ['itemCellEmpty@2', 'itemCellLava']), ('air_cell', 'cell/itemCellAir.png', 'itemCellAir', ['itemCellEmpty@5', 'itemCellAir']),
+        ('iron_block_cutting_blade', 'resources/itemIronBlockCuttingBlade.png', 'itemIronBlockCuttingBlade', ['itemIronBlockCuttingBlade', 'itemBlockCuttingBlade@0']),
+        ('refined_iron_block_cutting_blade', 'resources/itemAdvIronBlockCuttingBlade.png', 'itemAdvIronBlockCuttingBlade', ['itemAdvIronBlockCuttingBlade', 'itemBlockCuttingBlade@1']),
+        ('diamond_block_cutting_blade', 'resources/itemDiamondBlockCuttingBlade.png', 'itemDiamondBlockCuttingBlade', ['itemDiamondBlockCuttingBlade', 'itemBlockCuttingBlade@2'])]:
+    gen_item(iid, tex, lang, legacy)
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])
@@ -86,6 +92,8 @@ for iid, leg in [('re_battery', 'itemBatRE'), ('advanced_re_battery', 'itemAdvBa
     write(os.path.join(A, 'models/item', iid + '.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'ic2:item/{iid}_0'}, 'overrides': overrides})
     for code in out_lang: out_lang[code]['item.ic2.' + iid] = name(code, leg, iid)
 LEGACY['itemBatREDischarged'] = 'ic2:re_battery'
+LEGACY.update({'itemIngot@0': 'minecraft:copper_ingot', 'itemIngotCopper': 'minecraft:copper_ingot', 'blockMetal@0': 'minecraft:copper_block', 'blockMetal': 'minecraft:copper_block',
+               'blockOreCopper': 'minecraft:copper_ore'})
 for meta, (iid, leg) in enumerate([('overclocker_upgrade', 'overclockerUpgrade'), ('transformer_upgrade', 'transformerUpgrade'), ('energy_storage_upgrade', 'energyStorageUpgrade'),
         ('ejector_upgrade', 'ejectorUpgrade'), ('fluid_ejector_upgrade', 'fluidEjectorUpgrade'), ('redstone_inverter_upgrade', 'redstoneinvUpgrade'), ('pulling_upgrade', 'pullingUpgrade')]):
     LEGACY[f'upgradeModule@{meta}'] = 'ic2:' + iid
@@ -279,11 +287,15 @@ VANILLA = {'reeds': 'sugar_cane', 'snow_layer': 'snow', 'snow': 'snow_block', 'f
 VANILLA_ANY_TAG = {'log': '#minecraft:logs', 'planks': '#minecraft:planks', 'wool': '#minecraft:wool', 'sapling': '#minecraft:saplings', 'stained_hardened_clay': '#minecraft:terracotta'}
 VANILLA_META = {('dye', '4'): 'lapis_lazuli', ('dye', '14'): 'orange_dye', ('dye', '15'): 'bone_meal', ('dye', '3'): 'cocoa_beans', ('dye', '2'): 'green_dye', ('dye', '1'): 'red_dye',
                 ('dye', '0'): 'ink_sac', ('coal', '1'): 'charcoal', ('golden_apple', '1'): 'enchanted_golden_apple', ('sandstone', '0'): 'sandstone', ('stone', '0'): 'stone',
-                ('quartz_block', '0'): 'quartz_block', ('sapling', '0'): 'oak_sapling', ('log', '0'): 'oak_log', ('planks', '0'): 'oak_planks', ('wool', '0'): 'white_wool'}
+                ('quartz_block', '0'): 'quartz_block', ('sapling', '0'): 'oak_sapling', ('log', '0'): 'oak_log', ('planks', '0'): 'oak_planks', ('wool', '0'): 'white_wool',
+                ('log', '1'): 'spruce_log', ('log', '2'): 'birch_log', ('log', '3'): 'jungle_log', ('log2', '0'): 'acacia_log', ('log2', '1'): 'dark_oak_log',
+                ('planks', '1'): 'spruce_planks', ('planks', '2'): 'birch_planks', ('planks', '3'): 'jungle_planks', ('planks', '4'): 'acacia_planks', ('planks', '5'): 'dark_oak_planks'}
 
 def resolve(token, for_output=False):
     """'IC2:itemDust@3' / 'minecraft:x@meta' / 'OreDict:name' -> ('item', id) | ('tag', id) | None. Count handled by caller."""
     token = token.strip()
+    if token.startswith('Fluid:'):
+        return ('tag', 'ic2:fluid_containers/' + token[6:].split('@')[0])
     if token.startswith('OreDict:'):
         n = token[8:].split('@')[0]
         t = content.oredict_tag(n)
@@ -414,6 +426,8 @@ for tag, entries in ITEM_TAGS.items():
 for tag, entries in BLOCK_TAGS.items():
     ns, path = tag.split(':')
     write(os.path.join(D, ns, 'tags/block', path + '.json'), {'values': entries})
+write(os.path.join(D, 'ic2/tags/item/fluid_containers/water.json'), {'values': ['minecraft:water_bucket', 'ic2:water_cell']})
+write(os.path.join(D, 'ic2/tags/item/fluid_containers/lava.json'), {'values': ['minecraft:lava_bucket', 'ic2:lava_cell']})
 write(os.path.join(D, 'ic2/tags/item/tools/forge_hammer.json'), {'values': ['ic2:forge_hammer']})
 write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:cutter']})
 for code, entries in out_lang.items(): write(os.path.join(A, 'lang', code + '.json'), dict(sorted(entries.items())))

@@ -217,6 +217,18 @@
   },
   {
     "input": {
+      "tag": "c:ingots/copper",
+      "count": 9
+    },
+    "output": [
+      {
+        "item": "minecraft:copper_block",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
       "item": "ic2:mixed_metal_ingot",
       "count": 1
     },
@@ -361,6 +373,18 @@
   },
   {
     "input": {
+      "item": "ic2:water_cell",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:snow_block",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
       "item": "ic2:small_sulfur_dust",
       "count": 9
     },
@@ -391,6 +415,18 @@
     "output": [
       {
         "item": "minecraft:iron_block",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "ic2:empty_cell",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:air_cell",
         "count": 1
       }
     ]

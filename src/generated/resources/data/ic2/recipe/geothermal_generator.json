@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "gCg",
+    "gCg",
+    "IGI"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:generator"
+    },
+    "C": {
+      "item": "ic2:empty_cell"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:geothermal_generator",
+    "count": 1
+  }
+}

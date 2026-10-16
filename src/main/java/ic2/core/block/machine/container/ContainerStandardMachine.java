@@ -10,7 +10,7 @@ public class ContainerStandardMachine<T extends TileEntityStandardMachine> exten
     public ContainerStandardMachine(int id, Inventory inventory, T base, int height, int dischargeX, int dischargeY, int inputX, int inputY, int outputX, int outputY, int upgradeX, int upgradeY) {
         super(id, inventory, base, height, dischargeX, dischargeY);
         if (base.inputSlot != null) addSlot(new SlotInvSlot(base.inputSlot, 0, inputX, inputY));
-        if (base.outputSlot != null) addSlot(new SlotInvSlot(base.outputSlot, 0, outputX, outputY));
+        if (base.outputSlot != null && outputX > -1000) addSlot(new SlotInvSlot(base.outputSlot, 0, outputX, outputY));
         for (int i = 0; i < 4; i++) addSlot(new SlotInvSlot(base.upgradeSlot, i, upgradeX, upgradeY + i * 18));
         sync(() -> base.guiProgress, v -> base.guiProgress = (float)v);
     }

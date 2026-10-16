@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/block_cutter_1",
+    "up": "ic2:block/block_cutter_2",
+    "north": "ic2:block/block_cutter_0",
+    "south": "ic2:block/block_cutter_0",
+    "west": "ic2:block/block_cutter_1",
+    "east": "ic2:block/block_cutter_1",
+    "particle": "ic2:block/block_cutter_0"
+  }
+}

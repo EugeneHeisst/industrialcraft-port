@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/ore_washing_plant_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/ore_washing_plant_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/ore_washing_plant_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/ore_washing_plant_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/ore_washing_plant_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/ore_washing_plant_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/ore_washing_plant_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/ore_washing_plant_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/ore_washing_plant_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/ore_washing_plant_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/ore_washing_plant_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/ore_washing_plant_east_active"
+    }
+  }
+}

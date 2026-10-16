@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/thermal_centrifuge_4",
+    "up": "ic2:block/thermal_centrifuge_3",
+    "north": "ic2:block/thermal_centrifuge_1",
+    "south": "ic2:block/thermal_centrifuge_0",
+    "west": "ic2:block/thermal_centrifuge_2",
+    "east": "ic2:block/thermal_centrifuge_2",
+    "particle": "ic2:block/thermal_centrifuge_1"
+  }
+}

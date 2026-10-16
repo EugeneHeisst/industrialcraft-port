@@ -38,6 +38,13 @@ public final class Ic2Items {
     public static final DeferredItem<ic2.core.item.tool.ItemCraftingTool> FORGE_HAMMER = REGISTRY.register("forge_hammer", () -> new ic2.core.item.tool.ItemCraftingTool(new Item.Properties().durability(80)));
     public static final DeferredItem<ic2.core.item.tool.ItemToolCutter> CUTTER = REGISTRY.register("cutter", () -> new ic2.core.item.tool.ItemToolCutter(new Item.Properties().durability(60)));
     public static final DeferredItem<ic2.core.item.tool.ItemTreetap> TREETAP = REGISTRY.register("treetap", () -> new ic2.core.item.tool.ItemTreetap(new Item.Properties().durability(16)));
+    public static final DeferredItem<ic2.core.item.resources.ItemCell> EMPTY_CELL = REGISTRY.register("empty_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), null));
+    public static final DeferredItem<ic2.core.item.resources.ItemCell> WATER_CELL = REGISTRY.register("water_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), () -> net.minecraft.world.level.material.Fluids.WATER));
+    public static final DeferredItem<ic2.core.item.resources.ItemCell> LAVA_CELL = REGISTRY.register("lava_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), () -> net.minecraft.world.level.material.Fluids.LAVA));
+    public static final DeferredItem<Item> AIR_CELL = REGISTRY.register("air_cell", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<ic2.core.item.resources.ItemBlockCuttingBlade> IRON_BLOCK_CUTTING_BLADE = REGISTRY.register("iron_block_cutting_blade", () -> new ic2.core.item.resources.ItemBlockCuttingBlade(new Item.Properties(), 3));
+    public static final DeferredItem<ic2.core.item.resources.ItemBlockCuttingBlade> REFINED_IRON_BLOCK_CUTTING_BLADE = REGISTRY.register("refined_iron_block_cutting_blade", () -> new ic2.core.item.resources.ItemBlockCuttingBlade(new Item.Properties(), 6));
+    public static final DeferredItem<ic2.core.item.resources.ItemBlockCuttingBlade> DIAMOND_BLOCK_CUTTING_BLADE = REGISTRY.register("diamond_block_cutting_blade", () -> new ic2.core.item.resources.ItemBlockCuttingBlade(new Item.Properties(), 9));
     public static final DeferredItem<ItemBattery> RE_BATTERY = REGISTRY.register("re_battery", () -> new ItemBattery(new Item.Properties().stacksTo(16), 10000, 100, 1, true));
     public static final DeferredItem<ItemBattery> ADVANCED_RE_BATTERY = REGISTRY.register("advanced_re_battery", () -> new ItemBattery(new Item.Properties().stacksTo(1), 100000, 256, 2, false));
     public static final DeferredItem<ItemBattery> ENERGY_CRYSTAL = REGISTRY.register("energy_crystal", () -> new ItemBattery(new Item.Properties().stacksTo(1), 1000000, 2048, 3, false));

@@ -41,6 +41,12 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> EXTRACTOR = machine("extractor", () -> Ic2BlockEntities.EXTRACTOR.get());
     public static final DeferredBlock<BlockTileEntity> COMPRESSOR = machine("compressor", () -> Ic2BlockEntities.COMPRESSOR.get());
     public static final DeferredBlock<BlockTileEntity> RECYCLER = machine("recycler", () -> Ic2BlockEntities.RECYCLER.get());
+    public static final DeferredBlock<BlockTileEntity> INDUCTION_FURNACE = machine("induction_furnace", () -> Ic2BlockEntities.INDUCTION_FURNACE.get());
+    public static final DeferredBlock<BlockTileEntity> METAL_FORMER = machine("metal_former", () -> Ic2BlockEntities.METAL_FORMER.get());
+    public static final DeferredBlock<BlockTileEntity> ORE_WASHING_PLANT = machine("ore_washing_plant", () -> Ic2BlockEntities.ORE_WASHING_PLANT.get());
+    public static final DeferredBlock<BlockTileEntity> THERMAL_CENTRIFUGE = machine("thermal_centrifuge", () -> Ic2BlockEntities.THERMAL_CENTRIFUGE.get());
+    public static final DeferredBlock<BlockTileEntity> BLOCK_CUTTER = machine("block_cutter", () -> Ic2BlockEntities.BLOCK_CUTTER.get());
+    public static final DeferredBlock<BlockTileEntity> BLAST_FURNACE = machine("blast_furnace", () -> Ic2BlockEntities.BLAST_FURNACE.get());
     public static final DeferredBlock<BlockTileEntity> GENERATOR = generator("generator", () -> Ic2BlockEntities.GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> GEOTHERMAL_GENERATOR = generator("geothermal_generator", () -> Ic2BlockEntities.GEOTHERMAL_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> WATER_MILL = generator("water_mill", () -> Ic2BlockEntities.WATER_MILL.get());

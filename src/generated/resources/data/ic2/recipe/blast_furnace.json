@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "IBI",
+    "IGI"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:heat_conductor"
+    },
+    "B": {
+      "item": "ic2:machine"
+    },
+    "I": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:blast_furnace",
+    "count": 1
+  }
+}

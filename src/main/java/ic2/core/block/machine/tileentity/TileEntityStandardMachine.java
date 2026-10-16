@@ -150,6 +150,10 @@ public abstract class TileEntityStandardMachine extends TileEntityElectricMachin
         }
     }
 
+    /** Redstone level after inverter upgrades (Redstone component of the original). */
+    public int getRedstoneInput() { return level == null ? 0 : upgradeSlot.getRedstoneInput(level.getBestNeighborSignal(worldPosition)); }
+    public boolean hasRedstoneInput() { return getRedstoneInput() > 0; }
+
     public static int applyModifier(int base, int extra, double multiplier) {
         double ret = Math.round((base + (double)extra) * multiplier);
         return ret > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int)ret;

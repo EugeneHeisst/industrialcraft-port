@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/coal"
+    },
+    {
+      "tag": "ic2:fluid_containers/water"
+    }
+  ],
+  "result": {
+    "id": "ic2:hydrated_coal_dust",
+    "count": 1
+  }
+}

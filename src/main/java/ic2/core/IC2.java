@@ -73,6 +73,13 @@ public final class IC2 {
         Recipes.extractor = new BasicMachineRecipeManager();
         Recipes.compressor = new BasicMachineRecipeManager();
         TileEntityRecycler.init();
+        Recipes.metalformerExtruding = new BasicMachineRecipeManager();
+        Recipes.metalformerCutting = new BasicMachineRecipeManager();
+        Recipes.metalformerRolling = new BasicMachineRecipeManager();
+        Recipes.oreWashing = new BasicMachineRecipeManager();
+        Recipes.centrifuge = new BasicMachineRecipeManager();
+        Recipes.blockcutter = new BasicMachineRecipeManager();
+        Recipes.blastfurance = new BasicMachineRecipeManager();
         modBus.addListener(this::setup);
         modBus.addListener(this::registerCapabilities);
         modBus.addListener(this::registerPayloads);
@@ -84,6 +91,14 @@ public final class IC2 {
             MachineRecipeLoader.load("extractor", Recipes.extractor);
             MachineRecipeLoader.load("compressor", Recipes.compressor);
             MachineRecipeLoader.loadList("recycler_blacklist", Recipes.recyclerBlacklist);
+            MachineRecipeLoader.load("metal_former_extruding", Recipes.metalformerExtruding);
+            MachineRecipeLoader.load("metal_former_cutting", Recipes.metalformerCutting);
+            MachineRecipeLoader.load("metal_former_rolling", Recipes.metalformerRolling);
+            Recipes.metalformerCutting.addRecipe(new ic2.api.recipe.RecipeInputItemStack(new ItemStack(Ic2Items.get("iron_casing")), 1), null, new ItemStack(Ic2Items.get("coin"), 2));
+            MachineRecipeLoader.load("ore_washer", Recipes.oreWashing);
+            MachineRecipeLoader.load("thermal_centrifuge", Recipes.centrifuge);
+            MachineRecipeLoader.load("block_cutter", Recipes.blockcutter);
+            MachineRecipeLoader.load("blast_furnace", Recipes.blastfurance);
             for (var upgrade : new net.minecraft.world.item.Item[]{Ic2Items.OVERCLOCKER_UPGRADE.get(), Ic2Items.TRANSFORMER_UPGRADE.get(), Ic2Items.ENERGY_STORAGE_UPGRADE.get(),
                     Ic2Items.EJECTOR_UPGRADE.get(), Ic2Items.FLUID_EJECTOR_UPGRADE.get(), Ic2Items.REDSTONE_INVERTER_UPGRADE.get(), Ic2Items.PULLING_UPGRADE.get()})
                 UpgradeRegistry.register(new ItemStack(upgrade));
@@ -98,6 +113,8 @@ public final class IC2 {
 
     private static void registerFluids(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.GEOTHERMAL_GENERATOR.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), Ic2Items.EMPTY_CELL.get(), Ic2Items.WATER_CELL.get(), Ic2Items.LAVA_CELL.get());
     }
 
     private void registerPayloads(RegisterPayloadHandlersEvent event) {

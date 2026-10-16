@@ -73,6 +73,18 @@
   },
   {
     "input": {
+      "tag": "c:plates/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:empty_cell",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "input": {
       "tag": "c:plates/iron",
       "count": 1
     },

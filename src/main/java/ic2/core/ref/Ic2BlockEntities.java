@@ -22,6 +22,12 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<TileEntityExtractor>> EXTRACTOR = reg("extractor", TileEntityExtractor::new, Ic2Blocks.EXTRACTOR);
     public static final Supplier<BlockEntityType<TileEntityCompressor>> COMPRESSOR = reg("compressor", TileEntityCompressor::new, Ic2Blocks.COMPRESSOR);
     public static final Supplier<BlockEntityType<TileEntityRecycler>> RECYCLER = reg("recycler", TileEntityRecycler::new, Ic2Blocks.RECYCLER);
+    public static final Supplier<BlockEntityType<TileEntityInduction>> INDUCTION_FURNACE = reg("induction_furnace", TileEntityInduction::new, Ic2Blocks.INDUCTION_FURNACE);
+    public static final Supplier<BlockEntityType<TileEntityMetalFormer>> METAL_FORMER = reg("metal_former", TileEntityMetalFormer::new, Ic2Blocks.METAL_FORMER);
+    public static final Supplier<BlockEntityType<TileEntityOreWashing>> ORE_WASHING_PLANT = reg("ore_washing_plant", TileEntityOreWashing::new, Ic2Blocks.ORE_WASHING_PLANT);
+    public static final Supplier<BlockEntityType<TileEntityCentrifuge>> THERMAL_CENTRIFUGE = reg("thermal_centrifuge", TileEntityCentrifuge::new, Ic2Blocks.THERMAL_CENTRIFUGE);
+    public static final Supplier<BlockEntityType<TileEntityBlockCutter>> BLOCK_CUTTER = reg("block_cutter", TileEntityBlockCutter::new, Ic2Blocks.BLOCK_CUTTER);
+    public static final Supplier<BlockEntityType<TileEntityBlastFurnace>> BLAST_FURNACE = reg("blast_furnace", TileEntityBlastFurnace::new, Ic2Blocks.BLAST_FURNACE);
     public static final Supplier<BlockEntityType<TileEntityGenerator>> GENERATOR = reg("generator", TileEntityGenerator::new, Ic2Blocks.GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityGeoGenerator>> GEOTHERMAL_GENERATOR = reg("geothermal_generator", ic2.core.block.generator.tileentity.TileEntityGeoGenerator::new, Ic2Blocks.GEOTHERMAL_GENERATOR);
     public static final Supplier<BlockEntityType<ic2.core.block.generator.tileentity.TileEntityWaterGenerator>> WATER_MILL = reg("water_mill", ic2.core.block.generator.tileentity.TileEntityWaterGenerator::new, Ic2Blocks.WATER_MILL);

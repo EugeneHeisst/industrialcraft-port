@@ -65,7 +65,7 @@ public final class IC2Client {
     }
 
     private static Screen screen(ContainerBase<?> menu, Inventory inv, Component title) {
-        if (menu instanceof ContainerStandardMachine<?> m) {
+        if (menu.getClass() == ContainerStandardMachine.class && menu instanceof ContainerStandardMachine<?> m) {
             Object base = m.base;
             if (base instanceof TileEntityMacerator) return new GuiStandardMachine(m, inv, title, "guimacerator", "ic2.Macerator.gui.name");
             if (base instanceof TileEntityExtractor) return new GuiStandardMachine(m, inv, title, "guiextractor", "ic2.Extractor.gui.name");
@@ -73,6 +73,12 @@ public final class IC2Client {
             if (base instanceof TileEntityElectricFurnace) return new GuiStandardMachine(m, inv, title, "guielecfurnace", "ic2.ElecFurnace.gui.name");
             if (base instanceof TileEntityRecycler) return new GuiStandardMachine(m, inv, title, "guirecycler", "ic2.Recycler.gui.name");
         }
+        if (menu instanceof ic2.core.block.machine.container.ContainerInduction m) return new ic2.core.block.machine.gui.GuiMachines.Induction(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerMetalFormer m) return new ic2.core.block.machine.gui.GuiMachines.MetalFormer(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerOreWashing m) return new ic2.core.block.machine.gui.GuiMachines.OreWashing(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerCentrifuge m) return new ic2.core.block.machine.gui.GuiMachines.Centrifuge(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerBlockCutter m) return new ic2.core.block.machine.gui.GuiMachines.BlockCutter(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerBlastFurnace m) return new ic2.core.block.machine.gui.GuiMachines.BlastFurnace(m, inv, title);
         if (menu instanceof ContainerIronFurnace m) return new GuiIronFurnace(m, inv, title);
         if (menu instanceof ContainerGenerator m) return new GuiGenerator(m, inv, title);
         if (menu instanceof ic2.core.block.generator.container.ContainerGeoGenerator m) return new ic2.core.block.generator.gui.GuiGeoGenerator(m, inv, title);

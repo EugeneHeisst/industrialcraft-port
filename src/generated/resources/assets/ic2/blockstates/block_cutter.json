@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/block_cutter_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/block_cutter_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/block_cutter_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/block_cutter_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/block_cutter_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/block_cutter_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/block_cutter_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/block_cutter_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/block_cutter_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/block_cutter_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/block_cutter_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/block_cutter_east_active"
+    }
+  }
+}

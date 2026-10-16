@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    " A ",
+    "MSM"
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "M": {
+      "item": "ic2:electric_motor"
+    },
+    "S": {
+      "item": "ic2:iron_shaft"
+    },
+    "C": {
+      "tag": "c:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:block_cutter",
+    "count": 1
+  }
+}

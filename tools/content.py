@@ -23,16 +23,17 @@ for meta, (name, inn, tag) in enumerate([
         ('small_tin_dust', 'itemDustTinSmall', 'tin'), ('small_silver_dust', 'itemDustSilverSmall', 'silver'), ('small_lead_dust', 'itemDustLeadSmall', 'lead'),
         ('small_sulfur_dust', 'itemDustSulfurSmall', 'sulfur'), ('small_lithium_dust', 'itemDustLithiumSmall', 'lithium'), ('small_bronze_dust', 'itemDustBronzeSmall', 'bronze'),
         ('small_lapis_dust', 'itemDustLapiSmall', 'lapis'), ('small_obsidian_dust', 'itemDustObsidianSmall', 'obsidian')]):
-    item(name, [f'itemDustSmall@{meta}', inn], f'resources/{inn}.png', inn, ['c:small_dusts/' + tag, 'c:small_dusts'])
+    item(name, [f'itemDustSmall@{meta}', inn], f'resources/{inn}.png', inn, ['c:small_dusts/' + tag, 'c:small_dusts', 'c:tiny_dusts/' + tag])
 # ingots (copper -> vanilla)
 for meta, (name, inn, tag) in enumerate([(None, 'itemIngotCopper', 'copper'), ('tin_ingot', 'itemIngotTin', 'tin'), ('bronze_ingot', 'itemIngotBronze', 'bronze'),
         ('refined_iron_ingot', 'itemIngotAdvIron', 'refined_iron'), ('mixed_metal_ingot', 'itemIngotAlloy', 'mixed_metal'), ('lead_ingot', 'itemIngotLead', 'lead'), ('silver_ingot', 'itemIngotSilver', 'silver')]):
-    if name: item(name, [f'itemIngot@{meta}', inn], f'resources/{inn}.png', inn, ['c:ingots/' + tag, 'c:ingots'])
+    if name: item(name, [f'itemIngot@{meta}', inn], f'resources/{inn}.png', inn, ['c:ingots/' + tag, 'c:ingots'] + (['c:ingots/steel'] if tag == 'refined_iron' else []))
 METALS9 = ['copper', 'tin', 'bronze', 'gold', 'iron', 'refined_iron', 'lead', 'obsidian', 'lapis']
 LEG9 = ['Copper', 'Tin', 'Bronze', 'Gold', 'Iron', 'AdvIron', 'Lead', 'Obsidian', 'Lapi']
 for meta, (m, l) in enumerate(zip(METALS9, LEG9)):
-    item(f'{m}_plate', [f'itemPlates@{meta}', f'itemPlate{l}'], f'resources/itemPlate{l}.png', f'itemPlate{l}', ['c:plates/' + m, 'c:plates'])
-    item(f'dense_{m}_plate', [f'itemDensePlates@{meta}', f'itemDensePlate{l}'], f'resources/itemDensePlate{l}.png', f'itemDensePlate{l}', ['c:dense_plates/' + m, 'c:dense_plates'])
+    steel = m == 'refined_iron'
+    item(f'{m}_plate', [f'itemPlates@{meta}', f'itemPlate{l}'], f'resources/itemPlate{l}.png', f'itemPlate{l}', ['c:plates/' + m, 'c:plates'] + (['c:plates/steel'] if steel else []))
+    item(f'dense_{m}_plate', [f'itemDensePlates@{meta}', f'itemDensePlate{l}'], f'resources/itemDensePlate{l}.png', f'itemDensePlate{l}', ['c:dense_plates/' + m, 'c:dense_plates'] + (['c:dense_plates/steel'] if steel else []))
 for meta, (m, l) in enumerate(zip(['copper', 'tin', 'bronze', 'gold', 'iron', 'refined_iron', 'lead'], ['Copper', 'Tin', 'Bronze', 'Gold', 'Iron', 'AdvIron', 'Lead'])):
     item(f'{m}_casing', [f'itemCasing@{meta}', f'itemCasing{l}'], f'resources/itemCasing{l}.png', f'itemCasing{l}', ['c:item_casings/' + m])
 ORES7 = [('iron', 'Iron'), ('copper', 'Copper'), ('gold', 'Gold'), ('tin', 'Tin'), ('uranium', 'Uran'), ('silver', 'Silver'), ('lead', 'Lead')]
@@ -61,9 +62,6 @@ for name, inn, tex, tags in [
         ('uranium_235', 'itemUran235', 'itemUran235', []), ('small_uranium_235', 'itemUran235small', 'itemUran235small', []), ('uranium_238', 'itemUran238', 'itemUran238', []),
         ('plutonium', 'itemPlutonium', 'itemPlutonium', []), ('small_plutonium', 'itemPlutoniumSmall', 'itemPlutoniumSmall', []),
         ('uranium_fuel', 'itemUran', 'itemUran', []), ('mox_fuel', 'itemMOX', 'itemMOX', []), ('rtg_pellet', 'itemRTGPellet', 'itemRTGPellet', []),
-        ('iron_block_cutting_blade', 'itemIronBlockCuttingBlade', 'resources/itemIronBlockCuttingBlade', []),
-        ('refined_iron_block_cutting_blade', 'itemAdvIronBlockCuttingBlade', 'resources/itemAdvIronBlockCuttingBlade', []),
-        ('diamond_block_cutting_blade', 'itemDiamondBlockCuttingBlade', 'resources/itemDiamondBlockCuttingBlade', []),
         ]:
     if tex is None: continue
     item(name, [inn], tex if '/' in tex else tex, inn, tags)
@@ -99,6 +97,12 @@ MACHINES = [
     ('geothermal_generator', 'blockGenerator@1', 'generator/blockGeoGenerator.png', 'blockGeoGenerator', 'GUIGenerator', 'self'),
     ('water_mill', 'blockGenerator@2', 'generator/blockWaterGenerator.png', 'blockWaterGenerator', 'GUIWaterGenerator', 'self'),
     ('solar_panel', 'blockGenerator@3', 'generator/blockSolarGenerator.png', 'blockSolarGenerator', 'GUISolarGenerator', 'self'),
+    ('induction_furnace', 'blockMachine@13', 'machine/blockInduction.png', 'blockInduction', 'GUIInduction', 'advanced_machine'),
+    ('metal_former', 'blockMachine2@4', 'machine/blockMetalFormer.png', 'blockMetalFormer', 'GUIMetalFormer', 'machine'),
+    ('ore_washing_plant', 'blockMachine2@5', 'machine/blockOreWashingPlant.png', 'blockOreWashingPlant', 'GUIOreWashingPlant', 'machine'),
+    ('thermal_centrifuge', 'blockMachine2@3', 'machine/blockCentrifuge.png', 'blockCentrifuge', 'GUITermalCentrifuge', 'advanced_machine'),
+    ('block_cutter', 'blockMachine3@2', 'machine/blockBlockCutter.png', 'blockBlockCutter', 'GUIBlockCutter', 'machine'),
+    ('blast_furnace', 'blockMachine3@1', 'machine/blockBlastFurnace.png', 'blockBlastFurnace', 'GUIBlastFurnace', 'machine'),
     ('wind_mill', 'blockGenerator@4', 'generator/blockWindGenerator.png', 'blockWindGenerator', 'GUIWindGenerator', 'self'),
     ('batbox', 'blockElectric@0', 'wiring/blockBatBox.png', 'blockBatBox', 'GUIElectricBlock', 'self'),
     ('cesu', 'blockElectric@7', 'wiring/blockCESU.png', 'blockCESU', 'GUIElectricBlock', 'self'),

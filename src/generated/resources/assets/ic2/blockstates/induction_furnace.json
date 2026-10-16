@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/induction_furnace_down"
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/induction_furnace_down_active"
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/induction_furnace_up"
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/induction_furnace_up_active"
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/induction_furnace_north"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/induction_furnace_north_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/induction_furnace_south"
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/induction_furnace_south_active"
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/induction_furnace_west"
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/induction_furnace_west_active"
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/induction_furnace_east"
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/induction_furnace_east_active"
+    }
+  }
+}

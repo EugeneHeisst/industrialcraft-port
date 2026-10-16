@@ -61,6 +61,18 @@
   },
   {
     "input": {
+      "item": "ic2:air_cell",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:empty_cell",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
       "item": "minecraft:bricks",
       "count": 1
     },

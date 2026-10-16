@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ic2:water_cell"
+    },
+    {
+      "item": "ic2:water_cell"
+    },
+    {
+      "item": "ic2:lava_cell"
+    },
+    {
+      "item": "ic2:lava_cell"
+    }
+  ],
+  "result": {
+    "id": "minecraft:obsidian",
+    "count": 1
+  }
+}

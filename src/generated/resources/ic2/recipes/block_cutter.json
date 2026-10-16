@@ -136,6 +136,81 @@
   },
   {
     "input": {
+      "item": "minecraft:spruce_log",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:spruce_planks",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:birch_log",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:birch_planks",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:jungle_log",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:jungle_planks",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:acacia_log",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:acacia_planks",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
+      "item": "minecraft:dark_oak_log",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:dark_oak_planks",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
       "tag": "minecraft:logs",
       "count": 1
     },
@@ -143,6 +218,21 @@
       {
         "item": "minecraft:oak_planks",
         "count": 6
+      }
+    ],
+    "meta": {
+      "hardness": 1
+    }
+  },
+  {
+    "input": {
+      "tag": "c:rubber_woods",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "minecraft:jungle_planks",
+        "count": 4
       }
     ],
     "meta": {

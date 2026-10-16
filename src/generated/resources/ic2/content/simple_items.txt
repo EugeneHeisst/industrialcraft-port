@@ -126,6 +126,3 @@ small_plutonium
 uranium_fuel
 mox_fuel
 rtg_pellet
-iron_block_cutting_blade
-refined_iron_block_cutting_blade
-diamond_block_cutting_blade

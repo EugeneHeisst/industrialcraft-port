@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "CWC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:dusts/coal"
+    },
+    "W": {
+      "tag": "ic2:fluid_containers/water"
+    }
+  },
+  "result": {
+    "id": "ic2:hydrated_coal_dust",
+    "count": 8
+  }
+}
