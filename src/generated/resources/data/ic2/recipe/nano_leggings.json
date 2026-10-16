@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CcC",
+    "C C",
+    "C C"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:carbon_plate"
+    },
+    "c": {
+      "item": "ic2:energy_crystal"
+    }
+  },
+  "result": {
+    "id": "ic2:nano_leggings",
+    "count": 1
+  }
+}

@@ -41,6 +41,8 @@ public final class IC2Client {
             for (var item : Ic2Items.REGISTRY.getEntries()) {
                 if (item.get() instanceof BaseElectricItem electric)
                     ItemProperties.register(electric, IC2.id("charge_level"), (stack, level, entity, seed) -> BaseElectricItem.chargeLevel(stack, electric.getMaxCharge(stack)) / 4f);
+                if (item.get() instanceof ic2.core.item.tool.ItemNanoSaber)
+                    ItemProperties.register(item.get(), IC2.id("active"), (stack, level, entity, seed) -> ic2.core.item.tool.ItemNanoSaber.isActive(stack) ? 1 : 0);
                 if (item.get() instanceof ItemUpgradeModule)
                     ItemProperties.register(item.get(), IC2.id("dir"), (stack, level, entity, seed) -> ItemUpgradeModule.getDirection(stack) / 6f);
             }

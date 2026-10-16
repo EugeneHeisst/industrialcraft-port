@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ROR",
+    "R R",
+    "R R"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:rubbers"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "result": {
+    "id": "ic2:hazmat_leggings",
+    "count": 1
+  }
+}

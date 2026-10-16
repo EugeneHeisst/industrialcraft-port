@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " II",
+    "III",
+    "BI "
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "B": {
+      "item": "ic2:power_unit"
+    }
+  },
+  "result": {
+    "id": "ic2:chainsaw",
+    "count": 1
+  }
+}

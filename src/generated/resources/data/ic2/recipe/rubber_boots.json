@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "R R",
+    "R R",
+    "RWR"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:rubbers"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "id": "ic2:rubber_boots",
+    "count": 1
+  }
+}

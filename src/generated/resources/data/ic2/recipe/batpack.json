@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BCB",
+    "BTB",
+    "B B"
+  ],
+  "key": {
+    "T": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "B": [
+      {
+        "item": "ic2:re_battery"
+      },
+      {
+        "item": "ic2:re_battery"
+      }
+    ]
+  },
+  "result": {
+    "id": "ic2:batpack",
+    "count": 1
+  }
+}

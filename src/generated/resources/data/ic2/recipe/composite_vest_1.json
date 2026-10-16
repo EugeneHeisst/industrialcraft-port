@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "A A",
+    "AIA",
+    "ALA"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather_chestplate"
+    },
+    "I": {
+      "item": "minecraft:iron_chestplate"
+    },
+    "A": {
+      "item": "ic2:advanced_alloy"
+    }
+  },
+  "result": {
+    "id": "ic2:composite_vest",
+    "count": 1
+  }
+}

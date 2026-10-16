@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BBB",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    }
+  },
+  "result": {
+    "id": "ic2:bronze_helmet",
+    "count": 1
+  }
+}

@@ -79,6 +79,31 @@ for iid, tex, lang, legacy in [('empty_cell', 'cell/itemCellEmpty.png', 'itemCel
         ('refined_iron_block_cutting_blade', 'resources/itemAdvIronBlockCuttingBlade.png', 'itemAdvIronBlockCuttingBlade', ['itemAdvIronBlockCuttingBlade', 'itemBlockCuttingBlade@1']),
         ('diamond_block_cutting_blade', 'resources/itemDiamondBlockCuttingBlade.png', 'itemDiamondBlockCuttingBlade', ['itemDiamondBlockCuttingBlade', 'itemBlockCuttingBlade@2'])]:
     gen_item(iid, tex, lang, legacy)
+for iid, leg in [('mining_drill', 'itemToolDrill'), ('diamond_drill', 'itemToolDDrill'), ('iridium_drill', 'itemToolIridiumDrill'), ('chainsaw', 'itemToolChainsaw'),
+        ('electric_hoe', 'itemToolHoe'), ('electric_treetap', 'itemTreetapElectric'), ('electric_wrench', 'itemToolWrenchElectric'),
+        ('bronze_pickaxe', 'itemToolBronzePickaxe'), ('bronze_axe', 'itemToolBronzeAxe'), ('bronze_sword', 'itemToolBronzeSword'), ('bronze_shovel', 'itemToolBronzeSpade'), ('bronze_hoe', 'itemToolBronzeHoe'),
+        ('bronze_helmet', 'itemArmorBronzeHelmet'), ('bronze_chestplate', 'itemArmorBronzeChestplate'), ('bronze_leggings', 'itemArmorBronzeLegs'), ('bronze_boots', 'itemArmorBronzeBoots'),
+        ('composite_vest', 'itemArmorAlloyChestplate'), ('nano_helmet', 'itemArmorNanoHelmet'), ('nano_chestplate', 'itemArmorNanoChestplate'), ('nano_leggings', 'itemArmorNanoLegs'), ('nano_boots', 'itemArmorNanoBoots'),
+        ('quantum_helmet', 'itemArmorQuantumHelmet'), ('quantum_chestplate', 'itemArmorQuantumChestplate'), ('quantum_leggings', 'itemArmorQuantumLegs'), ('quantum_boots', 'itemArmorQuantumBoots'),
+        ('electric_jetpack', 'itemArmorJetpackElectric'), ('batpack', 'itemArmorBatpack'), ('advanced_batpack', 'itemArmorAdvBatpack'), ('energy_pack', 'itemArmorEnergypack'), ('lappack', 'itemArmorEnergypack'),
+        ('hazmat_helmet', 'itemArmorHazmatHelmet'), ('hazmat_chestplate', 'itemArmorHazmatChestplate'), ('hazmat_leggings', 'itemArmorHazmatLeggings'), ('rubber_boots', 'itemArmorRubBoots'),
+        ('nightvision_goggles', 'itemNightvisionGoggles'), ('solar_helmet', 'itemSolarHelmet'), ('static_boots', 'itemStaticBoots')]:
+    tex = leg + '.png'
+    if iid == 'lappack': tex = 'itemArmorLappack.png'
+    gen_item(iid, tex, leg, [leg])
+LEGACY['itemArmorLappack'] = 'ic2:lappack'
+for code in out_lang:
+    out_lang[code]['item.ic2.lappack'] = name(code, 'itemArmorLappack', 'Lappack')
+# nano saber: off / active textures switched by the "active" flag
+copy(os.path.join(OTEX, 'items/itemNanoSaber.off.png'), os.path.join(A, 'textures/item/nano_saber.png'))
+copy(os.path.join(OTEX, 'items/itemNanoSaber.active.png'), os.path.join(A, 'textures/item/nano_saber_active.png'))
+write(os.path.join(A, 'models/item/nano_saber_active.json'), {'parent': 'minecraft:item/handheld', 'textures': {'layer0': 'ic2:item/nano_saber_active'}})
+write(os.path.join(A, 'models/item/nano_saber.json'), {'parent': 'minecraft:item/handheld', 'textures': {'layer0': 'ic2:item/nano_saber'}, 'overrides': [{'predicate': {'ic2:active': 1}, 'model': 'ic2:item/nano_saber_active'}]})
+LEGACY['itemNanoSaber'] = 'ic2:nano_saber'
+for code in out_lang: out_lang[code]['item.ic2.nano_saber'] = name(code, 'itemNanoSaber', 'Nano Saber')
+for f in os.listdir(os.path.join(OTEX, 'armor')):
+    base, num = f[:-4].rsplit('_', 1)
+    copy(os.path.join(OTEX, 'armor', f), os.path.join(A, 'textures/models/armor', f'{base}_layer_{num}.png'))
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])

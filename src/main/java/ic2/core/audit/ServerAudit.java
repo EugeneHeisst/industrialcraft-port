@@ -110,6 +110,32 @@ public final class ServerAudit {
         }
         check("rubber tree grows", grown && logs >= 2 && leaves > 4, "logs=" + logs + " leaves=" + leaves + " wet=" + wet);
         check("treetap extracts resin from wet holes", wet == 0 || resin >= wet, "resin=" + resin);
+        // 10: armor absorption on mobs, drill properties
+        for (int k = 0; k < 3; k++) {
+            var zombie = net.minecraft.world.entity.EntityType.ZOMBIE.create(level);
+            zombie.setNoAi(true);
+            zombie.setPersistenceRequired();
+            zombie.moveTo(base.getX() + 20 + k * 2, base.getY() + 5, base.getZ());
+            if (k == 1) for (var it : new net.minecraft.world.item.Item[]{Ic2Items.NANO_HELMET.get(), Ic2Items.NANO_CHESTPLATE.get(), Ic2Items.NANO_LEGGINGS.get(), Ic2Items.NANO_BOOTS.get()}) {
+                var a = ((ic2.core.item.armor.ItemArmorElectric)it).charged();
+                zombie.setItemSlot(((net.minecraft.world.item.ArmorItem)it).getEquipmentSlot(), a);
+            }
+            if (k == 2) for (var it : new net.minecraft.world.item.Item[]{Ic2Items.QUANTUM_HELMET.get(), Ic2Items.QUANTUM_CHESTPLATE.get(), Ic2Items.QUANTUM_LEGGINGS.get(), Ic2Items.QUANTUM_BOOTS.get()}) {
+                var a = ((ic2.core.item.armor.ItemArmorElectric)it).charged();
+                zombie.setItemSlot(((net.minecraft.world.item.ArmorItem)it).getEquipmentSlot(), a);
+            }
+            level.addFreshEntity(zombie);
+            zombie.hurt(level.damageSources().cactus(), 10);
+            float health = zombie.getHealth();
+            check("armor absorption " + new String[]{"none", "nano", "quantum"}[k], k == 0 ? health <= 11 : k == 1 ? health >= 18.9 && health < 20 : health == 20, "health=" + health);
+            zombie.discard();
+        }
+        var drill = Ic2Items.MINING_DRILL.get().getItemStack(Double.POSITIVE_INFINITY);
+        check("mining drill", drill.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 8 && drill.isCorrectToolForDrops(Blocks.IRON_ORE.defaultBlockState()) && !drill.isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState()), "speed=" + drill.getDestroySpeed(Blocks.STONE.defaultBlockState()));
+        var ddrill = Ic2Items.DIAMOND_DRILL.get().getItemStack(Double.POSITIVE_INFINITY);
+        check("diamond drill", ddrill.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 16 && ddrill.isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState()), "");
+        var empty = new ItemStack(Ic2Items.MINING_DRILL.get());
+        check("empty drill is slow", empty.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 1, "");
         tick = 0;
     }
 

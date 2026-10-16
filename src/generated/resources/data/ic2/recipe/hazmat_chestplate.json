@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "R R",
+    "ROR",
+    "ROR"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:rubbers"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "result": {
+    "id": "ic2:hazmat_chestplate",
+    "count": 1
+  }
+}

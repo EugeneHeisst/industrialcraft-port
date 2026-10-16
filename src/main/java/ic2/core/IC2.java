@@ -45,6 +45,13 @@ public final class IC2 {
             for (var item : Ic2Items.REGISTRY.getEntries()) {
                 out.accept(item.get());
                 if (item.get() instanceof ic2.core.item.BaseElectricItem electric) out.accept(electric.charged());
+                if (item.get() instanceof ic2.core.item.tool.ItemElectricTool tool) out.accept(tool.getItemStack(Double.POSITIVE_INFINITY));
+                if (item.get() instanceof ic2.core.item.armor.ItemArmorElectric armor) out.accept(armor.charged());
+                if (item.get() instanceof ic2.api.item.IElectricItem && !(item.get() instanceof ic2.core.item.BaseElectricItem) && !(item.get() instanceof ic2.core.item.tool.ItemElectricTool) && !(item.get() instanceof ic2.core.item.armor.ItemArmorElectric)) {
+                    ItemStack charged = new ItemStack(item.get());
+                    ic2.api.item.ElectricItem.manager.charge(charged, Double.POSITIVE_INFINITY, Integer.MAX_VALUE, true, false);
+                    out.accept(charged);
+                }
             }
         }).build());
 
@@ -54,6 +61,7 @@ public final class IC2 {
         Ic2Components.REGISTRY.register(modBus);
         Ic2Sounds.REGISTRY.register(modBus);
         Ic2Blocks.REGISTRY.register(modBus);
+        Ic2ArmorMaterials.REGISTRY.register(modBus);
         Ic2Items.REGISTRY.register(modBus);
         Ic2BlockEntities.REGISTRY.register(modBus);
         Ic2Menus.REGISTRY.register(modBus);
@@ -122,5 +130,6 @@ public final class IC2 {
         r.playToClient(ContainerSyncPayload.TYPE, ContainerSyncPayload.CODEC, ContainerSyncPayload::handle);
         r.playToClient(TileEventPayload.TYPE, TileEventPayload.CODEC, TileEventPayload::handle);
         r.playToServer(ContainerEventPayload.TYPE, ContainerEventPayload.CODEC, ContainerEventPayload::handle);
+        r.playToServer(ic2.core.util.Keyboard.KeyStatePayload.TYPE, ic2.core.util.Keyboard.KeyStatePayload.CODEC, ic2.core.util.Keyboard.KeyStatePayload::handle);
     }
 }
