@@ -1,0 +1,27 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "GcG",
+    "SCS",
+    "GcG"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:heat_exchanger"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "G": {
+      "tag": "c:plates/lapis"
+    },
+    "c": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_heat_exchanger",
+    "count": 1
+  }
+}

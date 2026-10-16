@@ -138,6 +138,14 @@ gen_item('wind_meter', 'windmeter.png', 'windmeter', ['windmeter'])
 for dye, leg in (('black', 'Black'), ('red', 'Red'), ('green', 'Green'), ('brown', 'Brown'), ('blue', 'Blue'), ('purple', 'Purple'), ('cyan', 'Cyan'), ('light_gray', 'LightGrey'),
                  ('gray', 'DarkGrey'), ('pink', 'Pink'), ('lime', 'Lime'), ('yellow', 'Yellow'), ('light_blue', 'Cloud'), ('magenta', 'Magenta'), ('orange', 'Orange'), ('white', 'White')):
     gen_item(dye + '_painter', 'itemToolPainter' + leg + '.png', 'itemToolPainter' + leg, ['itemToolPainter' + leg])
+for iid, leg in [('uranium_fuel_rod', 'reactorUraniumSimple'), ('dual_uranium_fuel_rod', 'reactorUraniumDual'), ('quad_uranium_fuel_rod', 'reactorUraniumQuad'),
+        ('mox_fuel_rod', 'reactorMOXSimple'), ('dual_mox_fuel_rod', 'reactorMOXDual'), ('quad_mox_fuel_rod', 'reactorMOXQuad'), ('lithium_fuel_rod', 'reactorLithiumCell'),
+        ('heat_storage', 'reactorCoolantSimple'), ('tri_heat_storage', 'reactorCoolantTriple'), ('hex_heat_storage', 'reactorCoolantSix'), ('plating', 'reactorPlating'),
+        ('heat_plating', 'reactorPlatingHeat'), ('containment_plating', 'reactorPlatingExplosive'), ('heat_exchanger', 'reactorHeatSwitch'), ('reactor_heat_exchanger', 'reactorHeatSwitchCore'),
+        ('component_heat_exchanger', 'reactorHeatSwitchSpread'), ('advanced_heat_exchanger', 'reactorHeatSwitchDiamond'), ('heat_vent', 'reactorVent'), ('reactor_heat_vent', 'reactorVentCore'),
+        ('overclocked_heat_vent', 'reactorVentGold'), ('component_heat_vent', 'reactorVentSpread'), ('advanced_heat_vent', 'reactorVentDiamond'), ('neutron_reflector', 'reactorReflector'),
+        ('thick_neutron_reflector', 'reactorReflectorThick'), ('rsh_condensator', 'reactorCondensator'), ('lzh_condensator', 'reactorCondensatorLap')]:
+    gen_item(iid, leg + '.png', leg, [leg, leg + '@1', leg + '@*'])
 gen_item('od_scanner', 'itemScanner.png', 'itemScanner', ['itemScanner'])
 gen_item('ov_scanner', 'itemScannerAdv.png', 'itemScannerAdv', ['itemScannerAdv'])
 gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
@@ -465,7 +473,7 @@ SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_o
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
           'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap',
-          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter',
+          'machines.miner_op': 'Machines/MinerOp', 'machines.pump_op': 'Machines/PumpOp', 'tools.od_scanner': 'Tools/ODScanner', 'tools.painter': 'Tools/Painter', 'generators.nuclear_reactor.loop': 'Generators/NuclearReactor/NuclearReactorLoop', 'generators.nuclear_reactor.geiger_low': 'Generators/NuclearReactor/GeigerLowEU', 'generators.nuclear_reactor.geiger_med': 'Generators/NuclearReactor/GeigerMedEU', 'generators.nuclear_reactor.geiger_high': 'Generators/NuclearReactor/GeigerHighEU',
           'machines.teleporter.charged_loop': 'Machines/Teleporter/TeleChargedLoop', 'machines.teleporter.use': 'Machines/Teleporter/TeleUse',
           'tools.mining_laser.mining': 'Tools/MiningLaser/MiningLaser', 'tools.mining_laser.low_focus': 'Tools/MiningLaser/MiningLaserLowFocus', 'tools.mining_laser.long_range': 'Tools/MiningLaser/MiningLaserLongRange',
           'tools.mining_laser.scatter': 'Tools/MiningLaser/MiningLaserScatter', 'tools.mining_laser.explosive': 'Tools/MiningLaser/MiningLaserExplosive'}
@@ -575,6 +583,7 @@ def ingredient(alts):
     return ret[0] if len(ret) == 1 else ret
 
 crafting = 0
+WRITTEN_RECIPES = set()
 def crafting_recipes(name, shaped):
     global crafting
     for line in ini_lines(name):
@@ -612,7 +621,11 @@ def crafting_recipes(name, shaped):
                     if ing is None: ok = False; warnings.append(f'{name}: {left} ing {tok}'); break
                     ings.append(ing)
                 if not ok: continue
+                if len(ings) == 1 and ings[0] == {'item': res[1]}: continue  # 1.7.10 damage migration recipes (x@1 = x)
                 obj = {'type': 'ic2:shapeless', 'category': 'misc', 'ingredients': ings, 'result': {'id': res[1], 'count': count}}
+            base_rid, k = rid, 1
+            while rid in WRITTEN_RECIPES: rid = f'{base_rid}_alt{k}'; k += 1  # several ini lines with the same result
+            WRITTEN_RECIPES.add(rid)
             write(os.path.join(D, 'ic2/recipe', rid + '.json'), obj)
             crafting += 1
 

@@ -84,7 +84,7 @@ public class TileEntityElectrolyzer extends TileEntityInventory implements IHasG
     public int processRate() { return switch (mfe.tier) { case 2 -> 8; case 3 -> 32; case 4 -> 128; default -> 2; }; }
 
     public TileEntityElectricBlock lookForMFE() {
-        for (Direction d : Direction.values()) if (level.getBlockEntity(worldPosition.relative(d)) instanceof TileEntityElectricBlock e) return e;
+        for (Direction d : Direction.values()) if (ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(d)) instanceof TileEntityElectricBlock e) return e;
         return null;
     }
 

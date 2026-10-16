@@ -29,6 +29,10 @@ public final class RadioactiveItems {
             String[][] defs = {{"uranium_fuel", "60", "100"}, {"mox_fuel", "300", "100"}, {"plutonium", "150", "100"}, {"small_plutonium", "150", "100"}, {"uranium_235", "150", "100"},
                 {"small_uranium_235", "150", "100"}, {"uranium_238", "10", "90"}, {"rtg_pellet", "2", "90"}};
             for (String[] d : defs) if (Ic2Items.has(d[0])) items.put(Ic2Items.get(d[0]), new Rad(Integer.parseInt(d[1]), Integer.parseInt(d[2])));
+            for (String rod : new String[]{"uranium_fuel_rod", "dual_uranium_fuel_rod", "quad_uranium_fuel_rod", "mox_fuel_rod", "dual_mox_fuel_rod", "quad_mox_fuel_rod"}) {
+                items.put(Ic2Items.get(rod), new Rad(-200, 100)); // ItemReactorUranium: radiation reset to 200 ticks
+                items.put(Ic2Items.get("depleted_" + rod), new Rad(10, 100));
+            }
         }
         return items;
     }
@@ -45,7 +49,8 @@ public final class RadioactiveItems {
                 Rad r = s.isEmpty() ? null : map().get(s.getItem());
                 if (r == null) continue;
                 var cur = p.getEffect(Ic2Effects.RADIATION);
-                p.addEffect(new MobEffectInstance(Ic2Effects.RADIATION, cur == null ? r.length * 20 : cur.getDuration() + r.length, r.amplifier));
+                int duration = r.length < 0 ? -r.length : cur == null ? r.length * 20 : cur.getDuration() + r.length;
+                p.addEffect(new MobEffectInstance(Ic2Effects.RADIATION, duration, r.amplifier));
             }
     }
 }

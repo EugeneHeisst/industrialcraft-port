@@ -46,6 +46,32 @@ public final class Ic2Items {
     public static final DeferredItem<ic2.core.item.tool.ItemWindmeter> WIND_METER = REGISTRY.register("wind_meter", () -> new ic2.core.item.tool.ItemWindmeter(new Item.Properties()));
     public static final java.util.Map<net.minecraft.world.item.DyeColor, DeferredItem<ic2.core.item.tool.ItemToolPainter>> PAINTERS = new java.util.EnumMap<>(net.minecraft.world.item.DyeColor.class);
     static { for (var c : net.minecraft.world.item.DyeColor.values()) PAINTERS.put(c, REGISTRY.register(c.getName() + "_painter", () -> new ic2.core.item.tool.ItemToolPainter(new Item.Properties(), c))); }
+    // reactor components (names of the 1.12 IC2 port)
+    private static DeferredItem<Item> rod(String name, int cells, boolean mox) {
+        return REGISTRY.register(name, () -> mox ? new ic2.core.item.reactor.ItemReactorUranium.MOX(new Item.Properties(), cells, () -> get("depleted_" + name)) : new ic2.core.item.reactor.ItemReactorUranium(new Item.Properties(), cells, 20000, () -> get("depleted_" + name)));
+    }
+    public static final DeferredItem<Item> URANIUM_FUEL_ROD = rod("uranium_fuel_rod", 1, false), DUAL_URANIUM_FUEL_ROD = rod("dual_uranium_fuel_rod", 2, false), QUAD_URANIUM_FUEL_ROD = rod("quad_uranium_fuel_rod", 4, false),
+        MOX_FUEL_ROD = rod("mox_fuel_rod", 1, true), DUAL_MOX_FUEL_ROD = rod("dual_mox_fuel_rod", 2, true), QUAD_MOX_FUEL_ROD = rod("quad_mox_fuel_rod", 4, true);
+    public static final DeferredItem<Item> LITHIUM_FUEL_ROD = REGISTRY.register("lithium_fuel_rod", () -> new ic2.core.item.reactor.ItemReactorLithiumCell(new Item.Properties()));
+    public static final DeferredItem<Item> HEAT_STORAGE = REGISTRY.register("heat_storage", () -> new ic2.core.item.reactor.ItemReactorHeatStorage(new Item.Properties(), 10000));
+    public static final DeferredItem<Item> TRI_HEAT_STORAGE = REGISTRY.register("tri_heat_storage", () -> new ic2.core.item.reactor.ItemReactorHeatStorage(new Item.Properties(), 30000));
+    public static final DeferredItem<Item> HEX_HEAT_STORAGE = REGISTRY.register("hex_heat_storage", () -> new ic2.core.item.reactor.ItemReactorHeatStorage(new Item.Properties(), 60000));
+    public static final DeferredItem<Item> PLATING = REGISTRY.register("plating", () -> new ic2.core.item.reactor.ItemReactorPlating(new Item.Properties(), 1000, 0.95f));
+    public static final DeferredItem<Item> HEAT_PLATING = REGISTRY.register("heat_plating", () -> new ic2.core.item.reactor.ItemReactorPlating(new Item.Properties(), 2000, 0.99f));
+    public static final DeferredItem<Item> CONTAINMENT_PLATING = REGISTRY.register("containment_plating", () -> new ic2.core.item.reactor.ItemReactorPlating(new Item.Properties(), 500, 0.9f));
+    public static final DeferredItem<Item> HEAT_EXCHANGER = REGISTRY.register("heat_exchanger", () -> new ic2.core.item.reactor.ItemReactorHeatSwitch(new Item.Properties(), 2500, 12, 4));
+    public static final DeferredItem<Item> REACTOR_HEAT_EXCHANGER = REGISTRY.register("reactor_heat_exchanger", () -> new ic2.core.item.reactor.ItemReactorHeatSwitch(new Item.Properties(), 5000, 0, 72));
+    public static final DeferredItem<Item> COMPONENT_HEAT_EXCHANGER = REGISTRY.register("component_heat_exchanger", () -> new ic2.core.item.reactor.ItemReactorHeatSwitch(new Item.Properties(), 5000, 36, 0));
+    public static final DeferredItem<Item> ADVANCED_HEAT_EXCHANGER = REGISTRY.register("advanced_heat_exchanger", () -> new ic2.core.item.reactor.ItemReactorHeatSwitch(new Item.Properties(), 10000, 24, 8));
+    public static final DeferredItem<Item> HEAT_VENT = REGISTRY.register("heat_vent", () -> new ic2.core.item.reactor.ItemReactorVent(new Item.Properties(), 1000, 6, 0));
+    public static final DeferredItem<Item> REACTOR_HEAT_VENT = REGISTRY.register("reactor_heat_vent", () -> new ic2.core.item.reactor.ItemReactorVent(new Item.Properties(), 1000, 5, 5));
+    public static final DeferredItem<Item> OVERCLOCKED_HEAT_VENT = REGISTRY.register("overclocked_heat_vent", () -> new ic2.core.item.reactor.ItemReactorVent(new Item.Properties(), 1000, 20, 36));
+    public static final DeferredItem<Item> COMPONENT_HEAT_VENT = REGISTRY.register("component_heat_vent", () -> new ic2.core.item.reactor.ItemReactorVentSpread(new Item.Properties(), 4));
+    public static final DeferredItem<Item> ADVANCED_HEAT_VENT = REGISTRY.register("advanced_heat_vent", () -> new ic2.core.item.reactor.ItemReactorVent(new Item.Properties(), 1000, 12, 0));
+    public static final DeferredItem<Item> NEUTRON_REFLECTOR = REGISTRY.register("neutron_reflector", () -> new ic2.core.item.reactor.ItemReactorReflector(new Item.Properties(), 10000));
+    public static final DeferredItem<Item> THICK_NEUTRON_REFLECTOR = REGISTRY.register("thick_neutron_reflector", () -> new ic2.core.item.reactor.ItemReactorReflector(new Item.Properties(), 40000));
+    public static final DeferredItem<Item> RSH_CONDENSATOR = REGISTRY.register("rsh_condensator", () -> new ic2.core.item.reactor.ItemReactorCondensator(new Item.Properties(), 20000));
+    public static final DeferredItem<Item> LZH_CONDENSATOR = REGISTRY.register("lzh_condensator", () -> new ic2.core.item.reactor.ItemReactorCondensator(new Item.Properties(), 100000));
     public static final DeferredItem<Item> MINING_PIPE = REGISTRY.registerSimpleItem("mining_pipe");
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OD_SCANNER = REGISTRY.register("od_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties(), 100000, 128, 1, 6, 50));
     public static final DeferredItem<ic2.core.item.tool.ItemScanner> OV_SCANNER = REGISTRY.register("ov_scanner", () -> new ic2.core.item.tool.ItemScanner(new Item.Properties().rarity(Rarity.UNCOMMON), 1000000, 512, 2, 12, 250));

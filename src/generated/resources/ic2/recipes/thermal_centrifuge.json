@@ -16,6 +16,29 @@
   },
   {
     "input": {
+      "item": "ic2:depleted_quad_mox_fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_plutonium",
+        "count": 4
+      },
+      {
+        "item": "ic2:plutonium",
+        "count": 12
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "heat": 5000
+    }
+  },
+  {
+    "input": {
       "tag": "c:crushed_ores/uranium",
       "count": 1
     },
@@ -58,6 +81,29 @@
   },
   {
     "input": {
+      "item": "ic2:depleted_dual_uranium_fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_plutonium",
+        "count": 2
+      },
+      {
+        "item": "ic2:uranium_238",
+        "count": 8
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "heat": 4000
+    }
+  },
+  {
+    "input": {
       "item": "ic2:rtg_pellet",
       "count": 1
     },
@@ -73,6 +119,29 @@
     ],
     "meta": {
       "heat": 5000
+    }
+  },
+  {
+    "input": {
+      "item": "ic2:depleted_quad_uranium_fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_plutonium",
+        "count": 4
+      },
+      {
+        "item": "ic2:uranium_238",
+        "count": 16
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 6
+      }
+    ],
+    "meta": {
+      "heat": 4000
     }
   },
   {
@@ -157,6 +226,29 @@
   },
   {
     "input": {
+      "item": "ic2:depleted_uranium_fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_plutonium",
+        "count": 1
+      },
+      {
+        "item": "ic2:uranium_238",
+        "count": 4
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 4000
+    }
+  },
+  {
+    "input": {
       "tag": "c:crushed_ores/lead",
       "count": 1
     },
@@ -233,6 +325,52 @@
     ],
     "meta": {
       "heat": 1500
+    }
+  },
+  {
+    "input": {
+      "item": "ic2:depleted_mox_fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_plutonium",
+        "count": 1
+      },
+      {
+        "item": "ic2:plutonium",
+        "count": 3
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 1
+      }
+    ],
+    "meta": {
+      "heat": 5000
+    }
+  },
+  {
+    "input": {
+      "item": "ic2:depleted_dual_mox_fuel_rod",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:small_plutonium",
+        "count": 2
+      },
+      {
+        "item": "ic2:plutonium",
+        "count": 6
+      },
+      {
+        "item": "ic2:iron_dust",
+        "count": 3
+      }
+    ],
+    "meta": {
+      "heat": 5000
     }
   },
   {

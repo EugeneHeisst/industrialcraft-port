@@ -96,7 +96,7 @@ public class TileEntityBlastFurnace extends TileEntityInventory implements IHasG
         int gain = 0;
         if (heatRequested > 0) {
             Direction dir = getFacing();
-            if (level.getBlockEntity(worldPosition.relative(dir)) instanceof IHeatSource source) {
+            if (ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(dir)) instanceof IHeatSource source) {
                 gain = source.requestHeat(dir.getOpposite(), heatRequested);
                 heat += gain;
             }

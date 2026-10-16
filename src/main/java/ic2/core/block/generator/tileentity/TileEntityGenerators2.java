@@ -182,7 +182,7 @@ public final class TileEntityGenerators2 {
 
         protected boolean gainEnergy() {
             Direction dir = getFacing();
-            if (level.getBlockEntity(worldPosition.relative(dir)) instanceof IHeatSource source) {
+            if (ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(dir)) instanceof IHeatSource source) {
                 int band = source.maxrequestHeatTick(dir.getOpposite());
                 if (maxEUStorage - EUstorage >= productionpeerheat * band) {
                     receivedheat = source.requestHeat(dir.getOpposite(), band);
@@ -229,7 +229,7 @@ public final class TileEntityGenerators2 {
 
         protected boolean gainEnergy() {
             Direction dir = getFacing();
-            if (level.getBlockEntity(worldPosition.relative(dir)) instanceof IKineticSource source) {
+            if (ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(dir)) instanceof IKineticSource source) {
                 int band = source.maxrequestkineticenergyTick(dir.getOpposite());
                 double free = maxEUStorage - EUstorage;
                 if (free > 0 && free < productionpeerkineticunit * band) free = productionpeerkineticunit * band;

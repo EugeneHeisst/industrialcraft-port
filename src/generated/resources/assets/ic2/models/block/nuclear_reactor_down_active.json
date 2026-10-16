@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/nuclear_reactor_4",
+    "up": "ic2:block/nuclear_reactor_3",
+    "north": "ic2:block/nuclear_reactor_1",
+    "south": "ic2:block/nuclear_reactor_0",
+    "west": "ic2:block/nuclear_reactor_3",
+    "east": "ic2:block/nuclear_reactor_3",
+    "particle": "ic2:block/nuclear_reactor_1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "VVV",
+    "VCV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "ic2:reactor_vessel"
+    },
+    "C": {
+      "item": "ic2:universal_fluid_cell"
+    }
+  },
+  "result": {
+    "id": "ic2:reactor_fluid_port",
+    "count": 1
+  }
+}

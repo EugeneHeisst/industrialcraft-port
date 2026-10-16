@@ -84,7 +84,7 @@ public class TileEntityPump extends TileEntityLiquidTankElectricMachine implemen
         if (miner == null || miner.isRemoved()) {
             miner = null;
             for (Direction d : Direction.values())
-                if (d != Direction.UP && level.getBlockEntity(worldPosition.relative(d)) instanceof TileEntityMiner m) { miner = m; break; }
+                if (d != Direction.UP && ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(d)) instanceof TileEntityMiner m) { miner = m; break; }
         }
         FluidStack liquid = null;
         if (miner != null) { if (miner.canProvideLiquid) liquid = pump(miner.liquidPos, sim, miner); }

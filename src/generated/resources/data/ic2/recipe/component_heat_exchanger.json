@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:heat_exchanger"
+    },
+    "G": {
+      "tag": "c:plates/gold"
+    }
+  },
+  "result": {
+    "id": "ic2:component_heat_exchanger",
+    "count": 1
+  }
+}

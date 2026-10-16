@@ -146,6 +146,17 @@ public final class ServerAudit {
         level.setBlock(mp.offset(-2, 0, -1), Ic2Blocks.TESLA_COIL.get().defaultBlockState(), 3);
         level.setBlock(mp.offset(-2, -1, -1), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
         level.setBlock(mp.offset(2, 0, -1), facing(Ic2Blocks.CHARGEPAD_MFSU.get().defaultBlockState(), Direction.WEST), 3);
+        // 13: nuclear reactor with one chamber feeding an MFSU; a second empty reactor far away that melts down
+        BlockPos rp = base.offset(-2, 0, 20);
+        for (BlockPos p : BlockPos.betweenClosed(rp.offset(-2, -1, -2), rp.offset(2, 2, 2))) level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
+        level.setBlock(rp, facing(Ic2Blocks.NUCLEAR_REACTOR.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(rp.east(), Ic2Blocks.REACTOR_CHAMBER.get().defaultBlockState(), 3);
+        level.setBlock(rp.below(), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
+        level.setBlock(rp.west(), facing(Ic2Blocks.MFSU.get().defaultBlockState(), Direction.WEST), 3);
+        BlockPos bp = base.offset(0, 0, -80);
+        for (int dx = -2; dx <= 2; dx++) for (int dz = -2; dz <= 2; dz++) level.setChunkForced((bp.getX() >> 4) + dx, (bp.getZ() >> 4) + dz, true);
+        for (BlockPos p : BlockPos.betweenClosed(bp.offset(-3, -3, -3), bp.offset(3, 3, 3))) level.setBlock(p, Blocks.STONE.defaultBlockState(), 3);
+        level.setBlock(bp, facing(Ic2Blocks.NUCLEAR_REACTOR.get().defaultBlockState(), Direction.NORTH), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -298,6 +309,10 @@ public final class ServerAudit {
             ((TileEntityElectricBlock)level.getBlockEntity(tp.offset(2, 0, -1))).energy = 1000000;
             padPlayer = net.neoforged.neoforge.common.util.FakePlayerFactory.get(level, new com.mojang.authlib.GameProfile(java.util.UUID.nameUUIDFromBytes("ic2audit".getBytes()), "ic2audit"));
             padPlayer.getInventory().items.set(5, new ItemStack(Ic2Items.RE_BATTERY.get()));
+            var reactor = (ic2.core.block.reactor.TileEntityNuclearReactor)level.getBlockEntity(base.offset(-2, 0, 20));
+            reactor.reactorSlot.put(0, 0, new ItemStack(Ic2Items.URANIUM_FUEL_ROD.get()));
+            reactor.reactorSlot.put(3, 2, new ItemStack(Ic2Items.HEAT_VENT.get()));
+            reactor.reactorSlot.put(8, 5, new ItemStack(Ic2Items.HEAT_STORAGE.get()));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -438,6 +453,24 @@ public final class ServerAudit {
             var again = new ic2.core.item.HandHeldInventory(padPlayer, net.minecraft.world.InteractionHand.MAIN_HAND, 9);
             check("tool box keeps its contents", again.getItem(3).is(Ic2Items.WRENCH.get()) && ic2.core.item.ItemToolbox.isBoxable(new ItemStack(Ic2Items.MINING_DRILL.get())) && !ic2.core.item.ItemToolbox.isBoxable(new ItemStack(Items.DIRT)), again.getItem(3));
             padPlayer.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        }
+        if (tick == 400) {
+            var reactor = (ic2.core.block.reactor.TileEntityNuclearReactor)level.getBlockEntity(base.offset(-2, 0, 20));
+            var mfsu = (TileEntityElectricBlock)level.getBlockEntity(base.offset(-3, 0, 20));
+            var rod = reactor.reactorSlot.get(0, 0);
+            check("nuclear reactor powers storage", reactor.getReactorSize() == 4 && reactor.output == 1 && mfsu.energy > 500 && reactor.heat > 0
+                && rod.getItem() instanceof ic2.core.item.reactor.ItemGradualInt g && g.getCustomDamage(rod) > 5 && reactor.reactorSlot.get(8, 5).isEmpty(),
+                "size=" + reactor.getReactorSize() + " out=" + reactor.output + " mfsu=" + mfsu.energy + " heat=" + reactor.heat + " rodDmg=" + rod.get(ic2.core.ref.Ic2Components.CUSTOM_DAMAGE.get()) + " col8=" + reactor.reactorSlot.get(8, 5));
+        }
+        if (tick == 600) {
+            var hot = (ic2.core.block.reactor.TileEntityNuclearReactor)level.getBlockEntity(base.offset(0, 0, -80));
+            hot.heat = 10000;
+        }
+        if (tick == 640) {
+            BlockPos bp = base.offset(0, 0, -80);
+            int air = 0;
+            for (BlockPos p : BlockPos.betweenClosed(bp.offset(-3, -3, -3), bp.offset(3, 3, 3))) if (level.getBlockState(p).isAir()) air++;
+            check("overheated reactor melts down", !level.getBlockState(bp).is(Ic2Blocks.NUCLEAR_REACTOR.get()) && air > 20, "air=" + air);
         }
         if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {

@@ -268,7 +268,7 @@ public class TileEntityMiner extends TileEntityElectricMachine implements IHasGu
 
     public boolean isPumpConnected(BlockPos target) {
         for (Direction d : Direction.values())
-            if (level.getBlockEntity(worldPosition.relative(d)) instanceof TileEntityPump pump && pump.pump(target, true, this) != null) return true;
+            if (ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(d)) instanceof TileEntityPump pump && pump.pump(target, true, this) != null) return true;
         return false;
     }
 

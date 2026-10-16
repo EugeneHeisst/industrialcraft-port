@@ -50,4 +50,8 @@ public final class Util {
         ret = ret.replaceFirst("(\\.\\d*?)0+$", "$1");
         return ret + " " + si;
     }
+    /** Block entity at pos, or null when its chunk is not loaded (never loads chunks from a neighbour lookup). */
+    public static net.minecraft.world.level.block.entity.BlockEntity loadedBlockEntity(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos) {
+        return level != null && level.isLoaded(pos) ? level.getBlockEntity(pos) : null;
+    }
 }

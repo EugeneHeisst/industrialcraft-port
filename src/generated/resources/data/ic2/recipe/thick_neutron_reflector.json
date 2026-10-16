@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "CRC",
+    "RCR",
+    "CRC"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "R": {
+      "item": "ic2:neutron_reflector"
+    }
+  },
+  "result": {
+    "id": "ic2:thick_neutron_reflector",
+    "count": 1
+  }
+}

@@ -101,6 +101,8 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Water m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Water(m, inv, title);
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Electric m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Electric(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerMatter m) return new ic2.core.block.machine.gui.GuiMatter(m, inv, title);
+        if (menu instanceof ic2.core.block.reactor.ContainerNuclearReactor m) return new ic2.core.block.reactor.GuiNuclearReactor(m, inv, title);
+        if (menu instanceof ic2.core.block.reactor.ContainerReactorFluidPort m) return new ic2.core.block.reactor.GuiNuclearReactor.FluidPort(m, inv, title);
         if (menu instanceof ic2.core.item.ItemToolbox.Container m) return new ic2.core.item.GuiToolbox(m, inv, title);
         if (menu instanceof ic2.core.item.tool.ItemToolMeter.Container m) return new ic2.core.item.tool.GuiToolMeter(m, inv, title);
         if (menu instanceof ic2.core.block.wiring.ContainerChargepad m) return new ic2.core.block.wiring.GuiChargepad(m, inv, title);

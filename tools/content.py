@@ -56,7 +56,7 @@ for name, inn, tex, tags in [
         ('scrap', 'itemScrap', 'itemScrap', []), ('plant_ball', 'itemFuelPlantBall', 'itemFuelPlantBall', []), ('biochaff', 'itemBiochaff', 'itemBiochaff', []),
         ('coin', 'itemCoin', 'itemCoin', []), ('grin_powder', 'itemGrinPowder', 'itemGrinPowder', []), ('weed', 'itemWeed', 'itemWeed', []),
         ('coffee_beans', 'itemCofeeBeans', 'itemCofeeBeans', []), ('coffee_powder', 'itemCofeePowder', 'itemCofeePowder', []), ('hops', 'itemHops', 'itemHops', []),
-        ('tin_can', 'itemTinCan', 'itemTinCan', []), ('electrolyzed_water_cell', 'itemCellWaterElectro', 'cell/itemCellWaterElectro', []), ('cf_powder', 'itemPartCFPowder', 'itemPartCFPowder', []), ('fuel_rod', 'itemFuelRod', 'itemFuelRod', []), ('tritium_cell', 'itemTritiumCell', 'itemTritiumCell', []),
+        ('tin_can', 'itemTinCan', 'itemTinCan', []), ('depleted_uranium_fuel_rod', 'reactorUraniumSimpledepleted', 'reactorUraniumSimpledepleted', []), ('depleted_dual_uranium_fuel_rod', 'reactorUraniumDualdepleted', 'reactorUraniumDualdepleted', []), ('depleted_quad_uranium_fuel_rod', 'reactorUraniumQuaddepleted', 'reactorUraniumQuaddepleted', []), ('depleted_mox_fuel_rod', 'reactorMOXSimpledepleted', 'reactorMOXSimpledepleted', []), ('depleted_dual_mox_fuel_rod', 'reactorMOXDualdepleted', 'reactorMOXDualdepleted', []), ('depleted_quad_mox_fuel_rod', 'reactorMOXQuaddepleted', 'reactorMOXQuaddepleted', []), ('electrolyzed_water_cell', 'itemCellWaterElectro', 'cell/itemCellWaterElectro', []), ('cf_powder', 'itemPartCFPowder', 'itemPartCFPowder', []), ('fuel_rod', 'itemFuelRod', 'itemFuelRod', []), ('tritium_cell', 'itemTritiumCell', 'itemTritiumCell', []),
         ('steam_turbine_blade', 'itemSteamTurbineBlade', 'itemSteamTurbineBlade', []), ('painter', 'itemToolPainter', 'itemToolPainter', []),
         ('terraformer_blueprint', 'itemTFBP', 'itemTFBP', []), ('lithium_ingot', 'itemLithium', None, []), ('crystal_memory', 'itemcrystalmemory', 'resources/itemcrystalmemory', []),
         ('uranium_235', 'itemUran235', 'itemUran235', []), ('small_uranium_235', 'itemUran235small', 'itemUran235small', []), ('uranium_238', 'itemUran238', 'itemUran238', []),
@@ -83,6 +83,7 @@ for meta, (name, l, tag) in enumerate([(None, 'Copper', 'copper'), ('tin_block',
 block('reinforced_stone', ['blockAlloy'], 'cube', tex='blockAlloy.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockAlloy')
 block('basalt', ['blockBasalt'], 'cube', tex='blockBasalt.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockBasalt')
 block('machine', ['blockMachine@0', 'blockMachine'], 'cube', tex='machine/blockMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockMachine')
+block('reactor_vessel', ['blockreactorvessel'], 'cube', tex='reactor/blockreactorvessel.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockreactorvessel')
 block('advanced_machine', ['blockMachine@12'], 'cube', tex='machine/blockAdvMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockAdvMachine')
 
 # machines: id, legacy, texture sheet below textures/blocks, lang key, gui texture, drop when broken without wrench
@@ -124,6 +125,11 @@ MACHINES = [
     ('miner', 'blockMachine@7', 'machine/blockMiner.png', 'blockMiner', 'GUIMiner', 'machine'),
     ('pump', 'blockMachine@8', 'machine/blockPump.png', 'blockPump', 'GUIPump', 'machine'),
     ('mass_fabricator', 'blockMachine@14', 'machine/blockMatter.png', 'blockMatter', 'GUIMatter', 'advanced_machine'),
+    ('nuclear_reactor', 'blockGenerator@5', 'generator/blockNuclearReactor.png', 'blockNuclearReactor', 'GUINuclearReaktor', 'generator'),
+    ('reactor_chamber', 'blockReactorChamber', 'reactor/blockReactorChamber.png', 'blockReactorChamber', None, 'machine'),
+    ('reactor_access_hatch', 'blockReactorAccessHatch', 'reactor/blockReactorAccessHatch.png', 'blockReactorAccessHatch', None, 'self'),
+    ('reactor_redstone_port', 'blockReactorRedstonePort', 'reactor/blockReactorRedstonePort.png', 'blockReactorRedstonePort', None, 'self'),
+    ('reactor_fluid_port', 'blockReactorFluidPort', 'reactor/blockReactorFluidPort.png', 'blockReactorFluidPort', 'GUIReactorFluidPort', 'self'),
     ('wind_mill', 'blockGenerator@4', 'generator/blockWindGenerator.png', 'blockWindGenerator', 'GUIWindGenerator', 'self'),
     ('batbox', 'blockElectric@0', 'wiring/blockBatBox.png', 'blockBatBox', 'GUIElectricBlock', 'self'),
     ('cesu', 'blockElectric@7', 'wiring/blockCESU.png', 'blockCESU', 'GUIElectricBlock', 'self'),

@@ -90,7 +90,7 @@ public class TileEntityTeleporter extends TileEntityBlock implements TileEventPa
     private List<IEnergyStorage> storages() {
         List<IEnergyStorage> ret = new ArrayList<>();
         for (Direction d : Direction.values())
-            if (level.getBlockEntity(worldPosition.relative(d)) instanceof IEnergyStorage s && s.isTeleporterCompatible(d.getOpposite())) ret.add(s);
+            if (ic2.core.util.Util.loadedBlockEntity(level, worldPosition.relative(d)) instanceof IEnergyStorage s && s.isTeleporterCompatible(d.getOpposite())) ret.add(s);
         return ret;
     }
 

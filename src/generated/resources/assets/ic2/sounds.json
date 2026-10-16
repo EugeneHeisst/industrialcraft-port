@@ -132,6 +132,34 @@
       }
     ]
   },
+  "generators.nuclear_reactor.loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/loop"
+      }
+    ]
+  },
+  "generators.nuclear_reactor.geiger_low": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/geiger_low"
+      }
+    ]
+  },
+  "generators.nuclear_reactor.geiger_med": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/geiger_med"
+      }
+    ]
+  },
+  "generators.nuclear_reactor.geiger_high": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/geiger_high"
+      }
+    ]
+  },
   "machines.teleporter.charged_loop": {
     "sounds": [
       {

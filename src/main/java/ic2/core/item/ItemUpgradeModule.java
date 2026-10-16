@@ -87,6 +87,7 @@ public class ItemUpgradeModule extends Item implements IUpgradeItem {
 
     @Override
     public boolean onTick(ItemStack stack, IUpgradableBlock parent) {
+        if (type == Type.FluidEjector) return ejectFluid(stack, (BlockEntity)parent);
         if (type != Type.Ejector && type != Type.Pulling) return false;
         int amount = (int)Math.min(parent.getEnergy(), Integer.MAX_VALUE) / 20;
         if (amount <= 0) return false;
@@ -101,6 +102,21 @@ public class ItemUpgradeModule extends Item implements IUpgradeItem {
                 amount -= moved;
                 if (amount <= 0) break;
             }
+        }
+        return ret;
+    }
+
+    /** Fluid ejector: pushes up to 50 mB per tick from the block's fluid handler into the chosen / every adjacent fluid handler. */
+    private boolean ejectFluid(ItemStack stack, BlockEntity be) {
+        var level = be.getLevel();
+        int rawDir = getDirection(stack);
+        boolean ret = false;
+        for (Direction dir : rawDir >= 1 && rawDir <= 6 ? new Direction[]{DIRECTIONS[rawDir - 1]} : Direction.values()) {
+            var src = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK, be.getBlockPos(), dir);
+            if (src == null && be instanceof net.neoforged.neoforge.fluids.capability.IFluidHandler h) src = h;
+            var dst = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK, be.getBlockPos().relative(dir), dir.getOpposite());
+            if (src == null || dst == null) continue;
+            if (!net.neoforged.neoforge.fluids.FluidUtil.tryFluidTransfer(dst, src, 50, true).isEmpty()) ret = true;
         }
         return ret;
     }
