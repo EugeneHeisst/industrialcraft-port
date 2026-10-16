@@ -72,12 +72,24 @@ public final class ClientAudit {
                 if (level.getBlockEntity(p) instanceof IHasGui) guis.add(p);
                 i++;
             }
+            int ci = 0;
+            for (var type : ic2.core.block.wiring.CableType.values()) {
+                BlockPos cp = origin.offset(-10 + ci * 2, 0, -4);
+                var cs = Ic2Blocks.CABLES.get(type).get().defaultBlockState();
+                if (type.colorable && ci % 2 == 0) cs = cs.setValue(ic2.core.block.wiring.BlockCable.COLOR, 1 + ci);
+                for (int k = 0; k < 3; k++) level.setBlock(cp.offset(0, 0, k), cs, 3);
+                level.setBlock(cp.offset(0, 1, 0), cs, 3);
+                ci++;
+            }
             player.teleportTo(level, origin.getX() + .5, origin.getY() + 1, origin.getZ() - 11.5, 0, 10);
             player.getInventory().clearContent();
             int slot = 0;
             for (var item : Ic2Items.REGISTRY.getEntries()) if (slot < 36) player.getInventory().setItem(slot++, new ItemStack(item.get()));
         });
-        if (tick == 120) shot(mc, "blocks.png");
+        if (tick == 125 - 1) shot(mc, "blocks.png");
+        if (tick == 100) server.execute(() -> { var pl = server.getPlayerList().getPlayers().get(0); pl.teleportTo(server.overworld(), origin.getX() + .5, origin.getY() + 1.5, origin.getZ() - 8.5, 0, 25); });
+        if (tick == 115) shot(mc, "cables.png");
+        if (tick == 116) server.execute(() -> { var pl = server.getPlayerList().getPlayers().get(0); pl.teleportTo(server.overworld(), origin.getX() + .5, origin.getY() + 1, origin.getZ() - 11.5, 0, 10); });
         if (tick == 125) mc.setScreen(new InventoryScreen(mc.player));
         if (tick == 135) shot(mc, "inventory.png");
         if (tick == 140) mc.setScreen(null);

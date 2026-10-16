@@ -13,6 +13,30 @@
   },
   {
     "input": {
+      "tag": "c:ingots/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:tin_cable",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:gold_ingot",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:gold_cable",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
       "tag": "c:storage_blocks/steel",
       "count": 1
     },
@@ -20,6 +44,18 @@
       {
         "item": "ic2:steel_shaft",
         "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:ingots/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:copper_cable",
+        "count": 3
       }
     ]
   },
@@ -44,6 +80,18 @@
       {
         "item": "ic2:fuel_rod",
         "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
+      "item": "minecraft:iron_ingot",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_cable",
+        "count": 4
       }
     ]
   }

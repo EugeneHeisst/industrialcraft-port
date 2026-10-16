@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " AC",
+    "BIM",
+    " AC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:iron_casing"
+    },
+    "B": [
+      {
+        "item": "ic2:re_battery"
+      },
+      {
+        "item": "ic2:re_battery"
+      }
+    ],
+    "I": {
+      "tag": "c:circuits/basic"
+    },
+    "M": {
+      "item": "ic2:electric_motor"
+    },
+    "A": {
+      "item": "ic2:copper_cable"
+    }
+  },
+  "result": {
+    "id": "ic2:small_power_unit",
+    "count": 1
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "textures": {
+    "t": "ic2:block/cable/insulated_iron_cable_2",
+    "particle": "ic2:block/cable/insulated_iron_cable_2"
+  },
+  "elements": [
+    {
+      "from": [
+        13.0,
+        3.0,
+        3.0
+      ],
+      "to": [
+        16,
+        13.0,
+        13.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#t"
+        },
+        "up": {
+          "texture": "#t"
+        },
+        "north": {
+          "texture": "#t"
+        },
+        "south": {
+          "texture": "#t"
+        },
+        "east": {
+          "texture": "#t"
+        }
+      }
+    }
+  ]
+}

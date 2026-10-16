@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:plates/tin"
+    },
+    {
+      "tag": "ic2:tools/wire_cutter"
+    }
+  ],
+  "result": {
+    "id": "ic2:tin_cable",
+    "count": 3
+  }
+}

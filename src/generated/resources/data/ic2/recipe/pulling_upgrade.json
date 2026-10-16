@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PHP",
+    "WEW"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:sticky_piston"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "W": {
+      "item": "ic2:insulated_copper_cable"
+    },
+    "E": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:pulling_upgrade",
+    "count": 1
+  }
+}

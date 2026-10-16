@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "RIR",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "I": {
+      "item": "ic2:insulated_iron_cable"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:detector_cable",
+    "count": 1
+  }
+}

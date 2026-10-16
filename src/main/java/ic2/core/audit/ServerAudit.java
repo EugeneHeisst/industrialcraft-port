@@ -61,6 +61,20 @@ public final class ServerAudit {
         level.setBlock(base.offset(10, 0, 0), facing(Ic2Blocks.MFE.get().defaultBlockState(), Direction.EAST), 3);
         level.setBlock(base.offset(11, 0, 0), facing(Ic2Blocks.LV_TRANSFORMER.get().defaultBlockState(), Direction.WEST), 3);
         level.setBlock(base.offset(12, 0, 0), facing(Ic2Blocks.MACERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 5: generator -> 3 cables east, bend south, 2 cables -> macerator (z+3 row)
+        BlockPos c = base.offset(0, 0, 3);
+        level.setBlock(c, Ic2Blocks.GENERATOR.get().defaultBlockState(), 3);
+        var ins = Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.insulated_copper).get().defaultBlockState();
+        for (int i = 1; i <= 3; i++) level.setBlock(c.offset(i, 0, 0), ins, 3);
+        level.setBlock(c.offset(3, 0, 1), ins, 3);
+        level.setBlock(c.offset(3, 0, 2), Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.detector).get().defaultBlockState(), 3);
+        level.setBlock(c.offset(3, 0, 3), facing(Ic2Blocks.MACERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 6: red and blue painted cables between generator and macerator never connect
+        BlockPos d = base.offset(6, 0, 3);
+        level.setBlock(d, Ic2Blocks.GENERATOR.get().defaultBlockState(), 3);
+        level.setBlock(d.east(), ins.setValue(ic2.core.block.wiring.BlockCable.COLOR, 2), 3);
+        level.setBlock(d.east(2), ins.setValue(ic2.core.block.wiring.BlockCable.COLOR, 5), 3);
+        level.setBlock(d.east(3), facing(Ic2Blocks.MACERATOR.get().defaultBlockState(), Direction.NORTH), 3);
         tick = 0;
     }
 
@@ -81,6 +95,10 @@ public final class ServerAudit {
             ((TileEntityElectricBlock)level.getBlockEntity(base.offset(10, 0, 0))).energy = 100000;
             ((TileEntityMacerator)level.getBlockEntity(base.offset(12, 0, 0))).inputSlot.put(new ItemStack(Items.COBBLESTONE, 1));
             ((TileEntityElectricBlock)level.getBlockEntity(base.offset(10, 0, 0))).chargeSlot.put(new ItemStack(Ic2Items.ENERGY_CRYSTAL.get()));
+            ((TileEntityGenerator)level.getBlockEntity(base.offset(0, 0, 3))).fuelSlot.put(new ItemStack(Items.COAL, 2));
+            ((TileEntityMacerator)level.getBlockEntity(base.offset(3, 0, 6))).inputSlot.put(new ItemStack(Items.COBBLESTONE, 1));
+            ((TileEntityGenerator)level.getBlockEntity(base.offset(6, 0, 3))).fuelSlot.put(new ItemStack(Items.COAL, 2));
+            ((TileEntityMacerator)level.getBlockEntity(base.offset(9, 0, 3))).inputSlot.put(new ItemStack(Items.COBBLESTONE, 1));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -88,6 +106,7 @@ public final class ServerAudit {
             var iron = (TileEntityIronFurnace)level.getBlockEntity(base.offset(8, 0, 0));
             IC2.LOG.info("[audit] t={} mac energy={} progress={} op={} in={} out={} | iron fuel={} progress={} in={} out={}", tick, mac.energy, mac.getProgress(), mac.operationLength, mac.inputSlot.get(), mac.outputSlot.get(), iron.fuel, iron.progress, iron.inputSlot.get(), iron.outputSlot.get());
         }
+        if (tick == 120) check("detector cable signal while energy flows", level.getBlockState(base.offset(3, 0, 5)).getValue(ic2.core.block.wiring.BlockCable.ACTIVE) && level.getSignal(base.offset(3, 0, 5), Direction.WEST) > 0, level.getBlockState(base.offset(3, 0, 5)));
         if (tick == 700) {
             var mac = (TileEntityMacerator)level.getBlockEntity(base.east());
             check("macerator output", mac.outputSlot.get().getCount() == 4 && mac.outputSlot.get().is(Ic2Items.get("crushed_iron_ore")), mac.outputSlot.get());
@@ -102,6 +121,12 @@ public final class ServerAudit {
             var mac2 = (TileEntityMacerator)level.getBlockEntity(base.offset(12, 0, 0));
             var tr = (TileEntityTransformer)level.getBlockEntity(base.offset(11, 0, 0));
             check("MFE -> LV transformer -> macerator", mac2.outputSlot.get().is(Items.SAND), mac2.outputSlot.get() + " tr in=" + tr.inputflow + " out=" + tr.outputflow);
+            var viaCable = (TileEntityMacerator)level.getBlockEntity(base.offset(3, 0, 6));
+            check("generator -> cables (bend) -> macerator", viaCable.outputSlot.get().is(Items.SAND), viaCable.outputSlot.get() + " energy=" + viaCable.energy);
+            var cableState = level.getBlockState(base.offset(3, 0, 3));
+            check("cable corner connections", cableState.getValue(net.minecraft.world.level.block.PipeBlock.WEST) && cableState.getValue(net.minecraft.world.level.block.PipeBlock.SOUTH) && !cableState.getValue(net.minecraft.world.level.block.PipeBlock.NORTH), cableState);
+            var isolated = (TileEntityMacerator)level.getBlockEntity(base.offset(9, 0, 3));
+            check("red/blue cables isolated", isolated.energy == 0 && isolated.outputSlot.get().isEmpty(), "energy=" + isolated.energy);
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
         if (tick == 710) {

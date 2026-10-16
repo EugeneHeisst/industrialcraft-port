@@ -1,0 +1,37 @@
+{
+  "textures": {
+    "t": "ic2:block/cable/insulated_copper_cable_4",
+    "particle": "ic2:block/cable/insulated_copper_cable_4"
+  },
+  "elements": [
+    {
+      "from": [
+        5.0,
+        5.0,
+        0
+      ],
+      "to": [
+        11.0,
+        11.0,
+        5.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#t"
+        },
+        "up": {
+          "texture": "#t"
+        },
+        "north": {
+          "texture": "#t"
+        },
+        "west": {
+          "texture": "#t"
+        },
+        "east": {
+          "texture": "#t"
+        }
+      }
+    }
+  ]
+}

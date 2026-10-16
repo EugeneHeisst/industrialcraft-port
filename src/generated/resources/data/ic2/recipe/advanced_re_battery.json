@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CTC",
+    "TST",
+    "TLT"
+  ],
+  "key": {
+    "T": {
+      "item": "ic2:bronze_casing"
+    },
+    "S": {
+      "tag": "c:dusts/sulfur"
+    },
+    "L": {
+      "tag": "c:dusts/lead"
+    },
+    "C": {
+      "item": "ic2:insulated_copper_cable"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_re_battery",
+    "count": 1
+  }
+}

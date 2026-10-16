@@ -1,0 +1,1058 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "color": "0"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_core"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_north"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_south"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_west"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_east"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_down"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_0_up"
+      }
+    },
+    {
+      "when": {
+        "color": "1"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_core"
+      }
+    },
+    {
+      "when": {
+        "color": "1",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_north"
+      }
+    },
+    {
+      "when": {
+        "color": "1",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_south"
+      }
+    },
+    {
+      "when": {
+        "color": "1",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_west"
+      }
+    },
+    {
+      "when": {
+        "color": "1",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_east"
+      }
+    },
+    {
+      "when": {
+        "color": "1",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_down"
+      }
+    },
+    {
+      "when": {
+        "color": "1",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_1_up"
+      }
+    },
+    {
+      "when": {
+        "color": "2"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_core"
+      }
+    },
+    {
+      "when": {
+        "color": "2",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_north"
+      }
+    },
+    {
+      "when": {
+        "color": "2",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_south"
+      }
+    },
+    {
+      "when": {
+        "color": "2",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_west"
+      }
+    },
+    {
+      "when": {
+        "color": "2",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_east"
+      }
+    },
+    {
+      "when": {
+        "color": "2",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_down"
+      }
+    },
+    {
+      "when": {
+        "color": "2",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_2_up"
+      }
+    },
+    {
+      "when": {
+        "color": "3"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_core"
+      }
+    },
+    {
+      "when": {
+        "color": "3",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_north"
+      }
+    },
+    {
+      "when": {
+        "color": "3",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_south"
+      }
+    },
+    {
+      "when": {
+        "color": "3",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_west"
+      }
+    },
+    {
+      "when": {
+        "color": "3",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_east"
+      }
+    },
+    {
+      "when": {
+        "color": "3",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_down"
+      }
+    },
+    {
+      "when": {
+        "color": "3",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_3_up"
+      }
+    },
+    {
+      "when": {
+        "color": "4"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_core"
+      }
+    },
+    {
+      "when": {
+        "color": "4",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_north"
+      }
+    },
+    {
+      "when": {
+        "color": "4",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_south"
+      }
+    },
+    {
+      "when": {
+        "color": "4",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_west"
+      }
+    },
+    {
+      "when": {
+        "color": "4",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_east"
+      }
+    },
+    {
+      "when": {
+        "color": "4",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_down"
+      }
+    },
+    {
+      "when": {
+        "color": "4",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_4_up"
+      }
+    },
+    {
+      "when": {
+        "color": "5"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_core"
+      }
+    },
+    {
+      "when": {
+        "color": "5",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_north"
+      }
+    },
+    {
+      "when": {
+        "color": "5",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_south"
+      }
+    },
+    {
+      "when": {
+        "color": "5",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_west"
+      }
+    },
+    {
+      "when": {
+        "color": "5",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_east"
+      }
+    },
+    {
+      "when": {
+        "color": "5",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_down"
+      }
+    },
+    {
+      "when": {
+        "color": "5",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_5_up"
+      }
+    },
+    {
+      "when": {
+        "color": "6"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_core"
+      }
+    },
+    {
+      "when": {
+        "color": "6",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_north"
+      }
+    },
+    {
+      "when": {
+        "color": "6",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_south"
+      }
+    },
+    {
+      "when": {
+        "color": "6",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_west"
+      }
+    },
+    {
+      "when": {
+        "color": "6",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_east"
+      }
+    },
+    {
+      "when": {
+        "color": "6",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_down"
+      }
+    },
+    {
+      "when": {
+        "color": "6",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_6_up"
+      }
+    },
+    {
+      "when": {
+        "color": "7"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_core"
+      }
+    },
+    {
+      "when": {
+        "color": "7",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_north"
+      }
+    },
+    {
+      "when": {
+        "color": "7",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_south"
+      }
+    },
+    {
+      "when": {
+        "color": "7",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_west"
+      }
+    },
+    {
+      "when": {
+        "color": "7",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_east"
+      }
+    },
+    {
+      "when": {
+        "color": "7",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_down"
+      }
+    },
+    {
+      "when": {
+        "color": "7",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_7_up"
+      }
+    },
+    {
+      "when": {
+        "color": "8"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_core"
+      }
+    },
+    {
+      "when": {
+        "color": "8",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_north"
+      }
+    },
+    {
+      "when": {
+        "color": "8",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_south"
+      }
+    },
+    {
+      "when": {
+        "color": "8",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_west"
+      }
+    },
+    {
+      "when": {
+        "color": "8",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_east"
+      }
+    },
+    {
+      "when": {
+        "color": "8",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_down"
+      }
+    },
+    {
+      "when": {
+        "color": "8",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_8_up"
+      }
+    },
+    {
+      "when": {
+        "color": "9"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_core"
+      }
+    },
+    {
+      "when": {
+        "color": "9",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_north"
+      }
+    },
+    {
+      "when": {
+        "color": "9",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_south"
+      }
+    },
+    {
+      "when": {
+        "color": "9",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_west"
+      }
+    },
+    {
+      "when": {
+        "color": "9",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_east"
+      }
+    },
+    {
+      "when": {
+        "color": "9",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_down"
+      }
+    },
+    {
+      "when": {
+        "color": "9",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_9_up"
+      }
+    },
+    {
+      "when": {
+        "color": "10"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_core"
+      }
+    },
+    {
+      "when": {
+        "color": "10",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_north"
+      }
+    },
+    {
+      "when": {
+        "color": "10",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_south"
+      }
+    },
+    {
+      "when": {
+        "color": "10",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_west"
+      }
+    },
+    {
+      "when": {
+        "color": "10",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_east"
+      }
+    },
+    {
+      "when": {
+        "color": "10",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_down"
+      }
+    },
+    {
+      "when": {
+        "color": "10",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_10_up"
+      }
+    },
+    {
+      "when": {
+        "color": "11"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_core"
+      }
+    },
+    {
+      "when": {
+        "color": "11",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_north"
+      }
+    },
+    {
+      "when": {
+        "color": "11",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_south"
+      }
+    },
+    {
+      "when": {
+        "color": "11",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_west"
+      }
+    },
+    {
+      "when": {
+        "color": "11",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_east"
+      }
+    },
+    {
+      "when": {
+        "color": "11",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_down"
+      }
+    },
+    {
+      "when": {
+        "color": "11",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_11_up"
+      }
+    },
+    {
+      "when": {
+        "color": "12"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_core"
+      }
+    },
+    {
+      "when": {
+        "color": "12",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_north"
+      }
+    },
+    {
+      "when": {
+        "color": "12",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_south"
+      }
+    },
+    {
+      "when": {
+        "color": "12",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_west"
+      }
+    },
+    {
+      "when": {
+        "color": "12",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_east"
+      }
+    },
+    {
+      "when": {
+        "color": "12",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_down"
+      }
+    },
+    {
+      "when": {
+        "color": "12",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_12_up"
+      }
+    },
+    {
+      "when": {
+        "color": "13"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_core"
+      }
+    },
+    {
+      "when": {
+        "color": "13",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_north"
+      }
+    },
+    {
+      "when": {
+        "color": "13",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_south"
+      }
+    },
+    {
+      "when": {
+        "color": "13",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_west"
+      }
+    },
+    {
+      "when": {
+        "color": "13",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_east"
+      }
+    },
+    {
+      "when": {
+        "color": "13",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_down"
+      }
+    },
+    {
+      "when": {
+        "color": "13",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_13_up"
+      }
+    },
+    {
+      "when": {
+        "color": "14"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_core"
+      }
+    },
+    {
+      "when": {
+        "color": "14",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_north"
+      }
+    },
+    {
+      "when": {
+        "color": "14",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_south"
+      }
+    },
+    {
+      "when": {
+        "color": "14",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_west"
+      }
+    },
+    {
+      "when": {
+        "color": "14",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_east"
+      }
+    },
+    {
+      "when": {
+        "color": "14",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_down"
+      }
+    },
+    {
+      "when": {
+        "color": "14",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_14_up"
+      }
+    },
+    {
+      "when": {
+        "color": "15"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_core"
+      }
+    },
+    {
+      "when": {
+        "color": "15",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_north"
+      }
+    },
+    {
+      "when": {
+        "color": "15",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_south"
+      }
+    },
+    {
+      "when": {
+        "color": "15",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_west"
+      }
+    },
+    {
+      "when": {
+        "color": "15",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_east"
+      }
+    },
+    {
+      "when": {
+        "color": "15",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_down"
+      }
+    },
+    {
+      "when": {
+        "color": "15",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_15_up"
+      }
+    },
+    {
+      "when": {
+        "color": "16"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_core"
+      }
+    },
+    {
+      "when": {
+        "color": "16",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_north"
+      }
+    },
+    {
+      "when": {
+        "color": "16",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_south"
+      }
+    },
+    {
+      "when": {
+        "color": "16",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_west"
+      }
+    },
+    {
+      "when": {
+        "color": "16",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_east"
+      }
+    },
+    {
+      "when": {
+        "color": "16",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_down"
+      }
+    },
+    {
+      "when": {
+        "color": "16",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/glass_fibre_cable_16_up"
+      }
+    }
+  ]
+}

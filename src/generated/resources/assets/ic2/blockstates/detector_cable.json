@@ -1,0 +1,142 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "color": "0",
+        "active": "false"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_core"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_north"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_south"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_west"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_east"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "false",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_down"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "false",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_up"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_core"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_north"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_south"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_west"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_east"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_down"
+      }
+    },
+    {
+      "when": {
+        "color": "0",
+        "active": "true",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/cable/detector_cable_0_active_up"
+      }
+    }
+  ]
+}

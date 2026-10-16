@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "input": {
+      "tag": "c:plates/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:iron_cable",
+        "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:tin_cable",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:copper_cable",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:plates/gold",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:gold_cable",
+        "count": 4
+      }
+    ]
+  }
+]

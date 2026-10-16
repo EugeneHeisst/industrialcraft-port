@@ -73,6 +73,8 @@ def gen_item(iid, tex, lang, legacy=()):
 
 pass
 gen_item('wrench', 'itemToolWrench.png', 'itemToolWrench', ['itemToolWrench'])
+gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
+gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])
 for iid, leg in [('re_battery', 'itemBatRE'), ('advanced_re_battery', 'itemAdvBat'), ('energy_crystal', 'itemBatCrystal'), ('lapotron_crystal', 'itemBatLamaCrystal')]:
     LEGACY[leg] = 'ic2:' + iid
@@ -144,6 +146,52 @@ for b in content.BLOCKS:
     drop = b.get('drop', 'self')
     drop_item = 'ic2:' + bid if drop == 'self' else 'ic2:' + drop
     write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': drop_item}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+
+# ---------- cables
+COLORS = ['black', 'red', 'green', 'brown', 'blue', 'purple', 'cyan', 'lightGray', 'gray', 'pink', 'lime', 'yellow', 'lightBlue', 'magenta', 'orange', 'white']
+CABLES = [('insulated_copper', 0, 'Cable', 6, True), ('copper', 1, 'CableO', 4, False), ('gold', 2, 'GoldCable', 3, False), ('insulated_gold', 3, 'GoldCableI', 6, True),
+          ('iron', 5, 'IronCable', 6, False), ('insulated_iron', 6, 'IronCableI', 10, True), ('glass_fibre', 9, 'GlassCable', 4, True), ('tin', 10, 'TinCable', 4, False),
+          ('detector', 11, 'DetectorCable', 8, False), ('splitter', 12, 'SplitterCable', 8, False), ('insulated_tin', 13, 'TinCableI', 6, True)]
+CTEX = os.path.join(OTEX, 'blocks/wiring/cable')
+DIRS = {'north': (2, 0), 'south': (2, 1), 'west': (0, 0), 'east': (0, 1), 'down': (1, 0), 'up': (1, 1)}
+for name_, meta, tex, th, colorable in CABLES:
+    cid = name_ + '_cable'
+    LEGACY[f'itemCable@{meta}'] = 'ic2:' + cid
+    if meta == 0: LEGACY['itemCable'] = 'ic2:' + cid
+    for code in out_lang: out_lang[code]['block.ic2.' + cid] = name(code, 'item' + tex, cid)
+    add_tag(BLOCK_TAGS, 'minecraft:mineable/axe', 'ic2:' + cid)
+    copy(os.path.join(OTEX, 'items', 'item' + tex + '.png'), os.path.join(A, 'textures/item', cid + '.png'))
+    write(os.path.join(A, 'models/item', cid + '.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:item/' + cid}})
+    variants = [('', 0)] + ([('.' + c, i + 1) for i, c in enumerate(COLORS)] if colorable else [])
+    sp, e = (16 - th) / 2, (16 + th) / 2
+    multipart = []
+    for suffix, color in variants:
+        src = os.path.join(CTEX, 'block' + tex + suffix + '.png')
+        if not os.path.exists(src): src = os.path.join(CTEX, 'block' + tex + '.png')
+        img = Image.open(src).convert('RGBA')
+        states = [(False, img.crop((0, 0, img.height, img.height)))]
+        if img.width >= 2 * img.height: states.append((True, img.crop((img.height, 0, 2 * img.height, img.height))))
+        for active, tile in states:
+            tname = f'{cid}_{color}' + ('_active' if active else '')
+            path = os.path.join(A, 'textures/block/cable', tname + '.png'); os.makedirs(os.path.dirname(path), exist_ok=True); tile.save(path)
+            texref = 'ic2:block/cable/' + tname
+            faces = {f: {'texture': '#t'} for f in FACES}
+            write(os.path.join(A, 'models/block/cable', tname + '_core.json'), {'textures': {'t': texref, 'particle': texref}, 'elements': [{'from': [sp, sp, sp], 'to': [e, e, e], 'faces': faces}]})
+            when = {'color': str(color)}
+            if len(states) > 1: when['active'] = 'true' if active else 'false'
+            multipart.append({'when': dict(when), 'apply': {'model': f'ic2:block/cable/{tname}_core'}})
+            for d, (axis, pos) in DIRS.items():
+                fr, to = [sp, sp, sp], [e, e, e]
+                if pos: to[axis] = 16
+                else: fr[axis] = 0
+                if pos: fr[axis] = e
+                else: to[axis] = sp
+                arm_faces = {f: {'texture': '#t'} for f in FACES if not ((f in ('west', 'east') and axis == 0) or (f in ('down', 'up') and axis == 1) or (f in ('north', 'south') and axis == 2)) or f == d}
+                write(os.path.join(A, 'models/block/cable', f'{tname}_{d}.json'), {'textures': {'t': texref, 'particle': texref}, 'elements': [{'from': fr, 'to': to, 'faces': arm_faces}]})
+                w = dict(when); w[d] = 'true'
+                multipart.append({'when': w, 'apply': {'model': f'ic2:block/cable/{tname}_{d}'}})
+    write(os.path.join(A, 'blockstates', cid + '.json'), {'multipart': multipart})
+    write(os.path.join(D, 'ic2/loot_table/blocks', cid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:' + cid}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
 
 # ---------- gui, sounds
 for f in os.listdir(os.path.join(OTEX, 'gui')):
@@ -306,8 +354,8 @@ for tag, entries in ITEM_TAGS.items():
 for tag, entries in BLOCK_TAGS.items():
     ns, path = tag.split(':')
     write(os.path.join(D, ns, 'tags/block', path + '.json'), {'values': entries})
-write(os.path.join(D, 'ic2/tags/item/tools/forge_hammer.json'), {'values': []})
-write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': []})
+write(os.path.join(D, 'ic2/tags/item/tools/forge_hammer.json'), {'values': ['ic2:forge_hammer']})
+write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:cutter']})
 for code, entries in out_lang.items(): write(os.path.join(A, 'lang', code + '.json'), dict(sorted(entries.items())))
 with open(os.path.join(ROOT, 'build/gen-warnings.txt') if os.path.isdir(os.path.join(ROOT, 'build')) else '/dev/null', 'w') as f: f.write('\n'.join(warnings))
 print('warnings', len(warnings))

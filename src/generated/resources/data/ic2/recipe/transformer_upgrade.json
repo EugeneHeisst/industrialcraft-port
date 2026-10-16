@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GGG",
+    "WTW",
+    "GEG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "W": {
+      "item": "ic2:insulated_gold_cable"
+    },
+    "T": {
+      "item": "ic2:mv_transformer"
+    },
+    "E": {
+      "tag": "c:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:transformer_upgrade",
+    "count": 1
+  }
+}

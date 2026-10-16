@@ -33,6 +33,11 @@ public final class Ic2BlockEntities {
     public static final Supplier<BlockEntityType<TileEntityTransformer.HV>> HV_TRANSFORMER = reg("hv_transformer", TileEntityTransformer.HV::new, Ic2Blocks.HV_TRANSFORMER);
     public static final Supplier<BlockEntityType<TileEntityTransformer.EV>> EV_TRANSFORMER = reg("ev_transformer", TileEntityTransformer.EV::new, Ic2Blocks.EV_TRANSFORMER);
 
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCable>> CABLE = REGISTRY.register("cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCable::new,
+        Ic2Blocks.CABLES.values().stream().map(d -> (Block)d.get()).filter(b -> ((ic2.core.block.wiring.BlockCable)b).type != ic2.core.block.wiring.CableType.detector && ((ic2.core.block.wiring.BlockCable)b).type != ic2.core.block.wiring.CableType.splitter).toArray(Block[]::new)).build(null));
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCableDetector>> DETECTOR_CABLE = REGISTRY.register("detector_cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCableDetector::new, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.detector).get()).build(null));
+    public static final Supplier<BlockEntityType<ic2.core.block.wiring.TileEntityCableSplitter>> SPLITTER_CABLE = REGISTRY.register("splitter_cable", () -> BlockEntityType.Builder.of(ic2.core.block.wiring.TileEntityCableSplitter::new, Ic2Blocks.CABLES.get(ic2.core.block.wiring.CableType.splitter).get()).build(null));
+
     private static <T extends TileEntityBlock> Supplier<BlockEntityType<T>> reg(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> block) {
         return REGISTRY.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
     }
