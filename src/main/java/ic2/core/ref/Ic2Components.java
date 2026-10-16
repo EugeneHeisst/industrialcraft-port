@@ -16,5 +16,7 @@ public final class Ic2Components {
     public static final Supplier<DataComponentType<Double>> ENERGY = REGISTRY.register("energy", () -> DataComponentType.<Double>builder().persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE).build());
     /** Side of ejector/pulling upgrades, 0 = any. */
     public static final Supplier<DataComponentType<Integer>> UPGRADE_DIR = REGISTRY.register("upgrade_dir", () -> DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+    /** Content of the universal fluid cell. */
+    public static final Supplier<DataComponentType<net.neoforged.neoforge.fluids.SimpleFluidContent>> FLUID = REGISTRY.register("fluid", () -> DataComponentType.<net.neoforged.neoforge.fluids.SimpleFluidContent>builder().persistent(net.neoforged.neoforge.fluids.SimpleFluidContent.CODEC).networkSynchronized(net.neoforged.neoforge.fluids.SimpleFluidContent.STREAM_CODEC).build());
     private Ic2Components() {}
 }

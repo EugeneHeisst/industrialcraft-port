@@ -31,7 +31,9 @@ public final class Ic2Items {
                 if (!line.isEmpty()) SIMPLE.put(line, REGISTRY.registerSimpleItem(line));
             }
         } catch (java.io.IOException e) { throw new RuntimeException(e); }
-        for (var block : Ic2Blocks.REGISTRY.getEntries()) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
+        var fluidBlocks = new java.util.HashSet<String>();
+        for (var f : ic2.core.fluid.Ic2Fluids.ALL) fluidBlocks.add(f.name);
+        for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static final DeferredItem<ItemToolWrench> WRENCH = REGISTRY.register("wrench", () -> new ItemToolWrench(new Item.Properties().durability(160)));
@@ -41,6 +43,11 @@ public final class Ic2Items {
     public static final DeferredItem<ic2.core.item.resources.ItemCell> EMPTY_CELL = REGISTRY.register("empty_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), null));
     public static final DeferredItem<ic2.core.item.resources.ItemCell> WATER_CELL = REGISTRY.register("water_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), () -> net.minecraft.world.level.material.Fluids.WATER));
     public static final DeferredItem<ic2.core.item.resources.ItemCell> LAVA_CELL = REGISTRY.register("lava_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), () -> net.minecraft.world.level.material.Fluids.LAVA));
+    public static final java.util.Map<String, DeferredItem<ic2.core.item.resources.ItemCell>> FLUID_CELLS = new java.util.LinkedHashMap<>();
+    static {
+        for (var f : ic2.core.fluid.Ic2Fluids.ALL) FLUID_CELLS.put(f.name, REGISTRY.register(f.name + "_cell", () -> new ic2.core.item.resources.ItemCell(new Item.Properties(), f::get)));
+    }
+    public static final DeferredItem<ic2.core.item.resources.ItemFluidCell> UNIVERSAL_FLUID_CELL = REGISTRY.register("universal_fluid_cell", () -> new ic2.core.item.resources.ItemFluidCell(new Item.Properties()));
     public static final DeferredItem<Item> AIR_CELL = REGISTRY.register("air_cell", () -> new Item(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.resources.ItemBlockCuttingBlade> IRON_BLOCK_CUTTING_BLADE = REGISTRY.register("iron_block_cutting_blade", () -> new ic2.core.item.resources.ItemBlockCuttingBlade(new Item.Properties(), 3));
     public static final DeferredItem<ic2.core.item.resources.ItemBlockCuttingBlade> REFINED_IRON_BLOCK_CUTTING_BLADE = REGISTRY.register("refined_iron_block_cutting_blade", () -> new ic2.core.item.resources.ItemBlockCuttingBlade(new Item.Properties(), 6));

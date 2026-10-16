@@ -104,6 +104,28 @@ for code in out_lang: out_lang[code]['item.ic2.nano_saber'] = name(code, 'itemNa
 for f in os.listdir(os.path.join(OTEX, 'armor')):
     base, num = f[:-4].rsplit('_', 1)
     copy(os.path.join(OTEX, 'armor', f), os.path.join(A, 'textures/models/armor', f'{base}_layer_{num}.png'))
+# fluids, fluid blocks and cells
+FLUIDS = [('uu_matter', 'uumatter', 'fluidUuMatter', 'itemCellUuMatter', ['itemCellEmpty@3', 'itemCellUuMatter']), ('construction_foam', 'constructionfoam', 'fluidConstructionFoam', 'itemCellCF', ['itemCellEmpty@4', 'itemCellCF']),
+          ('coolant', 'coolant', 'fluidCoolant', 'itemCellCoolant', ['itemCellEmpty@9', 'itemCellCoolant']), ('hot_coolant', 'hotcoolant', 'fluidHotCoolant', 'itemCellHotCoolant', ['itemCellEmpty@10', 'itemCellHotCoolant']),
+          ('pahoehoe_lava', 'pahoehoelava', 'fluidPahoehoeLava', 'itemCellPahoehoelava', ['itemCellEmpty@11', 'itemCellPahoehoelava']), ('biomass', 'biomass', 'fluidBiomass', 'itemCellBiomass', ['itemCellEmpty@6', 'itemCellBiomass']),
+          ('biogas', 'biogas', 'fluidBiogas', 'itemCellBiogas', ['itemCellEmpty@7', 'itemCellBiogas']), ('distilled_water', 'distilledwater', 'fluidDistilledWater', 'itemCellDistilledWater', ['itemCellEmpty@12', 'itemCellDistilledWater']),
+          ('superheated_steam', 'superheatedsteam', 'fluidSuperheatedSteam', 'itemCellSuperheatedSteam', ['itemCellEmpty@13', 'itemCellSuperheatedSteam']), ('steam', 'steam', 'fluidSteam', 'itemCellSteam', ['itemCellEmpty@14', 'itemCellSteam']),
+          ('hot_water', 'hotwater', 'fluidHotWater', None, [])]
+GASEOUS = {'biogas', 'superheated_steam', 'steam'}
+for fid, tex, lang, cell, legacy in FLUIDS:
+    for kind in ('still', 'flow'):
+        src = os.path.join(OTEX, 'blocks/fluids', f'{tex}_{kind}.png')
+        if os.path.exists(src): copy(src, os.path.join(A, 'textures/block/fluid', f'{tex}_{kind}.png'))
+    for code in out_lang: out_lang[code]['fluid.ic2.' + fid] = name(code, lang, fid)
+    if fid not in GASEOUS:
+        write(os.path.join(A, 'models/block/fluid', fid + '.json'), {'textures': {'particle': f'ic2:block/fluid/{tex}_still'}})
+        write(os.path.join(A, 'blockstates', fid + '.json'), {'variants': {'': {'model': 'ic2:block/fluid/' + fid}}})
+        for code in out_lang: out_lang[code]['block.ic2.' + fid] = name(code, lang, fid)
+    if cell:
+        gen_item(fid + '_cell', 'cell/' + cell + '.png', cell, legacy)
+    else:
+        gen_item(fid + '_cell', 'cell/itemCellWater.png', lang, [])
+gen_item('universal_fluid_cell', 'cell/itemFluidCell.png', 'itemFluidCell', ['itemFluidCell'])
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])

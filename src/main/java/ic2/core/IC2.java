@@ -60,6 +60,8 @@ public final class IC2 {
     public IC2(IEventBus modBus, ModContainer container) {
         Ic2Components.REGISTRY.register(modBus);
         Ic2Sounds.REGISTRY.register(modBus);
+        ic2.core.fluid.Ic2Fluids.TYPES.register(modBus);
+        ic2.core.fluid.Ic2Fluids.FLUIDS.register(modBus);
         Ic2Blocks.REGISTRY.register(modBus);
         Ic2ArmorMaterials.REGISTRY.register(modBus);
         Ic2Items.REGISTRY.register(modBus);
@@ -124,6 +126,8 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.GEOTHERMAL_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), Ic2Items.EMPTY_CELL.get(), Ic2Items.WATER_CELL.get(), Ic2Items.LAVA_CELL.get());
+        for (var cell : Ic2Items.FLUID_CELLS.values()) event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), cell.get());
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> ic2.core.item.resources.ItemFluidCell.handler(stack), Ic2Items.UNIVERSAL_FLUID_CELL.get());
     }
 
     private void registerPayloads(RegisterPayloadHandlersEvent event) {

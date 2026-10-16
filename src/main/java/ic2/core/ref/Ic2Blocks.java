@@ -70,6 +70,8 @@ public final class Ic2Blocks {
             CABLES.put(type, REGISTRY.register(type.id(), () -> new ic2.core.block.wiring.BlockCable(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(0.2f, 6).sound(SoundType.WOOL).noOcclusion(), type)));
     }
 
+    static { ic2.core.fluid.Ic2Fluids.ALL.size(); }
+
     private static DeferredBlock<BlockTileEntity> machine(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockTileEntity(metal(2, 10), type)); }
     private static DeferredBlock<BlockTileEntity> generator(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockTileEntity(metal(3, 10), type)); }
     private static DeferredBlock<BlockElectric> electric(String name, Supplier<BlockEntityType<? extends TileEntityBlock>> type) { return REGISTRY.register(name, () -> new BlockElectric(metal(1.5f, 10), type)); }

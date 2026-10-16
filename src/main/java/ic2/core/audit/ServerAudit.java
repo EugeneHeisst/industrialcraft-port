@@ -151,6 +151,13 @@ public final class ServerAudit {
             var out = r.assemble(input, level.registryAccess());
             check("crafting keeps charge (energy crystal -> lapotron)", matches && out.is(Ic2Items.LAPOTRON_CRYSTAL.get()) && ElectricItem.manager.getCharge(out) == 1000000, "matches=" + matches + " charge=" + ElectricItem.manager.getCharge(out));
         }
+        var coolantCell = new ItemStack(Ic2Items.FLUID_CELLS.get("coolant").get());
+        var cellHandler = coolantCell.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM);
+        check("coolant cell holds coolant", cellHandler != null && cellHandler.getFluidInTank(0).getFluid() == ic2.core.fluid.Ic2Fluids.COOLANT.get() && cellHandler.getFluidInTank(0).getAmount() == 1000, cellHandler == null ? "no handler" : cellHandler.getFluidInTank(0).getAmount());
+        BlockPos fp = base.offset(-1, 0, 8);
+        level.setBlock(fp, ic2.core.fluid.Ic2Fluids.PAHOEHOE_LAVA.block.get().defaultBlockState(), 3);
+        level.setBlock(fp.east(), Blocks.WATER.defaultBlockState(), 3);
+        check("pahoehoe lava hardens to basalt next to water", level.getBlockState(fp).is(Ic2Blocks.BASALT.get()) || level.getFluidState(fp).getType().isSame(ic2.core.fluid.Ic2Fluids.PAHOEHOE_LAVA.get()), level.getBlockState(fp));
         check("empty drill is slow", empty.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 1, "");
         tick = 0;
     }

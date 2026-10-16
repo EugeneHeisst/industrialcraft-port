@@ -22,8 +22,17 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 
 /** Cells of the original ItemCell: an empty cell or one bucket of a fixed fluid (or none for compressed air). */
 public class ItemCell extends Item {
-    /** fluid -> filled cell item id */
-    public static final Map<Fluid, String> FILLED = Map.of(Fluids.WATER, "water_cell", Fluids.LAVA, "lava_cell");
+    private static Map<Fluid, Item> filled;
+
+    /** fluid -> filled cell, from every registered fixed-fluid cell. */
+    public static Map<Fluid, Item> filled() {
+        if (filled == null) {
+            var map = new java.util.HashMap<Fluid, Item>();
+            for (Item item : net.minecraft.core.registries.BuiltInRegistries.ITEM) if (item instanceof ItemCell cell && cell.fluid != null) map.put(cell.getFluid(), item);
+            filled = map;
+        }
+        return filled;
+    }
     private final Supplier<Fluid> fluid;
 
     public ItemCell(Properties properties, Supplier<Fluid> fluid) { super(properties); this.fluid = fluid; }
@@ -42,11 +51,11 @@ public class ItemCell extends Item {
         if (hit.getType() != HitResult.Type.BLOCK) return InteractionResultHolder.pass(stack);
         BlockPos pos = hit.getBlockPos();
         Fluid f = level.getFluidState(pos).getType();
-        String filled = FILLED.get(f);
-        if (filled == null || !(level.getBlockState(pos).getBlock() instanceof BucketPickup pickup)) return InteractionResultHolder.pass(stack);
+        Item filledCell = filled().get(f);
+        if (filledCell == null || !(level.getBlockState(pos).getBlock() instanceof BucketPickup pickup)) return InteractionResultHolder.pass(stack);
         if (!level.isClientSide) {
             pickup.pickupBlock(player, level, pos, level.getBlockState(pos));
-            ItemStack cell = new ItemStack(Ic2Items.get(filled));
+            ItemStack cell = new ItemStack(filledCell);
             if (!player.getAbilities().instabuild) stack.shrink(1);
             if (!player.getInventory().add(cell)) player.drop(cell, false);
         }
@@ -63,12 +72,12 @@ public class ItemCell extends Item {
         @Override public int getTanks() { return 1; }
         @Override public FluidStack getFluidInTank(int tank) { return fluid() == Fluids.EMPTY ? FluidStack.EMPTY : new FluidStack(fluid(), 1000); }
         @Override public int getTankCapacity(int tank) { return 1000; }
-        @Override public boolean isFluidValid(int tank, FluidStack stack) { return FILLED.containsKey(stack.getFluid()); }
+        @Override public boolean isFluidValid(int tank, FluidStack stack) { return filled().containsKey(stack.getFluid()); }
 
         @Override
         public int fill(FluidStack resource, FluidAction action) {
-            if (container.getCount() != 1 || fluid() != Fluids.EMPTY || !container.is(Ic2Items.get("empty_cell")) || resource.getAmount() < 1000 || !FILLED.containsKey(resource.getFluid())) return 0;
-            if (action.execute()) container = new ItemStack(Ic2Items.get(FILLED.get(resource.getFluid())));
+            if (container.getCount() != 1 || fluid() != Fluids.EMPTY || !container.is(Ic2Items.get("empty_cell")) || resource.getAmount() < 1000 || !filled().containsKey(resource.getFluid())) return 0;
+            if (action.execute()) container = new ItemStack(filled().get(resource.getFluid()));
             return 1000;
         }
 
