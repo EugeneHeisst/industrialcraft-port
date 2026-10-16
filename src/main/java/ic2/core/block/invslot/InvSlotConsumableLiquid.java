@@ -13,6 +13,8 @@ import org.apache.commons.lang3.mutable.MutableObject;
 /** Fluid container slot (InvSlotConsumableLiquidByList): accepts containers of the listed fluids and empties them into a tank. */
 public class InvSlotConsumableLiquid extends InvSlotConsumable {
     private final Set<Fluid> fluids;
+    /** Fill mode: accepts empty containers that can take one of the fluids (the original OpType.Fill). */
+    public boolean fillMode;
 
     public InvSlotConsumableLiquid(TileEntityInventory base, String name, Access access, int count, InvSide side, Fluid... fluids) {
         super(base, name, access, count, side);
@@ -27,8 +29,37 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
 
     @Override
     public boolean accepts(ItemStack stack) {
+        if (fillMode) {
+            var handler = stack.copyWithCount(1).getCapability(Capabilities.FluidHandler.ITEM);
+            if (handler == null) return false;
+            for (Fluid fl : fluids) if (handler.fill(new FluidStack(fl, Integer.MAX_VALUE), IFluidHandler.FluidAction.SIMULATE) > 0) return true;
+            return false;
+        }
         FluidStack f = contained(stack);
         return !f.isEmpty() && (fluids.contains(f.getFluid()) || f.getFluid() == Fluids.FLOWING_WATER && fluids.contains(Fluids.WATER));
+    }
+
+    /** Fills one container from the tank; the filled container goes to output. */
+    public boolean transferFromTank(IFluidHandler tank, MutableObject<ItemStack> output, boolean simulate) {
+        ItemStack stack = get();
+        if (stack.isEmpty() || !accepts(stack)) return false;
+        ItemStack single = stack.copyWithCount(1);
+        var handler = single.getCapability(Capabilities.FluidHandler.ITEM);
+        if (handler == null) return false;
+        FluidStack inTank = tank.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE);
+        if (inTank.isEmpty()) return false;
+        int accepted = handler.fill(inTank.copy(), IFluidHandler.FluidAction.SIMULATE);
+        if (accepted <= 0 || accepted > inTank.getAmount()) return false;
+        FluidStack drained = tank.drain(inTank.copyWithAmount(accepted), IFluidHandler.FluidAction.SIMULATE);
+        if (drained.getAmount() < accepted) return false;
+        handler.fill(drained.copy(), IFluidHandler.FluidAction.EXECUTE);
+        output.setValue(handler.getContainer());
+        if (!simulate) {
+            tank.drain(inTank.copyWithAmount(accepted), IFluidHandler.FluidAction.EXECUTE);
+            stack.shrink(1);
+            if (stack.isEmpty()) put(ItemStack.EMPTY);
+        }
+        return true;
     }
 
     /** Empties one container into the tank; the emptied container goes to output. */

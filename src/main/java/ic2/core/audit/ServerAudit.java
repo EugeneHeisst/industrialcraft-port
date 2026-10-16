@@ -103,6 +103,7 @@ public final class ServerAudit {
         level.setBlock(ek.below(), facing(Ic2Blocks.MFE.get().defaultBlockState(), Direction.UP), 3);
         level.setBlock(ek, facing(Ic2Blocks.ELECTRIC_KINETIC_GENERATOR.get().defaultBlockState(), Direction.SOUTH), 3);
         level.setBlock(ek.south(), facing(Ic2Blocks.KINETIC_GENERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        level.setBlock(base.offset(18, 2, 0), facing(Ic2Blocks.MASS_FABRICATOR.get().defaultBlockState(), Direction.NORTH), 3);
         // 7: rubber tree on grass, treetap on its wet holes
         BlockPos tree = base.offset(12, -1, 4);
         level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
@@ -217,6 +218,9 @@ public final class ServerAudit {
             ((TileEntityElectricBlock)level.getBlockEntity(base.offset(16, 1, 0))).energy = 4000000;
             var ekg = (ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Electric)level.getBlockEntity(base.offset(16, 2, 0));
             for (int c = 0; c < 10; c++) ekg.slotMotor.put(c, new ItemStack(Ic2Items.get("electric_motor")));
+            var fab = (ic2.core.block.machine.tileentity.TileEntityMatter)level.getBlockEntity(base.offset(18, 2, 0));
+            fab.energy = 1000000;
+            fab.amplifierSlot.put(new ItemStack(Ic2Items.get("scrap"), 2));
             check("enet registered", EnergyNet.instance.getTileEntity(level, base) != null, "");
         }
         if (tick % 50 == 0 && tick < 700) {
@@ -268,6 +272,8 @@ public final class ServerAudit {
             check("wind rotor -> kinetic generator", kg1.EUstorage > 0, "wind=" + windKg.windStrength + " ku=" + windKg.getKuOutput() + " eu=" + kg1.EUstorage + " rotorDamage=" + windKg.rotorSlot.get().getDamageValue());
             var kg2 = (ic2.core.block.generator.tileentity.TileEntityGenerators2.Kinetic)level.getBlockEntity(base.offset(16, 2, 1));
             check("electric motor -> kinetic generator", kg2.EUstorage > 0, "eu=" + kg2.EUstorage);
+            var fab = (ic2.core.block.machine.tileentity.TileEntityMatter)level.getBlockEntity(base.offset(18, 2, 0));
+            check("mass fabricator makes UU and eats scrap", fab.getTankAmount() >= 1 && fab.scrap > 0, "uu=" + fab.getTankAmount() + " scrap=" + fab.scrap + " slot=" + fab.amplifierSlot.get());
             check("active state", !level.getBlockState(base.east()).getValue(BlockTileEntity.ACTIVE), "idle after work");
         }
         if (tick == 710) {

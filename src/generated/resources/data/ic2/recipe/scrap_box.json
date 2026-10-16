@@ -1,0 +1,18 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:scrap"
+    }
+  },
+  "result": {
+    "id": "ic2:scrap_box",
+    "count": 1
+  }
+}

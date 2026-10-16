@@ -9,7 +9,7 @@ public abstract class ContainerElectricMachine<T extends TileEntityElectricMachi
     protected ContainerElectricMachine(int id, Inventory inventory, T base, int height, int dischargeX, int dischargeY) {
         super(id, inventory, base);
         addPlayerInventorySlots(inventory, height);
-        addSlot(new SlotInvSlot(base.dischargeSlot, 0, dischargeX, dischargeY));
+        if (dischargeX > -1000) addSlot(new SlotInvSlot(base.dischargeSlot, 0, dischargeX, dischargeY));
         sync(() -> base.guiChargeLevel, v -> base.guiChargeLevel = (float)v);
         sync(base::getTier, v -> base.setTier((int)v));
     }

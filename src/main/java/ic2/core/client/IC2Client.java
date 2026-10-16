@@ -97,6 +97,7 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Wind m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Wind(m, inv, title);
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Water m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Water(m, inv, title);
         if (menu instanceof ic2.core.block.kineticgenerator.ContainerKineticGenerators.Electric m) return new ic2.core.block.kineticgenerator.GuiKineticGenerators.Electric(m, inv, title);
+        if (menu instanceof ic2.core.block.machine.container.ContainerMatter m) return new ic2.core.block.machine.gui.GuiMatter(m, inv, title);
         if (menu instanceof ContainerIronFurnace m) return new GuiIronFurnace(m, inv, title);
         if (menu instanceof ContainerGenerator m) return new GuiGenerator(m, inv, title);
         if (menu instanceof ic2.core.block.generator.container.ContainerGeoGenerator m) return new ic2.core.block.generator.gui.GuiGeoGenerator(m, inv, title);

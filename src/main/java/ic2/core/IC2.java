@@ -91,6 +91,7 @@ public final class IC2 {
         Recipes.centrifuge = new BasicMachineRecipeManager();
         Recipes.blockcutter = new BasicMachineRecipeManager();
         Recipes.blastfurance = new BasicMachineRecipeManager();
+        Recipes.matterAmplifier = new BasicMachineRecipeManager();
         modBus.addListener(this::setup);
         modBus.addListener(this::registerCapabilities);
         modBus.addListener(this::registerPayloads);
@@ -110,6 +111,11 @@ public final class IC2 {
             MachineRecipeLoader.load("thermal_centrifuge", Recipes.centrifuge);
             MachineRecipeLoader.load("block_cutter", Recipes.blockcutter);
             MachineRecipeLoader.load("blast_furnace", Recipes.blastfurance);
+            var amp5000 = new net.minecraft.nbt.CompoundTag(); amp5000.putInt("amplification", 5000);
+            var amp45000 = new net.minecraft.nbt.CompoundTag(); amp45000.putInt("amplification", 45000);
+            Recipes.matterAmplifier.addRecipe(new ic2.api.recipe.RecipeInputItemStack(new ItemStack(Ic2Items.get("scrap")), 1), amp5000);
+            Recipes.matterAmplifier.addRecipe(new ic2.api.recipe.RecipeInputItemStack(new ItemStack(Ic2Items.SCRAP_BOX.get()), 1), amp45000);
+            ic2.core.item.ItemScrapbox.init();
             for (var upgrade : new net.minecraft.world.item.Item[]{Ic2Items.OVERCLOCKER_UPGRADE.get(), Ic2Items.TRANSFORMER_UPGRADE.get(), Ic2Items.ENERGY_STORAGE_UPGRADE.get(),
                     Ic2Items.EJECTOR_UPGRADE.get(), Ic2Items.FLUID_EJECTOR_UPGRADE.get(), Ic2Items.REDSTONE_INVERTER_UPGRADE.get(), Ic2Items.PULLING_UPGRADE.get()})
                 UpgradeRegistry.register(new ItemStack(upgrade));
@@ -126,6 +132,7 @@ public final class IC2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.GEOTHERMAL_GENERATOR.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.ORE_WASHING_PLANT.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.SEMIFLUID_GENERATOR.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntities.MASS_FABRICATOR.get(), (be, side) -> be);
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), Ic2Items.EMPTY_CELL.get(), Ic2Items.WATER_CELL.get(), Ic2Items.LAVA_CELL.get());
         for (var cell : Ic2Items.FLUID_CELLS.values()) event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new ic2.core.item.resources.ItemCell.Handler(stack), cell.get());
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> ic2.core.item.resources.ItemFluidCell.handler(stack), Ic2Items.UNIVERSAL_FLUID_CELL.get());

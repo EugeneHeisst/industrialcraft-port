@@ -1,0 +1,27 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "GCG",
+    "ALA",
+    "GCG"
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "L": {
+      "item": "ic2:lapotron_crystal"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "C": {
+      "tag": "c:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:mass_fabricator",
+    "count": 1
+  }
+}

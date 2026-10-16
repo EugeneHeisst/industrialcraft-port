@@ -129,6 +129,7 @@ gen_item('universal_fluid_cell', 'cell/itemFluidCell.png', 'itemFluidCell', ['it
 for iid, leg, model in [('wood_rotor', 'itemwoodrotor', 'rotorWoodmodel'), ('iron_rotor', 'itemironrotor', 'rotorIronmodel'), ('steel_rotor', 'itemsteelrotor', 'rotorSteelmodel'), ('carbon_rotor', 'itemwcarbonrotor', 'rotorCarbonmodel')]:
     gen_item(iid, 'rotors/' + leg + '.png', leg, [leg])
     copy(os.path.join(OTEX, 'items/rotors', model + '.png'), os.path.join(A, 'textures/item/rotor', iid.replace('_rotor', '').join(['rotor_', '_model']) + '.png'))
+gen_item('scrap_box', 'itemScrapbox.png', 'itemScrapbox', ['itemScrapbox'])
 gen_item('forge_hammer', 'itemToolForgeHammer.png', 'itemToolForgeHammer', ['itemToolForgeHammer'])
 gen_item('cutter', 'itemToolCutter.png', 'itemToolCutter', ['itemToolCutter'])
 gen_item('single_use_battery', 'itemBatSU.png', 'itemBatSU', ['itemBatSU'])
@@ -317,7 +318,7 @@ for f in os.listdir(os.path.join(OTEX, 'gui')):
 SOUNDS = {'machines.macerator_op': 'Machines/MaceratorOp', 'machines.extractor_op': 'Machines/ExtractorOp', 'machines.compressor_op': 'Machines/CompressorOp',
           'machines.recycler_op': 'Machines/RecyclerOp', 'machines.interrupt_one': 'Machines/InterruptOne', 'machines.electro_furnace_loop': 'Machines/Electro Furnace/ElectroFurnaceLoop',
           'machines.iron_furnace_op': 'Machines/IronFurnaceOp', 'generators.generator_loop': 'Generators/GeneratorLoop', 'generators.geothermal_loop': 'Generators/GeothermalLoop',
-          'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'tools.treetap': 'Tools/Treetap'}
+          'generators.watermill_loop': 'Generators/WatermillLoop', 'generators.windgen_loop': 'Generators/WindGenLoop', 'tools.wrench': 'Tools/wrench', 'generators.mass_fab_loop': 'Generators/MassFabricator/MassFabLoop', 'generators.mass_fab_scrap': 'Generators/MassFabricator/MassFabScrapSolo', 'tools.treetap': 'Tools/Treetap'}
 sounds_json = {}
 for key, src in SOUNDS.items():
     s = os.path.join(JAR, 'ic2/sounds', src + '.ogg')

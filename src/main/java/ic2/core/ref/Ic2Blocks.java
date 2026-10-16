@@ -58,6 +58,7 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> WATER_KINETIC_GENERATOR = generator("water_kinetic_generator", () -> Ic2BlockEntities.WATER_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> ELECTRIC_KINETIC_GENERATOR = generator("electric_kinetic_generator", () -> Ic2BlockEntities.ELECTRIC_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> MANUAL_KINETIC_GENERATOR = generator("manual_kinetic_generator", () -> Ic2BlockEntities.MANUAL_KINETIC_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> MASS_FABRICATOR = machine("mass_fabricator", () -> Ic2BlockEntities.MASS_FABRICATOR.get());
     public static final DeferredBlock<BlockTileEntity> GENERATOR = generator("generator", () -> Ic2BlockEntities.GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> GEOTHERMAL_GENERATOR = generator("geothermal_generator", () -> Ic2BlockEntities.GEOTHERMAL_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> WATER_MILL = generator("water_mill", () -> Ic2BlockEntities.WATER_MILL.get());

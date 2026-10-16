@@ -83,6 +83,20 @@
       }
     ]
   },
+  "generators.mass_fab_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/mass_fab_loop"
+      }
+    ]
+  },
+  "generators.mass_fab_scrap": {
+    "sounds": [
+      {
+        "name": "ic2:generators/mass_fab_scrap"
+      }
+    ]
+  },
   "tools.treetap": {
     "sounds": [
       {
