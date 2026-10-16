@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class Ic2Components {
     public static final DeferredRegister<DataComponentType<?>> REGISTRY = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, IC2.MODID);
+    public static final Supplier<DataComponentType<java.util.List<Integer>>> LATHE_STATE = REGISTRY.register("lathe_state", () -> DataComponentType.<java.util.List<Integer>>builder().persistent(Codec.intRange(1,15).listOf()).networkSynchronized(ByteBufCodecs.VAR_INT.apply(ByteBufCodecs.list())).build());
     public static final Supplier<DataComponentType<net.minecraft.nbt.CompoundTag>> CROP_DATA = REGISTRY.register("crop_data", () -> DataComponentType.<net.minecraft.nbt.CompoundTag>builder().persistent(net.minecraft.nbt.CompoundTag.CODEC).networkSynchronized(ByteBufCodecs.COMPOUND_TAG).build());
     /** EU stored in an electric item. */
     public static final Supplier<DataComponentType<Double>> CHARGE = REGISTRY.register("charge", () -> DataComponentType.<Double>builder().persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE).build());

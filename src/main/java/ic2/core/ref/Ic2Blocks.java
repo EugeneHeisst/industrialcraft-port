@@ -78,6 +78,8 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BlockTileEntity> REACTOR_REDSTONE_PORT = REGISTRY.register("reactor_redstone_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_REDSTONE_PORT.get()));
     public static final DeferredBlock<BlockTileEntity> REACTOR_FLUID_PORT = REGISTRY.register("reactor_fluid_port", () -> new BlockTileEntity(metal(40, 90), () -> Ic2BlockEntities.REACTOR_FLUID_PORT.get()));
     public static final DeferredBlock<BlockTileEntity> STEAM_GENERATOR = machine("steam_generator", () -> Ic2BlockEntities.STEAM_GENERATOR.get());
+    public static final DeferredBlock<BlockTileEntity> LATHE = machine("lathe", () -> Ic2BlockEntities.LATHE.get());
+    public static final DeferredBlock<BlockTileEntity> STIRLING_KINETIC_GENERATOR = machine("stirling_kinetic_generator", () -> Ic2BlockEntities.STIRLING_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> STEAM_KINETIC_GENERATOR = machine("steam_kinetic_generator", () -> Ic2BlockEntities.STEAM_KINETIC_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> FLUID_HEAT_GENERATOR = machine("fluid_heat_generator", () -> Ic2BlockEntities.FLUID_HEAT_GENERATOR.get());
     public static final DeferredBlock<BlockTileEntity> LIQUID_HEAT_EXCHANGER = machine("liquid_heat_exchanger", () -> Ic2BlockEntities.LIQUID_HEAT_EXCHANGER.get());

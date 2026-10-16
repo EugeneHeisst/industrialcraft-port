@@ -501,6 +501,13 @@ write(os.path.join(A, 'sounds.json'), sounds_json)
 # ---------- crops
 exec(compile(open(os.path.join(ROOT, "tools/crops.py")).read(), "tools/crops.py", "exec"))
 
+gen_item('iron_turning_blank', 'itemTurningBlanksIRON.png', 'itemTurningBlanksIRON', ['itemTurningBlanks', 'itemTurningBlanks@0'])
+gen_item('wood_turning_blank', 'itemTurningBlanksWOOD.png', 'itemTurningBlanksWOOD', ['itemTurningBlanksWood', 'itemTurningBlanksWood@0'])
+gen_item('lathing_tool', 'itemLathingTool.png', 'itemLathingTool', ['itemLathingTool'])
+for blank in ('iron_turning_blank', 'wood_turning_blank'):
+    write(os.path.join(A, 'models/item', blank + '.json'), {'parent': 'minecraft:builtin/entity', 'gui_light': 'front', 'textures': {'particle': 'ic2:item/' + blank}})
+for material in ('IRON', 'WOOD'):
+    copy(os.path.join(OTEX, 'items/turnables', material + '.png'), os.path.join(A, 'textures/item/turnables', material.lower() + '.png'))
 gen_item('steam_turbine', 'itemSteamTurbine.png', 'itemSteamTurbine', ['itemSteamTurbine'])
 
 # ---------- recipes
@@ -594,6 +601,13 @@ write(os.path.join(RES, 'ic2/recipes/recycler_blacklist.json'), blacklist)
 def ingredient(alts):
     ret = []
     for a in alts.split('|'):
+        shaped_blank = re.fullmatch(r'IC2:(itemTurningBlanks|itemTurningBlanksWood)@(\d+)', a.strip())
+        if shaped_blank and int(shaped_blank[2]) != 0:
+            packed = int(shaped_blank[2])
+            state = [(packed >> (4 * i)) & 15 for i in range(4, -1, -1)]
+            iid = 'wood_turning_blank' if shaped_blank[1].endswith('Wood') else 'iron_turning_blank'
+            ret.append({'type': 'neoforge:components', 'items': 'ic2:' + iid, 'components': {'ic2:lathe_state': state}, 'strict': False})
+            continue
         r, _ = parse_stack(a)
         if r is None: return None
         ret.append({r[0]: r[1]})

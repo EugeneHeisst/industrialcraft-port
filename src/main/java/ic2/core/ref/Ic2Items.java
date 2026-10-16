@@ -37,6 +37,9 @@ public final class Ic2Items {
         for (var block : Ic2Blocks.REGISTRY.getEntries()) if (!fluidBlocks.contains(block.getId().getPath())) REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
+    public static final DeferredItem<ic2.core.item.resources.ItemLatheDefault> IRON_TURNING_BLANK = REGISTRY.register("iron_turning_blank", () -> new ic2.core.item.resources.ItemLatheDefault(new Item.Properties(), ic2.core.item.resources.ItemLatheDefault.LatheMaterial.IRON));
+    public static final DeferredItem<ic2.core.item.resources.ItemLatheDefault> WOOD_TURNING_BLANK = REGISTRY.register("wood_turning_blank", () -> new ic2.core.item.resources.ItemLatheDefault(new Item.Properties(), ic2.core.item.resources.ItemLatheDefault.LatheMaterial.WOOD));
+    public static final DeferredItem<ic2.core.item.tool.ItemLathingTool> LATHING_TOOL = REGISTRY.register("lathing_tool", () -> new ic2.core.item.tool.ItemLathingTool(new Item.Properties()));
     public static final DeferredItem<Item> STEAM_TURBINE = REGISTRY.register("steam_turbine", () -> new Item(new Item.Properties().durability(86400).setNoRepair()));
     public static final DeferredItem<ic2.core.item.ItemFertilizer> FERTILIZER = REGISTRY.register("fertilizer", () -> new ic2.core.item.ItemFertilizer(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.ItemTerraWart> TERRA_WART = REGISTRY.register("terra_wart", () -> new ic2.core.item.ItemTerraWart(new Item.Properties()));

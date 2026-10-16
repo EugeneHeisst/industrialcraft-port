@@ -1,0 +1,21 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "S  ",
+    " I ",
+    "  I"
+  ],
+  "key": {
+    "S": {
+      "tag": "c:plates/steel"
+    },
+    "I": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:lathing_tool",
+    "count": 1
+  }
+}

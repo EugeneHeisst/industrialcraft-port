@@ -24,7 +24,7 @@ The user asked Codex to continue while the PC Claude session was at its five-hou
 
 ## Where to continue
 
-Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: stirling kinetic generator, lathe/turning blanks, advanced miner, CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
+Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: advanced miner, CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
 
 ASP and EMT remain project skeletons, Gravi Suit not started. Keep original user's order and cross-mod requirements from shared `memory/ic2_port.md`. Gravi reference jar is in the upload path recorded there. All test clients must remain hidden and silent. Never restart or kill the user's long-running production server; identify own JVMs by `/proc/<pid>/cwd`.
 
@@ -49,3 +49,12 @@ Added pressure-controlled steam boiler and steam kinetic generator, turbine item
 Server audit **148 checks, 0 failed**: complete real heat→boiler→turbine→EU+condenser setup with exact steam-equivalent water balance, superheat, rotor wear, flooded output, input simulation, persistence, calcification and cancelled explosion-event audits for overheat/blocked exhaust. Hidden silent client passed, boiler/turbine GUIs inspected. JAR and logs/screens in `versions/0.1.4/`. No push/release/deployment.
 
 The client audit now builds its stand at Y=120 with a platform and flight enabled: repeatedly reusing the old flat test world had eventually left the player falling below minimum build height, causing empty GUI lists and failed crop placement. This was an audit-world setup failure, not a crop registration regression.
+
+
+## Follow-up batch 0.1.5 — 2026-10-16
+
+Added lathe, iron/wood turning blanks, lathing tool and Stirling kinetic generator. Ported ILatheItem/ILatheTool/ICustomDamageItem APIs, persistent/networked five-section shape component, original recipes and material assets. Lathe takes real adjacent kU, friction, 1,000 kU/cut, tool hardness and fifty-use durability, randomized byproducts, full-output protection. Invalid section events are rejected. Custom item renderer reflects each cut in inventory/hand/world. Shape-sensitive recipes now use NeoForge component ingredients for the four original shaft/handle/drill forms; uncut blanks cannot substitute. The formerly over-broad blockMachine3 fallback generated a bogus alternate boiler recipe for the lathe; the explicit lathe alias now removes it and creates the correct recipe.
+
+Stirling takes heat on all non-output sides, turns four hU into twelve kU plus one hU of fluid warming, has 2,000 mB working tanks and persistent buffers. Original water→hot water and addon one-way heatup fluids are supported; reversible coolant is excluded. Fixed original KU overfill and mismatched kUBuffer/kubuffer save keys. Front-only KU is consumed once; full or incompatible output preserves input and unused heat.
+
+Server audit **168 checks, 0 failed**, including both electric motor→lathe and real heat exchanger→Stirling→EU/lathe chains, exact working-fluid balance, shape recipes, durability and persistence. Hidden silent client passed, both new GUI screenshots inspected; JAR/logs/screens archived under versions/0.1.5. No push/release/deployment. Next: advanced miner.

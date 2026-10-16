@@ -1,0 +1,19 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    "INI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "ic2:iron_casing"
+    }
+  },
+  "result": {
+    "id": "ic2:iron_turning_blank",
+    "count": 1
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "ic2:shaped",
+  "category": "misc",
+  "pattern": [
+    " D ",
+    "DtD",
+    " d "
+  ],
+  "key": {
+    "D": {
+      "tag": "c:gems/diamond"
+    },
+    "d": {
+      "item": "ic2:mining_drill"
+    },
+    "t": {
+      "type": "neoforge:components",
+      "items": "ic2:iron_turning_blank",
+      "components": {
+        "ic2:lathe_state": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "strict": false
+    }
+  },
+  "result": {
+    "id": "ic2:diamond_drill",
+    "count": 1
+  }
+}
