@@ -65,6 +65,7 @@ public final class IC2Client {
     static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.CROP.get(), CropRenderer::new);
         event.registerEntityRenderer(ic2.core.ref.Ic2Entities.MINING_LASER.get(), RenderMiningLaser::new);
+        event.registerEntityRenderer(ic2.core.ref.Ic2Entities.IC2_EXPLOSIVE.get(), net.minecraft.client.renderer.entity.TntRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.WIND_KINETIC_GENERATOR.get(), KineticGeneratorRenderer::new);
         event.registerBlockEntityRenderer(ic2.core.ref.Ic2BlockEntities.WATER_KINETIC_GENERATOR.get(), KineticGeneratorRenderer::new);
     }
@@ -111,6 +112,7 @@ public final class IC2Client {
         if (menu instanceof ic2.core.block.machine.container.ContainerSteamMachines.Turbine m) return new ic2.core.block.machine.gui.GuiSteamMachines(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerThermalFluids.Generator m) return new ic2.core.block.machine.gui.GuiThermalFluids(m, inv, title, "fluid_heat_generator", "guifluidheatgenerator");
         if (menu instanceof ic2.core.block.machine.container.ContainerThermalFluids.Exchanger m) return new ic2.core.block.machine.gui.GuiThermalFluids(m, inv, title, "liquid_heat_exchanger", "guiheatsourcefluid");
+        if (menu instanceof ic2.core.block.machine.container.ContainerNuke m) return new ic2.core.block.machine.gui.GuiNuke(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerAdvMiner m) return new ic2.core.block.machine.gui.GuiAdvMiner(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerLathe m) return new ic2.core.block.machine.gui.GuiLathe(m, inv, title);
         if (menu instanceof ic2.core.block.machine.container.ContainerStirlingKineticGenerator m) return new ic2.core.block.machine.gui.GuiStirlingKineticGenerator(m, inv, title);

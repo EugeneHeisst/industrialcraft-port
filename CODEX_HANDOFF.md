@@ -24,7 +24,7 @@ The user asked Codex to continue while the PC Claude session was at its five-hou
 
 ## Where to continue
 
-Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: CF sprayer/pack/foam, fuel jetpack, nuke/ITNT/dynamite, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
+Do **not** restart the crop port. IC2 is not finished. Still outstanding from Claude's prior list: CF sprayer/pack/foam, fuel jetpack, dynamite/remote, luminators, personal safe/trade-o-mat, booze/coffee, boats, JEI and final compatibility/audit/release work. `build/gen-warnings.txt` identifies recipes still skipped for missing content; preserve original legacy aliases in `tools/content.py`/`tools/gen.py`.
 
 ASP and EMT remain project skeletons, Gravi Suit not started. Keep original user's order and cross-mod requirements from shared `memory/ic2_port.md`. Gravi reference jar is in the upload path recorded there. All test clients must remain hidden and silent. Never restart or kill the user's long-running production server; identify own JVMs by `/proc/<pid>/cwd`.
 
@@ -65,3 +65,10 @@ Server audit **168 checks, 0 failed**, including both electric motor→lathe and
 Added advanced miner with OD 17×17 / OV 33×33 layer scanning, 512 EU per mined block, 64 scanner EU per examined cell, five cells per 20 ticks with overclocker augmentation, internal scanner charging, 4M EU buffer and transformer/redstone inverter upgrades. Filter inventory supports blacklist/whitelist of actual drops; Silk Touch uses modern loot tables. Actual mining distributes to adjacent capabilities and spills remainder above the machine. Skips liquids/unbreakable blocks/non-ore block entities and posts cancellable BreakEvent using a fake player for claims/protection. Pauses at unloaded columns and never force-loads chunks. Modern height support reaches Y=-64 and persists negative layer plus exact scan cursor/timing. Original GUI, assets and recipe are registered.
 
 Server audit **192 checks, 0 failed**, including real loot/energy accounting, filters/Silk Touch, cancelled protection event, chest preservation, redstone, scanner exhaustion, upgrade scan budget/tier, height floor and saved cursor. Hidden silent client passed; advanced miner GUI inspected. JAR/logs/screens archived versions/0.1.6. No publication/deployment. Next: industrial TNT and nuke.
+
+
+## Follow-up batch 0.1.7 — 2026-10-16
+
+Added industrial TNT (60-tick fuse, power 5.5, 90% normal blast drops, redstone/fire/projectile/manual/chain ignition) and nuclear bomb with original eight mirrored outer charge slots + inner fuel GUI. All uranium/plutonium variants use original enrichment thresholds/formulas and radiation multipliers; original default power cap 60 and enableNuke are NeoForge SERVER config values. Nuke normal fuse is 300 ticks; chains use shortened fuse, wrench defuses active nuke without returning fuel. Charge is captured and cleared before removing casing, avoiding content drops/duplication. Primed entity uses modern TNT synchronization/render/motion and persists power/drop/radiation/owner/fuse (including 300 ticks), fixing original byte fuse/save loss. Nuke supports redstone and modern flint/fire-charge ignition. Correct six-face original textures are retained. ITNT loot is empty because breaking it ignites it; no intact duplicate charge.
+
+Server audit **218 checks, 0 failed**, including original formula cases, config disable/cap, mirrored-slot shift-click accounting, ignition, persistence, defuse, redstone/chain, cancelled nuke ExplosionEvent, real small ITNT blast and mob radiation/hazmat. Hidden silent client passed; nuke GUI and both primed models inspected. JAR/logs/screens versions/0.1.7. No push/release/deploy. Next: luminator and fuel jetpack.

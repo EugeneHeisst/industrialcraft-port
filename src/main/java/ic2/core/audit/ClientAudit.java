@@ -76,6 +76,7 @@ public final class ClientAudit {
                 level.setBlock(p, state, 3);
                 if (level.getBlockEntity(p) instanceof IHasGui) guis.add(p);
                 if (level.getBlockEntity(p) instanceof ic2.core.block.kineticgenerator.TileEntityKineticGenerators.Rotor rotorGen) { rotorGen.rotorSlot.put(new ItemStack(Ic2Items.CARBON_ROTOR.get())); rotorGen.setRotationSpeed(1); }
+                if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityNuke n) { n.outsideSlot.put(new ItemStack(Ic2Blocks.INDUSTRIAL_TNT.get(),32));n.insideSlot.put(new ItemStack(Ic2Items.get("uranium_235"),4)); }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityAdvMiner m) { m.scannerSlot.put(Ic2Items.OV_SCANNER.get().charged());m.ListSlot.put(new ItemStack(net.minecraft.world.item.Items.COBBLESTONE));m.energy=3000000;m.minelayer=119; }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.machine.tileentity.TileEntityLathe lathe) { lathe.latheSlot.put(ic2.core.item.resources.ItemLatheDefault.getStackForState(new ItemStack(Ic2Items.IRON_TURNING_BLANK.get()),0x32323));lathe.toolSlot.put(new ItemStack(Ic2Items.LATHING_TOOL.get()));lathe.kUBuffer=5000; }
                 if (level.getBlockEntity(p) instanceof ic2.core.block.kineticgenerator.TileEntityStirlingKineticGenerator s) { s.inputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(net.minecraft.world.level.material.Fluids.WATER,1500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);s.outputTank.fill(new net.neoforged.neoforge.fluids.FluidStack(ic2.core.fluid.Ic2Fluids.HOT_WATER.get(),500),net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);s.kUBuffer=1200; }
@@ -153,6 +154,13 @@ public final class ClientAudit {
         });
         if (tick == end + 85) shot(mc,"gui_crop_analyzer.png");
         if (tick == end + 90) mc.player.closeContainer();
-        if (tick >= end + 100) mc.stop();
+        if (tick == end + 95) server.execute(() -> {
+            var l=server.overworld();var p=origin.offset(40,0,-15);var pl=server.getPlayerList().getPlayers().get(0);
+            for(var pos:BlockPos.betweenClosed(p.offset(-3,-1,-3),p.offset(3,-1,3)))l.setBlock(pos,Blocks.STONE.defaultBlockState(),3);
+            for(int n=0;n<2;n++){var e=new ic2.core.block.explosive.EntityIC2Explosive(ic2.core.ref.Ic2Entities.IC2_EXPLOSIVE.get(),l);e.setPos(p.getX()+n*2,p.getY(),p.getZ());e.setBlockState((n==0?Ic2Blocks.INDUSTRIAL_TNT.get():Ic2Blocks.NUKE.get()).defaultBlockState());e.setFuse(20000);l.addFreshEntity(e);}
+            pl.teleportTo(l,p.getX()+1,p.getY()+1,p.getZ()-4,0,12);
+        });
+        if (tick == end + 130) shot(mc,"primed_explosives.png");
+        if (tick >= end + 140) mc.stop();
     }
 }

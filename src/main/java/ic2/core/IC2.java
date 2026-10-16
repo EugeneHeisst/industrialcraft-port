@@ -61,6 +61,7 @@ public final class IC2 {
     public static ResourceLocation id(String path) { return ResourceLocation.fromNamespaceAndPath(MODID, path); }
 
     public IC2(IEventBus modBus, ModContainer container) {
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER, ic2.core.block.explosive.NukeConfig.SPEC);
         Ic2Components.REGISTRY.register(modBus);
         Ic2Sounds.REGISTRY.register(modBus);
         ic2.core.fluid.Ic2Fluids.TYPES.register(modBus);

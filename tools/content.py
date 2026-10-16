@@ -81,6 +81,8 @@ block('uranium_ore', ['blockOreUran'], 'cube', tex='blockOreUran.png', tags=['c:
 block('lead_ore', ['blockOreLead'], 'cube', tex='blockOreLead.png', tags=['c:ores/lead', 'c:ores', 'c:ores_in_ground/stone', 'c:ore_rates/singular', 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang='blockOreLead', item_tags=['c:ores/lead', 'c:ores', 'c:ores_in_ground/stone'])
 for meta, (name, l, tag) in enumerate([(None, 'Copper', 'copper'), ('tin_block', 'Tin', 'tin'), ('bronze_block', 'Bronze', 'bronze'), ('uranium_block', 'Uranium', 'uranium'), ('lead_block', 'Lead', 'lead'), ('refined_iron_block', 'AdvIron', 'refined_iron')]):
     if name: block(name, [f'blockMetal@{meta}'], 'cube', tex=f'blockMetal{l}.png', tags=['c:storage_blocks/' + tag, 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'], drop='self', lang=f'blockMetal{l}', item_tags=['c:storage_blocks/' + tag])
+block('industrial_tnt', ['blockITNT'], 'cube', tex='blockITNT.png', tags=[], drop='self', lang='blockITNT')
+block('nuke', ['blockNuke'], 'cube', tex='blockNuke.png', tags=[], drop='self', lang='blockNuke')
 block('reinforced_stone', ['blockAlloy'], 'cube', tex='blockAlloy.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockAlloy')
 block('basalt', ['blockBasalt'], 'cube', tex='blockBasalt.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockBasalt')
 block('machine', ['blockMachine@0', 'blockMachine'], 'cube', tex='machine/blockMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockMachine')

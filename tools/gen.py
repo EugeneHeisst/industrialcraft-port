@@ -210,7 +210,7 @@ for b in content.BLOCKS:
             t.save(path)
         names.append('ic2:block/' + unique[key])
     if b['kind'] == 'cube':
-        write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/cube_all', 'textures': {'all': names[0]}})
+        write(os.path.join(A, 'models/block', bid + '.json'), {'parent': 'minecraft:block/cube', 'textures': dict(zip(FACES, names[:6])) | {'particle': names[2]}} if bid in ('industrial_tnt', 'nuke') else {'parent': 'minecraft:block/cube_all', 'textures': {'all': names[0]}})
         write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
         write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'ic2:block/' + bid})
     else:
@@ -230,6 +230,9 @@ for b in content.BLOCKS:
 
 write(os.path.join(A, 'models/block/chargepad_base.json'), {'parent': 'minecraft:block/block', 'elements': [{'from': [0, 0, 0], 'to': [16, 15.2, 16], 'faces': {
     f: {'texture': '#' + f, **({'cullface': f} if f != 'up' else {}), **({'uv': [0, 0.8, 16, 16]} if f not in ('up', 'down') else {})} for f in FACES}}]})
+# Industrial TNT ignites when broken; it must never also return an intact charge.
+write(os.path.join(D, 'ic2/loot_table/blocks/industrial_tnt.json'), {'type': 'minecraft:block', 'pools': []})
+
 # ---------- cables
 COLORS = ['black', 'red', 'green', 'brown', 'blue', 'purple', 'cyan', 'lightGray', 'gray', 'pink', 'lime', 'yellow', 'lightBlue', 'magenta', 'orange', 'white']
 CABLES = [('insulated_copper', 0, 'Cable', 6, True), ('copper', 1, 'CableO', 4, False), ('gold', 2, 'GoldCable', 3, False), ('insulated_gold', 3, 'GoldCableI', 6, True),
@@ -508,6 +511,7 @@ for blank in ('iron_turning_blank', 'wood_turning_blank'):
     write(os.path.join(A, 'models/item', blank + '.json'), {'parent': 'minecraft:builtin/entity', 'gui_light': 'front', 'textures': {'particle': 'ic2:item/' + blank}})
 for material in ('IRON', 'WOOD'):
     copy(os.path.join(OTEX, 'items/turnables', material + '.png'), os.path.join(A, 'textures/item/turnables', material.lower() + '.png'))
+copy(os.path.join(OTEX, 'gui/GUINuke.png'), os.path.join(A, 'textures/gui/guinuke.png'))
 gen_item('steam_turbine', 'itemSteamTurbine.png', 'itemSteamTurbine', ['itemSteamTurbine'])
 
 # ---------- recipes
