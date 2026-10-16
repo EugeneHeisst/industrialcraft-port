@@ -193,6 +193,66 @@ for name_, meta, tex, th, colorable in CABLES:
     write(os.path.join(A, 'blockstates', cid + '.json'), {'multipart': multipart})
     write(os.path.join(D, 'ic2/loot_table/blocks', cid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:' + cid}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
 
+# ---------- rubber tree
+for code in out_lang:
+    out_lang[code]['block.ic2.rubber_wood'] = name(code, 'blockRubWood', 'Rubber Wood')
+    out_lang[code]['block.ic2.rubber_leaves'] = name(code, 'blockRubLeaves', 'Rubber Leaves')
+    out_lang[code]['block.ic2.rubber_sapling'] = name(code, 'blockRubSapling', 'Rubber Sapling')
+    out_lang[code]['item.ic2.treetap'] = name(code, 'itemTreetap', 'Treetap')
+LEGACY.update({'blockRubWood': 'ic2:rubber_wood', 'blockRubLeaves': 'ic2:rubber_leaves', 'blockRubSapling': 'ic2:rubber_sapling', 'itemTreetap': 'ic2:treetap'})
+gen_item('treetap', 'itemTreetap.png', 'itemTreetap')
+variants = {}
+for hole, suffix in [('none', ''), ('wet', '.wet'), ('dry', '.dry')]:
+    img = Image.open(os.path.join(OTEX, 'blocks', 'blockRubWood' + suffix + '.png')).convert('RGBA')
+    tiles = [img.crop((i * img.height, 0, (i + 1) * img.height, img.height)) for i in range(6)]
+    for i, tile in enumerate(tiles):
+        path = os.path.join(A, 'textures/block/rubber_wood', f'{hole}_{i}.png'); os.makedirs(os.path.dirname(path), exist_ok=True); tile.save(path)
+    for facing in range(2, 6):
+        tex = {FACES[side]: f'ic2:block/rubber_wood/{hole}_{SIDE_MAP[facing][side]}' for side in range(6)}
+        tex['particle'] = tex['north']
+        mname = f'rubber_wood_{hole}_{FACES[facing]}'
+        write(os.path.join(A, 'models/block', mname + '.json'), {'parent': 'minecraft:block/cube', 'textures': tex})
+        variants[f'facing={FACES[facing]},hole={hole}'] = {'model': 'ic2:block/' + (mname if hole != 'none' else 'rubber_wood_none_north')}
+write(os.path.join(A, 'blockstates/rubber_wood.json'), {'variants': variants})
+write(os.path.join(A, 'models/item/rubber_wood.json'), {'parent': 'ic2:block/rubber_wood_none_north'})
+copy(os.path.join(OTEX, 'blocks/blockRubLeaves.png'), os.path.join(A, 'textures/block/rubber_leaves.png'))
+write(os.path.join(A, 'models/block/rubber_leaves.json'), {'parent': 'minecraft:block/leaves', 'textures': {'all': 'ic2:block/rubber_leaves'}})
+write(os.path.join(A, 'blockstates/rubber_leaves.json'), {'variants': {'': {'model': 'ic2:block/rubber_leaves'}}})
+write(os.path.join(A, 'models/item/rubber_leaves.json'), {'parent': 'ic2:block/rubber_leaves'})
+copy(os.path.join(OTEX, 'blocks/blockRubSapling.png'), os.path.join(A, 'textures/block/rubber_sapling.png'))
+write(os.path.join(A, 'models/block/rubber_sapling.json'), {'parent': 'minecraft:block/cross', 'render_type': 'minecraft:cutout', 'textures': {'cross': 'ic2:block/rubber_sapling'}})
+write(os.path.join(A, 'blockstates/rubber_sapling.json'), {'variants': {'': {'model': 'ic2:block/rubber_sapling'}}})
+write(os.path.join(A, 'models/item/rubber_sapling.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:block/rubber_sapling'}})
+def hole_pool(h):
+    return {'rolls': 1, 'conditions': [{'condition': 'minecraft:block_state_property', 'block': 'ic2:rubber_wood', 'properties': {'hole': h}}, {'condition': 'minecraft:random_chance', 'chance': 1 / 6}],
+            'entries': [{'type': 'minecraft:item', 'name': 'ic2:resin'}]}
+write(os.path.join(D, 'ic2/loot_table/blocks/rubber_wood.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:rubber_wood'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}, hole_pool('wet'), hole_pool('dry')]})
+shears = {'condition': 'minecraft:match_tool', 'predicate': {'items': 'minecraft:shears'}}
+write(os.path.join(D, 'ic2/loot_table/blocks/rubber_leaves.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:alternatives', 'children': [
+    {'type': 'minecraft:item', 'name': 'ic2:rubber_leaves', 'conditions': [shears]},
+    {'type': 'minecraft:item', 'name': 'ic2:rubber_sapling', 'conditions': [{'condition': 'minecraft:survives_explosion'}, {'condition': 'minecraft:random_chance', 'chance': 1 / 35}]}]}]}]})
+write(os.path.join(D, 'ic2/loot_table/blocks/rubber_sapling.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:rubber_sapling'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+for tag, e in [('minecraft:logs', 'ic2:rubber_wood'), ('minecraft:logs_that_burn', 'ic2:rubber_wood'), ('minecraft:mineable/axe', 'ic2:rubber_wood'), ('minecraft:leaves', 'ic2:rubber_leaves'),
+               ('minecraft:mineable/hoe', 'ic2:rubber_leaves'), ('minecraft:saplings', 'ic2:rubber_sapling')]:
+    add_tag(BLOCK_TAGS, tag, e)
+for tag, e in [('minecraft:logs', 'ic2:rubber_wood'), ('minecraft:logs_that_burn', 'ic2:rubber_wood'), ('minecraft:leaves', 'ic2:rubber_leaves'), ('minecraft:saplings', 'ic2:rubber_sapling'), ('c:rubber_woods', 'ic2:rubber_wood')]:
+    add_tag(ITEM_TAGS, tag, e)
+LEGACY['OreDict:woodRubber'] = 'ic2:rubber_wood'
+
+# ---------- world generation (original sea level 63 -> base height 64)
+WG = os.path.join(D, 'ic2/worldgen')
+ORES = [('tin_ore', 'ic2:tin_ore', 6, 25, 0, 39), ('uranium_ore', 'ic2:uranium_ore', 3, 20, 0, 63), ('lead_ore', 'ic2:lead_ore', 4, 8, 0, 63)]
+for fid, block_id, size, count, lo, hi in ORES:
+    write(os.path.join(WG, 'configured_feature', fid + '.json'), {'type': 'minecraft:ore', 'config': {'size': size, 'discard_chance_on_air_exposure': 0,
+        'targets': [{'target': {'predicate_type': 'minecraft:tag_match', 'tag': 'minecraft:stone_ore_replaceables'}, 'state': {'Name': block_id}}]}})
+    write(os.path.join(WG, 'placed_feature', fid + '.json'), {'feature': 'ic2:' + fid, 'placement': [{'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
+        {'type': 'minecraft:height_range', 'height': {'type': 'minecraft:uniform', 'min_inclusive': {'absolute': lo}, 'max_inclusive': {'absolute': hi}}}, {'type': 'minecraft:biome'}]})
+write(os.path.join(WG, 'configured_feature/rubber_tree.json'), {'type': 'ic2:rubber_tree', 'config': {}})
+write(os.path.join(WG, 'placed_feature/rubber_tree.json'), {'feature': 'ic2:rubber_tree', 'placement': [{'type': 'minecraft:biome'}]})
+write(os.path.join(D, 'ic2/neoforge/biome_modifier/ores.json'), {'type': 'neoforge:add_features', 'biomes': '#minecraft:is_overworld', 'features': ['ic2:' + o[0] for o in ORES], 'step': 'underground_ores'})
+write(os.path.join(D, 'ic2/neoforge/biome_modifier/rubber_tree.json'), {'type': 'neoforge:add_features', 'biomes': '#ic2:rubber_tree_biomes', 'features': 'ic2:rubber_tree', 'step': 'vegetal_decoration'})
+write(os.path.join(D, 'ic2/tags/worldgen/biome/rubber_tree_biomes.json'), {'values': [{'id': '#c:is_swamp', 'required': False}, '#minecraft:is_forest', '#minecraft:is_jungle']})
+
 # ---------- gui, sounds
 for f in os.listdir(os.path.join(OTEX, 'gui')):
     copy(os.path.join(OTEX, 'gui', f), os.path.join(A, 'textures/gui', f.lower()))

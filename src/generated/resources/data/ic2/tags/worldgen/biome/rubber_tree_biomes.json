@@ -1,0 +1,10 @@
+{
+  "values": [
+    {
+      "id": "#c:is_swamp",
+      "required": false
+    },
+    "#minecraft:is_forest",
+    "#minecraft:is_jungle"
+  ]
+}

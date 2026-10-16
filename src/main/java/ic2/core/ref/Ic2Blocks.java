@@ -29,6 +29,9 @@ public final class Ic2Blocks {
     public static final DeferredBlock<Block> REFINED_IRON_BLOCK = REGISTRY.register("refined_iron_block", () -> new Block(metal(5, 10)));
     public static final DeferredBlock<Block> REINFORCED_STONE = REGISTRY.register("reinforced_stone", () -> new Block(metal(80, 180)));
     public static final DeferredBlock<Block> BASALT = REGISTRY.register("basalt", () -> new Block(stone(20, 45)));
+    public static final DeferredBlock<ic2.core.block.rubber.BlockRubWood> RUBBER_WOOD = REGISTRY.register("rubber_wood", () -> new ic2.core.block.rubber.BlockRubWood(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1).sound(SoundType.WOOD).ignitedByLava()));
+    public static final DeferredBlock<ic2.core.block.rubber.BlockRubLeaves> RUBBER_LEAVES = REGISTRY.register("rubber_leaves", () -> new ic2.core.block.rubber.BlockRubLeaves(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2f).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn((s, l, p, e) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false).ignitedByLava().pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY).isRedstoneConductor((s, l, p) -> false)));
+    public static final DeferredBlock<ic2.core.block.rubber.BlockRubSapling> RUBBER_SAPLING = REGISTRY.register("rubber_sapling", () -> new ic2.core.block.rubber.BlockRubSapling(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)));
     public static final DeferredBlock<Block> MACHINE = REGISTRY.register("machine", () -> new Block(metal(2, 10)));
     public static final DeferredBlock<Block> ADVANCED_MACHINE = REGISTRY.register("advanced_machine", () -> new Block(metal(2, 10)));
 

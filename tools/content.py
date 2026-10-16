@@ -86,7 +86,6 @@ block('reinforced_stone', ['blockAlloy'], 'cube', tex='blockAlloy.png', tags=['m
 block('basalt', ['blockBasalt'], 'cube', tex='blockBasalt.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockBasalt')
 block('machine', ['blockMachine@0', 'blockMachine'], 'cube', tex='machine/blockMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockMachine')
 block('advanced_machine', ['blockMachine@12'], 'cube', tex='machine/blockAdvMachine.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockAdvMachine')
-block('reactor_vessel', ['blockreactorvessel'], 'cube', tex='reactor/blockreactorvessel.png', tags=['minecraft:mineable/pickaxe'], drop='self', lang='blockreactorvessel', sheet=True)
 
 # machines: id, legacy, texture sheet below textures/blocks, lang key, gui texture, drop when broken without wrench
 MACHINES = [
@@ -118,7 +117,7 @@ def oredict_tag(name):
     import re
     special = {'stickWood': 'c:rods/wooden', 'plankWood': 'minecraft:planks', 'logWood': 'minecraft:logs', 'treeLeaves': 'minecraft:leaves',
                'treeSapling': 'minecraft:saplings', 'slabWood': 'minecraft:wooden_slabs', 'stairWood': 'minecraft:wooden_stairs',
-               'itemRubber': 'c:rubbers', 'circuitBasic': 'c:circuits/basic', 'circuitAdvanced': 'c:circuits/advanced', 'itemResin': 'c:slimeballs/resin',
+               'itemRubber': 'c:rubbers', 'woodRubber': 'c:rubber_woods', 'circuitBasic': 'c:circuits/basic', 'circuitAdvanced': 'c:circuits/advanced', 'itemResin': 'c:slimeballs/resin',
                'blockGlass': 'c:glass_blocks', 'paneGlass': 'c:glass_panes', 'gemDiamond': 'c:gems/diamond', 'gemEmerald': 'c:gems/emerald', 'gemLapis': 'c:gems/lapis',
                'gemQuartz': 'c:gems/quartz', 'dustRedstone': 'c:dusts/redstone', 'dustGlowstone': 'c:dusts/glowstone', 'cropWheat': 'c:crops/wheat',
                'record': 'minecraft:creeper_drop_music_discs', 'dye': 'c:dyes', 'craftingToolForgeHammer': 'ic2:tools/forge_hammer', 'craftingToolWireCutter': 'ic2:tools/wire_cutter',

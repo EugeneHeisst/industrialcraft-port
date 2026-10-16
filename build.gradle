@@ -11,6 +11,7 @@ neoForge {
     runs {
         client { client(); gameDirectory = file('run'); programArguments.addAll '--width', '1280', '--height', '900' }
         server { server(); gameDirectory = file('run-server'); programArgument '--nogui' }
+        worldgen { server(); gameDirectory = file('run-wg'); programArgument '--nogui'; systemProperty 'ic2.audit', 'worldgen' }
         audit {
             client()
             gameDirectory = file('run-audit')

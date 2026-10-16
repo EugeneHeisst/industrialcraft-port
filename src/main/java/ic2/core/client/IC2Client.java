@@ -47,6 +47,17 @@ public final class IC2Client {
         });
     }
 
+    /** Rubber leaves use the constant birch foliage colour like the original. */
+    @SubscribeEvent
+    static void blockColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block event) {
+        event.register((state, level, pos, tint) -> net.minecraft.world.level.FoliageColor.getBirchColor(), ic2.core.ref.Ic2Blocks.RUBBER_LEAVES.get());
+    }
+
+    @SubscribeEvent
+    static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tint) -> net.minecraft.world.level.FoliageColor.getBirchColor(), ic2.core.ref.Ic2Blocks.RUBBER_LEAVES.get());
+    }
+
     @SubscribeEvent
     @SuppressWarnings({"unchecked", "rawtypes"})
     static void screens(RegisterMenuScreensEvent event) {

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/rubber_wood/none_0",
+    "up": "ic2:block/rubber_wood/none_1",
+    "north": "ic2:block/rubber_wood/none_5",
+    "south": "ic2:block/rubber_wood/none_3",
+    "west": "ic2:block/rubber_wood/none_2",
+    "east": "ic2:block/rubber_wood/none_4",
+    "particle": "ic2:block/rubber_wood/none_5"
+  }
+}

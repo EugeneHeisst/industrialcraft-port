@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=north,hole=none": {
+      "model": "ic2:block/rubber_wood_none_north"
+    },
+    "facing=south,hole=none": {
+      "model": "ic2:block/rubber_wood_none_north"
+    },
+    "facing=west,hole=none": {
+      "model": "ic2:block/rubber_wood_none_north"
+    },
+    "facing=east,hole=none": {
+      "model": "ic2:block/rubber_wood_none_north"
+    },
+    "facing=north,hole=wet": {
+      "model": "ic2:block/rubber_wood_wet_north"
+    },
+    "facing=south,hole=wet": {
+      "model": "ic2:block/rubber_wood_wet_south"
+    },
+    "facing=west,hole=wet": {
+      "model": "ic2:block/rubber_wood_wet_west"
+    },
+    "facing=east,hole=wet": {
+      "model": "ic2:block/rubber_wood_wet_east"
+    },
+    "facing=north,hole=dry": {
+      "model": "ic2:block/rubber_wood_dry_north"
+    },
+    "facing=south,hole=dry": {
+      "model": "ic2:block/rubber_wood_dry_south"
+    },
+    "facing=west,hole=dry": {
+      "model": "ic2:block/rubber_wood_dry_west"
+    },
+    "facing=east,hole=dry": {
+      "model": "ic2:block/rubber_wood_dry_east"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "feature": "ic2:rubber_tree",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

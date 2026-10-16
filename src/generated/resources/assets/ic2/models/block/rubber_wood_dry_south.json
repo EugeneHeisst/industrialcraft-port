@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ic2:block/rubber_wood/dry_0",
+    "up": "ic2:block/rubber_wood/dry_1",
+    "north": "ic2:block/rubber_wood/dry_5",
+    "south": "ic2:block/rubber_wood/dry_3",
+    "west": "ic2:block/rubber_wood/dry_2",
+    "east": "ic2:block/rubber_wood/dry_4",
+    "particle": "ic2:block/rubber_wood/dry_5"
+  }
+}

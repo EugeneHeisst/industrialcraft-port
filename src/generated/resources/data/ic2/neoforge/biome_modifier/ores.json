@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "ic2:tin_ore",
+    "ic2:uranium_ore",
+    "ic2:lead_ore"
+  ],
+  "step": "underground_ores"
+}

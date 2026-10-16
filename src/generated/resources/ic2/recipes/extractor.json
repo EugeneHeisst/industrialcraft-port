@@ -37,6 +37,18 @@
   },
   {
     "input": {
+      "item": "ic2:rubber_sapling",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:rubber",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "input": {
       "item": "ic2:resin",
       "count": 1
     },
@@ -68,6 +80,18 @@
       {
         "item": "minecraft:clay_ball",
         "count": 4
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:rubber_woods",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:rubber",
+        "count": 1
       }
     ]
   },

@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ic2:rubber_wood"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ic2:rubber_wood",
+          "properties": {
+            "hole": "wet"
+          }
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.16666666666666666
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ic2:resin"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ic2:rubber_wood",
+          "properties": {
+            "hole": "dry"
+          }
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.16666666666666666
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ic2:resin"
+        }
+      ]
+    }
+  ]
+}

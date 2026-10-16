@@ -75,6 +75,26 @@ public final class ServerAudit {
         level.setBlock(d.east(), ins.setValue(ic2.core.block.wiring.BlockCable.COLOR, 2), 3);
         level.setBlock(d.east(2), ins.setValue(ic2.core.block.wiring.BlockCable.COLOR, 5), 3);
         level.setBlock(d.east(3), facing(Ic2Blocks.MACERATOR.get().defaultBlockState(), Direction.NORTH), 3);
+        // 7: rubber tree on grass, treetap on its wet holes
+        BlockPos tree = base.offset(12, -1, 4);
+        level.setBlock(tree, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
+        boolean grown = ic2.core.world.WorldGenRubTree.grow(level, tree.above(), level.random);
+        int logs = 0, leaves = 0, wet = 0, resin = 0;
+        for (BlockPos p : BlockPos.betweenClosed(tree.offset(-2, 1, -2), tree.offset(2, 10, 2))) {
+            var s = level.getBlockState(p);
+            if (s.is(Ic2Blocks.RUBBER_WOOD.get())) {
+                logs++;
+                if (s.getValue(ic2.core.block.rubber.BlockRubWood.HOLE) == ic2.core.block.rubber.BlockRubWood.Hole.wet) {
+                    wet++;
+                    var drops = new ArrayList<ItemStack>();
+                    ic2.core.item.tool.ItemTreetap.attemptExtract(null, level, p.immutable(), s.getValue(ic2.core.block.rubber.BlockRubWood.FACING), drops);
+                    for (var dr : drops) resin += dr.getCount();
+                }
+            }
+            if (s.is(Ic2Blocks.RUBBER_LEAVES.get())) leaves++;
+        }
+        check("rubber tree grows", grown && logs >= 2 && leaves > 4, "logs=" + logs + " leaves=" + leaves + " wet=" + wet);
+        check("treetap extracts resin from wet holes", wet == 0 || resin >= wet, "resin=" + resin);
         tick = 0;
     }
 

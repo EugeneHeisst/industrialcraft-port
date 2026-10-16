@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "ic2:reactor_vessel"
+          "name": "ic2:rubber_sapling"
         }
       ],
       "conditions": [
