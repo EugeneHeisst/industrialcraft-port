@@ -117,6 +117,7 @@ MACHINES = [
     ('electric_kinetic_generator', 'blockKineticGenerator@2', 'kineticgenerator/blockElectricKineticGenerator.png', 'blockElectricKineticGenerator', 'GUIElectricKineticGenerator', 'machine'),
     ('manual_kinetic_generator', 'blockKineticGenerator@3', 'kineticgenerator/blockManualKineticGenerator.png', 'blockManualKineticGenerator', None, 'machine'),
     ('steam_generator', 'blockMachine3', 'machine/blockSteamGenerator.png', 'blockSteamGenerator', 'GUISteamGenerator', 'machine'),
+    ('adv_miner', 'blockMachine2@11', 'machine/blockAdvMiner.png', 'blockAdvMiner', 'GUIAdvMiner', 'advanced_machine'),
     ('lathe', 'blockMachine3@8', 'machine/blockLathe.png', 'blockLathe', 'GUILathe', 'machine'),
     ('stirling_kinetic_generator', 'blockKineticGenerator@5', 'kineticgenerator/blockStirlingKineticGenerator.png', 'blockStirlingKineticGenerator', 'GUIStirlingKineticGenerator', 'machine'),
     ('steam_kinetic_generator', 'blockKineticGenerator@1', 'kineticgenerator/blockSteamKineticGenerator.png', 'blockSteamKineticGenerator', 'GUISteamKineticGenerator', 'machine'),
