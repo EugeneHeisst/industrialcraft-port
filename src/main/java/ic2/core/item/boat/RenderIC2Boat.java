@@ -43,6 +43,9 @@ public class RenderIC2Boat extends EntityRenderer<EntityIC2Boat> {
         float hurt = boat.getHurtTime() - partialTick, damage = Math.max(0, boat.getDamage() - partialTick);
         if (hurt > 0) pose.mulPose(Axis.XP.rotationDegrees(Mth.sin(hurt) * hurt * damage / 10 * boat.getHurtDir()));
         pose.scale(-1, -1, 1);
+        // Both boat models are built along X; modern Boat steering and passengers face along Z.
+        // Match BoatRenderer's model rotation so the hull faces the direction its rider steers.
+        pose.mulPose(Axis.YP.rotationDegrees(90));
         model().render(pose, buffers.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(boat))), light, OverlayTexture.NO_OVERLAY);
         pose.popPose();
         super.render(boat, yaw, partialTick, pose, buffers, light);

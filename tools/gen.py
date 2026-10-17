@@ -271,7 +271,8 @@ for b in content.BLOCKS:
                 write(os.path.join(A, 'models/block', mname + '.json'), {'parent': 'ic2:block/chargepad_base' if bid.startswith('chargepad') else 'minecraft:block/cube', 'textures': tex})
                 variants[f'active={"true" if active else "false"},facing={FACES[facing]}'] = {'model': 'ic2:block/' + mname}
         write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': variants})
-        write(os.path.join(A, 'models/item', bid + '.json'), {'parent': f'ic2:block/{bid}_south'})
+        # The original south-facing front must face the GUI camera; the vanilla 225-degree view shows its back.
+        write(os.path.join(A, 'models/item', bid + '.json'), {'parent': f'ic2:block/{bid}_south', 'display': {'gui': {'rotation': [30, 45, 0], 'translation': [0, 0, 0], 'scale': [0.625, 0.625, 0.625]}}})
     drop = b.get('drop', 'self')
     drop_item = 'ic2:' + bid if drop == 'self' else 'ic2:' + drop
     write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': drop_item}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
@@ -406,7 +407,20 @@ for bid, tex, lang, reinforced in (('scaffold', 'blockScaffold', 'blockScaffold'
     copy(os.path.join(OTEX, 'blocks', tex + '.png'), os.path.join(A, 'textures/block', bid + '.png'))
     copy(os.path.join(OTEX, 'blocks', tex + '.reinforced.png'), os.path.join(A, 'textures/block', bid + '_reinforced.png'))
     for suffix in ('', '_reinforced'):
-        write(os.path.join(A, 'models/block', bid + suffix + '.json'), {'parent': 'minecraft:block/cube_all', 'render_type': 'minecraft:cutout', 'textures': {'all': 'ic2:block/' + bid + suffix}})
+        # BlockTextureStitched slices the original six-face horizontal strip into square sprites.
+        # BlockBase fixes scaffolds facing south (3), so keep its side-to-sprite mapping as well.
+        img = Image.open(os.path.join(OTEX, 'blocks', tex + ('.reinforced' if suffix else '') + '.png')).convert('RGBA')
+        size = img.height
+        if img.width != 6 * size: raise ValueError(f'Expected six scaffold faces: {tex}{suffix}: {img.size}')
+        textures = {}
+        for face, index in zip(FACES, SIDE_MAP[3]):
+            sprite = bid + suffix + '/' + face
+            path = os.path.join(A, 'textures/block', sprite + '.png')
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            img.crop((index * size, 0, (index + 1) * size, size)).save(path)
+            textures[face] = 'ic2:block/' + sprite
+        textures['particle'] = textures['north']
+        write(os.path.join(A, 'models/block', bid + suffix + '.json'), {'parent': 'minecraft:block/cube', 'render_type': 'minecraft:cutout', 'textures': textures})
     write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {f'strength={s}': {'model': 'ic2:block/' + bid + ('_reinforced' if s == reinforced else '')} for s in range(13)}})
     write(os.path.join(A, 'models/item', bid + '.json'), {'parent': 'ic2:block/' + bid})
     self_loot(bid)

@@ -1,7 +1,13 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "ic2:block/scaffold"
+    "down": "ic2:block/scaffold/down",
+    "up": "ic2:block/scaffold/up",
+    "north": "ic2:block/scaffold/north",
+    "south": "ic2:block/scaffold/south",
+    "west": "ic2:block/scaffold/west",
+    "east": "ic2:block/scaffold/east",
+    "particle": "ic2:block/scaffold/north"
   }
 }

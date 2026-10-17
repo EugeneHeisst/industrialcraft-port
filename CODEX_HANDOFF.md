@@ -197,3 +197,18 @@ Branch codex/fall-absorption, worktree ~/Project/codex-reviews/industrialcraft2-
 - Energy injection and signed source draw in ElectricMachine/ElectricBlock mark persistent state dirty. ASPnativeaudit separates receiver/sourcechunks to expose missingdirtycalls.
 - Liquid slot now drains at most tankacceptance, preserving partialcontainer and customdata. Seven actualbottler/capability cases:30Bjetpack→8Btank, final1mB, simulation/customname, blockedoutput/fulltank/mixing/atomicvanillabucket. Three initialfailures reproduced; final388/388.
 - JAR/build/SHA/server/baseline logs versions/0.1.24 in isolatedworktree. No push/release/install. IC2pendingoriginalparity queue: ~/Project/compat-test/IC2_REVIEW_NEXT.md.
+
+
+## Visual fixes — 0.1.27, 2026-10-17
+
+User screenshots identified three IC2 visual defects. All fixed in this version:
+
+- 77 machine item models inherited vanilla GUI rotation `[30,225,0]`, hiding their SOUTH front. Explicit GUI rotation `[30,45,0]` exposes the front, keeping the top, scale, world-facing blockstates and other display contexts unchanged. `tools/gen.py` preserves the override.
+- Four scaffold variants mapped a complete 96x16 six-face strip onto every cube face. The generator now crops 24 original 16x16 sprites and uses the original SOUTH-facing side mapping `[0,1,5,3,2,4]`; all crop pixels match their reference exactly. Normal/reinforced wood/iron states are covered.
+- The old X-axis boat mesh lacked modern BoatRenderer's final 90-degree Y rotation. Added that renderer transform; entity steering, seat and physics remain unchanged. All three hulls now align with player/movement yaw.
+
+Native hidden silent client completed: `ModelVisualAudit` 41/41 (12 actual renderer vertex checks,24 actual baked scaffold faces,5 GUI front normals); `VisualGalleryScreen` 25/25 (actual item/block rendering and screenshot pixels); existing 8 JEI pages and 3 boat gameplay assertions passed, no ERROR/FAIL in the native client log. World scaffold, third-person ridden boat and GUI gallery screenshots visually inspected. JAR, SHA256, build/client logs and those screenshots archived under `versions/0.1.27/`. Companion ASP 0.1.4 fixes invisible hybrid/ultimate helmet item colors with a failing-before/passing-after32-check pixel audit.
+
+This is a new local visual batch. Earlier IC2 0.1.26 / ASP 0.1.3 / EMT 0.1.11 / Gravi 0.1.6 / TC4 0.17.178 are already published and installed on production+Prism (Claude manifest `../compat-test/CLAUDE_DEPLOY_STATE.json`); repositories are PUBLIC. The new IC2/ASP builds have not yet been installed or published. Do not overwrite a JAR used by the player's running Prism JVM. User review is required before GitHub push/release; every release note must state that no human has tested the version in-game.
+
+Новый набор IC2 0.1.27 / ASP 0.1.4 вместе с полным набором модов прошёл выделенный сервер совместимости 29/29 и скрытый клиент с JEI 14/14, без ERROR/FAIL. Журналы приложены к архиву этой версии.

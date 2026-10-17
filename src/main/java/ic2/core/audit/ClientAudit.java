@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.BlockPos;
@@ -34,6 +35,7 @@ public final class ClientAudit {
     private static BlockPos origin;
     private static int boatId, lavaBoatId;
     private static double boatX;
+    private static CameraType previousCamera;
     private static final List<BlockPos> guis = new ArrayList<>();
     private ClientAudit() {}
 
@@ -133,6 +135,7 @@ public final class ClientAudit {
             int slot = 0;
             for (var item : Ic2Items.REGISTRY.getEntries()) if (slot < 36) player.getInventory().setItem(slot++, new ItemStack(item.get()));
         });
+        if (tick == 90) ModelVisualAudit.run(mc);
         if (tick == 125 - 1) shot(mc, "blocks.png");
         if (tick == 100) server.execute(() -> { var pl = server.getPlayerList().getPlayers().get(0); pl.teleportTo(server.overworld(), origin.getX() + .5, origin.getY() + 1.5, origin.getZ() - 8.5, 0, 25); });
         if (tick == 115) shot(mc, "cables.png");
@@ -252,7 +255,9 @@ public final class ClientAudit {
             double speed=(boat.getX()-boatX)/20;double eu=ic2.api.item.ElectricItem.manager.getCharge(pl.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET));
             ic2.core.IC2.LOG.info("[client-audit] {} electric boat with charged armour: {} blocks/tick, armour EU {}", speed>0.45&&eu<10000?"PASS":"FAIL",speed,eu);
         });
+        if (tick == end + 300) { previousCamera = mc.options.getCameraType(); mc.options.setCameraType(CameraType.THIRD_PERSON_BACK); }
         if (tick == end + 312) shot(mc,"electric_boat.png");
+        if (tick == end + 314) mc.options.setCameraType(previousCamera);
         if (tick == end + 318) { mc.options.keyUp.setDown(false); server.execute(() -> {
             var l=server.overworld();var f=origin.offset(-40,0,-40);var pl=server.getPlayerList().getPlayers().get(0);
             pl.stopRiding();var old=l.getEntity(boatId);if(old!=null)old.discard();
@@ -302,6 +307,22 @@ public final class ClientAudit {
             if ((tick - end - 432) % 12 == 10) shot(mc, "jei_" + jeiPages[jp] + ".png");
             if ((tick - end - 432) % 12 == 11) mc.setScreen(null);
         }
-        if (tick >= end + (jei ? 432 + jeiPages.length * 12 + 2 : 430)) mc.stop();
+        int visualStart = end + (jei ? 432 + jeiPages.length * 12 + 2 : 430);
+        if (tick == visualStart) server.execute(() -> {
+            var level = server.overworld(); var player = server.getPlayerList().getPlayers().get(0);
+            var f = origin.offset(-20, 0, -75);
+            for (var p : BlockPos.betweenClosed(f.offset(-3, -1, -5), f.offset(10, 4, 3)))
+                level.setBlock(p, p.getY() < f.getY() ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState(), 3);
+            var strength = ic2.core.block.misc.BlockScaffold.STRENGTH;
+            var states = List.of(Ic2Blocks.SCAFFOLD.get().defaultBlockState().setValue(strength, 2),
+                Ic2Blocks.SCAFFOLD.get().defaultBlockState().setValue(strength, 5),
+                Ic2Blocks.IRON_SCAFFOLD.get().defaultBlockState().setValue(strength, 5),
+                Ic2Blocks.IRON_SCAFFOLD.get().defaultBlockState().setValue(strength, 12));
+            for (int i = 0; i < states.size(); i++) level.setBlock(f.east(i * 2), states.get(i), 3);
+            player.teleportTo(level, f.getX() + 3.5, f.getY() + 1.4, f.getZ() - 4, 0, 17);
+        });
+        if (tick == visualStart + 20) shot(mc, "scaffolds.png");
+        if (tick == visualStart + 22) VisualGalleryScreen.open(mc);
+        if (tick >= visualStart + 40) { VisualGalleryScreen.finish(); mc.stop(); }
     }
 }
