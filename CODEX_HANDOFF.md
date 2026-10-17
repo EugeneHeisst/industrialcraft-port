@@ -180,3 +180,10 @@ Build passed. ASP 0.1.0 + IC2 0.1.18 dedicated server: 53/53 checks, real EU tra
 ## 0.1.20 — ores in high terrain
 
 Each IC2 ore now also has a sparse upper layer (`<ore>_upper` placed features, triangular 64..320, same two-target configured feature): tin 10 veins, uranium 3, lead 4 per chunk, so mountains above sea level hold IC2 ore like vanilla iron/copper. Lower layer unchanged. `-Dic2.audit=worldgen` (`./gradlew runWorldgen`, fresh world, seed ic2audit) now reports 32-block bands across the whole height and checks the nearest mountain biome: all three ores found at y >= 64 (PASS), deepslate checks still PASS. Old test world kept as run-wg/world.before-upper-ores. Artifacts in versions/0.1.20.
+
+
+## Codex 2026-10-17 — 0.1.23, charged shears before approved deployment
+
+Chainsaw SHEARS_DIG now requires enabled shearing and one full operation of EU. Other native shears abilities are no longer advertised without an EU-paying implementation. Empty sheep interaction returns PASS; charging from worn armor remains supported. Added real native leaf/shee/pumpkin tests for every registered chainsaw subtype. Standalone server363/363 passed; final jar archived versions/0.1.23. Combined full-pack server29/29 and client14/14 passed with the new set. Combined IC2 audit also covers Gravi's inherited chainsaw.
+
+User explicitly approved both GitHub releases and installation in latest Claude history ("Оба"); Codex continues that authorized release/deploy work. The earlier no-publish/no-install handoff condition was satisfied by this separate approval. Latest release/install state will be in ../CLAUDE_CONTINUE_PORTS.md.

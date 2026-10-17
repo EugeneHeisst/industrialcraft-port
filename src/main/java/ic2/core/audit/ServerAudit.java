@@ -51,6 +51,66 @@ public final class ServerAudit {
 
     private static BlockState facing(BlockState s, Direction d) { return s.setValue(BlockTileEntity.FACING, d); }
 
+    /** Real player breaking/interaction paths, including any addon that subclasses the IC2 chainsaw. */
+    private static void chainsaws(ServerLevel level) {
+        var player = net.neoforged.neoforge.common.util.FakePlayerFactory.getMinecraft(level);
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.getInventory().clearContent();
+        player.getInventory().selected = 0;
+        for (var slot : net.minecraft.world.entity.EquipmentSlot.values()) player.setItemSlot(slot, ItemStack.EMPTY);
+        BlockPos pos = base.offset(-8, 0, 8);
+        player.moveTo(pos.getX() - 1.5, pos.getY(), pos.getZ() + .5);
+        var box = new net.minecraft.world.phys.AABB(pos).inflate(4);
+        for (var item : net.minecraft.core.registries.BuiltInRegistries.ITEM) {
+            if (!(item instanceof ic2.core.item.tool.ItemElectricToolChainsaw saw)) continue;
+            String name = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString();
+            for (int mode = 0; mode < 4; mode++) {
+                // No charge, insufficient charge, last full operation, and disabled shearing respectively.
+                ItemStack stack = new ItemStack(item);
+                double initial = mode == 0 ? 0 : mode == 1 ? saw.operationEnergyCost - 1 : saw.operationEnergyCost;
+                ElectricItem.manager.charge(stack, initial, Integer.MAX_VALUE, true, false);
+                if (mode == 3) net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, t -> t.putBoolean("disableShear", true));
+                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+                level.setBlock(pos, Blocks.OAK_LEAVES.defaultBlockState().setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT, true), 3);
+                level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, box).forEach(net.minecraft.world.entity.Entity::discard);
+                player.gameMode.destroyBlock(pos);
+                int leaves = level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, box).stream()
+                    .filter(e -> e.getItem().is(Items.OAK_LEAVES)).mapToInt(e -> e.getItem().getCount()).sum();
+                double left = ElectricItem.manager.getCharge(stack);
+                check(name + " leaf shearing " + new String[]{"empty", "insufficient", "last charge", "disabled"}[mode],
+                    level.getBlockState(pos).isAir() && leaves == (mode == 2 ? 1 : 0) && left == (mode < 2 ? initial : 0), "leaves=" + leaves + " EU=" + left);
+                level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, box).forEach(net.minecraft.world.entity.Entity::discard);
+            }
+            for (int mode = 0; mode < 3; mode++) {
+                ItemStack stack = new ItemStack(item);
+                if (mode > 0) ElectricItem.manager.charge(stack, saw.operationEnergyCost, Integer.MAX_VALUE, true, false);
+                if (mode == 2) net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, t -> t.putBoolean("disableShear", true));
+                var sheep = net.minecraft.world.entity.EntityType.SHEEP.create(level);
+                sheep.moveTo(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
+                sheep.setNoAi(true);
+                level.addFreshEntity(sheep);
+                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+                var result = item.interactLivingEntity(stack, player, sheep, net.minecraft.world.InteractionHand.MAIN_HAND);
+                check(name + " sheep shearing " + new String[]{"empty", "charged", "disabled"}[mode],
+                    sheep.isSheared() == (mode == 1) && result.consumesAction() == (mode == 1)
+                        && ElectricItem.manager.getCharge(stack) == (mode == 2 ? saw.operationEnergyCost : 0), "sheared=" + sheep.isSheared() + " result=" + result);
+                sheep.discard();
+                level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, box).forEach(net.minecraft.world.entity.Entity::discard);
+            }
+            ItemStack stack = saw.getItemStack(saw.operationEnergyCost * 3);
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+            level.setBlock(pos, Blocks.PUMPKIN.defaultBlockState(), 3);
+            player.gameMode.useItemOn(player, level, stack, net.minecraft.world.InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(pos), Direction.NORTH, pos, false));
+            check(name + " does not advertise free native shears actions", level.getBlockState(pos).is(Blocks.PUMPKIN)
+                && ElectricItem.manager.getCharge(stack) == saw.operationEnergyCost * 3
+                && net.neoforged.neoforge.common.ItemAbilities.DEFAULT_SHEARS_ACTIONS.stream()
+                    .filter(a -> a != net.neoforged.neoforge.common.ItemAbilities.SHEARS_DIG).noneMatch(stack::canPerformAction), level.getBlockState(pos));
+            level.removeBlock(pos, false);
+        }
+        player.getInventory().clearContent();
+    }
+
     @SubscribeEvent
     static void started(ServerStartedEvent event) {
         if (!ENABLED) return;
@@ -216,6 +276,7 @@ public final class ServerAudit {
         check("mining drill", drill.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 8 && drill.isCorrectToolForDrops(Blocks.IRON_ORE.defaultBlockState()) && !drill.isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState()), "speed=" + drill.getDestroySpeed(Blocks.STONE.defaultBlockState()));
         var ddrill = Ic2Items.DIAMOND_DRILL.get().getItemStack(Double.POSITIVE_INFINITY);
         check("diamond drill", ddrill.getDestroySpeed(Blocks.STONE.defaultBlockState()) == 16 && ddrill.isCorrectToolForDrops(Blocks.OBSIDIAN.defaultBlockState()), "");
+        chainsaws(level);
         var empty = new ItemStack(Ic2Items.MINING_DRILL.get());
         var lapRecipe = level.getRecipeManager().byKey(ic2.core.IC2.id("lapotron_crystal")).orElse(null);
         if (lapRecipe == null) check("lapotron recipe present", false, "");

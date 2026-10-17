@@ -59,8 +59,9 @@ public class ItemElectricToolChainsaw extends ItemElectricTool {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         if (target instanceof IShearable shearable && !shearDisabled(stack) && shearable.isShearable(player, stack, target.level(), target.blockPosition())) {
-            if (!player.level().isClientSide && ElectricItem.manager.use(stack, operationEnergyCost, player))
-                for (ItemStack drop : shearable.onSheared(player, stack, target.level(), target.blockPosition())) target.spawnAtLocation(drop, 1);
+            if (player.level().isClientSide) return ElectricItem.manager.canUse(stack, operationEnergyCost) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            if (!ElectricItem.manager.use(stack, operationEnergyCost, player)) return InteractionResult.PASS;
+            for (ItemStack drop : shearable.onSheared(player, stack, target.level(), target.blockPosition())) target.spawnAtLocation(drop, 1);
             return InteractionResult.sidedSuccess(player.level().isClientSide);
         }
         return InteractionResult.PASS;
@@ -68,7 +69,10 @@ public class ItemElectricToolChainsaw extends ItemElectricTool {
 
     @Override
     public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility ability) {
-        if (shearDisabled(stack) && ability == net.neoforged.neoforge.common.ItemAbilities.SHEARS_DIG) return false;
+        // Native shears block loot reads this from the pre-operation tool copy, so the last full charge still works.
+        // Other shears actions (pumpkin carving, tripwire, wolf armour...) have no EU-paying implementation here.
+        if (net.neoforged.neoforge.common.ItemAbilities.DEFAULT_SHEARS_ACTIONS.contains(ability))
+            return ability == net.neoforged.neoforge.common.ItemAbilities.SHEARS_DIG && !shearDisabled(stack) && ElectricItem.manager.canUse(stack, operationEnergyCost);
         return super.canPerformAction(stack, ability);
     }
 }
