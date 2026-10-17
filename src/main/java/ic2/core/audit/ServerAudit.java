@@ -639,6 +639,7 @@ public final class ServerAudit {
         if (tick == 708) ThermalFluidsAudit.run(level, base.offset(0, 0, -32), ServerAudit::check);
         if (tick == 709) { SteamAudit.run(level, base.offset(0, 0, -48), ServerAudit::check); LatheStirlingAudit.run(level, base.offset(0, 0, -64), ServerAudit::check); AdvMinerAudit.run(level, base.offset(0, 0, -100), ServerAudit::check); ExplosivesAudit.run(level, base.offset(0, 0, -136), ServerAudit::check); UtilityAudit.run(level, base.offset(0, 0, -160), ServerAudit::check); ChargingBatteryAudit.run(level, ServerAudit::check); FoamAudit.run(level, base.offset(0, 0, -184), ServerAudit::check); DynamiteAudit.run(level, base.offset(0, 0, -208), ServerAudit::check); PersonalAudit.run(level, base.offset(0, 0, -232), ServerAudit::check); BoozeAudit.run(level, base.offset(0, 0, -244), ServerAudit::check); BoatAudit.run(level, base.offset(0, 0, -258), ServerAudit::check); RightClickChargeAudit.run(level, ServerAudit::check); HoeEventAudit.run(level, base.offset(0, 0, -290), ServerAudit::check); ObscuratorAudit.run(level, base.offset(0, 0, -270), ServerAudit::check); }
         if (tick == 709) FallArmorAudit.run(level, base.offset(32, 0, 48), ServerAudit::check);
+        if (tick == 709) ArmorMathAudit.run(level, base.offset(32, 0, 64), ServerAudit::check);
         if (tick == 710) {
             IC2.LOG.info("[audit] DONE {} checks, {} failed", results.size(), results.stream().filter(s -> s.startsWith("FAIL")).count());
             server.halt(false);

@@ -63,20 +63,102 @@ public final class ArmorEvents {
             }
         }
         if (source.is(DamageTypeTags.BYPASSES_ARMOR)) return;
-        double absorbed = 0;
-        for (EquipmentSlot slot : ARMOR) {
-            ItemStack stack = entity.getItemBySlot(slot);
+        // Original IC2 ItemArmorElectric.getProperties -> ArmorProperties(0, base x ratio, int(25 x charge / energyPerDamage)),
+        // applied together by Forge 1.7.10 ApplyArmor; damageArmor pays the integer damage points x energyPerDamage.
+        java.util.List<Props> list = new java.util.ArrayList<>();
+        for (int x = 0; x < ARMOR.length; x++) {
+            ItemStack stack = entity.getItemBySlot(ARMOR[x]);
             if (!(stack.getItem() instanceof ItemArmorElectric armor)) continue;
-            double ratio = armor.getBaseAbsorptionRatio() * armor.getDamageAbsorptionRatio();
-            if (ratio <= 0) continue;
             int perDamage = armor.getEnergyPerDamage();
-            double limit = perDamage > 0 ? 25 * ElectricItem.manager.getCharge(stack) / perDamage / 25 : Double.MAX_VALUE;
-            double part = Math.min(damage * ratio, limit);
-            if (part <= 0) continue;
-            absorbed += part;
-            ElectricItem.manager.discharge(stack, Math.max(1, Math.round(part)) * (double)perDamage, Integer.MAX_VALUE, true, false, false);
+            int max = perDamage > 0 ? (int)Math.min(Integer.MAX_VALUE, 25 * ElectricItem.manager.getCharge(stack) / perDamage) : Integer.MAX_VALUE;
+            list.add(new Props(0, armor.getBaseAbsorptionRatio() * armor.getDamageAbsorptionRatio(), max, x));
         }
-        if (absorbed > 0) event.setAmount((float)Math.max(0, damage - absorbed));
+        if (list.isEmpty()) return;
+        double scaled = damage * 25d;
+        Props[] props = list.toArray(new Props[0]);
+        standardize(props, scaled);
+        int level = props[0].priority;
+        double ratio = 0;
+        for (Props prop : props) {
+            if (level != prop.priority) { scaled -= scaled * ratio; ratio = 0; level = prop.priority; }
+            ratio += prop.ratio;
+            double absorb = scaled * prop.ratio;
+            if (absorb > 0) {
+                ItemStack stack = entity.getItemBySlot(ARMOR[prop.slot]);
+                int itemDamage = (int)(absorb / 25d < 1 ? 1 : absorb / 25d);
+                ElectricItem.manager.discharge(stack, itemDamage * (double)((ItemArmorElectric)stack.getItem()).getEnergyPerDamage(), Integer.MAX_VALUE, true, false, false);
+            }
+        }
+        scaled -= scaled * ratio;
+        event.setAmount((float)Math.max(0, scaled / 25d));
+    }
+
+    /** Forge 1.7.10 ISpecialArmor.ArmorProperties (Priority, AbsorbRatio, AbsorbMax on the 25-scale, Slot) and its ordering. */
+    private static final class Props implements Comparable<Props> {
+        final int priority, slot;
+        double ratio;
+        int max;
+        Props(int priority, double ratio, int max, int slot) { this.priority = priority; this.ratio = ratio; this.max = max; this.slot = slot; }
+        @Override public int compareTo(Props o) {
+            if (o.priority != priority) return o.priority - priority;
+            double left = ratio == 0 ? 0 : max * 100.0 / ratio, right = o.ratio == 0 ? 0 : o.max * 100.0 / o.ratio;
+            return (int)(left - right);
+        }
+    }
+
+    /** Forge 1.7.10 ArmorProperties.StandardizeList, verbatim: normalises a priority whose ratios exceed 1 and caps each by AbsorbMax. */
+    private static void standardize(Props[] armor, double damage) {
+        java.util.Arrays.sort(armor);
+        int start = 0, priority = armor[0].priority, pStart = 0;
+        double total = 0;
+        boolean pChange = false, pFinished = false;
+        for (int x = 0; x < armor.length; x++) {
+            total += armor[x].ratio;
+            if (x == armor.length - 1 || armor[x].priority != priority) {
+                if (armor[x].priority != priority) { total -= armor[x].ratio; x--; pChange = true; }
+                if (total > 1) {
+                    for (int y = start; y <= x; y++) {
+                        double newRatio = armor[y].ratio / total;
+                        if (newRatio * damage > armor[y].max) {
+                            armor[y].ratio = (double)armor[y].max / damage;
+                            total = 0;
+                            for (int z = pStart; z <= y; z++) total += armor[z].ratio;
+                            start = y + 1;
+                            x = y;
+                            break;
+                        } else {
+                            armor[y].ratio = newRatio;
+                            pFinished = true;
+                        }
+                    }
+                    if (pChange && pFinished) {
+                        damage -= damage * total;
+                        total = 0;
+                        start = x + 1;
+                        priority = armor[start].priority;
+                        pStart = start;
+                        pChange = false;
+                        pFinished = false;
+                        if (damage <= 0) { for (int y = x + 1; y < armor.length; y++) armor[y].ratio = 0; break; }
+                    }
+                } else {
+                    for (int y = start; y <= x; y++) {
+                        total -= armor[y].ratio;
+                        if (damage * armor[y].ratio > armor[y].max) armor[y].ratio = (double)armor[y].max / damage;
+                        total += armor[y].ratio;
+                    }
+                    damage -= damage * total;
+                    total = 0;
+                    if (x != armor.length - 1) {
+                        start = x + 1;
+                        priority = armor[start].priority;
+                        pStart = start;
+                        pChange = false;
+                        if (damage <= 0) { for (int y = x + 1; y < armor.length; y++) armor[y].ratio = 0; break; }
+                    }
+                }
+            }
+        }
     }
 
     /** Forge1.7 special armor used an integer25-scale absorption budget, then floor/minimum-one damage payment. */
