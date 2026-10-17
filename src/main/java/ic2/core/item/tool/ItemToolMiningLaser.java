@@ -52,9 +52,12 @@ public class ItemToolMiningLaser extends ItemElectricTool {
             int next = (mode + 1) % 7;
             CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> t.putInt("laserSetting", next));
             player.displayClientMessage(Component.translatable("ic2.tooltip.mode", modeName(next)), false);
+            super.use(level, player, hand);
             return InteractionResultHolder.success(stack);
         }
-        if (mode == 3 || !ElectricItem.manager.use(stack, COST[mode], player)) return InteractionResultHolder.pass(stack);
+        // original: mode 3 consumes 0 (it fires from onItemUseFirst) and still reaches super; a failed payment returns before super
+        if (mode == 3) return super.use(level, player, hand);
+        if (!ElectricItem.manager.use(stack, COST[mode], player)) return InteractionResultHolder.pass(stack);
         float yaw = player.getYRot(), pitch = player.getXRot();
         switch (mode) {
             case 0 -> { if (shoot(level, player, stack, Float.POSITIVE_INFINITY, 5, Integer.MAX_VALUE, false, false, yaw, pitch)) sound(player, Ic2Sounds.LASER); }
@@ -68,6 +71,7 @@ public class ItemToolMiningLaser extends ItemElectricTool {
             case 6 -> { if (shoot(level, player, stack, Float.POSITIVE_INFINITY, 12, Integer.MAX_VALUE, true, false, yaw, pitch)) sound(player, Ic2Sounds.LASER_EXPLOSIVE); }
             default -> {}
         }
+        super.use(level, player, hand);
         return InteractionResultHolder.success(stack);
     }
 

@@ -77,7 +77,7 @@ public class ItemNanoSaber extends ItemElectricTool {
             if (isActive(stack)) setActive(stack, false);
             else if (ElectricItem.manager.canUse(stack, 16)) setActive(stack, true);
         }
-        return InteractionResultHolder.pass(stack);
+        return super.use(level, player, hand);
     }
 
     @Override

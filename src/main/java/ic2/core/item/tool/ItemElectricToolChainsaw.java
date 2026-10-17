@@ -40,7 +40,7 @@ public class ItemElectricToolChainsaw extends ItemElectricTool {
             CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putBoolean("disableShear", disable));
             player.displayClientMessage(Component.translatable("ic2.tooltip.mode", Component.translatable(disable ? "ic2.tooltip.mode.noShear" : "ic2.tooltip.mode.normal")), false);
         }
-        return InteractionResultHolder.pass(stack);
+        return super.use(level, player, hand);
     }
 
     @Override

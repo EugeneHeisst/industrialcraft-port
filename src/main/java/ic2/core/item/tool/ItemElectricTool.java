@@ -11,6 +11,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -95,6 +98,17 @@ public abstract class ItemElectricTool extends Item implements IElectricItem {
             else ElectricItem.manager.discharge(stack, getEnergyCost(stack), tier, true, false, false);
         }
         return true;
+    }
+
+    /**
+     * Original onItemRightClick / onItemUse: ElectricItem.manager.use(stack, 0, player) tops the tool up from charging armour
+     * (batpack, lappack) without spending EU. Overrides that kept super in the original return super.use(...).
+     */
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!level.isClientSide) ElectricItem.manager.use(stack, 0, player);
+        return InteractionResultHolder.pass(stack);
     }
 
     @Override public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) { return true; }

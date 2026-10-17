@@ -57,7 +57,7 @@ public class ItemDrill extends ItemElectricTool {
             EnchantmentHelper.setEnchantments(stack, mutable.toImmutable());
             player.displayClientMessage(Component.translatable("ic2.tooltip.mode", Component.translatable(silk ? "ic2.tooltip.mode.normal" : "ic2.tooltip.mode.silkTouch")), false);
         }
-        return InteractionResultHolder.pass(stack);
+        return super.use(level, player, hand);
     }
 
     /** The iridium drill always carries fortune III (the original set it when the stack was created). */
