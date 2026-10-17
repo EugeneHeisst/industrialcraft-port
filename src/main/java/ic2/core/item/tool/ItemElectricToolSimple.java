@@ -43,9 +43,16 @@ public class ItemElectricToolSimple extends ItemElectricTool {
             return InteractionResult.PASS;
         }
         if (ctx.getClickedFace() != net.minecraft.core.Direction.DOWN && level.isEmptyBlock(pos.above()) && (state.is(Blocks.MYCELIUM) || state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.DIRT))) {
+            // original: canPlayerEdit, then the cancellable UseHoeEvent. Modern equivalent: the native HOE_TILL tool-modification
+            // event, fired once; a listener can cancel (protection) or replace the result. Without a change IC2 tills to farmland,
+            // including mycelium, which vanilla's own tilling table does not cover.
+            if (ctx.getPlayer() != null && !ctx.getPlayer().mayUseItemAt(pos, ctx.getClickedFace(), stack)) return InteractionResult.PASS;
+            BlockState result = net.neoforged.neoforge.event.EventHooks.onToolUse(state, ctx, net.neoforged.neoforge.common.ItemAbilities.HOE_TILL, false);
+            if (result == null) return InteractionResult.PASS;
+            if (result == state) result = Blocks.FARMLAND.defaultBlockState();
             level.playSound(ctx.getPlayer(), pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1, 1);
             if (!level.isClientSide) {
-                level.setBlock(pos, Blocks.FARMLAND.defaultBlockState(), 11);
+                level.setBlock(pos, result, 11);
                 ElectricItem.manager.use(stack, operationEnergyCost, ctx.getPlayer());
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
