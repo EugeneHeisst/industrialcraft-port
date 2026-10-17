@@ -44,7 +44,50 @@ public final class UtilityAudit {
         jet.filltank(stack);actor.setPos(p.getX(),100,p.getZ());Keyboard.processKeyUpdate(actor,(1<<Keyboard.Key.jump.ordinal())|(1<<Keyboard.Key.modeSwitch.ordinal()));jet.onArmorTick(l,actor,stack);check.test("fuel jetpack mode key persists hover with debounce",stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA).copyTag().getBoolean("hoverMode"),"mode key");Keyboard.processKeyUpdate(actor,0);
         var electric=Ic2Items.ELECTRIC_JETPACK.get();var electricStack=electric.charged();actor.setItemSlot(EquipmentSlot.CHEST,electricStack);electric.useJetpack(actor,false);check.test("electric jetpack original eight EU flight cost",ElectricItem.manager.getCharge(electricStack)==29992,ElectricItem.manager.getCharge(electricStack));electric.useJetpack(actor,true);check.test("electric jetpack original seven EU hover cost",ElectricItem.manager.getCharge(electricStack)==29985,ElectricItem.manager.getCharge(electricStack));actor.getInventory().clearContent();
         var bpos=p.east(4);l.setBlock(bpos,Ic2Blocks.FLUID_BOTTLER.get().defaultBlockState(),3);var bottler=(TileEntityFluidBottler)l.getBlockEntity(bpos);bottler.fill(new FluidStack(Ic2Fluids.BIOGAS.get(),8000),FluidAction.EXECUTE);bottler.fillInputSlot.put(new ItemStack(jet));var out=bottler.getOutput();if(out!=null)bottler.operateOnce(out,out.items);check.test("actual fluid bottler refuels jetpack without loss",out!=null&&jet.getFluid(bottler.outputSlot.get()).getAmount()==8000&&bottler.getFluidInTank(0).isEmpty()&&bottler.fillInputSlot.isEmpty(),bottler.outputSlot.get());
+        partialBottler(l,bottler,jet,check);
         var sp=p.east(7);l.setBlock(sp,Ic2Blocks.STIRLING_KINETIC_GENERATOR.get().defaultBlockState(),3);var stirling=(TileEntityStirlingKineticGenerator)l.getBlockEntity(sp);var port=l.getCapability(Capabilities.FluidHandler.BLOCK,sp,Direction.EAST);check.test("Stirling external fluid capability is registered",port!=null&&port.fill(new FluidStack(Fluids.WATER,100),FluidAction.EXECUTE)==100,port==null?"null":stirling.inputTank.getFluidAmount());stirling.heatbuffer=40;stirling.work();check.test("Stirling external port drains heated output only",port!=null&&port.drain(100,FluidAction.EXECUTE).is(Ic2Fluids.HOT_WATER.get())&&stirling.inputTank.getFluidAmount()==90,stirling.inputTank.getFluidAmount());
         boolean recipes=true;for(var item:new Item[]{Ic2Blocks.LUMINATOR.get().asItem(),jet,Ic2Items.NIGHTVISION_GOGGLES.get(),Ic2Blocks.SCANNER.get().asItem()})recipes&=l.getRecipeManager().getRecipes().stream().anyMatch(r->r.value().getResultItem(l.registryAccess()).is(item));check.test("luminator fuel jetpack and dependent scanner recipes",recipes,"recipes");
     }
+    private static void partialBottler(ServerLevel level, TileEntityFluidBottler bottler,
+            ic2.core.item.armor.ItemArmorJetpack jet, CropAudit.Check check) {
+        bottler.fillInputSlot.clear();
+        bottler.outputSlot.clear();
+        bottler.drainInputSlot.put(jet.filled());
+        var input=bottler.drainInputSlot.get();
+        var name=net.minecraft.network.chat.Component.literal("Partial drain audit");
+        input.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME,name);
+        var output=bottler.getOutput();
+        boolean simulated=output!=null&&!output.items.isEmpty()
+                &&jet.getFluid(output.items.getFirst()).getAmount()==22000
+                &&name.equals(output.items.getFirst().get(net.minecraft.core.component.DataComponents.CUSTOM_NAME));
+        check.test("bottler simulates partial drain of a large item without consuming fluid",
+                simulated&&bottler.getTankAmount()==0&&jet.getFluid(input).getAmount()==30000,"output="+output);
+        if(output!=null)bottler.operateOnce(output,output.items);
+        check.test("bottler partially empties a 30B jetpack into its 8B tank with exact conservation",
+                bottler.getTankAmount()==8000&&jet.getFluid(bottler.outputSlot.get()).getAmount()==22000
+                &&bottler.drainInputSlot.isEmpty(),"tank="+bottler.getTankAmount()+" item="+jet.getFluid(bottler.outputSlot.get()).getAmount());
+        bottler.drain(8000,FluidAction.EXECUTE);
+        bottler.fill(new FluidStack(Ic2Fluids.BIOGAS.get(),7999),FluidAction.EXECUTE);
+        bottler.outputSlot.clear();bottler.drainInputSlot.put(jet.filled());
+        output=bottler.getOutput();if(output!=null)bottler.operateOnce(output,output.items);
+        check.test("bottler transfers the final one mB without discarding the remaining 29999mB",
+                bottler.getTankAmount()==8000&&jet.getFluid(bottler.outputSlot.get()).getAmount()==29999
+                &&bottler.drainInputSlot.isEmpty(),"tank="+bottler.getTankAmount()+" item="+jet.getFluid(bottler.outputSlot.get()).getAmount());
+        bottler.drain(8000,FluidAction.EXECUTE);bottler.outputSlot.put(new ItemStack(Items.STONE,64));
+        bottler.drainInputSlot.put(jet.filled());
+        check.test("blocked bottler output preserves the full large fluid item",
+                bottler.getOutput()==null&&bottler.getTankAmount()==0&&jet.getFluid(bottler.drainInputSlot.get()).getAmount()==30000,"blocked");
+        bottler.outputSlot.clear();bottler.fill(new FluidStack(Ic2Fluids.BIOGAS.get(),8000),FluidAction.EXECUTE);
+        check.test("full bottler tank preserves its input without a phantom operation",
+                bottler.getOutput()==null&&bottler.getTankAmount()==8000&&jet.getFluid(bottler.drainInputSlot.get()).getAmount()==30000,"full");
+        bottler.drain(8000,FluidAction.EXECUTE);bottler.fill(new FluidStack(Fluids.WATER,1000),FluidAction.EXECUTE);
+        check.test("bottler rejects mixing incompatible fluid without consuming its item",
+                bottler.getOutput()==null&&bottler.getTankAmount()==1000&&jet.getFluid(bottler.drainInputSlot.get()).getAmount()==30000,"water/biogas");
+        bottler.drain(8000,FluidAction.EXECUTE);bottler.fill(new FluidStack(Fluids.WATER,7999),FluidAction.EXECUTE);
+        bottler.drainInputSlot.put(new ItemStack(Items.WATER_BUCKET));
+        check.test("atomic vanilla bucket cannot partially drain into one mB of free tank space",
+                bottler.getOutput()==null&&bottler.getTankAmount()==7999&&bottler.drainInputSlot.get().is(Items.WATER_BUCKET),"atomic bucket");
+        bottler.drainInputSlot.clear();bottler.outputSlot.clear();bottler.drain(8000,FluidAction.EXECUTE);
+    }
+
 }

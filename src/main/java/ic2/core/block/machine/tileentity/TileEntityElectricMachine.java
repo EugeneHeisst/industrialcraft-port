@@ -66,6 +66,7 @@ public abstract class TileEntityElectricMachine extends TileEntityInventory impl
     @Override public double injectEnergy(Direction directionFrom, double amount, double voltage) {
         if (energy >= maxEnergy) return amount;
         energy += amount;
+        if (amount != 0) setChanged();
         return 0;
     }
     @Override public int getSinkTier() { return tier; }

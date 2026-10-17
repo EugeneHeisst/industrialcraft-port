@@ -49,6 +49,19 @@ public final class ArmorEvents {
             event.setCanceled(true);
             return;
         }
+        // Original boots override the normal armor-bypassing fall source with priority10 special absorption.
+        // LivingFallEvent above the damage calculation already handles their fully funded cancellation cases.
+        if (source.is(DamageTypes.FALL)) {
+            ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);
+            if (boots.getItem() instanceof ItemArmorNanoSuit nano && nano.armorType() == 3) {
+                absorbBootFall(event, boots, nano, damage < 8 ? 1 : 0.875);
+                return;
+            }
+            if (boots.getItem() instanceof ItemArmorQuantumSuit quantum && quantum.armorType() == 3) {
+                absorbBootFall(event, boots, quantum, 1);
+                return;
+            }
+        }
         if (source.is(DamageTypeTags.BYPASSES_ARMOR)) return;
         double absorbed = 0;
         for (EquipmentSlot slot : ARMOR) {
@@ -64,6 +77,16 @@ public final class ArmorEvents {
             ElectricItem.manager.discharge(stack, Math.max(1, Math.round(part)) * (double)perDamage, Integer.MAX_VALUE, true, false, false);
         }
         if (absorbed > 0) event.setAmount((float)Math.max(0, damage - absorbed));
+    }
+
+    /** Forge1.7 special armor used an integer25-scale absorption budget, then floor/minimum-one damage payment. */
+    private static void absorbBootFall(LivingIncomingDamageEvent event, ItemStack boots, ItemArmorElectric armor, double ratio) {
+        int perDamage = armor.getEnergyPerDamage();
+        int budget = perDamage > 0 ? (int)Math.min(Integer.MAX_VALUE, 25 * ElectricItem.manager.getCharge(boots) / perDamage) : Integer.MAX_VALUE;
+        double absorbed = Math.min(event.getAmount() * ratio, budget / 25d);
+        if (absorbed <= 0) return;
+        if (perDamage > 0) ElectricItem.manager.discharge(boots, Math.max(1, (int)absorbed) * (double)perDamage, Integer.MAX_VALUE, true, false, false);
+        event.setAmount((float)Math.max(0, event.getAmount() - absorbed));
     }
 
     /** Nano boots cancel falls under 11 blocks, quantum boots any fall, for 5000/20000 EU per damage point; hazmat boots soak short falls. */

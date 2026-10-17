@@ -187,3 +187,13 @@ Each IC2 ore now also has a sparse upper layer (`<ore>_upper` placed features, t
 Chainsaw SHEARS_DIG now requires enabled shearing and one full operation of EU. Other native shears abilities are no longer advertised without an EU-paying implementation. Empty sheep interaction returns PASS; charging from worn armor remains supported. Added real native leaf/shee/pumpkin tests for every registered chainsaw subtype. Standalone server363/363 passed; final jar archived versions/0.1.23. Combined full-pack server29/29 and client14/14 passed with the new set. Combined IC2 audit also covers Gravi's inherited chainsaw.
 
 User explicitly approved both GitHub releases and installation in latest Claude history ("Оба"); Codex continues that authorized release/deploy work. The earlier no-publish/no-install handoff condition was satisfied by this separate approval. Latest release/install state will be in ../CLAUDE_CONTINUE_PORTS.md.
+
+
+## Codex isolated review — 0.1.24, 2026-10-17
+
+Branch codex/fall-absorption, worktree ~/Project/codex-reviews/industrialcraft2-modern. Main/source and production untouched; prepared for Claude integration.
+
+- Native Nano/Quantum fall fallback restored before BYPASSES_ARMOR guard; original25-scale charge budget, Nano .875 long-fall ratio, Quantum1 and floor/min-one payment. Existing funded full-cancel path retained.18 realServerPlayer.causeFallDamage cases: baseline381checks/8fail, fixed all18pass. Ordinarymelee handling unchanged.
+- Energy injection and signed source draw in ElectricMachine/ElectricBlock mark persistent state dirty. ASPnativeaudit separates receiver/sourcechunks to expose missingdirtycalls.
+- Liquid slot now drains at most tankacceptance, preserving partialcontainer and customdata. Seven actualbottler/capability cases:30Bjetpack→8Btank, final1mB, simulation/customname, blockedoutput/fulltank/mixing/atomicvanillabucket. Three initialfailures reproduced; final388/388.
+- JAR/build/SHA/server/baseline logs versions/0.1.24 in isolatedworktree. No push/release/install. IC2pendingoriginalparity queue: ~/Project/compat-test/IC2_REVIEW_NEXT.md.

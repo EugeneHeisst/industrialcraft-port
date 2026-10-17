@@ -71,8 +71,11 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
         var handler = single.getCapability(Capabilities.FluidHandler.ITEM);
         if (handler == null) return false;
         FluidStack available = handler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE);
-        if (tank.fill(available, IFluidHandler.FluidAction.SIMULATE) < available.getAmount()) return false;
-        FluidStack drained = handler.drain(available, IFluidHandler.FluidAction.EXECUTE);
+        int accepted = tank.fill(available, IFluidHandler.FluidAction.SIMULATE);
+        if (accepted <= 0) return false;
+        FluidStack drained = handler.drain(available.copyWithAmount(accepted), IFluidHandler.FluidAction.EXECUTE);
+        // Buckets are atomic; large fluid items may return only the amount the tank can actually accept.
+        if (drained.isEmpty() || drained.getAmount() > accepted) return false;
         ItemStack container = handler.getContainer();
         output.setValue(container.isEmpty() ? null : container);
         if (!simulate) {

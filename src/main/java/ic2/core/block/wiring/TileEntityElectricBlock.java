@@ -91,9 +91,9 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
         if (energy < output || redstoneMode == 5 && hasRedstone || redstoneMode == 6 && hasRedstone && energy < maxStorage) return 0;
         return Math.min(energy, output);
     }
-    @Override public void drawEnergy(double amount) { energy -= amount; }
+    @Override public void drawEnergy(double amount) { if (amount != 0) { energy -= amount; setChanged(); } }
     @Override public double getDemandedEnergy() { return maxStorage - energy; }
-    @Override public double injectEnergy(Direction from, double amount, double voltage) { if (energy >= maxStorage) return amount; energy += amount; return 0; }
+    @Override public double injectEnergy(Direction from, double amount, double voltage) { if (energy >= maxStorage) return amount; energy += amount; if (amount != 0) setChanged(); return 0; }
     @Override public int getSourceTier() { return tier; }
     @Override public int getSinkTier() { return tier; }
     @Override public ContainerBase<?> getGuiContainer(int id, Inventory inventory) { return new ContainerElectricBlock(id, inventory, this); }
