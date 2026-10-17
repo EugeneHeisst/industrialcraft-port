@@ -111,6 +111,9 @@ public abstract class ItemElectricTool extends Item implements IElectricItem {
         return InteractionResultHolder.pass(stack);
     }
 
+    /** Called by destroyBlock after the break was approved, just before the tool is copied for the drops (original onBlockStartBreak). */
+    public void beforeHarvestSnapshot(ItemStack stack, net.minecraft.server.level.ServerLevel level, BlockPos pos, BlockState state, net.minecraft.server.level.ServerPlayer player) {}
+
     @Override public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) { return true; }
     @Override public int getEnchantmentValue(ItemStack stack) { return 0; }
     @Override public boolean isEnchantable(ItemStack stack) { return false; }

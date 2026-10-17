@@ -67,6 +67,16 @@ public class ItemElectricToolChainsaw extends ItemElectricTool {
         return InteractionResult.PASS;
     }
 
+    /**
+     * Original onBlockStartBreak sheared with ElectricItem.manager.use, which first refills the tool from charging armour. Do the
+     * refill (a transfer, no payment) before the loot copy, so an empty saw worn with a charged pack shears that first block;
+     * mineBlock still pays the operation.
+     */
+    @Override
+    public void beforeHarvestSnapshot(ItemStack stack, net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state, net.minecraft.server.level.ServerPlayer player) {
+        if (!shearDisabled(stack) && !ElectricItem.manager.canUse(stack, operationEnergyCost)) ElectricItem.manager.chargeFromArmor(stack, player);
+    }
+
     @Override
     public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility ability) {
         // Native shears block loot reads this from the pre-operation tool copy, so the last full charge still works.
