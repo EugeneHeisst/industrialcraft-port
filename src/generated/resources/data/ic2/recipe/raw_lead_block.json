@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ic2:raw_lead"
+    }
+  },
+  "result": {
+    "id": "ic2:raw_lead_block",
+    "count": 1
+  }
+}

@@ -8,6 +8,8 @@
     "ic2:lead_block",
     "ic2:refined_iron_block",
     "ic2:deepslate_tin_ore",
-    "ic2:deepslate_lead_ore"
+    "ic2:deepslate_lead_ore",
+    "ic2:raw_tin_block",
+    "ic2:raw_lead_block"
   ]
 }

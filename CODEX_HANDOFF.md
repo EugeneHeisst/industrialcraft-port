@@ -215,3 +215,13 @@ This is a new local visual batch. Earlier IC2 0.1.26 / ASP 0.1.3 / EMT 0.1.11 / 
 
 
 Installation update — 2026-10-17 19:22 Moscow: user said «заменяй» and closed Prism. IC2 0.1.27 and ASP 0.1.4 now installed on production+Prism; all five principal port hashes verified at both locations. Countdown5→1, save-allflush, graceful stop, offline world backup208991731bytes and oldJARbackups (`mod-backups/codex-visual-20261017-192011/`), successful start Done1.634s,0ERROR,20TPS/average1.9ms. Exact manifest `../compat-test/CODEX_VISUAL_DEPLOY_STATE.json` and `CURRENT_DEPLOY_STATE.json`. Previous 'not installed' notes are historical. New GitHub push/releases still await review/approval; no publication was authorized by the replacement request.
+
+## Claude 0.1.28 — modern raw ore drops
+
+Requested by the user: tin and lead ores (stone and deepslate) drop `raw_tin` / `raw_lead` like vanilla 1.17+ ores (`ore_drops` with Fortune, explosion decay); silk touch keeps the ore block; uranium ores still drop themselves.
+- New items: `raw_tin`, `raw_lead` (c:raw_materials/tin|lead). New blocks: `raw_tin_block`, `raw_lead_block` (c:storage_blocks/raw_*), 9↔1 crafting. Smelting and blasting to the ingot (0.7 xp).
+- Textures: vanilla raw iron / raw iron block recoloured to the IC2 ingot colour (tools/gen.py `recolour`).
+- Macerator: `c:raw_materials/<metal>` → 2 crushed ore, the same as the ore block, for iron, gold, copper, tin, lead, silver and uranium. This also covers other mods' raw metals.
+- TC4 0.17.180 accepts raw iron, gold and copper in Pure ore and in the infernal furnace nugget bonus. EMT already registered raw tin/silver/lead clusters.
+
+RawOreAudit: 22 checks. Server 436/436.

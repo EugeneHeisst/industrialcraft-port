@@ -552,6 +552,55 @@ for mat, leg, en, needs, ingot in DEEP:
             write(os.path.join(D, 'ic2/recipe', f'{ingot}_from_smelting_{variant}.json'), {'type': 'minecraft:smelting', 'category': 'misc', 'group': ingot, 'ingredient': {'item': 'ic2:' + variant}, 'result': {'id': 'ic2:' + ingot}, 'experience': 0.5, 'cookingtime': 200})
             write(os.path.join(D, 'ic2/recipe', f'{ingot}_from_blasting_{variant}.json'), {'type': 'minecraft:blasting', 'category': 'misc', 'group': ingot, 'ingredient': {'item': 'ic2:' + variant}, 'result': {'id': 'ic2:' + ingot}, 'experience': 0.5, 'cookingtime': 100})
 
+# ---------- raw ores (modern drops): tin and lead ores drop raw metal (fortune), silk touch keeps the ore; uranium stays a block.
+# Raw textures: vanilla raw iron recoloured with the IC2 ingot palette by luminance rank.
+def recolour(base, palette_src):
+    """Keeps the vanilla shading (luminance relative to its mean) and takes the mean colour of the IC2 ingot."""
+    lum = lambda c: 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+    ingot = [p for p in palette_src.get_flattened_data() if p[3] > 0]
+    mean = [sum(p[i] for p in ingot) / len(ingot) for i in range(3)]
+    base_l = [lum(p) for p in base.get_flattened_data() if p[3] > 0]
+    mid = sum(base_l) / len(base_l)
+    k = min(1, 235 / (lum(mean) * max(base_l) / mid))  # keep the highlights from washing out to white
+    out = base.copy()
+    for x in range(base.width):
+        for y in range(base.height):
+            c = base.getpixel((x, y))
+            if c[3] == 0: continue
+            f = lum(c) / mid * k
+            out.putpixel((x, y), tuple(max(0, min(255, round(m * f))) for m in mean) + (c[3],))
+    return out
+raw_iron = vanilla('1.21.1', 'assets/minecraft/textures/item/raw_iron.png', 'v121/raw_iron.png')
+raw_iron_block = vanilla('1.21.1', 'assets/minecraft/textures/block/raw_iron_block.png', 'v121/raw_iron_block.png')
+RAW_NAMES = {'tin': ('Raw Tin', 'Рудное олово', 'Block of Raw Tin', 'Блок рудного олова'), 'lead': ('Raw Lead', 'Рудный свинец', 'Block of Raw Lead', 'Блок рудного свинца')}
+for mat, leg in (('tin', 'itemIngotTin'), ('lead', 'itemIngotLead')):
+    ingot_tex = Image.open(os.path.join(OTEX, 'items/resources', leg + '.png')).convert('RGBA')
+    raw, block_id = f'raw_{mat}', f'raw_{mat}_block'
+    path = os.path.join(A, 'textures/item', raw + '.png'); recolour(raw_iron, ingot_tex).save(path)
+    write(os.path.join(A, 'models/item', raw + '.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:item/' + raw}})
+    path = os.path.join(A, 'textures/block', block_id + '.png'); recolour(raw_iron_block, ingot_tex).save(path)
+    write(os.path.join(A, 'models/block', block_id + '.json'), {'parent': 'minecraft:block/cube_all', 'textures': {'all': 'ic2:block/' + block_id}})
+    write(os.path.join(A, 'blockstates', block_id + '.json'), {'variants': {'': {'model': 'ic2:block/' + block_id}}})
+    write(os.path.join(A, 'models/item', block_id + '.json'), {'parent': 'ic2:block/' + block_id})
+    write(os.path.join(D, 'ic2/loot_table/blocks', block_id + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:' + block_id}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
+    en, ru, ben, bru = RAW_NAMES[mat]
+    for code in out_lang:
+        out_lang[code]['item.ic2.' + raw] = ru if code == 'ru_ru' else en
+        out_lang[code]['block.ic2.' + block_id] = bru if code == 'ru_ru' else ben
+    for t in (f'c:raw_materials/{mat}', 'c:raw_materials'): add_tag(ITEM_TAGS, t, 'ic2:' + raw)
+    for t in (f'c:storage_blocks/raw_{mat}', 'c:storage_blocks'): add_tag(ITEM_TAGS, t, 'ic2:' + block_id)
+    for t in (f'c:storage_blocks/raw_{mat}', 'c:storage_blocks', 'minecraft:mineable/pickaxe', 'minecraft:needs_stone_tool'): add_tag(BLOCK_TAGS, t, 'ic2:' + block_id)
+    for ore in (f'{mat}_ore', f'deepslate_{mat}_ore'):  # vanilla iron_ore loot: silk touch -> ore, else raw with fortune
+        silk = {'condition': 'minecraft:match_tool', 'predicate': {'predicates': {'minecraft:enchantments': [{'enchantments': 'minecraft:silk_touch', 'levels': {'min': 1}}]}}}
+        write(os.path.join(D, 'ic2/loot_table/blocks', ore + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'bonus_rolls': 0, 'entries': [{'type': 'minecraft:alternatives', 'children': [
+            {'type': 'minecraft:item', 'name': 'ic2:' + ore, 'conditions': [silk]},
+            {'type': 'minecraft:item', 'name': 'ic2:' + raw, 'functions': [{'function': 'minecraft:apply_bonus', 'enchantment': 'minecraft:fortune', 'formula': 'minecraft:ore_drops'}, {'function': 'minecraft:explosion_decay'}]}]}]}]})
+    ingot = f'ic2:{mat}_ingot'
+    write(os.path.join(D, 'ic2/recipe', f'{mat}_ingot_from_smelting_{raw}.json'), {'type': 'minecraft:smelting', 'category': 'misc', 'group': f'{mat}_ingot', 'ingredient': {'item': 'ic2:' + raw}, 'result': {'id': ingot}, 'experience': 0.7, 'cookingtime': 200})
+    write(os.path.join(D, 'ic2/recipe', f'{mat}_ingot_from_blasting_{raw}.json'), {'type': 'minecraft:blasting', 'category': 'misc', 'group': f'{mat}_ingot', 'ingredient': {'item': 'ic2:' + raw}, 'result': {'id': ingot}, 'experience': 0.7, 'cookingtime': 100})
+    write(os.path.join(D, 'ic2/recipe', block_id + '.json'), {'type': 'minecraft:crafting_shaped', 'category': 'building', 'pattern': ['###', '###', '###'], 'key': {'#': {'item': 'ic2:' + raw}}, 'result': {'id': 'ic2:' + block_id, 'count': 1}})
+    write(os.path.join(D, 'ic2/recipe', raw + '_from_block.json'), {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [{'item': 'ic2:' + block_id}], 'result': {'id': 'ic2:' + raw, 'count': 9}})
+
 # ---------- furnace recipes of IC2.java (dusts, crushed ores, resin, rubber wood, raw crystal memory)
 ING = {'iron': 'minecraft:iron_ingot', 'gold': 'minecraft:gold_ingot', 'copper': 'minecraft:copper_ingot', 'tin': 'ic2:tin_ingot', 'lead': 'ic2:lead_ingot', 'silver': 'ic2:silver_ingot'}
 SMELT = [('ic2:rubber_wood', 'minecraft:jungle_log', 0.1), ('ic2:bronze_dust', 'ic2:bronze_ingot', 0), ('ic2:hydrated_coal_dust', 'ic2:coal_dust', 0), ('ic2:resin', 'ic2:rubber', 0.3),
@@ -695,6 +744,9 @@ def machine(name, out):
         r = {'input': {inp[0]: inp[1], 'count': cnt}, 'output': outs}
         if meta: r['meta'] = meta
         recipes.append(r)
+    if out == 'macerator':  # raw ores count as the ore: 2 crushed ore, like the ore block
+        for metal in ('iron', 'gold', 'copper', 'tin', 'lead', 'silver', 'uranium'):
+            recipes.append({'input': {'tag': f'c:raw_materials/{metal}', 'count': 1}, 'output': [{'item': f'ic2:crushed_{metal}_ore', 'count': 2}]})
     write(os.path.join(RES, 'ic2/recipes', out + '.json'), recipes)
     return len(recipes)
 

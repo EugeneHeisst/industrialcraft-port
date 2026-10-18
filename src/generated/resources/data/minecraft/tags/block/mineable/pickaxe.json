@@ -100,6 +100,8 @@
     "ic2:mining_pipe_tip",
     "ic2:deepslate_tin_ore",
     "ic2:deepslate_uranium_ore",
-    "ic2:deepslate_lead_ore"
+    "ic2:deepslate_lead_ore",
+    "ic2:raw_tin_block",
+    "ic2:raw_lead_block"
   ]
 }

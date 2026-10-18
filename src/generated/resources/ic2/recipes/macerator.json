@@ -766,5 +766,89 @@
         "count": 8
       }
     ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/iron",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_iron_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/gold",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_gold_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/copper",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_copper_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/tin",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_tin_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/lead",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_lead_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/silver",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_silver_ore",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "input": {
+      "tag": "c:raw_materials/uranium",
+      "count": 1
+    },
+    "output": [
+      {
+        "item": "ic2:crushed_uranium_ore",
+        "count": 2
+      }
+    ]
   }
 ]

@@ -44,6 +44,8 @@ public final class Ic2Items {
     public static final DeferredItem<ic2.core.item.boat.ItemIC2Boat> RUBBER_BOAT = REGISTRY.register("rubber_boat", () -> new ic2.core.item.boat.ItemIC2Boat(new Item.Properties(), Ic2Entities.RUBBER_BOAT));
     public static final DeferredItem<ic2.core.item.boat.ItemIC2Boat> BROKEN_RUBBER_BOAT = REGISTRY.register("broken_rubber_boat", () -> new ic2.core.item.boat.ItemIC2Boat(new Item.Properties(), null));
     public static final DeferredItem<ic2.core.item.boat.ItemIC2Boat> ELECTRIC_BOAT = REGISTRY.register("electric_boat", () -> new ic2.core.item.boat.ItemIC2Boat(new Item.Properties(), Ic2Entities.ELECTRIC_BOAT));
+    /** Raw tin and lead: what tin/lead ores drop (fortune) since the modern ore drops; uranium ore still drops itself. */
+    public static final DeferredItem<Item> RAW_TIN = REGISTRY.registerSimpleItem("raw_tin"), RAW_LEAD = REGISTRY.registerSimpleItem("raw_lead");
     public static final DeferredItem<ic2.core.item.ItemMug> EMPTY_MUG = REGISTRY.register("empty_mug", () -> new ic2.core.item.ItemMug(new Item.Properties()));
     public static final DeferredItem<ic2.core.item.ItemMugCoffee> COLD_COFFEE = REGISTRY.register("cold_coffee", () -> new ic2.core.item.ItemMugCoffee(new Item.Properties(), 0));
     public static final DeferredItem<ic2.core.item.ItemMugCoffee> DARK_COFFEE = REGISTRY.register("dark_coffee", () -> new ic2.core.item.ItemMugCoffee(new Item.Properties(), 1));
