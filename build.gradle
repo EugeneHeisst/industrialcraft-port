@@ -1,5 +1,5 @@
 plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.148' }
-version = '0.1.28'
+version = '0.1.29'
 group = 'dev.eugheist'
 base { archivesName = 'industrialcraft2-modern' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -27,6 +27,17 @@ neoForge {
     }
     mods { ic2 { sourceSet sourceSets.main } }
 }
-def jeiJar = '/home/eugheist/.local/share/PrismLauncher/instances/1.21.1/minecraft/mods/jei-1.21.1-neoforge-19.57.0.451.jar'
-dependencies { compileOnly files(jeiJar); if (providers.gradleProperty('withJei').getOrElse('false').toBoolean()) runtimeOnly files(jeiJar) }
+// Prefer an explicit/local JEI JAR on the laptop; clean checkouts can resolve the same version from Maven.
+repositories { maven { url = 'https://maven.blamejared.com' } }
+def jeiName = 'jei-1.21.1-neoforge-19.57.0.451.jar'
+def jeiOverride = providers.gradleProperty('jeiJar').orNull
+def jeiLocal = jeiOverride != null ? file(jeiOverride) : [
+    file("../compat-test/full-client-mods/$jeiName"),
+    file("${System.getProperty('user.home')}/.local/share/PrismLauncher/instances/1.21.1/minecraft/mods/$jeiName")
+].find { it.isFile() }
+def jeiDependency = jeiLocal != null ? files(jeiLocal) : 'mezz.jei:jei-1.21.1-neoforge:19.57.0.451'
+dependencies {
+    compileOnly jeiDependency
+    if (providers.gradleProperty('withJei').getOrElse('false').toBoolean()) runtimeOnly jeiDependency
+}
 processResources { inputs.property 'version', version; filesMatching('META-INF/neoforge.mods.toml') { expand version: version } }

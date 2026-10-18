@@ -77,6 +77,43 @@ public final class ArmorMathAudit {
             // ratios .135/.36/.27/.135 = .9, no normalisation; 10 damage -> 1.35/3.6/2.7/1.35 -> 1/3/2/1 x 5000, 1 damage gets through
             var d = hit(level, pos, nano, 1e9, 10, 19, check, "full nano, 10 damage");
             check.test("full nano pays 5000/15000/10000/5000 EU", d[0] == 5000 && d[1] == 15000 && d[2] == 10000 && d[3] == 5000, Arrays.toString(d));
+            var stronger = player(level, pos);
+            double chargeBefore = 0;
+            for (int i = 0; i < 4; i++) {
+                var stack = new ItemStack(quantum[i]);
+                ElectricItem.manager.charge(stack, 1e9, Integer.MAX_VALUE, true, false);
+                stronger.setItemSlot(SLOTS[i], stack);
+                chargeBefore += ElectricItem.manager.getCharge(stack);
+            }
+            stronger.hurt(level.damageSources().cactus(), 10);
+            stronger.hurt(level.damageSources().cactus(), 12);
+            double chargeAfter = 0;
+            for (var stack : stronger.getArmorSlots()) chargeAfter += ElectricItem.manager.getCharge(stack);
+            check.test("stronger hit during cooldown pays for the two-point difference only", chargeBefore - chargeAfter == 240000 && stronger.getHealth() == 20, chargeBefore - chargeAfter);
+            stronger.discard();
+            // Cactus calls hurt every tick. Only one hit per ten ticks may charge special armor.
+            for (Item[] set : new Item[][]{nano, quantum}) {
+                var p = player(level, pos);
+                double cost = set == nano ? 5000 : 20000;
+                for (int i = 0; i < 4; i++) {
+                    var stack = new ItemStack(set[i]);
+                    ElectricItem.manager.charge(stack, 1e9, Integer.MAX_VALUE, true, false);
+                    p.setItemSlot(SLOTS[i], stack);
+                }
+                double[] before = new double[4];
+                for (int i = 0; i < 4; i++) before[i] = ElectricItem.manager.getCharge(p.getItemBySlot(SLOTS[i]));
+                for (int tick = 0; tick < 250; tick++) {
+                    p.setHealth(20);
+                    p.hurt(level.damageSources().cactus(), 1);
+                    if (p.invulnerableTime > 0) p.invulnerableTime--;
+                }
+                for (int i = 0; i < 4; i++) {
+                    double spent = before[i] - ElectricItem.manager.getCharge(p.getItemBySlot(SLOTS[i]));
+                    check.test((set == nano ? "nano" : "quantum") + " 250 cactus contacts pay 25 accepted hits, slot " + i,
+                        spent == 25 * cost, spent);
+                }
+                p.discard();
+            }
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException(e);
         }

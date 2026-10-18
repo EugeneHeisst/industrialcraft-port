@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Generates the port's resources from the original IC2 jar (related/ic2-reference/jar) and content.py."""
-import json, os, re, shutil, sys
+import hashlib, json, os, re, shutil, sys
 from PIL import Image
 import content
+import loot
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 JAR = os.path.join(ROOT, 'related/ic2-reference/jar')
@@ -328,8 +329,9 @@ for name_, meta, tex, th, colorable in CABLES:
             tname = f'{cid}_{color}' + ('_active' if active else '')
             path = os.path.join(A, 'textures/block/cable', tname + '.png'); os.makedirs(os.path.dirname(path), exist_ok=True); tile.save(path)
             texref = 'ic2:block/cable/' + tname
+            render_flags = {'render_type': 'minecraft:cutout'} if name_ == 'glass_fibre' else {}
             faces = {f: {'texture': '#t'} for f in FACES}
-            write(os.path.join(A, 'models/block/cable', tname + '_core.json'), {'textures': {'t': texref, 'particle': texref}, 'elements': [{'from': [sp, sp, sp], 'to': [e, e, e], 'faces': faces}]})
+            write(os.path.join(A, 'models/block/cable', tname + '_core.json'), {**render_flags, 'textures': {'t': texref, 'particle': texref}, 'elements': [{'from': [sp, sp, sp], 'to': [e, e, e], 'faces': faces}]})
             when = {'color': str(color)}
             if len(states) > 1: when['active'] = 'true' if active else 'false'
             multipart.append({'when': dict(when), 'apply': {'model': f'ic2:block/cable/{tname}_core'}})
@@ -340,7 +342,7 @@ for name_, meta, tex, th, colorable in CABLES:
                 if pos: fr[axis] = e
                 else: to[axis] = sp
                 arm_faces = {f: {'texture': '#t'} for f in FACES if not ((f in ('west', 'east') and axis == 0) or (f in ('down', 'up') and axis == 1) or (f in ('north', 'south') and axis == 2)) or f == d}
-                write(os.path.join(A, 'models/block/cable', f'{tname}_{d}.json'), {'textures': {'t': texref, 'particle': texref}, 'elements': [{'from': fr, 'to': to, 'faces': arm_faces}]})
+                write(os.path.join(A, 'models/block/cable', f'{tname}_{d}.json'), {**render_flags, 'textures': {'t': texref, 'particle': texref}, 'elements': [{'from': fr, 'to': to, 'faces': arm_faces}]})
                 w = dict(when); w[d] = 'true'
                 multipart.append({'when': w, 'apply': {'model': f'ic2:block/cable/{tname}_{d}'}})
     write(os.path.join(A, 'blockstates', cid + '.json'), {'multipart': multipart})
@@ -504,7 +506,7 @@ for bid in ('mining_pipe', 'mining_pipe_tip'):
     write(os.path.join(A, 'blockstates', bid + '.json'), {'variants': {'': {'model': 'ic2:block/' + bid}}})
     write(os.path.join(D, 'ic2/loot_table/blocks', bid + '.json'), {'type': 'minecraft:block', 'pools': [{'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': 'ic2:mining_pipe'}], 'conditions': [{'condition': 'minecraft:survives_explosion'}]}]})
     add_tag(BLOCK_TAGS, 'minecraft:mineable/pickaxe', 'ic2:' + bid)
-write(os.path.join(A, 'models/item/mining_pipe.json'), {'parent': 'minecraft:item/generated', 'textures': {'layer0': 'ic2:block/mining_pipe'}})
+write(os.path.join(A, 'models/item/mining_pipe.json'), {'parent': 'ic2:block/mining_pipe'})
 for code in out_lang:
     out_lang[code]['block.ic2.mining_pipe'] = out_lang[code]['item.ic2.mining_pipe'] = name(code, 'blockMiningPipe', 'Mining Pipe')
     out_lang[code]['block.ic2.mining_pipe_tip'] = name(code, 'blockMiningTip', 'Mining Pipe')
@@ -827,7 +829,28 @@ crafting_recipes('shaped_recipes.ini', True)
 crafting_recipes('shapeless_recipes.ini', False)
 print('crafting', crafting)
 
+write(os.path.join(RES, 'ic2/loot_injections.json'), loot.injections())
+
+# ---------- current control labels
+controls = {
+    'nightvision': ('Night vision: %s', 'Ночное зрение: %s'),
+    'hud': ('HUD mode: %s', 'Режим HUD: %s'),
+    'hover': ('Hover mode: %s', 'Режим парения: %s'),
+    'jetpack': ('Jetpack: %s', 'Реактивный ранец: %s'),
+    'superjump': ('Super jump: %s', 'Суперпрыжок: %s'),
+    'mode': ('Switch mode: %s', 'Смена режима: %s'),
+}
+for action, values in controls.items():
+    for code, value in zip(('en_us', 'ru_ru'), values):
+        out_lang[code]['ic2.controls.' + action] = value
+
 # ---------- tags & lang
+out_lang['ru_ru']['item.ic2.pulling_upgrade'] = 'Улучшение «Загрузчик»'
+out_lang['ru_ru']['ic2.pullingUpgrade'] = 'Улучшение «Загрузчик»'
+out_lang['ru_ru']['ic2.tooltip.upgrade.pulling'] = 'Автоматическая загрузка с %1$s стороны'
+out_lang['ru_ru']['block.ic2.stirling_kinetic_generator'] = 'Кинетический генератор Стирлинга'
+out_lang['ru_ru']['ic2.StirlingKineticGenerator.gui.name'] = 'Кинетический генератор Стирлинга'
+
 for tag, entries in ITEM_TAGS.items():
     ns, path = tag.split(':')
     write(os.path.join(D, ns, 'tags/item', path + '.json'), {'values': entries})
@@ -839,6 +862,7 @@ write(os.path.join(D, 'ic2/tags/item/fluid_containers/lava.json'), {'values': ['
 write(os.path.join(D, 'ic2/tags/item/fluid_containers/ic2coolant.json'), {'values': ['ic2:coolant_cell']})
 # The original recipes accept IC2's own nuclear items or any mod's OreDict equivalent; put IC2's items into those shared tags so the
 # OreDict branches resolve (and other mods' plutonium / U-235 nuggets keep working).
+write(os.path.join(D, 'c/tags/item/ingots/uranium.json'), {'values': ['ic2:uranium_238']})
 write(os.path.join(D, 'c/tags/item/ingots/plutonium.json'), {'values': ['ic2:plutonium']})
 write(os.path.join(D, 'c/tags/item/nuggets/plutonium.json'), {'values': ['ic2:small_plutonium']})
 write(os.path.join(D, 'c/tags/item/nuggets/uranium235.json'), {'values': ['ic2:small_uranium_235']})
@@ -847,6 +871,8 @@ write(os.path.join(D, 'ic2/tags/item/tools/wire_cutter.json'), {'values': ['ic2:
 for code in out_lang:
     out_lang[code]['effect.ic2.radiation'] = name(code, 'potion.radiation', 'Radiation')
     out_lang[code]['entity.ic2.mining_laser'] = name(code, 'itemToolMiningLaser', 'Mining Laser')
+# Original radiation used vanilla status icon 6 (hunger). Preserve it in the modern effect atlas.
+copy(os.path.join(ROOT, 'tools/assets/radiation.png'), os.path.join(A, 'textures/mob_effect/radiation.png'))
 for f in ('laser.png', 'beam.png', 'newsafe.png'): copy(os.path.join(OTEX, 'models', f), os.path.join(A, 'textures/models', f))
 # UU world scan values (1.7.10 names flattened to 1.21 ids)
 COLORS16 = ['white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black']
@@ -884,6 +910,18 @@ write(os.path.join(RES, 'ic2/uu_scan_values.json'), uu)
 for dt in ('electricity', 'radiation', 'nuke'):
     write(os.path.join(D, 'ic2/damage_type', dt + '.json'), {'message_id': dt, 'exhaustion': 0.1, 'scaling': 'when_caused_by_living_non_player'})
 write(os.path.join(D, 'minecraft/tags/damage_type/bypasses_armor.json'), {'values': ['ic2:radiation']})
+# User-provided crushed/purified ore sprites override originals, inside the same distributable.
+ore_overrides = os.path.join(ROOT, 'tools/ore-textures')
+with open(os.path.join(ore_overrides, 'manifest.json'), encoding='utf8') as source:
+    ore_manifest = json.load(source)
+for filename, expected in ore_manifest.items():
+    texture = os.path.join(ore_overrides, filename)
+    with open(texture, 'rb') as source:
+        if hashlib.sha256(source.read()).hexdigest() != expected:
+            raise ValueError('User ore texture hash mismatch: ' + filename)
+    copy(texture, os.path.join(A, 'textures/item', filename))
+print('user ore textures', len(ore_manifest))
+
 for code, entries in out_lang.items(): write(os.path.join(A, 'lang', code + '.json'), dict(sorted(entries.items())))
 with open(os.path.join(ROOT, 'build/gen-warnings.txt') if os.path.isdir(os.path.join(ROOT, 'build')) else '/dev/null', 'w') as f: f.write('\n'.join(warnings))
 print('warnings', len(warnings))

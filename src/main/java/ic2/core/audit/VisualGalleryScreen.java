@@ -45,7 +45,10 @@ public final class VisualGalleryScreen extends Screen {
         item("MFSU", Ic2Blocks.MFSU.get()),
         item("LV xfmr", Ic2Blocks.LV_TRANSFORMER.get()),
         item("Scanner", Ic2Blocks.SCANNER.get()),
-        item("Replicator", Ic2Blocks.REPLICATOR.get())
+        item("Replicator", Ic2Blocks.REPLICATOR.get()),
+        new Entry("Mining pipe", new ItemStack(ic2.core.ref.Ic2Items.get("mining_pipe")), null),
+        new Entry("Pulling upgrade", new ItemStack(ic2.core.ref.Ic2Items.get("pulling_upgrade")), null),
+        item("Stirling kU", Ic2Blocks.STIRLING_KINETIC_GENERATOR.get())
     );
     private final List<Entry> scaffolds = List.of(
         block("Wood", Ic2Blocks.SCAFFOLD.get().defaultBlockState().setValue(BlockScaffold.STRENGTH, 2)),
@@ -53,13 +56,23 @@ public final class VisualGalleryScreen extends Screen {
         block("Iron", Ic2Blocks.IRON_SCAFFOLD.get().defaultBlockState().setValue(BlockScaffold.STRENGTH, 5)),
         block("Iron braced", Ic2Blocks.IRON_SCAFFOLD.get().defaultBlockState().setValue(BlockScaffold.STRENGTH, 12))
     );
+    private final List<Entry> ores = java.util.Arrays.stream(new String[]{
+        "crushed_copper_ore", "crushed_gold_ore", "crushed_iron_ore", "crushed_lead_ore", "crushed_silver_ore", "crushed_tin_ore",
+        "purified_crushed_copper_ore", "purified_crushed_gold_ore", "purified_crushed_iron_ore", "purified_crushed_lead_ore", "purified_crushed_silver_ore", "purified_crushed_tin_ore", "purified_crushed_uranium_ore"
+    }).map(id -> new Entry(id.replace("purified_crushed_", "Clean ").replace("crushed_", "").replace("_ore", ""), new ItemStack(ic2.core.ref.Ic2Items.get(id)), null)).toList();
+    private final boolean oreOnly;
     private int frames, checks, failed;
     private boolean complete, reported;
 
-    private VisualGalleryScreen() { super(Component.literal("IC2 visual gallery")); }
+    private VisualGalleryScreen(boolean oreOnly) { super(Component.literal("IC2 visual gallery")); this.oreOnly = oreOnly; }
 
     public static void open(Minecraft mc) {
-        active = new VisualGalleryScreen();
+        active = new VisualGalleryScreen(false);
+        mc.setScreen(active);
+    }
+
+    public static void openOres(Minecraft mc) {
+        active = new VisualGalleryScreen(true);
         mc.setScreen(active);
     }
 
@@ -81,18 +94,19 @@ public final class VisualGalleryScreen extends Screen {
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         graphics.fill(0, 0, width, height, 0xff0d1320);
-        graphics.drawCenteredString(font, "IC2: machine fronts and scaffold faces", width / 2, 6, -1);
-        for (int i = 0; i < machines.size(); i++) draw(graphics, machines.get(i), machineX(i), machineY(i));
-        for (int i = 0; i < scaffolds.size(); i++) draw(graphics, scaffolds.get(i), scaffoldX(i), scaffoldY());
+        graphics.drawCenteredString(font, oreOnly ? "IC2: bundled user ore textures" : "IC2: machine fronts and scaffold faces", width / 2, 6, -1);
+        var entries = oreOnly ? ores : machines;
+        for (int i = 0; i < entries.size(); i++) draw(graphics, entries.get(i), machineX(i), machineY(i));
+        if (!oreOnly) for (int i = 0; i < scaffolds.size(); i++) draw(graphics, scaffolds.get(i), scaffoldX(i), scaffoldY());
         graphics.flush();
         if (++frames >= 3 && !complete) {
             complete = true;
             try (NativeImage image = Screenshot.takeScreenshot(minecraft.getMainRenderTarget())) {
                 Files.createDirectories(Path.of("audit"));
-                image.writeToFile(Path.of("audit", "machine_icons.png"));
+                image.writeToFile(Path.of("audit", oreOnly ? "ore_icons.png" : "machine_icons.png"));
                 check("native GUI screenshot saved", true, image.getWidth() + "x" + image.getHeight());
-                for (int i = 0; i < machines.size(); i++) inspect(image, machines.get(i), machineX(i), machineY(i));
-                for (int i = 0; i < scaffolds.size(); i++) inspect(image, scaffolds.get(i), scaffoldX(i), scaffoldY());
+                for (int i = 0; i < entries.size(); i++) inspect(image, entries.get(i), machineX(i), machineY(i));
+                if (!oreOnly) for (int i = 0; i < scaffolds.size(); i++) inspect(image, scaffolds.get(i), scaffoldX(i), scaffoldY());
             } catch (Throwable error) {
                 check("native GUI screenshot inspection completed", false, error.toString());
                 IC2.LOG.error("[ic2-visual-gallery] screenshot failed", error);
@@ -139,7 +153,7 @@ public final class VisualGalleryScreen extends Screen {
     private int machineX(int i) { return 8 + (i % 5) * (width - 16) / 5 + ((width - 16) / 5 - ICON_SIZE) / 2; }
     private int machineY(int i) { return 20 + (i / 5) * 40; }
     private int scaffoldX(int i) { return 8 + i * (width - 16) / 4 + ((width - 16) / 4 - ICON_SIZE) / 2; }
-    private int scaffoldY() { return 195; }
+    private int scaffoldY() { return 235; }
     private static Entry item(String label, Block block) { return new Entry(label, new ItemStack(block), null); }
     private static Entry block(String label, BlockState state) { return new Entry(label, ItemStack.EMPTY, state); }
     private record Entry(String label, ItemStack stack, BlockState state) {}

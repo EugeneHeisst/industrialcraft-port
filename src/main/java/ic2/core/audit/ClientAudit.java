@@ -135,7 +135,7 @@ public final class ClientAudit {
             int slot = 0;
             for (var item : Ic2Items.REGISTRY.getEntries()) if (slot < 36) player.getInventory().setItem(slot++, new ItemStack(item.get()));
         });
-        if (tick == 90) ModelVisualAudit.run(mc);
+        if (tick == 90) { ModelVisualAudit.run(mc); IssueClientAudit.run(mc); }
         if (tick == 125 - 1) shot(mc, "blocks.png");
         if (tick == 100) server.execute(() -> { var pl = server.getPlayerList().getPlayers().get(0); pl.teleportTo(server.overworld(), origin.getX() + .5, origin.getY() + 1.5, origin.getZ() - 8.5, 0, 25); });
         if (tick == 115) shot(mc, "cables.png");
@@ -299,7 +299,7 @@ public final class ClientAudit {
         if (tick == end + 424) shot(mc,"gui_containment_box.png");
         if (tick == end + 426) mc.player.closeContainer();
         // JEI pages when the audit runs with JEI (./audit-client.sh -PwithJei=true)
-        String[] jeiPages = {"macerator", "thermal_centrifuge", "ore_washing", "metal_former_rolling", "solid_canning", "fluid_enrichment", "scrap_box", "mfsu"};
+        String[] jeiPages = {"macerator", "thermal_centrifuge", "ore_washing", "metal_former_rolling", "solid_canning", "fluid_enrichment", "scrap_box", "mfsu", "uranium_block", "uranium_fuel", "mox_fuel"};
         boolean jei = net.neoforged.fml.ModList.get().isLoaded("jei");
         int jp = (tick - end - 432) / 12;
         if (jei && tick >= end + 432 && jp < jeiPages.length) {
@@ -322,7 +322,24 @@ public final class ClientAudit {
             player.teleportTo(level, f.getX() + 3.5, f.getY() + 1.4, f.getZ() - 4, 0, 17);
         });
         if (tick == visualStart + 20) shot(mc, "scaffolds.png");
-        if (tick == visualStart + 22) VisualGalleryScreen.open(mc);
-        if (tick >= visualStart + 40) { VisualGalleryScreen.finish(); mc.stop(); }
+        if (tick == visualStart + 22) server.execute(() -> {
+            var player = server.getPlayerList().getPlayers().get(0);
+            player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+            player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, Ic2Items.NANO_HELMET.get().charged());
+            player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, Ic2Items.NANO_CHESTPLATE.get().charged());
+            player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.LEGS, Ic2Items.NANO_LEGGINGS.get().charged());
+            player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.FEET, Ic2Items.NANO_BOOTS.get().charged());
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(Ic2Items.get("mining_pipe")));
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(ic2.core.ref.Ic2Effects.RADIATION, 200, 0));
+        });
+        if (tick == visualStart + 34) shot(mc, "issue_charged_armor_pipe_radiation.png");
+        if (tick == visualStart + 36) server.execute(() -> {
+            var player = server.getPlayerList().getPlayers().get(0);
+            for (var stack : player.getArmorSlots()) ic2.core.item.ElectricItemManager.setRawCharge(stack, 0);
+        });
+        if (tick == visualStart + 48) shot(mc, "issue_empty_armor.png");
+        if (tick == visualStart + 50) VisualGalleryScreen.open(mc);
+        if (tick == visualStart + 68) { VisualGalleryScreen.finish(); VisualGalleryScreen.openOres(mc); }
+        if (tick >= visualStart + 88) { VisualGalleryScreen.finish(); mc.stop(); }
     }
 }

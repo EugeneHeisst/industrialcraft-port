@@ -1,0 +1,598 @@
+{
+  "minecraft:chests/abandoned_mineshaft": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 1
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:filled_tin_can",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 4,
+            "max": 16
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_shard",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 9,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    }
+  ],
+  "minecraft:chests/desert_pyramid": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_sword",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_helmet",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_chestplate",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_leggings",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_boots",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 9,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    }
+  ],
+  "minecraft:chests/jungle_temple": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_sword",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_helmet",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_chestplate",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_leggings",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_boots",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 9,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    }
+  ],
+  "minecraft:chests/stronghold_corridor": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_ore",
+      "weight": 1,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_shard",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 4,
+            "max": 14
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_sword",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_helmet",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_chestplate",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_leggings",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_boots",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 9,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    }
+  ],
+  "minecraft:chests/stronghold_crossing": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 1
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_ore",
+      "weight": 1
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_shard",
+      "weight": 4,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 7
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_sword",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_helmet",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_chestplate",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_leggings",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_boots",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 9,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    }
+  ],
+  "minecraft:chests/village/village_weaponsmith": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_ingot",
+      "weight": 5,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 4
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_shard",
+      "weight": 4,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 3,
+            "max": 7
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_pickaxe",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_sword",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_helmet",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_chestplate",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_leggings",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:bronze_boots",
+      "weight": 3
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 9,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 6
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 8,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:rubber_sapling",
+      "weight": 4,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 4
+          }
+        }
+      ]
+    }
+  ],
+  "minecraft:chests/spawn_bonus_chest": [
+    {
+      "type": "minecraft:item",
+      "name": "ic2:treetap",
+      "weight": 2
+    }
+  ],
+  "minecraft:chests/simple_dungeon": [
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:copper_ingot",
+      "weight": 100,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:tin_ingot",
+      "weight": 100,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 2,
+            "max": 5
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_ore",
+      "weight": 20,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "ic2:iridium_shard",
+      "weight": 100,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 6,
+            "max": 14
+          }
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_blocks",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_chirp",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_far",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_mall",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_mellohi",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_stal",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_strad",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_ward",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_11",
+      "weight": 5
+    },
+    {
+      "type": "minecraft:item",
+      "name": "minecraft:music_disc_wait",
+      "weight": 5
+    }
+  ]
+}

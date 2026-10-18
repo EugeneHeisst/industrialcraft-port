@@ -1,0 +1,1 @@
+User-supplied ore textures received 2026-10-18: default.zip (7 purified), default (1).zip (6 crushed), and separate crushed_uranium_ore.png (1 crushed). All14sprites are embedded byte-for-byte in assets/ic2/textures/item/<name>.png inside the single mod JAR. Generator applies overrides after original textures. manifest.json stores exact SHA256 per PNG.

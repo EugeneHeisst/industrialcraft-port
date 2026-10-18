@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "textures": {
     "t": "ic2:block/cable/glass_fibre_cable_12",
     "particle": "ic2:block/cable/glass_fibre_cable_12"

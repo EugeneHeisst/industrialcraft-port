@@ -32,6 +32,16 @@ public class ItemNanoSaber extends ItemElectricTool {
         tier = 3;
     }
 
+    /** Charge updates keep the blade in hand; toggles, replacement and slot changes still animate. */
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        if (slotChanged || oldStack.getItem() != newStack.getItem()) return true;
+        ItemStack oldVisual = oldStack.copy(), newVisual = newStack.copy();
+        oldVisual.remove(ic2.core.ref.Ic2Components.CHARGE.get());
+        newVisual.remove(ic2.core.ref.Ic2Components.CHARGE.get());
+        return !ItemStack.isSameItemSameComponents(oldVisual, newVisual);
+    }
+
     public static boolean isActive(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBoolean("active"); }
     private static void setActive(ItemStack stack, boolean active) { CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putBoolean("active", active)); }
 

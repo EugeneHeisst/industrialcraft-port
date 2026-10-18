@@ -37,32 +37,33 @@ public final class ArmorEvents {
             || source.getMsgId().equals("electricity") || source.getMsgId().equals("radiation");
     }
 
-    /** Electric armor absorbs base x ratio of each hit per piece, limited by its charge, paying energyPerDamage per point. */
+    /** Hazmat immunity is an incoming-damage cancellation, before the damage pipeline. */
     @SubscribeEvent
     static void incomingDamage(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
         DamageSource source = event.getSource();
-        float damage = event.getAmount();
         if (entity.level().isClientSide) return;
         if (entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ItemArmorUtility.Hazmat && hazmatAbsorbs(source) && ItemArmorUtility.Hazmat.hasCompleteHazmat(entity)) {
             if (source.is(DamageTypes.IN_FIRE) || source.is(DamageTypes.LAVA)) entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60, 1));
             event.setCanceled(true);
             return;
         }
+    }
+
+    /** Called at the armor stage, after shields and hurt cooldown accept the hit. */
+    public static float absorbDamage(LivingEntity entity, DamageSource source, float damage) {
         // Original boots override the normal armor-bypassing fall source with priority10 special absorption.
         // LivingFallEvent above the damage calculation already handles their fully funded cancellation cases.
         if (source.is(DamageTypes.FALL)) {
             ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);
             if (boots.getItem() instanceof ItemArmorNanoSuit nano && nano.armorType() == 3) {
-                absorbBootFall(event, boots, nano, damage < 8 ? 1 : 0.875);
-                return;
+                return absorbBootFall(damage, boots, nano, damage < 8 ? 1 : 0.875);
             }
             if (boots.getItem() instanceof ItemArmorQuantumSuit quantum && quantum.armorType() == 3) {
-                absorbBootFall(event, boots, quantum, 1);
-                return;
+                return absorbBootFall(damage, boots, quantum, 1);
             }
         }
-        if (source.is(DamageTypeTags.BYPASSES_ARMOR)) return;
+        if (source.is(DamageTypeTags.BYPASSES_ARMOR)) return damage;
         // Original IC2 ItemArmorElectric.getProperties -> ArmorProperties(0, base x ratio, int(25 x charge / energyPerDamage)),
         // applied together by Forge 1.7.10 ApplyArmor; damageArmor pays the integer damage points x energyPerDamage.
         java.util.List<Props> list = new java.util.ArrayList<>();
@@ -73,7 +74,7 @@ public final class ArmorEvents {
             int max = perDamage > 0 ? (int)Math.min(Integer.MAX_VALUE, 25 * ElectricItem.manager.getCharge(stack) / perDamage) : Integer.MAX_VALUE;
             list.add(new Props(0, armor.getBaseAbsorptionRatio() * armor.getDamageAbsorptionRatio(), max, x));
         }
-        if (list.isEmpty()) return;
+        if (list.isEmpty()) return damage;
         double scaled = damage * 25d;
         Props[] props = list.toArray(new Props[0]);
         standardize(props, scaled);
@@ -90,7 +91,7 @@ public final class ArmorEvents {
             }
         }
         scaled -= scaled * ratio;
-        event.setAmount((float)Math.max(0, scaled / 25d));
+        return (float)Math.max(0, scaled / 25d);
     }
 
     /** Forge 1.7.10 ISpecialArmor.ArmorProperties (Priority, AbsorbRatio, AbsorbMax on the 25-scale, Slot) and its ordering. */
@@ -162,13 +163,13 @@ public final class ArmorEvents {
     }
 
     /** Forge1.7 special armor used an integer25-scale absorption budget, then floor/minimum-one damage payment. */
-    private static void absorbBootFall(LivingIncomingDamageEvent event, ItemStack boots, ItemArmorElectric armor, double ratio) {
+    private static float absorbBootFall(float damage, ItemStack boots, ItemArmorElectric armor, double ratio) {
         int perDamage = armor.getEnergyPerDamage();
         int budget = perDamage > 0 ? (int)Math.min(Integer.MAX_VALUE, 25 * ElectricItem.manager.getCharge(boots) / perDamage) : Integer.MAX_VALUE;
-        double absorbed = Math.min(event.getAmount() * ratio, budget / 25d);
-        if (absorbed <= 0) return;
+        double absorbed = Math.min(damage * ratio, budget / 25d);
+        if (absorbed <= 0) return damage;
         if (perDamage > 0) ElectricItem.manager.discharge(boots, Math.max(1, (int)absorbed) * (double)perDamage, Integer.MAX_VALUE, true, false, false);
-        event.setAmount((float)Math.max(0, event.getAmount() - absorbed));
+        return (float)Math.max(0, damage - absorbed);
     }
 
     /** Nano boots cancel falls under 11 blocks, quantum boots any fall, for 5000/20000 EU per damage point; hazmat boots soak short falls. */
