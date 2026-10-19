@@ -4,7 +4,7 @@ license="IC2 license (original); unofficial port"
 [[mods]]
 modId="ic2"
 version="${version}"
-displayName="IndustrialCraft 2 PORT"
+displayName="IndustrialCraft 2 UNOFFICIAL PORT"
 authors="Alblaka, Player, Thunderdark, RichardG, Chocohead and the IC2 team"
 description="Неофициальный порт IndustrialCraft 2 Experimental 2.2.828 на Minecraft 1.21.1. Unofficial port of IndustrialCraft 2 Experimental 2.2.828 to Minecraft 1.21.1."
 [[dependencies.ic2]]

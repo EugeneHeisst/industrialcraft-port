@@ -1,4 +1,4 @@
-# IndustrialCraft 2 PORT
+# IndustrialCraft 2 UNOFFICIAL PORT
 
 Неофициальный порт **IndustrialCraft 2 Experimental 2.2.828** (Alblaka, Player, Thunderdark, RichardG, Chocohead и команда IC2) на **Minecraft 1.21.1 / NeoForge 21.1.256**. Версия **0.1.29**.
 
@@ -24,7 +24,7 @@
 
 Для версии0.1.24 прошли 388 серверных проверок, включая настоящий ServerPlayer.causeFallDamage и реальные жидкостные возможности предметов. Дополнительный native-аудит ASP проверяет сохранение EU в отдельных чанках. Результаты общей совместимости и предыдущих клиентских прогонов указаны в CODEX_HANDOFF.md.
 
-Аддоны **Advanced Solar Panels PORT**, **Electro-Magic Tools PORT** и **Gravitation Suite PORT** выпускаются отдельными модами. Текущая точка продолжения и детали — [CODEX_HANDOFF.md](CODEX_HANDOFF.md).
+Аддоны **Advanced Solar Panels UNOFFICIAL PORT**, **Electro-Magic Tools UNOFFICIAL PORT** и **Gravitation Suite UNOFFICIAL PORT** выпускаются отдельными модами. Текущая точка продолжения и детали — [CODEX_HANDOFF.md](CODEX_HANDOFF.md).
 
 Клиентский аудит 0.1.27 проверяет настоящие вершины трёх лодок при четырёх поворотах, 24 запечённые грани лесов и видимость передней грани пяти механизмов: 41/41. Галерея настоящих GUI-моделей: 25/25, включая 20 механизмов и четыре варианта лесов. Прошли также восемь страниц JEI и три игровых сценария лодок. Скриншоты и журнал находятся в `versions/0.1.27/`.
 
