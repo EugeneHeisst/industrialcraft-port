@@ -522,9 +522,12 @@ LEGACY['OreDict:woodRubber'] = 'ic2:rubber_wood'
 VAN = os.path.join(ROOT, 'related/vanilla')
 def vanilla(version, member, local):
     path = os.path.join(VAN, local)
-    if not os.path.exists(path):  # taken from the local Prism Launcher library jars
+    if not os.path.exists(path):
         import zipfile
-        jar = os.path.expanduser(f'~/.local/share/PrismLauncher/libraries/com/mojang/minecraft/{version}/minecraft-{version}-client.jar')
+        env_key = 'MINECRAFT_CLIENT_JAR_' + version.replace('.', '_')
+        jar = os.environ.get(env_key, os.path.join(ROOT, 'related/vanilla', f'minecraft-{version}-client.jar'))
+        if not os.path.isfile(jar):
+            raise FileNotFoundError(f'Provide {env_key} or {jar} to generate vanilla-derived textures')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with zipfile.ZipFile(jar) as z, open(path, 'wb') as f: f.write(z.read(member))
     return Image.open(path).convert('RGBA')
