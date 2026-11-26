@@ -124,6 +124,30 @@ public class TileEntityCanner extends TileEntityStandardMachine implements IFlui
         }
     }
 
+    @Override
+    protected void updateEntityServer() {
+        if (mode == Mode.EnrichLiquid) drainEnrichmentContainer();
+        super.updateEntityServer();
+    }
+
+    /** Feed enrichment from a fluid cell as well as from pipes; reuse a single emptied cell for the result. */
+    private void drainEnrichmentContainer() {
+        ItemStack stack = canInputSlot.get();
+        if (stack.isEmpty()) return;
+        FluidStack fluid = InvSlotConsumableLiquid.contained(stack);
+        if (fluid.isEmpty() || Recipes.cannerEnrich.getOutputFor(fluid, inputSlot.get(), false, true) == null) return;
+        MutableObject<ItemStack> out = new MutableObject<>();
+        if (!canInputSlot.transferToTank(inputTank, out, true)) return;
+        boolean reuse = stack.getCount() == 1;
+        if (!reuse && out.getValue() != null && !outputSlot.canAdd(out.getValue())) return;
+        canInputSlot.transferToTank(inputTank, out, false);
+        if (out.getValue() != null) {
+            if (reuse) canInputSlot.put(out.getValue());
+            else outputSlot.add(out.getValue());
+        }
+        setChanged();
+    }
+
     public Mode getMode() { return mode; }
     public void setMode(Mode m) { mode = m; }
 
